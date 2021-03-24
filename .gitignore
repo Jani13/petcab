@@ -94,6 +94,5 @@ local.properties
 hs_err_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java
-MANIFEST.MF
+MANIFEST
 pom.properties
-target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
