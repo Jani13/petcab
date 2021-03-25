@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    </head>
+<style>
+    .body-wrap {
+        display: flex;
+        flex-direction: column;     
+    }
+
+    /* .header-wrap {
+        width: 100%;
+        height: 10vh;
+        display: flex;
+    } */
+
+    #logo {
+        margin-left: 100px;
+        /* margin-top: 50px; */
+        border: 1px solid;
+        width: 250px;
+    }
+
+    .mynav {
+        height: 13vh;
+    }
+
+    .mynav-nav {
+        display: flex;
+        justify-content: flex-end;
+        /* margin-left: 900px; */
+        text-decoration: underline;
+    }
+    
+    .section-wrap {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-wrap {
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #4ec7f2;
+    }
+    .imgWrap {
+        display: flex;
+        justify-content: center;
+        background-color:snow;
+        position: relative;
+    }
+    .img-fluid {
+        width: 1200px;
+        position: relative;
+    }
+
+    .p-wrap {
+        position: absolute;
+        
+    }
+    
+    .P1 {
+        font-size: 2.3rem;
+        font-weight: bolder;
+    }
+    /* .p1 {
+        width: 400px;
+        position: absolute;
+        color: snow;
+        top: 50%;
+        left: 58%;  
+        font-size: 2.3rem;
+        font-weight: bolder;
+        border: 1px solid;
+    }
+    .p2 {
+        width: 400px;
+        position: absolute;
+        color: snow;
+        top: 70%; 
+        left: 58%;
+        font-size: 1.2rem;
+        padding-top: 10px;
+        border: 1px solid;  
+    } */
+    
+    .section-div {
+        width: 1200px;
+        border: 1px solid;
+        /* 코드 더 짜보고 추가할지 결정하기 */
+        /* text-align: center; */
+    }
+    .nav-link {
+        width: 120px;
+    }
+</style>
+<body class="body-wrap">
+    <header class="header-wrap">  
+    </header>
+    
+    <nav class="navbar navbar-expand-md navbar-light mynav">
+        <img id="logo" src="resources/img/logo.png" alt="">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mynav-nav" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">예약하기</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    제휴업체
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">제휴업체검색</a>
+                    <a class="dropdown-item" href="#">제휴업체등록</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">드라이버지원</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">회원가입</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">로그인</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+           
+        <div class="imgWrap">
+            <img src="resources/img/main.png" class="img-fluid" >
+            <div class="p-wrap">
+                <p class="p1">Premium <br>반려동물 픽업서비스</p>
+                <p class="p2">데려다줄개에서 당신의 소중한 반려견을 위한<br> 프리미엄 반려동물 픽업 서비스를 시작합니다.</p> 
+            </div>
+        </div>
+         
+        <section class="section-wrap">
+            <div class="section-div">
+                <div>내용입니다.</div>
+                <div>내용입니다.</div>
+                <div>내용입니다.</div>
+            </div> 
+        </section>
+
+        <footer class="footer-wrap">
+            <div>푸터내용</div>
+            <div>푸터내용</div>
+            <div>푸터내용</div>
+            <div>푸터내용</div>
+        </footer>
+</body>
+</html>
