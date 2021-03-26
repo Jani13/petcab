@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>제휴업체 상세내용 작성</title>
 </head>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../../../resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -32,85 +32,69 @@
         width: 725px;
         height: 500px;
     }
-    /* 제휴업체 상세내용 작성 버튼 */
-    #partnerSubmit{
-        width: 90px; border-radius: 4px; 
-        border: 1px solid steelblue;
-        background-color: white; 
-        color: steelblue; 
-        padding: 5px;
-    }
-    #partnerSubmit:hover{
-        color: white;
-        background-color: steelblue;
-    }
-    #partnerCancel{
-        width: 90px; border-radius: 4px; 
-        border: 1px solid steelblue;
-        background-color: white; 
-        color: steelblue; 
-        padding: 5px;
-    }
-    #partnerCancel:hover{
-        color: white;
-        background-color: steelblue;
-    }
+
 </style>
 <section id="content">
     <div id="partner-container" style="margin: 0 auto; text-align:center">
-        <form name="partnerFrm" action="" method="" style="text-align: center;">
+        <form name="partnerFrm" action="" method="">
             <div class="container show-grid text-center">
                 <div class="row">
                   <div class="col-md-3"></div>
-                  <div class="col-md-7">
-                    <table class="table table-borderless" style="text-align:left; margin:auto; border-collapse:separate; border-spacing: 20px;" >
+                  <div class="col-md-6">
+                    <table class="table table-borderless" style="text-align:left; margin:auto; border-spacing: 30px;">
                         <tr>
                             <th colspan="2">
-                                <h2 align="center" style="line-height: 3.0;">제휴업체 상세내용 작성</h2>
+                                <h2 style="line-height: 3.0; text-align: center;">제휴업체 상세내용 작성</h2>
                             </th>
                         </tr>
                         <tr>
-                            <th style="width: 100px;">제휴업체명</th>
-                            <td><input type="text" name="partnerName" id="partnerName" required>
+                            <th style="width: 130px;">제휴업체명</th>
+                            <td><input type="text" class="form-control" name="partnerName" id="partnerName" required>
                             </td>
                         </tr>
                         <tr>
                             <th>업체사진</th>
-                            <td><input type="file" name="image" id="image" required></td>
+                            <td><input type="file" class="form-control" name="image" id="image" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
                             <td>
-                                <label><input type="radio" name="partnerType" value="병원" required>병원</label>
-                                <label><input type="radio" name="partnerType" value="유치원" required>유치원</label>
-                                <label><input type="radio" name="partnerType" value="샵" required>샵</label>
+                                <label style="margin-right: 20px;"><input type="radio" class="form-check-input" name="partnerType" value="병원" required>병원</label>
+                                <label style="margin-right: 20px;"><input type="radio" class="form-check-input" name="partnerType" value="유치원" required>유치원</label>
+                                <label><input type="radio" class="form-check-input" name="partnerType" value="샵" required>샵</label>
                             </td>
                         </tr>
                         <tr>
                             <th>주소</th>
                             <td>
-                                <span style="padding-right:34px">
-                                    <input type="text" name="postalAddr" id="postalAddr" placeholder="우편번호" style="width:200px; margin: 3px;">
-                                </span>
-                                <input type="button" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"><br>
-                                <div>
-                                    <input type="text" name="addr1" id="addr1" placeholder="주소" style="width:360px; margin:3px;">
+                                <div class="input-group mb-1">
+                                    <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="button" class="input-group-text" class="btn btn-primary" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
+                                </div>   
+                                <div class="input-group mb-1">
+                                    <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소">
                                 </div>
                                 <!-- 동이름 / 빌딩이름 등이 나온다 -->
-                                <input type="text" name="addr2" id="addr2" placeholder="상세주소" style="margin:3px;">
-                                <input type="text" name="addr3" id="addr3" placeholder="참고항목" style="margin: 1px;" readonly>
+                                <div class="row">
+                                    <div class="col-md-7" style="height: 42px;">
+                                        <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <th>전화번호</th>
-                            <td><input type="tel" name="phone" id="phone" 
+                            <td><input type="tel" class="form-control" name="phone" id="phone" 
                                 placeholder="'-'빼고 입력해주세요" maxlength="11">
                             </td>
                         </tr>
                         <tr>
                             <th>운영시간</th>
                             <td>
-                                <input type="text" name="openTime" placeholder="평일" required> <br>
+                                <input type="text" class="form-control" name="openTime" placeholder="평일" required> <br>
                                 <span style="margin-left: 20px;">* 시간은 00:00 ~ 24:00 표기해주세요.(상세시간은 소개에 작성해주세요.)</span>
                             </td>
                         </tr>
@@ -130,10 +114,10 @@
             </div>
             <div style="text-align : center; padding: 30px;">
                 <span style="padding-right : 3rem;">
-                    <input type="submit" id="partnerSubmit" value="작성완료"> 
+                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
                 </span>
                 <span>
-                    <input type="button" id="partnerCancel" value="취소하기">
+                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
                 </span>
             </div>
         </form>
