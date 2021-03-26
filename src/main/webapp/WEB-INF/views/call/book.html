@@ -37,8 +37,8 @@
 
 <body>
 
-    <section>
-        <div class="container">
+    <section class="section-wrap">
+        <div class="container mt-5 mb-5">
             <div class="row row-call-1">
                 <div class="col btn-call-gen">
                     일반버튼
@@ -48,31 +48,67 @@
                 </div>
             </div>
             <div class="row row-call-2">
-                <div class="col-md-4">
+
+                <div class="col-md-4 align-self-center">
+                    <div class="">
+                        <h2 class="mb-3">픽업정보 기입</h2>
+                    </div>
+
                     <form action="">
-                        <h2>픽업정보 기입</h2>
-                    
                         <div class="form-group mb-3">
                             <label for="pickup-time">예약 시간</label>
                             <input type="datetime-local" id="pickup-time" name="meeting-time" value="2021-03-25T15:30"
                                 min="2018-06-07T00:00" max="2021-04-01T00:00">
                         </div>
-    
+
                         <div class="form-group mb-3">
                             <label>예상 금액</label>
 
-                            <div class="row-col">
-                                <div class="row">
+                            <div class="form-group">
+                                <div class="col-9">
                                     <input type="text" class="form-control where-from" placeholder="출발지">
                                     <input type="text" class="form-control where-to" placeholder="도착지">
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-outline-secondary" type="button" id="btn-calc-cost">금액조회</button>
+                                    <!--버튼이 옆으로 오도록-->
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        id="btn-calc-cost">금액조회</button>
+                                </div>
+                                <div class="cost input-group">
+                                    <!-- <span class="input-group-text" id="inputGroup-sizing-default">예상금액</span> -->
+                                    <input type="text" class="form-control" placeholder="예상금액 (원)">
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    보호자 탑승 여부
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-1 mb-3">
+                            <button class="btn btn-sm btn-outline-info" type="button">애견정보 불러오기</button>
+                            <!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                        </div>
+
+                        <div class="d-grid gap-1 mb-3">
+                            <button class="btn btn-lg btn-outline-info" type="button">예약하기</button>
+                            <!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
+                        </div>
+
                     </form>
                 </div>
+
                 <div class="col-md">
                     지도 API
                 </div>
