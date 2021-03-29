@@ -9,6 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7eaa61533c.js" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 </head>
 <style>
     .body-wrap {
@@ -31,23 +34,30 @@
     .mynav-nav {
         display: flex;
         font-weight: bolder; 
-        text-decoration: underline;
     }
     
     .nav-link {
         width: 120px;
     }
 
-    /* big-img */
-    .big-imgWrap {
-        display: flex;
-        justify-content: center;
-        background-color:snow;
-        position: relative;
+    .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    } 
+
+     /* section */
+    .section-wrap {
+        width: auto;
+        height: auto;
     }
 
-    .big-img {
+    .section-width {
         width: 1200px;
+    }
+
+    .big-img-wrap {
+        display: flex;
+        justify-content: center;
         position: relative;
     }
 
@@ -71,19 +81,9 @@
         padding-top: 5px;
     }
 
-    /* section */
-    .section-wrap {
-        width: auto;
-        height: auto;
-        display: flex;
-        justify-content: center;
-    }
-
     .fee-search {
-        width: 1200px;
         height: 40ex;
         background-color: #4ec7f2;
-        align-self: center;
     }
 
     .fee-search-title {
@@ -104,22 +104,12 @@
         color: snow;
     }
 
-    .main-dogs {
-        width: 1200px;
-    }
-
     .small-dogs {
         width: 400px;
-        margin-top: 20px;
-        align-self: flex-end;
-    }
-
-    .main-service .main-driver-sc {
-        width: 1200px;
-      
+        margin-top: 10px; 
+        margin-right: 50px;
     }
     
-
     /* footer */
     .footer-wrap {
         width: 100%;
@@ -129,8 +119,9 @@
 
 </style>
 <body class="body-wrap">
+	
     <header class="header-wrap">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between container" >
             <div>
                 <img id="logo" src="resources/img/logo.png" alt="">  
             </div>
@@ -139,115 +130,211 @@
                 <button class="mx-4 btn btn-outline-info">logout</button>       
             </div>
         </div>
-    </header>
-
-    <nav class="navbar navbar-expand-sm navbar-light sticky-top" style="background-color: #86f3ff" >
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-md-end" id="navbarsExample08">
-            <ul class="navbar-nav mynav-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-black" href="#">예약하기</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-black" href="#" id="dropdown08" data-bs-toggle="dropdown" aria-expanded="false">제휴업체</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown08">
-                        <li>
-                            <a class="dropdown-item text-black" href="#">제휴업체검색</a>
+        <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #86f3ff" >
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-md-end" id="collapsibleNavbar">
+                    <ul class="navbar-nav mynav-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="#">예약하기</a>
                         </li>
-                        <li>
-                            <a class="dropdown-item text-black" href="#">제휴업체등록</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDarkDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">제휴업체</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item text-black" href="#">제휴업체검색</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-black" href="#">제휴업체등록</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="">드라이버지원</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="">회원가입</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="">로그인</a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black" href="">드라이버지원</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black" href="">회원가입</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black" href="">로그인</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-           
-    <div class="big-imgWrap">
-        <img src="resources/img/main.png" class="img-fluid big-img" >
-        <div class="p-wrap-first">
-            <p class="p1">Premium <br>반려동물 픽업서비스</p>
-        </div>
-        <div class="p-wrap-second">
-            <p class="p2">데려다줄개에서 당신의 소중한 반려견을 위한<br> 프리미엄 반려동물 픽업 서비스를 시작합니다.</p> 
-        </div>
-    </div>
-         
-    <section class="section-wrap d-flex flex-column">
-        <div class="main-dogs d-flex justify-content-end mx-5"><img class="img-fluid small-dogs" src="resources/img/dogs.png" alt=""></div>
-        <div class="fee-search container">  
-            <div class="row align-items-start">
-                <div class="col-lg-12 m-5 fee-search-title">
-                    이동요금을 미리 알아보세요.
                 </div>
             </div>
-            <div class="row justify-content-center fee-search-input">
-                <div class="col-sm-1">
-                    <img src="resources/img/carImg.png" alt="">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="출발지">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="도착지">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-outline-light">확인하기</button>
-                </div>
-            </div>
-            <p class="fee-search-info">
-                * 저희 데려다줄개는 전국 픽업서비스를 제공합니다.
-            </p>  
-        </div>
+        </nav>
+    </header>
 
-        <div class="container main-service p-2">
-            <div class="row col-md-12 mx-5">
-                <div class="col-md-12 h3 fw-bold p-5">데려다줄개의 서비스</div>
+    <section>
+        <div class="section-wrap flex-column align-items-center">
+            <div class="big-img-wrap">
+                <img src="resources/img/main.png" class="img-fluid big-img section-width" >
+                <div class="p-wrap-first">
+                    <p class="p1 fs-2 h-100">Premium <br>반려동물 픽업서비스</p>
+                    <p class="p2 fs-6 h-100">데려다줄개에서 당신의 소중한 반려견을 위한<br> 프리미엄 반려동물 픽업 서비스를 시작합니다.</p> 
+                </div>
+    
             </div>
-            <div class="row mx-5 service-image">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <img class="img-fluid" src="resources/img/main-service-imgs.png" alt="">
+            <div class="section-width container d-flex justify-content-end">
+                <img class="img-fluid small-dogs" src="resources/img/dogs.png" alt="">
+            </div>
+            <div class="d-flex fee-search section-width flex-column container-fluid ">  
+                <div class="row align-items-start">
+                    <div class="col-lg-12 m-5 fee-search-title">
+                        이동요금을 미리 알아보세요.
+                    </div>
+                </div>
+                <div class="row justify-content-center fee-search-input container">
+                    <div class="col-md-1">
+                        <img src="resources/img/carImg.png" alt="">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="출발지">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="도착지">
+                    </div>
+                    <div class="col-md-2">
+                    <button type="button" class="btn btn-outline-light">확인하기</button>
+                    </div>
+                </div>
+                <p class="fee-search-info">
+                    * 저희 데려다줄개는 전국 픽업서비스를 제공합니다.
+                </p>     
+            </div>
+          
+            <div class="container flex-column section-width my-5">
+                <div class="h3 fw-bold mx-5">데려다줄개의 서비스</div>
+                <div class="container">
+                    <div class="row my-5">
+                        <div class="col-md-4 col-sm-12">
+                            <i class="col-12 fas fa-sms fa-8x text-center img-fluid my-3"></i>
+                            <p class="h4 col-12 text-center"><br>목적지 도착시 문자 알림</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <i class="col-12 fas fa-won-sign fa-8x text-center img-fluid my-3"></i>
+                            <p class="h4 col-12 text-center">서비스 종료시<br> 가상계좌를 통한 입금 가능</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <i class="col-12 fas fa-car fa-8x text-center img my-3"></i>
+                            <p class="h4 col-12 text-center"><br>드라이버 위치 확인 가능</p>
+                        </div>
+                    </div>  
                 </div>
             </div>
             
-            
-            <div class="p-2 container bg-secondary bg-gradient text-white main-driver-sc">
-                <div class="row col-md-12">
-                    <h4 class="col-md-12 h3 fw-bold p-5">데려다줄개의 드라이버를 모집합니다.</h4>
+            <div class="container-fluid section-width w-80 my-5">
+                <img src="resources/img/EMERGENCY.png" class="img-fluid" alt="...">
+            </div>
+
+
+            <!-- <div class="container-fluid card border-danger flex-column justify-content-center section-width my-5" style="padding-top: 50px;">
+                <div class="h3 fw-bold mx-5">긴급콜 서비스 이용 안내</div>
+                <div class="mx-5">
+                    데려다줄개는 제휴업체와의 연계를 통하여 <span class="text-danger">긴급콜</span>을 호출할 수 있습니다.
                 </div>
-                
+                <div class="row d-flex justify-content-center mx-5 p-5">
+                    <div class="col-lg-2">
+                        <i class="fas fa-ambulance fa-8x"></i>
+                    </div>
+                    <div class="col-lg-8 mx-5">
+                        <span class="text-decoration-underline">긴급콜 이란?</span><br>
+                            '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자 바로 의사의 진료를 통하여 <br> 처방 및 수술을 받을 수 있도록 하는 서비스'<br>
+                            * 긴급콜로 발생하는 요금은 기본 요금의 2배로 측정되어 계산됩니다.
+                    </div>
+                </div>
+            </div> -->
+  
+            <div class="section-width container-fluid main-review mb-5" style="padding: 0 50px;">
+                <div class="h3 fw-bold">리뷰</div>  
+                <div class="container row row-cols-1 row-cols-lg-3 g-4 mt-3">
+                    <div class="col">
+                        <a class="card h-100 text-decoration-none text-reset" href="...">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body overflow-hidden" style="height: 300px;">
+                                <h5 class="card-title text-decoration-underline">첫번째 리뷰</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a class="card h-100 text-decoration-none text-reset" href="...">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body overflow-hidden">
+                                <h5 class="card-title text-decoration-underline">두번째 리뷰</h5>
+                                <p class="card-text">This is a short card.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a class="card h-100 text-decoration-none text-reset" href="...">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body overflow-hidden">
+                                <h5 class="card-title text-decoration-underline">세번째 리뷰</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container section-width show-grid align-items-center p-3">
+                <div class="container section-width flex-column">
+                    <div class="row col-12 p-2 my-5" style="background-color: #4ec7f2;">
+                        <p class="text-white fw-bold h3 mx-5 p-2">
+                            제휴업체 보러가기
+                        </p>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 text-center my-3">
+                            <a href="">
+                                <img class="img-fluid" src="resources/img/hos1.png" alt="">
+                            </a>
+                            <div class="h4 fw-bold my-3">병원</div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 text-center">
+                            <a href="">
+                                <img class="img-fluid" src="resources/img/school1.png" alt="">
+                            </a>
+                            <div class="h4 fw-bold my-3">유치원</div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 text-center">
+                            <a href="">
+                                <img class="img-fluid" src="resources/img/shop1.png" alt="">
+                            </a>
+                            <div class="h4 fw-bold my-2">샵</div>
+                        </div>
+                    </div>
+                </div>         
+            </div>    
+                     
+            <div class="container-fluid align-items-center bg-secondary bg-gradient text-white mb-2 section-width">
                 <div class="row">
-                    <p class="col-md-12 mx-5">
+                    <p class="col-md-12 h3 fw-bold m-5">데려다줄개의 드라이버를 모집합니다.</p>
+                    <p class="col-md-12 mx-5 mb-5">
                         반려동물 택시 드라이버가 되어 보세요. <br>
-                        운전자가 원하는 운형 경로 시간대의 예약을 선택하여 반려동물을 목적지에 이동 시켜주며 수입을 창출할 수 있습니다.<br>
-                        지금 <span>드라이버지원</span>을 확인해 보세요    
+                        운전자가 원하는 운행 경로 시간대의 예약을 선택하여 반려동물을 목적지에 이동 시켜주며 수입을 창출할 수 있습니다.<br>
+                        지금 '<a class=" text-white" href="">드라이버지원</a>' 을 확인해 보세요    
                     </p>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
     <footer class="footer-wrap" style="background-color: #0064b7;">
-        <div class="container">
-            <div class="row all-text">
-                <div class="col-md-2 h2 mt-5 text-white footer-text-title">
+        <div class="container d-flex justify-content-center">
+            <div class="row all-text mx-4 p-4">
+                <div class="col-md-2 h2 mt-5 mx-2 text-white footer-text-title">
                     capKor company
                 </div>
-                <div class="col-sm-9 footer-el">
+                <div class="col-sm-8 footer-el">
                     <div class="row mt-5 text-center">
                         <div class="col-4 col-sm-12 text-white ">
                             주소 :  서울특별시 XX동 XX 로 000빌딩 00호
@@ -266,5 +353,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://kit.fontawesome.com/7eaa61533c.js" crossorigin="anonymous"></script>
 </body>
 </html>
