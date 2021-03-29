@@ -18,6 +18,11 @@
         integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
         crossorigin="anonymous"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
+    <script src="../../../resources/js/jquery-3.5.1.js"></script>
+    <script src="../../../resources/js/headerfooter.js"></script>
+
     <style>
         .container {
             width: 1200px;
@@ -53,6 +58,13 @@
 </head>
 
 <body>
+    <header id="header" class="header-wrap"></header>
+    <nav
+      id="nav"
+      class="navbar navbar-expand-md navbar-light sticky-top"
+      style="background-color: #86f3ff"
+    ></nav>
+
     <section>
         <div class="container">
             <img src="../../../resources/images/lgo.png">
@@ -289,7 +301,13 @@
 
 
         </div>
+        <br>
     </section>
+    <footer
+    id="footer"
+    class="footer-wrap"
+    style="background-color: #0064b7"
+  ></footer>
     <script>
         function DaumPostcode() {
             new daum.Postcode({
