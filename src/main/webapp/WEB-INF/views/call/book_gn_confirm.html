@@ -9,132 +9,51 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../../../resources/css/call.css">    
+    <link rel="stylesheet" href="../../../resources/css/headerfooter.css">
+    <script src="../../../resources/js/headerfooter.js"></script>
+    
     <title>콜예약</title>
-
-    <style>
-        * {
-            border: 1px solid red;
-        }
-
-        .container {
-            width: 1200px;
-        }
-
-        .row-call-1 {
-            height: 100px;
-        }
-
-        .row-call-2 {
-            min-height: 800px;
-            /*예약화면 전체 통일*/
-        }
-
-        #btn-calc-cost {
-            width: 100%;
-            height: 100%;
-        }
-
-        .btn-back,
-        .btn-next {
-            width: 100%;
-        }
-
-        .call-sum tr {
-            width: 35%;
-        }
-
-        .call-sum td {
-            width: 65%;
-        }
-
-        .book-time-cost {
-            font-size: 2rem;
-        }
-
-        .btn-cancel {
-            font-size: 2rem;
-        }
-    </style>
 </head>
 
 <body>
 
     <section class="section-wrap">
         <div class="container mt-5 mb-5">
-            <div class="row row-call-1">
-                <div class="col btn-call-gen">
-                    일반버튼
+            <div class="row row-call-1 text-center">
+                <div class="col btn-call-gen bg-info h-100 d-flex justify-content-center flex-column">
+                    <h1 class="text-white">일반</h1>
                 </div>
-                <div class="col btn-call-emg">
-                    긴급버튼
+                <div class="col btn-call-emg bg-warning h-100 d-flex justify-content-center flex-column">
+                    <h1 class="text-white">긴급</h1>
                 </div>
             </div>
-            <div class="row row-call-2">
 
-                <div class="col-md-4 pickup-details">
-                    <!-- <div class="pt-5 pb-3 pickup-heading">
-                        <h2 class="mb-3">4. 픽업정보 기입</h2>
+            <div class="row row-call-2">
+                <div class="col-md-4 my-auto pt-5 pb-5 book-progress">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">드라이버 확인</button>
                     </div>
 
-                    <div class="pickup-fill-in">   
-                        <form action="">
-                            <div class="form-group mb-3">
-                                <label for="pickup-time">예약 시간</label>
-                                <input type="datetime-local" id="pickup-time" name="meeting-time" value="2021-03-25T15:30"
-                                    min="2018-06-07T00:00" max="2021-04-01T00:00">
-                            </div>
-    
-                            <div class="form-group mb-3">
-                                <label>예상 금액</label>
+                    <div class="row">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                          </svg>
+                    </div>
 
-                                <div class="row row-cols" style="margin-left: 0; margin-right: 0;">
-                                    <div class="col-9">
-                                        <input type="text" class="form-control where-from" placeholder="출발지">
-                                        <input type="text" class="form-control where-to" placeholder="도착지">
-                                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">가결제</button>
+                    </div>
 
-                                    <div class="col-3">
-                                        <button class="btn btn-outline-info" type="button"
-                                            id="btn-calc-cost">조회</button>
-                                    </div>
-                                </div>
+                    <div class="row">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                          </svg>
+                    </div>
 
-                                <div class="row" style="margin-left: 0; margin-right: 0;">
-                                    <input type="text" class="form-control" placeholder="예상금액 (원)">
-                                </div>
-                            </div>
-    
-                            <div class="form-group mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        보호자 탑승 여부
-                                    </label>
-                                </div>
-                            </div>
-    
-                            <div class="d-grid gap-1 mb-3">
-                                <button class="btn btn-sm btn-outline-info" type="button">애견정보 불러오기</button>
-                            </div>
-    
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" placeholder="Leave a comment here"
-                                    id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Comments</label>
-                            </div>
-    
-                            <div class="row row-cols">
-                                <div class="col">
-                                    <button class="btn btn-lg btn-outline-info btn-back" type="button">이전페이지로</button>
-                                </div>
-
-                                <div class="col">
-                                    <button class="btn btn-lg btn-outline-info btn-next" type="button">예약하기</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div> -->
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">예약완료</button>
+                    </div>
                 </div>
 
                 <!--  -->
@@ -142,29 +61,29 @@
                 <div class="col-md">
                     <div class="">
                         <div class="pt-5 pb-3 pickup-heading">
-                            <h2 class="mb-3">예약신청이 완료되었습니다</h2>
-                            <h3 class="mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+                            <h1 class="text-center mb-3">예약이 확정되었습니다</h1>
+                            <h3 class="text-center mb-3">승차시간을 꼭 지켜주세요</h3>
                         </div>
 
-                        <table class="table call-sum">
+                        <table class="table call-sum text-center">
                             <thead>
                                 <tr>
                                     <th colspan="4" class="text-center">예약내역</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">제휴업체</th>
                                     <td>뷰티펫</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">예약시간</th>
                                     <td>YYYYMMDD HH:SS</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">요청사항</th>
                                     <td>애견커트원해요</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">출발지</th>
                                     <td>신용산역 1번출구</td>
