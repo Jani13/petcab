@@ -1,0 +1,83 @@
+/* 공통 */
+
+.container {
+    /* width: 1200px; */
+}
+
+.row-call-1 {
+    height: 100px;
+}
+
+.row-call-2 {
+    /* min-height: 800px; */
+}
+
+
+
+/* 
+    book_driver_confirm.html
+    book_em_a.html
+    book_em_b.html
+    book_gn.html
+*/
+
+.partner-type button {
+    width: 100%;
+}
+
+.btn-calc-cost {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-back, .btn-next {
+    width: 100%;
+}
+
+
+
+/* 
+    book_em_cancel.html
+    book_em_confirm.html
+    book_em_done.html
+    book_em_pay.html
+
+    book_gn_cancel.html
+    book_gn_confirm.html
+    book_gn_done.html
+    book_gn_pay.html
+*/
+
+.btn-back,
+.btn-next {
+    width: 100%;
+}
+
+.call-sum tr {
+    width: 35%;
+}
+
+.call-sum td {
+    width: 65%;
+}
+
+.book-time-cost {
+    font-size: 2rem;
+}
+
+.btn-cancel {
+    font-size: 2rem;
+}
+
+.book-progress button {
+    font-size: 2rem;
+    min-height: 70px;
+}
+
+.btn-book {
+    font-size: 2rem;
+}
+
+.btn-pay {
+    font-size: 2rem;
+}
