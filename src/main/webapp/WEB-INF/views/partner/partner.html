@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>제휴업체 상세내용 작성</title>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="../../../resources/se2/js/service/HuskyEZCreator.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
+    <script src="../../../resources/js/jquery-3.5.1.js"></script>
+    <script src="../../../resources/js/headerfooter.js"></script>
 </head>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="../../../resources/se2/js/service/HuskyEZCreator.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-       rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <style>
 
     div, input, label, table, form{
@@ -34,6 +37,12 @@
     }
 
 </style>
+<header id="header" class="header-wrap"></header>
+    <nav
+      id="nav"
+      class="navbar navbar-expand-md navbar-light sticky-top"
+      style="background-color: #86f3ff"
+    ></nav>
 <section id="content">
     <div id="partner-container" style="margin: 0 auto; text-align:center">
         <form name="partnerFrm" action="" method="">
@@ -123,6 +132,11 @@
         </form>
     </div>
 </section>
+<footer
+      id="footer"
+      class="footer-wrap"
+      style="background-color: #0064b7"
+    ></footer>
 
 <script>
     function DaumPostcode() {
