@@ -1,0 +1,102 @@
+.body-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+/* header */
+#logo {
+  margin-left: 100px;
+  margin-top: 30px;
+  width: 250px;
+}
+
+/* navi */
+#dogs {
+  margin-left: 700px;
+  width: 450px;
+}
+.mynav-nav {
+  display: flex;
+  font-weight: bolder;
+}
+
+.nav-link {
+  width: 120px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+/* section */
+.section-wrap {
+  width: auto;
+  height: auto;
+}
+
+.section-width {
+  width: 1200px;
+}
+
+.big-img-wrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.p-wrap-first {
+  width: 400px;
+  top: 50%;
+  left: 58%;
+  position: absolute;
+  color: white;
+  font-size: 2vw;
+  font-weight: bolder;
+}
+
+.p-wrap-second {
+  width: 400px;
+  position: absolute;
+  color: snow;
+  top: 70%;
+  left: 58%;
+  font-size: 0.8vw;
+  padding-top: 5px;
+}
+
+.fee-search {
+  height: 40ex;
+  background-color: #4ec7f2;
+}
+
+.fee-search-title {
+  font-size: 2em;
+  color: snow;
+  font-weight: bolder;
+}
+
+.fee-search-input {
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.fee-search-info {
+  width: 300px;
+  margin-left: 280px;
+  font-size: 0.8em;
+  color: snow;
+}
+
+.small-dogs {
+  width: 400px;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+
+/* footer */
+.footer-wrap {
+  width: 100%;
+  height: auto;
+  display: flex;
+}
