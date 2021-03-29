@@ -7,3 +7,6 @@ $(document).ready(function () {
 $(document).ready(function () {
   $("#nav").load("../common/nav.html");
 });
+$(document).ready(function () {
+  $("#adminSidebar").load("../admin/adminSidebar.html");
+});
