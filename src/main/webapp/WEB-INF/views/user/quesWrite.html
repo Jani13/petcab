@@ -61,48 +61,42 @@
                 <td><img src="" width="150px" height="150px"></td>
             </table>
   
-          <br>
+          <br><br>
 
           <br><br>
           <div class="row">
-              <div class="col-lg-5"></div>
-              <div class="col-lg-2"><h2><b>리뷰 작성</b></h2></div>
-              <div class="col-lg-5"></div>
+              <div class="col-lg-2"></div>
+              <div class="col-lg-2"><h2><b>1 : 1 문의</b></h2></div>
+              <div class="col-lg-8"></div>
           </div>
 
           <br><br><br>
 
+          <hr>
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col" style="width: 300px;">
-                        <select class="form-select" aria-label="Default select example" style="width: 300px;">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                    <th scope="col"  style="width: 300px;"> * 문의 분류 *</th>
+                    <th scope="col" >
+                        <select class="form-select" aria-label="Default select example"  style="width: 300px;">
+                            <option selected>아이디 관련 문의</option>
+                            <option value="1">결재 문의</option>
+                            <option value="2">긴급콜 관련 문의</option>
+                            <option value="3">드라이버 지원 문의</option>
+                            <option value="3">제휴업체 문의</option>
+                            <option value="3">기타</option>
                           </select>
                     </th>
-                    <th scope="col"><input type="text" id="useInfo" class="form-control" ></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">* 긴급콜 이용 *</th>
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" value="">Y
-                            </label>&nbsp; &nbsp; &nbsp; &nbsp; 
-                            <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" value="">N
-                            </label>
-                          </div>
-                    </td>         
+                    <th scope="row">* 작성자 *</th>
+                    <td><input type="text" id="title" class="form-control" placeholder="작성자 아이디를 입력하세요."></td>         
                   </tr>
                   <tr>
-                    <th scope="row">* 평점 *</th>
-                    <td>Jacob</td>
+                    <th scope="row">* 비밀번호 *</th>
+                    <td><input type="password" id="title" class="form-control" placeholder="비밀번호를 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
