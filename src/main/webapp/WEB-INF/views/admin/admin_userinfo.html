@@ -41,19 +41,18 @@
         margin-bottom: 10px;
       }
     </style>
+
+    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
+    <script src="../../../resources/js/jquery-3.5.1.js"></script>
+    <script src="../../../resources/js/headerfooter.js"></script>
   </head>
   <body>
-    <header class="header-wrap">
-      <div class="d-flex justify-content-between">
-        <div>
-          <img id="logo" src="resources/img/logo.png" alt="" />
-        </div>
-        <div class="p-5">
-          <span class="h5"> Welcome! XXXXXXX </span>
-          <button class="mx-4 btn btn-outline-info">logout</button>
-        </div>
-      </div>
-    </header>
+    <header id="header" class="header-wrap"></header>
+    <nav
+      id="nav"
+      class="navbar navbar-expand-md navbar-light sticky-top"
+      style="background-color: #86f3ff"
+    ></nav>
     <section>
       <div class="container d-flex mx-0 p-0">
         <!-- 건들지마세요 -->
@@ -219,31 +218,13 @@
         </div>
       </div>
     </section>
-    <footer class="footer-wrap" style="background-color: #0064b7">
-      <div class="container">
-        <div class="row all-text">
-          <div class="col-md-2 h2 mt-5 text-white footer-text-title">
-            capKor company
-          </div>
-          <div class="col-sm-9 footer-el">
-            <div class="row mt-5 text-center">
-              <div class="col-4 col-sm-12 text-white">
-                주소 : 서울특별시 XX동 XX 로 000빌딩 00호
-              </div>
-              <div class="col-4 col-sm-12 text-white">
-                사업자 등록번호 : 000-00-00000
-              </div>
-              <div class="col-4 col-sm-12 text-white">
-                고객센터 : 0000 - 0000
-              </div>
-              <div class="col-12 col-md-12 mt-3 text-white">
-                Copyright &#169;2021 데려다줄개.All rights reserved.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+
+    <footer
+      id="footer"
+      class="footer-wrap"
+      style="background-color: #0064b7"
+    ></footer>
+
     <script
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
