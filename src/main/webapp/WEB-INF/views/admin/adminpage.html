@@ -16,32 +16,7 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-    <style>
-      section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.05);
-      }
-
-      .heightbox {
-        width: 300px;
-        height: 300px;
-      }
-      .admin__elements {
-        background-color: #86f3ff;
-      }
-      .admin-box__elements {
-        border: none;
-      }
-      .wheather-box {
-        width: 200px;
-        display: block;
-        margin-bottom: 10px;
-      }
-    </style>
-
+    <link rel="stylesheet" href="../../../resources/css/adminpage.css" />
     <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
     <script src="../../../resources/js/jquery-3.5.1.js"></script>
     <script src="../../../resources/js/headerfooter.js"></script>
@@ -60,148 +35,10 @@
         <!-- 건들지마세요 -->
         <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
         <div
+          id="adminSidebar"
           class="p-3"
           style="width: 280px; height: auto; background-color: #4ec7f2"
-        >
-          <a
-            href="/adminpage.html"
-            class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
-          >
-            <span class="fs-5 fw-semibold text-light fs-2 fw-bolder"
-              >Adminpage</span
-            >
-          </a>
-          <ul class="list-unstyled ps-0">
-            <li class="mb-1">
-              <button
-                class="btn btn-toggle align-items-center rounded collapsed fs-5 fw-bold"
-                data-bs-toggle="collapse"
-                data-bs-target="#home-collapse"
-                aria-expanded="true"
-              >
-                회원정보 조회
-              </button>
-              <div class="collapse show" id="home-collapse">
-                <ul
-                  class="btn-toggle-nav list-unstyled fw-normal pb-1 small p-2"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >일반회원</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >드라이버</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >업체</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="mb-1">
-              <button
-                class="btn btn-toggle align-items-center rounded collapsed fs-5 fw-bold"
-                data-bs-toggle="collapse"
-                data-bs-target="#dashboard-collapse"
-                aria-expanded="false"
-              >
-                예약목록 확인
-              </button>
-              <div class="collapse" id="dashboard-collapse">
-                <ul
-                  class="btn-toggle-nav list-unstyled fw-normal pb-1 small p-2"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >일반예약</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >긴급콜</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >예약취소</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="mb-1">
-              <button
-                class="btn btn-toggle align-items-center rounded collapsed fs-5 fw-bold"
-                data-bs-toggle="collapse"
-                data-bs-target="#orders-collapse"
-                aria-expanded="false"
-              >
-                결제내역 관리
-              </button>
-              <div class="collapse" id="orders-collapse">
-                <ul
-                  class="btn-toggle-nav list-unstyled fw-normal pb-1 small p-2"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >결제내역</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="mb-1">
-              <button
-                class="btn btn-toggle align-items-center rounded collapsed fs-5 fw-bold"
-                data-bs-toggle="collapse"
-                data-bs-target="#approve-collapse"
-                aria-expanded="false"
-              >
-                승인 관리
-              </button>
-              <div class="collapse" id="approve-collapse">
-                <ul
-                  class="btn-toggle-nav list-unstyled fw-normal pb-1 small p-2"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >드라이버</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="link-dark rounded p-3 text-white text-decoration-none"
-                      >제휴업체</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="border-top my-3"></li>
-          </ul>
-        </div>
+        ></div>
         <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
