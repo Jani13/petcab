@@ -1,20 +1,12 @@
-body {
+.driver {
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: column;
 }
 
-.driver {
-  width: 1200px;
-}
-
-header,
-footer {
-  height: 100px;
-}
-
 .driver-photo {
+  width: 1200px;
   background-image: url(../images/dog.jpg);
   height: 700px;
   display: flex;
@@ -72,6 +64,7 @@ footer {
 .driver-icon {
   display: flex;
   flex-direction: column;
+  margin: 0 30px;
 }
 .driver-icon > span {
   margin-top: 50px;
