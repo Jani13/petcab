@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,30 +22,22 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../../../resources/css/adminpage.css" />
-
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/adminpage.css" />
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
   </head>
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+ 
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="container d-flex mx-0 p-0">
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-        <div
-          id="adminSidebar"
-          class="p-3"
-          style="width: 280px; height: auto; background-color: #4ec7f2"
-        ></div>
+ 
+  <jsp:include page="../common/adminSideBar.jsp" />
         <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
@@ -50,11 +48,35 @@
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
             <div class="container">
+              <div class="col-xs-12">
+                <div class="card border-dark mb-3 admin-box__elements">
+                  <div class="card-header fs-4 fw-bolder admin__elements">
+                    통계
+                  </div>
+                  <div class="card-body text-dark">
+                    <div class="row">
+                      <div class="col-xs-12 mb-3" style="text-align: end">
+                        <form action="get">
+                          <input type="date" /> <span>~ </span
+                          ><input type="date" />
+                          <input type="button" value="검색" />
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 m-2 chart-box">차트</div>
+                      <div class="col-md-6 m-2 chart-box">차트</div>
+                      <div class="col-md-6 m-2 chart-box">차트</div>
+                      <div class="col-md-6 m-2 chart-box">차트</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-xs-12">
                   <div class="card border-dark mb-3 admin-box__elements">
                     <div class="card-header fs-4 fw-bolder admin__elements">
-                      일반 회원 정보
+                      회원 정보
                     </div>
                     <div class="card-body text-dark">
                       <div
@@ -85,7 +107,7 @@
                         <tbody>
                           <tr>
                             <td>1</td>
-                            <td>일반회원</td>
+                            <td>드라이버</td>
                             <td>user1</td>
                             <td>고구마</td>
                             <td>010-0000-0000</td>
@@ -94,7 +116,7 @@
                           </tr>
                           <tr>
                             <td>1</td>
-                            <td>일반회원</td>
+                            <td>드라이버</td>
                             <td>user1</td>
                             <td>미나리</td>
                             <td>010-0000-0000</td>
@@ -103,7 +125,7 @@
                           </tr>
                           <tr>
                             <td>1</td>
-                            <td>일반회원</td>
+                            <td>드라이버</td>
                             <td>user1</td>
                             <td>변기통</td>
                             <td>010-0000-0000</td>
@@ -112,7 +134,7 @@
                           </tr>
                           <tr>
                             <td>1</td>
-                            <td>일반회원</td>
+                            <td>드라이버</td>
                             <td>user1</td>
                             <td>물티슈</td>
                             <td>010-0000-0000</td>
@@ -121,7 +143,7 @@
                           </tr>
                           <tr>
                             <td>1</td>
-                            <td>일반회원</td>
+                            <td>드라이버</td>
                             <td>user1</td>
                             <td>노트북</td>
                             <td>010-0000-0000</td>
@@ -168,11 +190,7 @@
       </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+  <jsp:include page="../common/footer.jsp" />
 
     <script
       src="https://kit.fontawesome.com/0fe4d45686.js"

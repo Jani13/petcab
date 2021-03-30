@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,28 +51,21 @@
 
     </style>
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
   </head>
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="container d-flex mx-0 p-0">
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-        <div
-          id="adminSidebar"
-          class="p-3"
-          style="width: 280px; height: auto; background-color: #4ec7f2"
-        ></div>
+        
+  <jsp:include page="../common/adminSideBar.jsp" />
         <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
@@ -74,7 +75,7 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>제휴업체 승인</h4></span>
+            <span><h4>드라이버</h4></span>
             <br>
             <table class="table">
               <thead>
@@ -82,11 +83,11 @@
                   <th scope="col">NO</th>
                   <th scope="col">날짜</th>
                   <th scope="col">이름</th>
-                  <th scope="col">업체명</th>
-                  <th scope="col">업종</th>
+                  <th scope="col">성별</th>
+                  <th scope="col">연령</th>
                   <th scope="col">주소</th>
                   <th scope="col">연락처</th>
-                  <th scope="col">운영시간</th>
+                  <th scope="col">차량번호</th>
                   <th scope="col">승인</th>
                 </tr>
               </thead>
@@ -94,14 +95,15 @@
                 <tr>
                   <th scope="row">1</th>
                   <td>2021/4/26</td>
-                  <td>이커피</td>
-                  <td>KH유치원</td>
-                  <td>유치원</td>
+                  <td>adminApply</td>
+                  <td>여</td>
+                  <td>20대</td>
                   <td>경기도 성남시 분당구 양현로 479 2층</td>
                   <td>010-1234-5678</td>
-                  <td>평일 10:00~20:00</td>
-                  <td>&nbsp; Y &nbsp; 
-                    <button type="button" class="btn btn-outline-info">삭제</button>
+                  <td>18마 7365</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-info">확인</button>
+                    <button type="button" class="btn btn-outline-info">취소</button>
                   </td>
                 </tr>    
               </tbody>
@@ -142,7 +144,7 @@
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 
-            <span><h4>제휴업체 거부</h4></span>
+            <span><h4>제휴업체</h4></span>
             <br>
             <table class="table">
               <thead>
@@ -168,13 +170,16 @@
                   <td>경기도 성남시 분당구 양현로 479 2층</td>
                   <td>010-1234-5678</td>
                   <td>평일 10:00~20:00</td>
-                  <td>N</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-info">확인</button>
+                    <button type="button" class="btn btn-outline-info">취소</button>
+                  </td>
                 </tr>    
               </tbody>
             </table>
             <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
+              aria-label="Page navigation example"
+              class="d-flex justify-content-center"
             >
               <ul class="pagination">
                 <li class="page-item">

@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,29 +22,20 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../../../resources/css/adminpage.css" />
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/adminpage.css" />
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
   </head>
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="container d-flex mx-0 p-0">
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-        <div
-          id="adminSidebar"
-          class="p-3"
-          style="width: 280px; height: auto; background-color: #4ec7f2"
-        ></div>
+  <jsp:include page="../common/adminSideBar.jsp" />
         <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
@@ -241,11 +238,8 @@
         </div>
       </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+   
+  <jsp:include page="../common/footer.jsp" />
     <script
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"

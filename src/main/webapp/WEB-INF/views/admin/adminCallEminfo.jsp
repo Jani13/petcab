@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/><!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -47,28 +52,20 @@
       }
     </style>
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
   </head>
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="container d-flex mx-0 p-0">
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- 건들지마세요 -->
         <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-        <div
-          id="adminSidebar"
-          class="p-3"
-          style="width: 280px; height: auto; background-color: #4ec7f2"
-        ></div>
+     
+  <jsp:include page="../common/adminSideBar.jsp" />
         <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
@@ -83,7 +80,7 @@
                 <div class="col-xs-12">
                   <div class="card border-dark mb-3 admin-box__elements">
                     <div class="card-header fs-4 fw-bolder admin__elements">
-                      예약취소 정보
+                      긴급콜 정보
                     </div>
                     <div class="card-body text-dark">
                       <div
@@ -123,7 +120,7 @@
                             <td>강남구 삼성역</td>
                             <td>user</td>
                             <td>yy/mm.dd</td>
-                            <td>긴급콜</td>
+                            <td>진행중</td>
                             <td>아무개</td>
                             <td>12마 1234</td>
                             <td>KH애견병원</td>
@@ -135,10 +132,10 @@
                             <td>강남구 대치역</td>
                             <td>user3</td>
                             <td>20/12/12</td>
-                            <td>일반</td>
+                            <td>완료</td>
                             <td>홍길동</td>
                             <td>13호 1254</td>
-                            <td></td>
+                            <td>KH샵</td>
                           </tr>
                         </tbody>
                       </table>
@@ -180,11 +177,7 @@
       </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+  <jsp:include page="../common/footer.jsp" />
 
     <script
       src="https://kit.fontawesome.com/0fe4d45686.js"
