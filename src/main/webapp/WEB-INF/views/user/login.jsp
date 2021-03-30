@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
+
+<c:set var="path" value="${pageContext.request.contextPath }"/> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,17 +34,13 @@
         } */
 
     </style>
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/resources/js/jquery-3.5.1.js"></script>
+    
 </head>
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-        id="nav"
-        class="navbar navbar-expand-md navbar-light sticky-top"
-        style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section id="content">
         <div class="container">
             <br><br>
@@ -79,22 +83,22 @@
                     <table class="table table-success table-striped" style="width: 300px; ">
                         <tr>
                             <th><a href="https://www.naver.com" target="_blank">
-                                <img src="../../../resources/images/naver.png" width="30px" height="30px"></th>
+                                <img src="${path}/images/naver.png" width="30px" height="30px"></th>
                             <th>네이버로 로그인</th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="../../../resources/images/kakao.png" width="30px" height="30px"></th>
+                                <img src="${path}/images/kakao.png" width="30px" height="30px"></th>
                             <th>카카오로 로그인</th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="../../../resources/images/facebook.png" width="30px" height="30px"></th>
+                                <img src="${path}/images/facebook.png" width="30px" height="30px"></th>
                             <th>페이스북으로 로그인</th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="../../../resources/images/twitter.png" width="30px" height="30px"></th>
+                                <img src="${path}/images/twitter.png" width="30px" height="30px"></th>
                             <th>트위터로 로그인</th>
                         </tr>
                     </table>
@@ -113,10 +117,6 @@
             <br><br>
         </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+     <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,17 +32,13 @@
         } */
     </style>
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
+    
 </head>
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-        id="nav"
-        class="navbar navbar-expand-md navbar-light sticky-top"
-        style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section class="conent">
 
         <br>
@@ -45,7 +48,7 @@
             <br><br>
             <div class="row">
                 <div class="col-lg-2"></div>
-                <div class="col-lg-8"><img src="../../../resources/images/dogs.png" class="img-fluid" alt="..."></div>
+                <div class="col-lg-8"><img src="${ path }/images/dogs.png" class="img-fluid" alt="..."></div>
                 <div class="col-lg-2"></div>
             </div>
             
@@ -95,30 +98,28 @@
                 <label for="floatingInput">아이디</label>
             </div>
             <div class="form-floating">
-                <input type="hidden" name="boardNo" value="<%=board.getBoardNo() %>">
-	    		<input type="hidden" name="writer" value="<%=loginMember != null ? loginMember.getUserId() %>">
+                <input type="hidden" name="boardNo" value="">
+	    		<input type="hidden" name="writer" value="">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
                 <label for="floatingTextarea2">Comments</label>
                 <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
             </div>
             <br>
             <table class="table">
-                <!-- <% for(BoardReply reply : replies) { %> -->
-                    <tr class="level1">
+                     <tr class="level1">
                         <td>
-                            <sub class="comment-writer"><%= reply.getUserId() %></sub>
-                            <sub class="comment-date"><%= reply.getReplyCreateDate() %></sub>
+                            <sub class="comment-writer">이무기</sub>
+                            <sub class="comment-date">2020/03/29</sub>
                             <br>
-                            <!-- <%= reply.getReplyContent() %> -->
+                          
                         </td>
                         <td>
-                        <!-- <% if(loginMember != null && (loginMember.getUserId().equals(reply.getUserId()) 
-                                || loginMember.getUserRole().equals("ROLE_ADMIN"))) { %> -->
+                      
                             <button class="btn-delete">삭제</button>
-                        <!-- <%} %> -->
+                      
                         </td>
                     </tr>
-                <!-- <%} %> -->
+              
               </table>
 
               <div style="text-align : center; padding: 30px;">
@@ -132,10 +133,7 @@
 
         </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>
