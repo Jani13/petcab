@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,18 +22,14 @@
       crossorigin="anonymous"
     ></script>
     <title>드라이버 지원서 - 데려다줄개</title>
-    <link rel="stylesheet" href="../../../resources/css/driverdocumnet.css" />
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/driverdocument.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/headerfooter.js"></script>
   </head>
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="dirver-document__intro">
         <span class="driver-document__title">드라이버 지원서</span>
@@ -79,7 +81,7 @@
             </div>
             <div>
               <h5 class="information__title">자기<br>소개</h5>
-              <textarea name="" id="" cols="43" rows="10"></textarea>
+              <textarea name="" id="" cols="28" rows="10"></textarea>
             </div>
             <div>
               <h5 class="information__title">프로필사진</h5>
@@ -90,10 +92,6 @@
         </div>
       </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+  <jsp:include page="../common/footer.jsp" />
   </body>
 </html>

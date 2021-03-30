@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,23 +38,18 @@
 
     <!-- header footer include시 밑에 소스 2줄-->
     <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
     <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
   </head>
   <body class="body-wrap">
-    <header id="header" class="header-wrap">
-    </header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+	
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="section-wrap flex-column align-items-center">
         <div class="big-img-wrap">
           <img
-            src="../../../resources/images/main.png"
+            src="${path }/images/main.png"
             class="img-fluid big-img section-width"
           />
           <div class="p-wrap-first">
@@ -61,7 +63,7 @@
         <div class="section-width container d-flex justify-content-end">
           <img
             class="img-fluid small-dogs"
-            src="resources/img/dogs.png"
+            src="${path }/images/dogs.png"
             alt=""
           />
         </div>
@@ -75,7 +77,7 @@
           </div>
           <div class="row justify-content-center fee-search-input container">
             <div class="col-md-1">
-              <img src="resources/img/carImg.png" alt="" />
+              <img src="${path }/images/carImg.png" alt="" />
             </div>
             <div class="col-md-3">
               <input type="text" class="form-control" placeholder="출발지" />
@@ -126,7 +128,7 @@
         </div>
 
         <div class="container-fluid section-width w-80 my-5">
-          <img src="../../../resources/images/EMERGENCY.png" class="img-fluid" alt="..." />
+          <img src="${path }/images/EMERGENCY.png" class="img-fluid" alt="..." />
         </div>
         
         <div
@@ -186,7 +188,7 @@
             <div class="row">
               <div class="col-md-4 col-sm-12 text-center my-3">
                 <a href="">
-                  <img class="img-fluid" src="../../../resources/images/hos1.png" alt="" />
+                  <img class="img-fluid" src="${path }/images/hos1.png" alt="" />
                 </a>
                 <div class="h4 fw-bold my-3">병원</div>
               </div>
@@ -194,7 +196,7 @@
                 <a href="">
                   <img
                     class="img-fluid"
-                    src="../../../resources/images/school1.png"
+                    src="${path }/images/school1.png"
                     alt=""
                   />
                 </a>
@@ -202,7 +204,7 @@
               </div>
               <div class="col-md-4 col-sm-12 text-center">
                 <a href="">
-                  <img class="img-fluid" src="../../../resources/images/shop1.png" alt="" />
+                  <img class="img-fluid" src="${path }/images/shop1.png" alt="" />
                 </a>
                 <div class="h4 fw-bold my-2">샵</div>
               </div>
@@ -229,10 +231,6 @@
       </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+  <jsp:include page="../common/footer.jsp" />
   </body>
 </html>

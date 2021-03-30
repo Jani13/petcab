@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #86f3ff" >
 <div class="container">
   <button
     class="navbar-toggler"
@@ -45,3 +48,4 @@
     </ul>
   </div>
 </div>
+</nav>
