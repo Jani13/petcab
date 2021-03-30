@@ -1,9 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리뷰광장</title>
+    <title>문의하기</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
             rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
@@ -26,45 +33,42 @@
         }
     </style>
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
-
+    <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
+ 
 </head>
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-        id="nav"
-        class="navbar navbar-expand-md navbar-light sticky-top"
-        style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section class="content">
         
         <div class="container ">
 
-            <br><br><br>
+            <br><br><br><br>
             <div class="row">
                 <div class="col-lg-2"></div>
-                <div class="col-lg-8"><img src="../../../resources/images/dogs.png" class="img-fluid" alt="..."></div>
+                <div class="col-lg-8"><img src="${ path }/images/dogs.png" class="img-fluid" alt="..."></div>
                 <div class="col-lg-2"></div>
             </div>
             
-            <br><br><br><br>
+       
+            <br><br>
 
+            <br><br>
             <div class="row">
                 <div class="col-lg-5"></div>
-                <div class="col-lg-2"><h2><b>리뷰 광장</b></h2></div>
+                <div class="col-lg-2"><h2><b>문의하기</b></h2></div>
                 <div class="col-lg-5"></div>
             </div>
 
             <br><br><br>
 
             <div class="input" align="right">
-                <!-- <%if(loginMember != null) {%> -->
+               
                     <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
                     <button type="button" id="btn-add"
-                    onclick="location.href ='<%=request.getContextPath() %>/board/write'">글쓰기</button>
-                <!-- <%}%> -->
+                    onclick="">글쓰기</button>
+               
             </div>
 
             <br>
@@ -88,31 +92,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- <% if(list.isEmpty()) { %>		 -->
+                 
                     <tr>
                         <td colspan="7">
                             조회된 게시글이 없습니다.
                         </td>
                     </tr>			
-                    <!-- <% }else { 
-                        for(Board board : list){
-                    %> -->                    
-                    <tr>
-                        <td><%= board.getBoardNo() %></td>
-                        <td>
-                            <a href="<%=request.getContextPath() %>/board/view?boardNo=<%= board.getBoardNo() %>">
-                            <%= board.getBoardTitle() %>
-                            </a>
-                        </td>
-                        <td><%= board.getUserId() %></td>
-                        <td>@mdo</td>
-                        <td><%= board.getBoardCreateDate() %></td>
-                        <td>@mdo</td>
-                        <td><%= board.getBoardReadCount() %></td>
-                    </tr>                  
-                     <!-- <% 	}
             
-                      } %> -->                    
+                    <tr>
+                        <td></td>
+                        <td>
+                           
+                        </td>
+                        <td></td>
+                        <td>@mdo</td>
+                        <td></td>
+                        <td>@mdo</td>
+                        <td></td>
+                    </tr>                  
+                                      
                 </tbody>
             </table>
         
@@ -121,34 +119,28 @@
 
             <div class="pagination" style="display: flex; justify-content: center;">
                 <!-- 맨 처음으로 -->
-                <button onclick="location.href='<%= request.getContextPath() %>/board/list?page=1'">&lt;&lt;</button>
+                <button onclick="">&lt;&lt;</button>
                     
                 <!-- 이전 페이지로 -->
-                <button onclick="location.href='<%= request.getContextPath() %>/board/list?page=<%= pageInfo.getPrvePage() %>'">&lt;</button>
+                <button onclick="">&lt;</button>
 
                 <!--  10개 페이지 목록 -->
-                <!-- <% for(int p = pageInfo.getStartPage(); p <= pageInfo.getEndPage(); p++){ %>
-                    <% if(p == pageInfo.getCurrentPage()){ %> -->
-                        <button disabled><%= p %></button>
-                    <!-- <% } else { %> -->
-                        <button onclick="location.href='<%= request.getContextPath() %>/board/list?page=<%= p %>'"><%= p %></button>
-                    <!-- <% } %>
-                <% } %> -->
+               
+                        <button disabled></button>
+                   
+                        <button onclick=""></button>
+                   
                 
                 <!-- 다음 페이지로 -->
-                <button onclick="location.href='<%= request.getContextPath() %>/board/list?page=<%= pageInfo.getNextPage() %>'">&gt;</button>
+                <button onclick="location.href=''">&gt;</button>
                 
                 <!-- 맨 끝으로 -->
-                <button onclick="location.href='<%= request.getContextPath() %>/board/list?page=<%= pageInfo.getMaxPage() %>'">&gt;&gt;</button>
+                <button onclick="">&gt;&gt;</button>
 
             </div>
             <br><br>
         </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

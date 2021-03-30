@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,8 +43,8 @@
 
     <!-- header footer include시 밑에 소스 2줄-->
     <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
+  
     <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
 
     <style>
@@ -54,12 +60,8 @@
     </style>
   </head>
   <body class="body-wrap">
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="d-flex justify-content-center">
         <div class="section-width">
@@ -280,11 +282,7 @@
         </div>
       </div>
     </section>
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
 
     <script>
       function DaumPostcode() {
