@@ -111,18 +111,25 @@
               class="d-flex flex-row bd-highlight mb-3"
               style="margin-bottom: 10px"
             >
-              <form action="get" style="float: left;">
-
-                <button type="button" class="btn btn-outline-info">전체</button>
-                <button type="button" class="btn btn-outline-info">일반</button>
-                <button type="button" class="btn btn-outline-info">긴급콜</button>
-                <select class="form-select" aria-label="Default select example"  style="width: 100px;">
-                  <option selected>사용자</option>
-                  <option value="1">드라이버</option>
-                </select>
-                <input type="search" id="title" class="form-control" placeholder="내용을 입력하세요.">
-                <button type="button" class="btn btn-outline-info">검색</button>
-              </form>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">
+                  <button type="button" class="btn btn-outline-info">전체</button>
+                  <button type="button" class="btn btn-outline-info">일반</button>
+                  <button type="button" class="btn btn-outline-info">긴급콜</button>
+                </li>
+                <li class="list-group-item">
+                  <select class="form-select" aria-label="Default select example"  style="width: 100px;">
+                    <option selected>사용자</option>
+                    <option value="1">드라이버</option>
+                  </select>
+                </li>
+                <li class="list-group-item">
+                  <input type="search" id="title" class="form-control" placeholder="내용을 입력하세요." size="30px">
+                </li>
+                <li class="list-group-item">
+                  <button type="button" class="btn btn-outline-info">검색</button>
+                </li>
+              </ul>
             </div>
             
             <br>
