@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,32 +20,17 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../../../resources/css/call.css" />
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/call.css" />
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/headerfooter.js"></script>
 
     <title>콜예약</title>
   </head>
-  <style>
-@font-face {
-    font-family: 'paybooc-Medium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-  *{
-    font-family: 'paybooc-Medium';
-  }
-     
-  </style>
+
   <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+  	<jsp:include page="../common/nav.jsp" />
 
     <section class="section-wrap">
       <div class="container mt-5 mb-5 bg-light">
@@ -57,12 +50,12 @@
         <div class="row row-call-2">
           <div class="col-md-4 pickup-details">
             <div class="pt-5 pb-3 pickup-heading">
-              <h2 class="mb-3" style="margin-left: 10px;">4. 픽업정보 기입</h2>
+              <h2 class="mb-3" style="margin-left: 10px;">픽업정보 기입</h2>
             </div>
 
-            <div class="pickup-fill-in">
+            <div class="pickup-fill-in" style="margin-left: 10px;">
               <form action="">
-                <div class="form-group mb-3" style="margin-left: 10px;">
+                <div class="form-group mb-3">
                   <label for="pickup-time">예약 시간</label>
                   <input
                     type="datetime-local"
@@ -74,7 +67,7 @@
                   />
                 </div>
 
-                <div class="form-group mb-3" style="margin-left: 10px;">
+                <div class="form-group mb-3">
                   <label>예상 금액</label>
 
                   <div
@@ -119,7 +112,7 @@
                   </div>
                 </div>
 
-                <div class="form-group mb-3" style="margin-left: 10px;">
+                <div class="form-group mb-3">
                   <div class="form-check">
                     <input
                       class="form-check-input"
@@ -133,14 +126,14 @@
                   </div>
                 </div>
 
-                <div class="d-grid gap-1 mb-3" style="margin-left: 10px;">
+                <div class="d-grid gap-1 mb-3">
                   <button class="btn btn-sm btn-outline-info" type="button">
                     애견정보 불러오기
                   </button>
                   <!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
                 </div>
 
-                <div class="form-floating mb-3" style="margin-left: 10px;">
+                <div class="form-floating mb-3">
                   <textarea
                     class="form-control"
                     placeholder="Leave a comment here"
@@ -149,24 +142,10 @@
                   <label for="floatingTextarea">Comments</label>
                 </div>
 
-                <div class="row row-cols">
-                  <div class="col">
-                    <button
-                      class="btn btn-lg btn-outline-info btn-back"
-                      type="button"
-                    >
-                      이전페이지로
-                    </button>
-                  </div>
-
-                  <div class="col">
-                    <button
-                      class="btn btn-lg btn-outline-info btn-next"
-                      type="button"
-                    >
-                      예약하기
-                    </button>
-                  </div>
+                <div class="d-grid gap-1 mb-3">
+                  <button class="btn btn-lg btn-outline-info" type="button">
+                    예약하기
+                  </button>
                 </div>
               </form>
             </div>
@@ -177,11 +156,7 @@
       </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

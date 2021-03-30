@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!doctype html>
 <html lang="en">
 
@@ -9,22 +17,17 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../resources/css/call.css">    
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css">
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/call.css">    
+    <link rel="stylesheet" href="${path}/css/headerfooter.css">
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/headerfooter.js"></script>
     
     <title>콜예약</title>
 </head>
 
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
-
+    <jsp:include page="../common/header.jsp" />
+  	<jsp:include page="../common/nav.jsp" />
 
     <section class="section-wrap">
         <div class="container mt-5 mb-5">
@@ -50,7 +53,7 @@
                     </div>
 
                     <div class="row">
-                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">가결제</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">가결제</button>
                     </div>
 
                     <div class="row">
@@ -69,8 +72,8 @@
                 <div class="col-md">
                     <div class="">
                         <div class="pt-5 pb-3 pickup-heading">
-                            <h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
-                            <h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+                            <h1 class="text-center mb-3">결제를 진행해주세요</h1>
+                            <h3 class="text-center mb-3">예약내역을 다시 한 번 확인해주세요</h3>
                         </div>
 
                         <table class="table call-sum text-center">
@@ -149,11 +152,7 @@
             </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
