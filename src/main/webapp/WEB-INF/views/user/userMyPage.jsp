@@ -44,7 +44,7 @@
     <!-- header footer include시 밑에 소스 2줄-->
     <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
     <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
- 
+ 	<script src="${ path }/js/jquery-3.5.1.js"></script>
     <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
 
     <style>

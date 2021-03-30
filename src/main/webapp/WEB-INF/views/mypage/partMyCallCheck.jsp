@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,51 +18,46 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" 
             crossorigin="anonymous"></script>
-
-    <style>
-        /* section{
-            width: 1200px;
-            margin: auto;
-        } */
-        /* div{
-            border: 1px solid steelblue;
-        } */
-    </style>
+	<link rel="stylesheet" href="${ path }/css/headerfooter.css" />
+	<script src="${ path }/js/jquery-3.5.1.js"></script>
+ 
 
 </head>
 <body>
-    
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section class="content">
 
         <br><br>
         
         <div class="container">
-            <table class="table-borderless" align="center">
-                <td><img src="" width="150px" height="150px"></td>
-                <td><img src="" width="150px" height="150px"></td>
-                <td><img src="" width="150px" height="150px"></td>
-                <td><img src="" width="150px" height="150px"></td>
-                <td><img src="" width="150px" height="150px"></td>
-            </table>
+           <br><br>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8"><img src="${ path }/images/dogs.png" class="img-fluid" alt="..."></div>
+                <div class="col-lg-2"></div>
+            </div>
+            
+            <br><br>
         </div>
         <br><br>
 
         <br><br>
         <div class="row">
-            <div class="col-lg-5"></div>
-            <div class="col-lg-2"><h2><b>예약요청 내역 확인</b></h2></div>
-            <div class="col-lg-5"></div>
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"><h2><b>예약 요청 내역 확인</b></h2></div>
+            <div class="col-lg-4"></div>
         </div>
 
         <br><br><br>
 
         <div class="container" align="right">
-            <!-- <%if(loginMember != null) {%> -->
+           
                 <div class="input-group mb-1" style="width: 300px;">
                     <input type="text" class="form-control" name="" id="" placeholder="입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <input type="button" class="input-group-text" id="" onclick="location.href ='<%=request.getContextPath() %>/board/write'" value="검색"></input>
+                    <input type="button" class="input-group-text" id="" onclick="location.href =''" value="검색"></input>
                 </div> 
-            <!-- <%}%> -->
+          
         </div>
 
         <br>
@@ -76,29 +78,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- <% if(list.isEmpty()) { %>		 -->
+                   
                     <tr>
                         <td colspan="7">
                             조회된 게시글이 없습니다.
                         </td>
                     </tr>			
-                    <!-- <% }else { 
-                        for(Board board : list){
-                    %> -->                    
+                                    
                     <tr>
-                        <td style="text-align: center;"><%= board.getBoardNo() %></td>
+                        <td style="text-align: center;"></td>
                         <td style="text-align: center;">
-                            <a href="<%=request.getContextPath() %>/board/view?boardNo=<%= board.getBoardNo() %>">
-                            <%= board.getBoardTitle() %>
+                            <a href="">
+                            
                             </a>
                         </td style="text-align: center;">
-                        <td style="text-align: center;"><%= board.getUserId() %></td>
+                        <td style="text-align: center;"></td>
                         <td style="text-align: center;">@mdo</td>
-                        <td style="text-align: center;"><%= board.getBoardCreateDate() %></td>
+                        <td style="text-align: center;"></td>
                         <td style="text-align: center;">@mdo</td>
-                        <td style="text-align: center;"><%= board.getBoardReadCount() %></td>
-                        <td style="text-align: center;"><%= board.getBoardReadCount() %></td>
-                        <td style="text-align: center;"><%= board.getBoardReadCount() %></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
                     </tr>   
                     <tr>
                         <td style="text-align: center;">2</td>
@@ -111,9 +111,7 @@
                         <td style="text-align: center;">오태식</td>
                         <td style="text-align: center;">예약</td>
                     </tr>              
-                     <!-- <% 	}
-            
-                      } %> -->                    
+                                    
                 </tbody>
             </table>
         </div>
@@ -145,8 +143,10 @@
         </div>
 
     </section>
+      <br><br><br>
+	  <jsp:include page="../common/footer.jsp" />
 
-    <br><br><br>
+  
 
 
 </body>
