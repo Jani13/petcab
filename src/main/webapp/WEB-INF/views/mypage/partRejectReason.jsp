@@ -45,9 +45,14 @@
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="다른 중요 업무 진행 중" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                     다른 중요 업무 진행 중
+                </label>
+            </div>
+            <div class="form-input">
+                <label class="form-text">기타 : 
+                    <input class="form-control" type="text" value="" id="" style="width: fit-content;">
                 </label>
             </div>
             <hr>

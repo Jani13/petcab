@@ -68,7 +68,7 @@
             background-color: rgba(138, 136, 136, 0.11);
         }
     </style>
-    <script language="javascript">
+    <script language="javascript">  // 팝업창은 크롬에서 사이즈 고정 안됨ㅠ
          function popup(){
             var url = "partRejectReason.html";
             var name = "popup test";
