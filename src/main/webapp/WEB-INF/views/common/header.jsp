@@ -5,15 +5,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	Hello world!!!!
-	<a href="${path}/admin/">어드민페이지</a>
-</h1>
-<P>  The time on the server is ${serverTime}. </P>
-</body>
-</html>
+<header class="header-wrap">
+<div class="d-flex justify-content-between container">
+  <div>
+    <img id="logo" src="${path}/images/logo.png" alt="" />
+  </div>
+  <div class="p-5">
+    <span class="h5"> Welcome! XXXXXXX </span>
+    <button class="mx-4 btn btn-outline-info">logout</button>
+  </div>
+</div>
+</header>
