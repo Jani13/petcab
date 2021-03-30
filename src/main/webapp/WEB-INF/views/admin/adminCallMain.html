@@ -82,7 +82,54 @@
               <div class="col-xs-12">
                 <div class="card border-dark mb-3 admin-box__elements">
                   <div class="card-header fs-4 fw-bolder admin__elements">
-                    통계
+                    당일 예약 현황
+                  </div>
+
+                  <div style="padding: 0 30px">
+                    <div
+                      class="card-body text-dark row"
+                      style="display: flex; justify-content: space-between"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-lg col-auto"
+                        style="width: 180px"
+                      >
+                        <h5 class="fs-4 fw-bolder">총 예약건</h5>
+                        <h6>1건</h6>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-lg col-auto"
+                        style="width: 180px"
+                      >
+                        <h5 class="fs-4 fw-bolder">일반 예약</h5>
+                        <h6>1건</h6>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-lg col-auto"
+                        style="width: 180px"
+                      >
+                        <h5 class="fs-4 fw-bolder">긴급 콜</h5>
+                        <h6>1건</h6>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-lg col-auto"
+                        style="width: 180px"
+                      >
+                        <h5 class="fs-4 fw-bolder">취소</h5>
+                        <h6>1건</h6>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="card border-dark mb-3 admin-box__elements">
+                  <div class="card-header fs-4 fw-bolder admin__elements">
+                    예약 차트
                   </div>
                   <div class="card-body text-dark">
                     <div class="row">
@@ -97,8 +144,6 @@
                     <div class="row">
                       <div class="col-md-6 m-2 chart-box">차트</div>
                       <div class="col-md-6 m-2 chart-box">차트</div>
-                      <div class="col-md-6 m-2 chart-box">차트</div>
-                      <div class="col-md-6 m-2 chart-box">차트</div>
                     </div>
                   </div>
                 </div>
@@ -107,82 +152,15 @@
                 <div class="col-xs-12">
                   <div class="card border-dark mb-3 admin-box__elements">
                     <div class="card-header fs-4 fw-bolder admin__elements">
-                      회원 정보
+                      예약 정보 (다른 것을 추가하게 되면 바꿀 부분)
                     </div>
                     <div class="card-body text-dark">
                       <div
                         class="d-flex justify-content-end"
                         style="margin-bottom: 10px"
                       >
-                        <form action="get">
-                          <select name="type">
-                            <option value="id">id</option>
-                            <option value="name">이름</option>
-                          </select>
-                          <input type="text" />
-                          <input type="button" value="검색" />
-                        </form>
+                      
                       </div>
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">타입</th>
-                            <th scope="col">아이디</th>
-                            <th scope="col">이름</th>
-                            <th scope="col">연락처</th>
-                            <th scope="col">애견정보</th>
-                            <th scope="col">가입상태</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>고구마</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>미나리</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>변기통</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>물티슈</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>노트북</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                        </tbody>
-                      </table>
                       <div
                         aria-label="Page navigation example"
                         class="d-flex justify-content-center"
