@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,24 +15,21 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>제휴업체 병원페이지(보험용)</title>
-<script src="../../../resources/js/jquery-3.5.1.js"></script>
+<script src="${path}/js/jquery-3.5.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-  <script src="../../../resources/js/jquery-3.5.1.js"></script>
-  <script src="../../../resources/js/headerfooter.js"></script>
+  <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+
 </head>
 <style>
   /* div{
     border: red solid 1px;
   } */
 </style>
-<header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
+
 <section>
   <div class="container">
     <div class="card text-white bg-secondary bg-gradient my-4 py-5 text-center">
@@ -33,7 +38,7 @@
         <br><br>
         <div class="container show-grid">
           <div class="row">
-            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="../../../resources/images/emergencyyy.png" style="width: 100px;"></div>
+            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/images/emergencyyy.png" style="width: 100px;"></div>
             <div class="col-md-9" style="text-align: left;">
               <p><b>긴급콜</b> 이란 ?</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자</p>
@@ -76,7 +81,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/images/dog.jpg" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/dog.jpg" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
@@ -91,7 +96,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/images/hospital.jpg" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/hospital.jpg" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title" style="text-align: center;">제휴업체 이름</h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 강남구 KH 동물병원
@@ -106,7 +111,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/images/kindergardennn.png" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/kindergardennn.png" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title" style="text-align: center;">KH 유치원</h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 강남구 KH 유치원
@@ -121,7 +126,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/images/shoppp.png" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/shoppp.png" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
@@ -136,7 +141,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/images/three.png" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/three.png" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
@@ -151,7 +156,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/imagesssss/hospitbeann.jpg" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/hospitbeann.jpg" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
@@ -166,7 +171,7 @@
       <div class="col" style="height: fit-content;">
         <div class="card">
           <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="../../../resources/imagesssss/hospitbeann.jpg" class="card-img-top" alt="..."></a>
+            <img src="${path}/images/hospitbeann.jpg" class="card-img-top" alt="..."></a>
           <div class="card-body">
             <h5 class="card-title"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
             <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
@@ -195,9 +200,6 @@
     
   </div>
 </section>
-<footer
-id="footer"
-class="footer-wrap"
-style="background-color: #0064b7"
-></footer>
+
+  <jsp:include page="../common/footer.jsp" />
 </html>

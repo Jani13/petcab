@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,16 +17,13 @@
   <title>제휴업체 메인페이지</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-  <script src="../../../resources/js/jquery-3.5.1.js"></script>
-  <script src="../../../resources/js/headerfooter.js"></script>
+  <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+  <script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
-<header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+
+ <jsp:include page="../common/header.jsp" />
+ <jsp:include page="../common/nav.jsp" />
+ 
 <section>
   <div class="container">
     <div class="card text-white bg-secondary bg-gradient my-5 py-5 text-center">
@@ -27,7 +32,7 @@
         <br><br>
         <div class="container show-grid">
           <div class="row">
-            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="../../../resources/images/emergencyyy.png" style="width: 100px;"></div>
+            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/images/emergencyyy.png" style="width: 100px;"></div>
             <div class="col-md-9" style="text-align: left;">
               <p><b>긴급콜</b> 이란 ?</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자</p>
@@ -47,38 +52,31 @@
       <div class="row">
         <div class="col-md-4">
           <a href="">
-            <img class="img-fluid" style="width: 250px;" src="../../../resources/images/hospital.jpg"></a>
+            <img class="img-fluid" style="width: 250px;" src="${path}/images/hospital.jpg"></a>
             <br><br>
             <h3>병원</h3>
         </div>
         <div class="col-md-4">
           <a href="">
-            <img class="img-fluid" style="width: 250px;" src="../../../resources/images/kindergardennn.png" alt=""></a>
+            <img class="img-fluid" style="width: 250px;" src="${path}/images/kindergardennn.png" alt=""></a>
             <br><br>
             <h3>유치원</h3>
         </div>
         <div class="col-md-4">
           <a href="">
-            <img class="img-fluid" style="width: 250px;" src="../../../resources/images/shoppp.png" alt=""></a>
+            <img class="img-fluid" style="width: 250px;" src="${path}/images/shoppp.png" alt=""></a>
             <br><br>
             <h3>샵</h3>
         </div>
       </div>
 
-      
-      
-      
+          
     </div>
 
   </div>
   <!-- /.container -->
 </section>
-<footer
-id="footer"
-class="footer-wrap"
-style="background-color: #0064b7"
-></footer>
-<!-- Bootstrap core JavaScript -->
-<script src="../../../resources/js/jquery-3.5.1.js"></script>
+
+  <jsp:include page="../common/footer.jsp" />
 
 </html>
