@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,20 +27,15 @@
         crossorigin="anonymous"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
-    <link rel="stylesheet" href="../../../resources/css/signupdog.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <link rel="stylesheet" href="${path }/css/signupdog.css" />
 
 </head>
 
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+  <jsp:include page="../common/header.jsp" />
+  <jsp:include page="../common/nav.jsp" />
 
     <section>
         <div class="container">
@@ -41,7 +44,7 @@
                 <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                    <img src="../../../resources/images/one.png">
+                    <img src="${path }/images/one.png">
                     <div class="card border-info mb-3" style="max-width: 8rem">
                         <div class="card">
                             <div class="card-body">
@@ -53,7 +56,7 @@
                 <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                    <img src="../../../resources/images/two.png">
+                    <img src="${path }/images/two.png">
                     <div class="card border-info mb-3" style="max-width: 8rem">
                         <div class="card">
                             <div class="card-body">
@@ -65,7 +68,7 @@
                 <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                    <img src="../../../resources/images/three.png">
+                    <img src="${path }/images/three.png">
                     <div class="card border-info mb-3" style="max-width: 8rem">
                         <div class="card">
                             <div class="card-body">
@@ -77,7 +80,7 @@
                 <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                    <img src="../../../resources/images/for.png">
+                    <img src="${path }/images/for.png">
                     <div class="card border-dark mb-3" style="max-width: 8rem">
                         <div class="card">
                             <div class="card-body">
@@ -254,24 +257,13 @@
                                         <button type="button" class="btn btn-outline-info" style="margin-left: 200px;" >확인</button>
                                     </div>
                                 </div>
-                            
-
                         </div>
-
-
-
                 </form>
             </div>
-
-
         </div>
         <br>
     </section>
-    <footer
-    id="footer"
-    class="footer-wrap"
-    style="background-color: #0064b7"
-  ></footer>
+  <jsp:include page="../common/footer.jsp" />
     <script>
         function DaumPostcode() {
             new daum.Postcode({

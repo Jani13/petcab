@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!doctype html>
 <html lang="en">
 
@@ -9,21 +17,18 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../resources/css/call.css">
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css">
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <link rel="stylesheet" href="${path}/css/call.css">    
+    <link rel="stylesheet" href="${path}/css/headerfooter.css">
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/headerfooter.js"></script>
     
     <title>콜예약</title>
 </head>
 
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+  	<jsp:include page="../common/nav.jsp" />
+
     <section class="section-wrap">
         <div class="container mt-5 mb-5">
             <div class="row row-call-1 text-center">
@@ -37,16 +42,6 @@
 
             <div class="row row-call-2">
                 <div class="col-md-4 my-auto pt-5 pb-5 book-progress">
-                    <div class="row">
-                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">제휴업체 확인</button>
-                    </div>
-
-                    <div class="row">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-                          </svg>
-                    </div>
-
                     <div class="row">
                         <button type="button" class="btn btn-secondary btn-lg btn-block disabled">드라이버 확인</button>
                     </div>
@@ -88,18 +83,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">제휴업체</th>
                                     <td>뷰티펫</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">예약시간</th>
                                     <td>YYYYMMDD HH:SS</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">요청사항</th>
                                     <td>애견커트원해요</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">출발지</th>
                                     <td>신용산역 1번출구</td>
@@ -150,18 +145,14 @@
                                 </table>
                             </div>
 
-                            <button class="btn btn-lg btn-outline-info btn-book col" type="button">다시예약</button>
+                            <button class="btn btn-lg btn-outline-info btn-cancel col" type="button">다시예약</button>
                         </div>
                     </div>
                 </div>
             </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,19 +35,14 @@
             crossorigin="anonymous"
         ></script>
         
-        <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-        <script src="../../../resources/js/jquery-3.5.1.js"></script>
-        <script src="../../../resources/js/headerfooter.js"></script>
-        <link rel="stylesheet" href="../../../resources/css/signupdog.css" />
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <link rel="stylesheet" href="${path }/css/signupdog.css" />
 
     </head>
     <body>
-        <header id="header" class="header-wrap"></header>
-        <nav
-          id="nav"
-          class="navbar navbar-expand-md navbar-light sticky-top"
-          style="background-color: #86f3ff"
-        ></nav>
+	  <jsp:include page="../common/header.jsp" />
+	  <jsp:include page="../common/nav.jsp" />
         <section>
             <div class="container">
                 <form action="" method="post">
@@ -48,7 +51,7 @@
                     <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                        <img src="../../../resources/images/one.png" >
+                        <img src="${path }/images/one.png" >
                         <div
                             class="card border-info mb-3"
                             style="max-width: 8rem"
@@ -63,7 +66,7 @@
                     <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                        <img src="../../../resources/images/two.png" >
+                        <img src="${path }/images/two.png" >
                         <div
                             class="card border-info mb-3"
                             style="max-width: 8rem"
@@ -78,7 +81,7 @@
                     <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                        <img src="../../../resources/images/three.png" >
+                        <img src="${path }/images/three.png" >
                         <div
                             class="card border-dark mb-3"
                             style="max-width: 8rem"
@@ -93,7 +96,7 @@
                     <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                        <img src="../../../resources/images/for.png" >
+                        <img src="${path }/images/for.png" >
                         <div
                             class="card border-dark mb-3"
                             style="max-width: 8rem"
@@ -113,9 +116,9 @@
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col mb-4">
                       <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 1번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
-                            <img src="../../../resources/images/nb1.png" style="width: 50px;" alt="">
+                            <img src="${path }/images/nb1.png" style="width: 50px;" alt="">
                           <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="../../../resources/images/five.png"  alt="...">
+                            <img src="${path }/images/five.png"  alt="...">
                           </div>
                         <div class="card-body">
                           <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">데려다줄개 회원가입</h5><br>
@@ -126,9 +129,9 @@
                     </div>
                     <div class="col mb-4">
                         <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 2번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
-                        <img src="../../../resources/images/nb2.png" style="width: 50px;" alt="">
+                        <img src="${path }/images/nb2.png" style="width: 50px;" alt="">
                         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="../../../resources/images/six.png"  alt="...">
+                            <img src="${path }/images/six.png"  alt="...">
                           </div>
                         <div class="card-body">
                           <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">드라이버 지원</h5><br>
@@ -139,9 +142,9 @@
                     </div>
                     <div class="col mb-4">
                         <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 3번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
-                        <img src="../../../resources/images/nb3.png" style="width: 50px;" alt="">
+                        <img src="${path }/images/nb3.png" style="width: 50px;" alt="">
                         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="../../../resources/images/seven.png"  alt="...">
+                            <img src="${path }/images/seven.png"  alt="...">
                           </div>
                         <div class="card-body">
                           <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">제휴업체</h5><br>
@@ -155,10 +158,6 @@
 
             </div>
         </section>
-        <footer
-        id="footer"
-        class="footer-wrap"
-        style="background-color: #0064b7"
-      ></footer>
+  <jsp:include page="../common/footer.jsp" />
     </body>
 </html>   

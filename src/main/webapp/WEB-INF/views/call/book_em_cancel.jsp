@@ -1,4 +1,12 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
+<!Doctype html>
 <html lang="en">
 
 <head>
@@ -9,21 +17,18 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../resources/css/call.css">    
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css">
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
-
+    <link rel="stylesheet" href="${path}/css/call.css">
+    <link rel="stylesheet" href="${path}/css/headerfooter.css">
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/headerfooter.js"></script>
+    
     <title>콜예약</title>
 </head>
 
 <body>
-    <header id="header" class="header-wrap"></header>
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+  	<jsp:include page="../common/nav.jsp" />
+  	
     <section class="section-wrap">
         <div class="container mt-5 mb-5">
             <div class="row row-call-1 text-center">
@@ -38,7 +43,7 @@
             <div class="row row-call-2">
                 <div class="col-md-4 my-auto pt-5 pb-5 book-progress">
                     <div class="row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">제휴업체 확인</button>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">제휴업체 확인</button>
                     </div>
 
                     <div class="row">
@@ -48,7 +53,7 @@
                     </div>
 
                     <div class="row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">드라이버 확인</button>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">드라이버 확인</button>
                     </div>
 
                     <div class="row">
@@ -58,7 +63,7 @@
                     </div>
 
                     <div class="row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">가결제</button>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">가결제</button>
                     </div>
 
                     <div class="row">
@@ -68,7 +73,7 @@
                     </div>
 
                     <div class="row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block disabled">예약완료</button>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block disabled">예약완료</button>
                     </div>
                 </div>
 
@@ -77,8 +82,8 @@
                 <div class="col-md">
                     <div class="">
                         <div class="pt-5 pb-3 pickup-heading">
-                            <h1 class="text-center mb-3">예약이 확정되었습니다</h1>
-                            <h3 class="text-center mb-3">승차시간을 꼭 지켜주세요</h3>
+                            <h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
+                            <h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
                         </div>
 
                         <table class="table call-sum text-center">
@@ -150,18 +155,14 @@
                                 </table>
                             </div>
 
-                            <button class="btn btn-lg btn-outline-info btn-pay col" type="button">예약취소</button>
+                            <button class="btn btn-lg btn-outline-info btn-book col" type="button">다시예약</button>
                         </div>
                     </div>
                 </div>
             </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+    <jsp:include page="../common/footer.jsp" />
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

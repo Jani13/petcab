@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,24 +20,19 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
+    <link rel="stylesheet" href="${path }/css/headerfooter.css" />
 
-    <link rel="stylesheet" href="../../../resources/css/call.css" />
+    <link rel="stylesheet" href="${path }/css/call.css" />
 
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
+    <script src="${path }/js/jquery-3.5.1.js"></script>
+    <script src="${path }/js/headerfooter.js"></script>
 
     <title>콜예약</title>
   </head>
 
   <body>
-    <header id="header" class="header-wrap"></header>
-
-    <nav
-      id="nav"
-      class="navbar navbar-expand-md navbar-light sticky-top"
-      style="background-color: #86f3ff"
-    ></nav>
+    <jsp:include page="../common/header.jsp" />
+  	<jsp:include page="../common/nav.jsp" />
 
     <section class="section-wrap">
       <div class="container mt-5 mb-5">
@@ -252,11 +254,7 @@
       </div>
     </section>
 
-    <footer
-      id="footer"
-      class="footer-wrap"
-      style="background-color: #0064b7"
-    ></footer>
+  	<jsp:include page="../common/footer.jsp" />
 
     <!-- Optional JavaScript; choose one of the two! -->
 
