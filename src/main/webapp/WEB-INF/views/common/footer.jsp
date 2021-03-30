@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+<footer class="footer-wrap" style="background-color: #0064b7">
 <div class="container d-flex justify-content-center">
   <div class="row all-text mx-4 p-4">
     <div class="col-md-2 h2 mt-5 mx-2 text-white footer-text-title">
@@ -19,3 +27,4 @@
     </div>
   </div>
 </div>
+</footer>

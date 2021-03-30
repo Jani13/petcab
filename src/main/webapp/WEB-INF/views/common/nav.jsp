@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #86f3ff" >
 <div class="container">
   <button
     class="navbar-toggler"
@@ -36,7 +39,7 @@
       <li class="nav-item">
         <a class="nav-link text-black" href="">드라이버지원</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" style="margin-left: 30px;">
         <a class="nav-link text-black" href="">회원가입</a>
       </li>
       <li class="nav-item">
@@ -45,3 +48,4 @@
     </ul>
   </div>
 </div>
+</nav>
