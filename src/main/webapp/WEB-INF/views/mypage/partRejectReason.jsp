@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +17,12 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
+    <script src="${ path }/js/headerfooter.js"></script>
 </head>
 <body>
+    <jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/nav.jsp" />
     <section>
         <form class="p-2 tex">
             <p class="fw-bold">거절 사유</p>
@@ -47,5 +57,7 @@
             </div>
         </form>
     </section>
+    <jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>
