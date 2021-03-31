@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
