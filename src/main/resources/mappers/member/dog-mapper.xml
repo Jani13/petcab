@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dogMapper">
+	
+	<sql id="selectDogSql">
+		SELECT 	ANIMAL_NO,
+				DOG_NAME,
+				DOG_TYPE,
+				AGE,
+				VACC
+				DISORDER,
+				OTHER,
+				IMAGE_ORI,
+				IMAGE_RE,
+				USER_NO
+	</sql>
+	 
+	 <resultMap type="Dog" id="dogResultMap">
+			 <!-- 기본키 -->
+			 <id property="animalNo" column="ANIMAL_NO"/>
+			 <!-- 일반컬럼  -->
+			 <result property="dogName" column="DOG_NAME"/>
+			 <result property="dogType" column="DOG_TYPE"/>
+			 <result property="age" column="AGE"/>
+			 <result property="vacc" column="VACC"/>
+			 <result property="disorder" column="DISORDER"/>
+			 <result property="other" column="OTHER"/>
+			 <result property="imageOri" column="IMAGE_ORI"/>
+			 <result property="imageRe" column="IMAGE_RE"/>
+			 <result property="userNo" column="USER_NO"/>
+	 </resultMap>
+	 
+</mapper>
