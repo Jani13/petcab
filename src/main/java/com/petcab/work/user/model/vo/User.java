@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,5 +27,9 @@ public class User {
 	private String status;
 	
 	private String userType;
+	
+	private Date enrollDate;
+	
+	private Date modifyDate;
 	
 }
