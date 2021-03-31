@@ -21,7 +21,7 @@
    
 </head>
 <style>
-
+	/* 정일 소스트리 커밋 테스트 중 */
     div, input, label, table, form{
         /* 이거는 후에 삭제해야함 작업 때 편히 보이도록 만든거 */
             /* border:1px solid red; */
