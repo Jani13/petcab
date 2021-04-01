@@ -42,7 +42,7 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-black" href="">드라이버지원</a>
+        <a class="nav-link text-black" href="${path}/driver/">드라이버지원</a>
       </li>
       
       <c:if test="${loginMember  == null}">
