@@ -39,9 +39,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		return result;
 	}
+	
+	@Override
+	public boolean validate(String userId) {
+		Member member = this.findMemberByUserId(userId);
+		
+		return member != null;
+	}
 
-	private Member findMemberByUserId(String userId) {
+	@Override
+	public Member findMemberByUserId(String userId) {
 		
 		return memberDao.selectMember(userId);
 	}
+	
+	@Override
+	@Transactional
+	public int deleteMember(String userId) {
+		
+		return memberDao.deleteMember(userId);
+	}
+
 }
