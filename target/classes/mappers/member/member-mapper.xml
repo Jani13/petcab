@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="member">
+<mapper namespace="com.petcab.work.user.model.dao.MemberDao">
 	
 	<!-- 중복되는 쿼리문 작성 -->
-	<sql id="selectUserSql">
+	<sql id="selectMemberSql">
 		SELECT USER_NO,
 			   USER_NAME,
 			   USER_ID,
@@ -13,10 +13,10 @@
 			   POSTCODE,
 			   ADDRESS,
 			   PHONE,
-			   STATUS,
-			   USER_TYPE,
 			   ENROLL_DATE,
-			   MODIFY_DATE
+			   MODIFY_DATE,
+			   STATUS,
+			   USER_TYPE
 		FROM MEMBER
 		WHERE STATUS = 'Y'
 	</sql>
@@ -31,10 +31,10 @@
 		<result property="postCode" column="POSTCODE"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="phone" column="PHONE"/>
-		<result property="status" column="STATUS"/>
-		<result property="userType" column="USER_TYPE"/>
 		<result property="enrollDate" column="ENROLL_DATE"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="userType" column="USER_TYPE"/>
 	</resultMap>
 
 	<select id="selectCount" resultType="_int">
@@ -47,7 +47,7 @@
 	
 	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
 		<include refid="selectMemberSql"></include>
-		AND USER_ID = #{userId}
+		AND USER_ID = #{id}
 	</select>
 	
 	<insert id="insertMember" parameterType="Member"
@@ -60,10 +60,10 @@
 			 POSTCODE,
 			 ADDRESS,
 			 PHONE,
-			 STATUS,
-			 USER_TYPE,
 			 ENROLL_DATE,
-			 MODIFY_DATE
+			 MODIFY_DATE,
+			 STATUS,
+			 USER_TYPE
 		 )
 		 VALUES(
 		     SEQ_USER_NO.NEXTVAL,
@@ -73,10 +73,28 @@
 		     #{postCode},
 		     #{address},
 		     #{phone},
+		     SYSDATE,
+		     SYSDATE,		      	
 		     DEFAULT,
-		     #{userType},
-		     DEFAULT,
-		     DEFAULT		     
+		     #{userType}
 		 )
 	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET
+			PHONE = #{phone},
+			ADDRESS = #{address},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			USER_NO = #{userNo}		
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		SET
+			STATUS = 'N'
+		WHERE
+			USER_ID = #{id}
+	</delete>
 </mapper>

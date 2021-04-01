@@ -47,7 +47,7 @@
 
     <section>
         <div class="container">
-            <form action="" method="POST">
+            <form action="${path}/signup/agreement" method="POST">
                 <br>
                 <div class="row text-center">
                     <div class="col-sm-3" style="display: flex; align-items: center;
@@ -810,8 +810,8 @@
                     </div>
                     <br>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                         <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="agree"/>
                             내용을 모두 숙지하였으며, 이용약관에 동의합니다.
                         </label>
                     </div>
@@ -1005,22 +1005,37 @@
                 </div>
                 <br>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                     <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="agree"/>
                         내용을 모두 숙지하였으며, 이용약관에 동의합니다.
                     </label>
                 </div>
                 <br>
                 <hr>
                 <div style="text-align:center;">
-                    <button type="button" class="btn btn-outline-info" style="margin-right: 250px;">동의</button>
-                    <button type="button" class="btn btn-outline-info"onClick="history.back()">동의 안함</button>
+                    <a href="${path}/signup/SubscriptionType">
+	                    <button type="button" class="btn btn-outline-info" 
+	                    		id="nextButton"style="margin-right: 250px">
+	                    		다음단계
+	                    </button>
+                    </a>
+                    <input type="reset" class="btn btn-outline-info" value="동의취소" />
                 </div>
             </form>
         </div>
     </section>
     <br>
   <jsp:include page="../common/footer.jsp" />
+  
+  <script>
+	  $("#nextButton").on("click", () => {
+	  	if($("input:checkbox[name=agree]:checked").length == 0 || $("input:checkbox[name=agree]:checked").length == 1) {
+	        	alert("약관 동의 후 이용해주세요.");
+	        
+	        	return false;
+	     	}
+		});
+  </script>
 </body>
 
 </html>

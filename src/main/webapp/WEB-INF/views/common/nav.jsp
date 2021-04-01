@@ -45,12 +45,35 @@
       <li class="nav-item">
         <a class="nav-link text-black" href="">드라이버지원</a>
       </li>
+      
+      <c:if test="${loginMember  == null}">
       <li class="nav-item" style="margin-left: 30px;">
-        <a class="nav-link text-black" href="">회원가입</a>
+        <a class="nav-link text-black" href="${path}/signup/agreement">회원가입</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-black" href="">로그인</a>
+        <a class="nav-link text-black" href="${path}/login">로그인</a>
       </li>
+      </c:if>
+    	
+  	  <c:if test="${loginMember != null}">
+  	  <li class="nav-item" style="margin-left: 30px;">
+  	  	<c:choose>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_ADMIN'}">
+  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">마이페이지</a>
+  	  		</c:when>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_MEMBER'}">
+  	  			<a class="nav-link text-black" href="${path}/user/userMyPage">마이페이지</a>
+  	  		</c:when>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
+  	  			<a class="nav-link text-black" href="${path}/driver/driverMyPage">마이페이지</a>
+  	  		</c:when>
+  	  		<c:otherwise>
+  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
+  	  		</c:otherwise> 	  		
+  	  	</c:choose>
+      </li>
+  	  </c:if>
+      
     </ul>
   </div>
 </div>

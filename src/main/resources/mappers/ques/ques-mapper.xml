@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="">
+
+	<sql id="quesListSql">
+		SELECT Q.QUES_NO,
+		       Q.TITLE,
+		       M.USER_ID,
+		       Q.POST_DATE,
+		       Q.VIEW_NO
+		FROM QUES Q
+		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)			
+	</sql>
+
+	<resultMap type="Ques" id="quesResultMap">
+		<id property="quesNo" column="QUES_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="postDate" column="POST_DATE"/>	
+		<result property="editDate" column="EDIT_DATE"/>	
+		<result property="viewNo" column="VIEW_NO"/>
+		<result property="quesType" column="QUES_TYPE"/>
+		<result property="quesPwd" column="QUES_PWD"/>
+		<result property="groupNo" column="GROUP_NO"/>
+		<result property="groupSeq" column="GROUP_SEQ"/>
+		<result property="depth" column="DEPTH"/>
+	</resultMap>
+	
+		<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
+		<include refid="quesListSql"></include>
+		ORDER BY Q.QUES_NO DESC
+	</select>
+	
+	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM QUES
+	</select>	 	
+	
+	<insert id="insertQues" parameterType="map"
+  		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
+  		
+  		INSERT INTO QUES 
+  		VALUES(
+  			SEQ_QUES_NO.NEXTVAL,
+  			#{quesType},
+  			#{quesPwd},
+  			#{title},
+  			#{content},
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT
+ 		)
+  	</insert>
+  	
+	<update id="updateQues" parameterType="Ques">
+		UPDATE QUES 
+		SET 
+			TITLE=#{title},
+			CONTENT=#{content},
+			EDIT_DATE=SYSDATE 
+		WHERE 
+			QUES_NO=#{quesNo}
+	</update>	
+</mapper>
