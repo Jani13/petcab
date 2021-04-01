@@ -10,9 +10,16 @@
   <div>
     <img id="logo" src="${path}/images/logo.png" alt="" />
   </div>
-  <div class="p-5">
-    <span class="h5"> Welcome! XXXXXXX </span>
-    <button class="mx-4 btn btn-outline-info">logout</button>
-  </div>
+  
+  <c:if test="${loginMember != null}">
+	  <div class="p-5">
+	    <span class="h5"> Welcome! ${ loginMember.userId } </span>
+	    <button type="button" 
+	    		class="mx-4 btn btn-outline-info"
+	    		onclick="location.replace('${path}/logout')">
+	    	logout
+	    </button>
+	  </div>  
+  </c:if>
 </div>
 </header>

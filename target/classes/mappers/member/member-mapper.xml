@@ -2,8 +2,99 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="member">
+<mapper namespace="com.petcab.work.user.model.dao.MemberDao">
+	
+	<!-- 중복되는 쿼리문 작성 -->
+	<sql id="selectMemberSql">
+		SELECT USER_NO,
+			   USER_NAME,
+			   USER_ID,
+			   USER_PWD,
+			   POSTCODE,
+			   ADDRESS,
+			   PHONE,
+			   ENROLL_DATE,
+			   MODIFY_DATE,
+			   STATUS,
+			   USER_TYPE
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+	</sql>
+	
+	<resultMap type="Member" id="memberResultMap">
+	
+		<id property="userNo" column="USER_NO"/>
+		
+		<result property="userName" column="USER_NAME"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="postCode" column="POSTCODE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="phone" column="PHONE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="userType" column="USER_TYPE"/>
+	</resultMap>
+
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
+	
+	<select id="selectMemberAll" resultMap="memberResultMap">
+		<include refid="selectMemberSql"></include>
+	</select>
+	
+	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql"></include>
+		AND USER_ID = #{id}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member"
+		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+		 INSERT INTO MEMBER (
+		 	 USER_NO,
+		 	 USER_NAME,
+		 	 USER_ID,
+			 USER_PWD,
+			 POSTCODE,
+			 ADDRESS,
+			 PHONE,
+			 ENROLL_DATE,
+			 MODIFY_DATE,
+			 STATUS,
+			 USER_TYPE
+		 )
+		 VALUES(
+		     SEQ_USER_NO.NEXTVAL,
+		     #{userName},
+		     #{userId},
+		     #{userPwd},
+		     #{postCode},
+		     #{address},
+		     #{phone},
+		     SYSDATE,
+		     SYSDATE,		      	
+		     DEFAULT,
+		     #{userType}
+		 )
+	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET
+			PHONE = #{phone},
+			ADDRESS = #{address},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			USER_NO = #{userNo}		
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		SET
+			STATUS = 'N'
+		WHERE
+			USER_ID = #{id}
+	</delete>
 </mapper>
