@@ -21,7 +21,7 @@
 		WHERE STATUS = 'Y'
 	</sql>
 	
-	<resultMap type="User" id="userResultMap">
+	<resultMap type="Member" id="memberResultMap">
 	
 		<id property="userNo" column="USER_NO"/>
 		
@@ -41,16 +41,16 @@
 		SELECT COUNT(*) FROM MEMBER
 	</select>
 	
-	<select id="selectUserAll" resultMap="userResultMap">
-		<include refid="selectUserSql"></include>
+	<select id="selectMemberAll" resultMap="memberResultMap">
+		<include refid="selectMemberSql"></include>
 	</select>
 	
-	<select id="selectUser" parameterType="string" resultMap="userResultMap">
-		<include refid="selectUserSql"></include>
+	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql"></include>
 		AND USER_ID = #{userId}
 	</select>
 	
-	<insert id="insertUser" parameterType="User"
+	<insert id="insertMember" parameterType="Member"
 		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
 		 INSERT INTO MEMBER (
 		 	 USER_NO,
@@ -77,12 +77,6 @@
 		     #{userType},
 		     DEFAULT,
 		     DEFAULT		     
-		     
-		 	   
-		 	   
-		 	
 		 )
-		
-		
 	</insert>
 </mapper>
