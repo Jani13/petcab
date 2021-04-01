@@ -1,4 +1,4 @@
-package com.petcab.work.ques.controller;
+package com.petcab.work.ques.model.service;
 
 import java.util.List;
 
