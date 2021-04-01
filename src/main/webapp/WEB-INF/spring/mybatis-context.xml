@@ -32,5 +32,4 @@
 		p:dataSource-ref="dataSource"
 	/>
 	
-	<bean id=""></bean>
 </beans>
