@@ -36,7 +36,12 @@
     ></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
-
+    
+	<link 
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+		integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+		crossorigin="anonymous">
+	
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
 
   </head>

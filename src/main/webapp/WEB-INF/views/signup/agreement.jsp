@@ -47,7 +47,7 @@
 
     <section>
         <div class="container">
-            <form action="${path}/signup/information" method="POST">
+            <form action="${path}/signup/Information" method="POST">
                 <br>
                 <div class="row text-center">
                     <div class="col-sm-3" style="display: flex; align-items: center;
