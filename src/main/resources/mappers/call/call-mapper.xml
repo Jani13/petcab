@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.petcab.work.call.model.dao.CallDao">
+
 	<resultMap type="Call" id="callResultMap">
 		<id property="callNo" column="CALL_NO" />
 		<result property="time" column="TIME" />
