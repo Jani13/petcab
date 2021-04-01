@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
 
+<c:set var="path" value="${pageContext.request.contextPath }"/>   
 
 <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #86f3ff" >
 <div class="container">
@@ -22,7 +22,7 @@
   >
     <ul class="navbar-nav mynav-nav">
       <li class="nav-item">
-        <a class="nav-link text-black" href="#">예약하기</a>
+        <a class="nav-link text-black" href="${ path }/call/book">예약하기</a>
       </li>
       <li class="nav-item dropdown">
         <a

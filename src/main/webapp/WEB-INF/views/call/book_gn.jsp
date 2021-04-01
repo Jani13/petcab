@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,9 +54,15 @@
             </div>
 
             <div class="pickup-fill-in" style="margin-left: 10px;">
-              <form action="">
+              <form action="${ path }/call/book" method="POST">
                 <div class="form-group mb-3">
-                  <label for="pickup-time">예약 시간</label>
+                  <label for="time">예약 시간</label>
+                  <input
+                    type="datetime-local"
+                    id="pickup-time"
+                    name="time"
+                  />
+                  <!--
                   <input
                     type="datetime-local"
                     id="pickup-time"
@@ -65,10 +71,11 @@
                     min="2018-06-07T00:00"
                     max="2021-04-01T00:00"
                   />
+                  -->
                 </div>
 
                 <div class="form-group mb-3">
-                  <label>예상 금액</label>
+                  <label for="expCost">예상 금액</label>
 
                   <div
                     class="row row-cols"
@@ -81,11 +88,13 @@
                       <input
                         type="text"
                         class="form-control where-from"
+                        name="fromWhere"
                         placeholder="출발지"
                       />
                       <input
                         type="text"
                         class="form-control where-to"
+                        name="toWhere"
                         placeholder="도착지"
                       />
                     </div>
@@ -107,6 +116,8 @@
                     <input
                       type="text"
                       class="form-control"
+                      id="est-cost"
+                      name="est-cost"
                       placeholder="예상금액 (원)"
                     />
                   </div>
@@ -119,9 +130,10 @@
                       type="checkbox"
                       value=""
                       id="flexCheckDefault"
+                      name="with-owner"
                     />
                     <label class="form-check-label" for="flexCheckDefault">
-                      보호자 탑승 여부
+                      보호자 탑승
                     </label>
                   </div>
                 </div>
@@ -138,6 +150,7 @@
                     class="form-control"
                     placeholder="Leave a comment here"
                     id="floatingTextarea"
+                    name="to-driver"
                   ></textarea>
                   <label for="floatingTextarea">Comments</label>
                 </div>

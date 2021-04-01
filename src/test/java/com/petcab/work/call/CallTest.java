@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.service.CallServiceImpl;
 import com.petcab.work.call.model.vo.Call;
 
 @ExtendWith(SpringExtension.class)
@@ -24,6 +26,8 @@ public class CallTest {
 	
 	@Test
 	void create() {
+		//
+		
 		assertThat(call).isNotNull();
 	}
 	
