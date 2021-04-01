@@ -8,11 +8,11 @@ import com.petcab.work.user.model.vo.Member;
 @Mapper
 public interface MemberDao {
 	
-	Member selectMember(@Param("userId") String userId);
+	Member selectMember(@Param("id") String id);
 	
 	int insertMember(Member member);
 	
 	int updateMember(Member member);
 	
-	int deleteMember(@Param("userId") String userId);
+	int deleteMember(@Param("id") String id);
 }

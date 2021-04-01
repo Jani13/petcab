@@ -45,13 +45,16 @@
         <a class="nav-link text-black" href="">드라이버지원</a>
       </li>
       
-      
+      <c:if test="${loginMember  == null}">
       <li class="nav-item" style="margin-left: 30px;">
         <a class="nav-link text-black" href="${path}/signup/agreement">회원가입</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-black" href="${path}/user/login">로그인</a>
+        <a class="nav-link text-black" href="${path}/login">로그인</a>
       </li>
+      </c:if>
+    
+      
     </ul>
   </div>
 </div>

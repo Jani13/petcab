@@ -11,9 +11,9 @@
     <img id="logo" src="${path}/images/logo.png" alt="" />
   </div>
   
-  <c:if test="${loginUser} != null">
+  <c:if test="${loginMember != null}">
 	  <div class="p-5">
-	    <span class="h5"> Welcome! ${ loginUser.userId } </span>
+	    <span class="h5"> Welcome! ${ loginMember.userId } </span>
 	    <button type="button" 
 	    		class="mx-4 btn btn-outline-info"
 	    		onclick="location.replace('${path}/logout')">

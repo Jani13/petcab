@@ -44,10 +44,8 @@
     <section id="content">
         <div class="container">
             <br><br>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8"><h2>데려다줄개의 서비스를 시작하겠습니다.</h2></div>
-                <div class="col-lg-2"></div>
+            <div class="row" style="height: 100px">
+                <div class="col-lg-8 h2 w-100">데려다줄개의 서비스를 시작합니다.</div>
             </div>
 
             <br><br>
@@ -62,8 +60,13 @@
 	                    </div>
 	                    <div class="form-floating">
 	                        <input type="password" class="form-control" id="floatingPassword" name="userPwd" placeholder="비밀번호" required>
-	                        <label for="floatingPassword">비밀번호</label>               
+	                        <label for="floatingPassword">비밀번호</label>  
+	                        <div class="d-flex justify-content-end p-2 ">
+	                        	<a class="mx-5">아이디찾기</a>
+	                        	<a class="">비밀번호찾기</a>
+	                        </div>          
 	                    </div>
+            			
 	                    <br>
 	                    <div style="text-align: center;">
 	                        <button type="submit" class="btn btn-outline-info justify-content-center btn-sm" >로그인</button>
@@ -111,9 +114,8 @@
             <br>
 
             <div class="row  text-center">
-                <div class="col-lg-4"><a href="" class="text-decoration-none">회원가입 후 이용하실 수 있습니다.</a></div>
-                <div class="col-lg-4"><a href="" class="text-decoration-none">아이디 찾기</a></div>
-                <div class="col-lg-4"><a href="" class="text-decoration-none">비밀번호 찾기</a></div>
+                <div class="col-lg-6"><a href="" class="text-decoration-none">아이디 찾기</a></div>
+                <div class="col-lg-6"><a href="" class="text-decoration-none">비밀번호 찾기</a></div>
             </div>
 
             <br><br>

@@ -57,5 +57,11 @@ public class MemberController {
 		return "signup/agreement";
 	}
 	
+	@RequestMapping("/login")
+	public String loginView() {
+		
+		return "user/login";
+	}
+	
 	
 }

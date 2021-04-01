@@ -14,9 +14,9 @@
 			   ADDRESS,
 			   PHONE,
 			   ENROLL_DATE,
-			   MODIFY_DATE
+			   MODIFY_DATE,
 			   STATUS,
-			   USER_TYPE,
+			   USER_TYPE
 		FROM MEMBER
 		WHERE STATUS = 'Y'
 	</sql>
@@ -47,7 +47,7 @@
 	
 	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
 		<include refid="selectMemberSql"></include>
-		AND USER_ID = #{userId}
+		AND USER_ID = #{id}
 	</select>
 	
 	<insert id="insertMember" parameterType="Member"
@@ -95,6 +95,6 @@
 		SET
 			STATUS = 'N'
 		WHERE
-			USER_ID = #{userId}
+			USER_ID = #{id}
 	</delete>
 </mapper>
