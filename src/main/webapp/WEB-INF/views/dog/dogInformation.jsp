@@ -94,7 +94,7 @@
             <h1>반려 동물 등록</h1>
             <br />
             <div>
-                <form action="" method="POST">
+                <form name="dogInformation" action="${path}/dog/dogInformation" method="post">
 
                     <div class="row">
                         <div class="col-md-3"></div>
@@ -528,7 +528,9 @@
                 <div style="text-align:center;">
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
                     data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;">추가 등록</button>
-                    <button type="button" class="btn btn-outline-info" style="margin-left: 200px;" >확인</button>
+                    <%-- <a href="${path}/signup/Information"><button type="button" class="btn btn-outline-info" style="margin-left: 200px;" >확인</button></a> --%>
+                    <button type="submit" class="btn btn-outline-info" style="margin-left: 200px;" onclick="location.replace('${path}/signup/Information')">확인</button>
+                   <!--  <button type="submit" class="btn btn-outline-info" style="margin-left: 200px;">확인</button> -->
                 </div>
             </div>
         </div>
