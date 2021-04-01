@@ -45,13 +45,13 @@
 	  <jsp:include page="../common/nav.jsp" />
         <section>
             <div class="container">
-                <form action="" method="post">
+
                     <br>
                 <div class="row text-center">
                     <div class="col-sm-3" style="display: flex; align-items: center;
                     justify-content: center;
                     flex-direction: column;">
-                        <img src="${path }/images/one.png" >
+                        <img src="${path}/images/one.png" >
                         <div
                             class="card border-info mb-3"
                             style="max-width: 8rem"
@@ -112,28 +112,33 @@
                 <hr />
                 <br />
                 <h1>가입유형 선택</h1>
-                <br /> 
+                <br />
+                
+                <form action="${path}/signup/Information" method="POST">
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col mb-4">
-                      <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 1번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
-                            <img src="${path }/images/nb1.png" style="width: 50px;" alt="">
-                          <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="${path }/images/five.png"  alt="...">
-                          </div>
+                      <div class="card">
+                      	<!-- 4/1 작업중이었음. -->
+                      	<input type="hidden" id="userType">
+                        <img src="${path}/images/nb1.png" style="width: 50px;" alt="">
+                        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
+                        	<img src="${path}/images/five.png"  alt="...">
+                        </div>
                         <div class="card-body">
-                          <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">데려다줄개 회원가입</h5><br>
-                          <p class="card-text" style="text-align: center;"> 회원으로 가입하시면 데려다줄개 회원으로 가입됩니다. <br> 회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
-                            <br>
+                          	<h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">데려다줄개 회원가입</h5><br>
+                          	<p class="card-text" style="text-align: center;"> 회원으로 가입하시면 데려다줄개 회원으로 가입됩니다. <br> 회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
+                        <br>
                         </div>
                       </div>
                     </div>
                     <div class="col mb-4">
-                        <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 2번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
-                        <img src="${path }/images/nb2.png" style="width: 50px;" alt="">
+                        <div class="card"> 
+                        <img src="${path}/images/nb2.png" style="width: 50px;" alt="">
                         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="${path }/images/six.png"  alt="...">
+                            <img src="${path}/images/six.png"  alt="...">
                           </div>
                         <div class="card-body">
+                          
                           <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">드라이버 지원</h5><br>
                           <p class="card-text" style="text-align: center;">회원가입 후 데려다줄개 드라이버 지원을 하실수 있습니다. <br>회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
                           <br>  
@@ -141,7 +146,7 @@
                       </div>
                     </div>
                     <div class="col mb-4">
-                        <div class="card"OnClick="location.href ='https://www.naver.com/'"> <!-- 3번 클릭시 넘어가는 페이지 온클릭 으로 적용 ex)네이버  -->
+                        <div class="card">
                         <img src="${path }/images/nb3.png" style="width: 50px;" alt="">
                         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
                             <img src="${path }/images/seven.png"  alt="...">
