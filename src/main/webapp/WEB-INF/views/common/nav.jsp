@@ -3,7 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>   
 
 <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #86f3ff" >
 <div class="container">
@@ -21,7 +22,7 @@
   >
     <ul class="navbar-nav mynav-nav">
       <li class="nav-item">
-        <a class="nav-link text-black" href="#">예약하기</a>
+        <a class="nav-link text-black" href="${ path }/call/book">예약하기</a>
       </li>
       <li class="nav-item dropdown">
         <a
@@ -53,7 +54,25 @@
         <a class="nav-link text-black" href="${path}/login">로그인</a>
       </li>
       </c:if>
-    
+    	
+  	  <c:if test="${loginMember != null}">
+  	  <li class="nav-item" style="margin-left: 30px;">
+  	  	<c:choose>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_ADMIN'}">
+  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">마이페이지</a>
+  	  		</c:when>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_MEMBER'}">
+  	  			<a class="nav-link text-black" href="${path}/user/userMyPage">마이페이지</a>
+  	  		</c:when>
+  	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
+  	  			<a class="nav-link text-black" href="${path}/driver/driverMyPage">마이페이지</a>
+  	  		</c:when>
+  	  		<c:otherwise>
+  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
+  	  		</c:otherwise> 	  		
+  	  	</c:choose>
+      </li>
+  	  </c:if>
       
     </ul>
   </div>

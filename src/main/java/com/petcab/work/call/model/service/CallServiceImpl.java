@@ -29,7 +29,7 @@ public class CallServiceImpl implements CallService {
 	@Override
 	public Call selectCall(int callNo) {
 		
-		return null;
+		return callDao.selectCall(callNo);
 	}
 	
 }

@@ -17,9 +17,9 @@ public class Call {
 	
 	private Date time;
 	
-	private String from_where;
+	private String fromWhere;
 	
-	private String to_where;
+	private String toWhere;
 	
 	private String withOwner;
 	

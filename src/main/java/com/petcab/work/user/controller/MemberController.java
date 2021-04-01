@@ -2,6 +2,7 @@ package com.petcab.work.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class MemberController {
 		Member loginMember = service.login(userId, userPwd);
 		
 		if(loginMember != null) {
-			model.addObject("loginUser", loginMember);
+			model.addObject("loginMember", loginMember);
 			model.setViewName("redirect:/");
 			
 		} else {
@@ -42,6 +43,13 @@ public class MemberController {
 		
 		return model;
 	}
+	
+	@RequestMapping("/login")
+	public String loginView() {
+		
+		return "user/login";
+	}
+	
 
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status) {
@@ -57,10 +65,35 @@ public class MemberController {
 		return "signup/agreement";
 	}
 	
-	@RequestMapping("/login")
-	public String loginView() {
+	@RequestMapping("/signup/SubscriptionType")
+	public String subTypeView() {
 		
-		return "user/login";
+		return "signup/SubscriptionType";
+	}
+	
+	
+	@RequestMapping(value = "signup/Information" , method = {RequestMethod.POST})
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
+		
+		int result = service.saveMember(member);
+		
+		if(result > 0) {
+			
+			model.addObject("msg", "회원가입이 완료되었습니다.");
+			model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "회원가입에 실패하였습니다.");
+			model.addObject("location", "/signup/Information");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
+	@RequestMapping("/user/userMyPage")
+	public String userMyPageView() {
+		return "user/userMypage";
 	}
 	
 	

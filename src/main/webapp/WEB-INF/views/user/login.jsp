@@ -35,7 +35,7 @@
 
     </style>
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
-    <script src="${path}/js/resources/js/jquery-3.5.1.js"></script>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
     
 </head>
 <body>
@@ -62,8 +62,8 @@
 	                        <input type="password" class="form-control" id="floatingPassword" name="userPwd" placeholder="비밀번호" required>
 	                        <label for="floatingPassword">비밀번호</label>  
 	                        <div class="d-flex justify-content-end p-2 ">
-	                        	<a class="mx-5">아이디찾기</a>
-	                        	<a class="">비밀번호찾기</a>
+	                        	<a href="" class="mx-2 text-dark">아이디찾기</a>
+	                        	<a href="" class="text-dark">비밀번호찾기</a>
 	                        </div>          
 	                    </div>
             			
@@ -112,12 +112,6 @@
             </div>
 
             <br>
-
-            <div class="row  text-center">
-                <div class="col-lg-6"><a href="" class="text-decoration-none">아이디 찾기</a></div>
-                <div class="col-lg-6"><a href="" class="text-decoration-none">비밀번호 찾기</a></div>
-            </div>
-
             <br><br>
         </div>
     </section>

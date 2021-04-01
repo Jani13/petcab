@@ -10,7 +10,6 @@
   <div>
     <img id="logo" src="${path}/images/logo.png" alt="" />
   </div>
-  
   <c:if test="${loginMember != null}">
 	  <div class="p-5">
 	    <span class="h5"> Welcome! ${ loginMember.userId } </span>
