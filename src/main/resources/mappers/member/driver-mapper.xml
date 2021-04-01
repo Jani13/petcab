@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.petcab.work.user.model.dao.DriverDao">
+	
+	<!-- 중복되는 쿼리문 작성 -->
+	<sql id="selectDriverSql">
+		SELECT USER_NO
+			CAR_TYPE,
+			CAR_NO,
+			ABOUT,
+			IMAGE_ORI,
+			IMAGE_RE,
+			STATUS
+		FROM DRIVER
+	</sql>
+	
+	<resultMap type="Driver" id="DriverResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="carType" column="CAR_TYPE"/>
+		<result property="carNo" column="CAR_NO"/>
+		<result property="about" column="ABOUT"/>
+		<result property="imageOri" column="IMAGE_ORI"/>
+		<result property="imageRe" column="IMAGE_RE"/>
+	</resultMap>
+
+	<select id="selectDriverCount" resultType="_int">
+		SELECT COUNT(*) FROM DRIVER
+	</select>
+	
+	<select id="selectDriverAll" resultMap="DriverResultMap">
+		<include refid="selectDriverSql"></include>
+	</select>
+	
+	<select id="selectDriver" parameterType="string" resultMap="DriverResultMap">
+		<include refid="selectDriverSql"></include>
+		AND USER_NO = #{userNo}
+	</select>
+	
+	<insert id="insertDriver" parameterType="Driver"
+		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+		 INSERT INTO DRIVER (
+		 	 USER_NO,
+		 	 CAR_TYPE,
+		 	 CAR_NO,
+		 	 ABOUT,
+		 	 IMAGE_ORI,
+		 	 IMAGE_RE,
+		 	 STATUS
+		 )
+		 VALUES(
+		     #{userNo},
+		     #{carType},
+		     #{carNo},
+		     #{about},
+		     #{imageOri},
+		     #{imageRe},
+		     DEFAULT
+		 )
+	</insert>
+	
+</mapper>

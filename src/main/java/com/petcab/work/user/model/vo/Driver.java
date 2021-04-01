@@ -8,11 +8,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Driver {
+	
+	private int userNo;
+	
 	private String carType;
 	
 	private String carNo;
 	
 	private String about;
+
+	private String imageOri;
 	
-	private String photo;
+	private String imageRe;
+	
+	private String status;
 }

@@ -40,14 +40,14 @@
           특징 :<br />
         </div>
         <div class="driver-document__information">
-          <form action="" method="post" class="information">
+          <form action="${path}/driver/apply/enroll" method="post" class="information">
             <div>
               <h5 class="information__title">이름</h5>
               <input
                 type="text"
-                name=""
+                name="userName"
                 class="information__input"
-                value="(DB에서받아올이름)"
+                value="${loginMember.userName}"
                 readonly
               />
             </div>
@@ -55,9 +55,9 @@
               <h5 class="information__title">전화번호</h5>
               <input
                 type="text"
-                name=""
+                name="phone"
                 class="information__input"
-                value="(DB에서받아올전화번호)"
+                value="${loginMember.phone}"
                 readonly
               />
             </div>
@@ -65,7 +65,7 @@
               <h5 class="information__title">보유차종</h5>
               <input
                 type="text"
-                name=""
+                name="carType"
                 class="information__input"
                 placeholder="차종을 입력해주세요(K3,아반떼,소나타)"
               />
@@ -74,20 +74,22 @@
               <h5 class="information__title">차량번호</h5>
               <input
                 type="text"
-                name=""
+                name="carNo"
                 class="information__input"
                 placeholder="OOO가 OOOO형태로 입력해주세요."
               />
             </div>
             <div>
               <h5 class="information__title">자기<br>소개</h5>
-              <textarea name="" id="" cols="28" rows="10"></textarea>
+              <textarea name="about" id="" cols="28" rows="10"></textarea>
             </div>
             <div>
               <h5 class="information__title">프로필사진</h5>
-              <input type="file" name="" class="information__input file" />
+              <input type="file" name="photo" class="information__input file" />
             </div>
             <button type="submit" class="information_btn">제출하기</button>
+       		<input type="hidden" name="userNo"
+        	value="${loginMember.userNo}" readonly>
           </form>
         </div>
       </div>

@@ -45,7 +45,7 @@
           <span class="driver-photo__text"
             >반려동물을 목적지에 이동시켜주며 수입 창출이 가능합니다.<br />
           </span>
-          <a href="driverdocument.html" class="driver-btn">
+          <a href="${path}/driver/apply" class="driver-btn">
             <span class="driver-btn__text">드라이버 지원</span>
           </a>
         </div>

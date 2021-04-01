@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
-import com.petcab.work.user.model.vo.User;
+import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +57,7 @@ public class QuesController {
 	
 	@RequestMapping(value="/write", method={RequestMethod.POST})
 	public ModelAndView write(
-			@SessionAttribute(name="loginMember", required=false) User loginMember,
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request, Ques ques,
 			@RequestParam("upfile") ModelAndView model) {
 		
