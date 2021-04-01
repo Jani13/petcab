@@ -98,7 +98,7 @@
 			<h1>정보입력</h1>
 			<br />
 			<div>
-				<form action="" method="POST">
+				<form action="${path}/signup/Information" method="POST">
 					<div class="row">
 						<div class="col-md-3"></div>
 						<div class="col-md-6">
