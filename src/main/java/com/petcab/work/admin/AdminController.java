@@ -20,11 +20,13 @@ public class AdminController {
 
 		return "admin/adminMain";
 	}
+	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String infoMain() {
 
 		return "admin/adminUserInfoMain";
 	}
+	
 	@RequestMapping(value = "/info/driver", method = RequestMethod.GET)
 	public String infoDriver() {
 
