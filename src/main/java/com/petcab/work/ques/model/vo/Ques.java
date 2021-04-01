@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class Ques {
 	private int quesNo;
 	
+	private int userNo;
+	
 	private String title;
 	
 	private String content;

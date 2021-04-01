@@ -83,6 +83,7 @@
           <br><br><br>
 
           <hr>
+          <form action='${path}/ques/write' method="post">
             <table class="table">
                 <thead>
                   <tr>
@@ -102,11 +103,12 @@
                 <tbody>
                   <tr>
                     <th scope="row">* 작성자 *</th>
-                    <td><input type="text" id="title" class="form-control" placeholder="작성자 아이디를 입력하세요."></td>         
+                    <td><input type="text" id="userId" class="form-control" 
+                    				name="userId" value="${ loginMember.userId }" readonly></td>         
                   </tr>
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
-                    <td><input type="password" id="title" class="form-control" placeholder="비밀번호를 입력하세요."></td>
+                    <td><input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
@@ -134,6 +136,7 @@
                   </tr>
                 </tbody>
               </table>
+            </form>
         </div>
 
     </section>
