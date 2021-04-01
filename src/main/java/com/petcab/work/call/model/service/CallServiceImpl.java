@@ -15,19 +15,19 @@ public class CallServiceImpl implements CallService {
 	private CallDao callDao;
 
 	@Override
-	public int bookCall(Call call) {
+	public int insertCall(Call call) {
 		
 		return 0;
 	}
 
 	@Override
-	public int cancelCall(Call call) {
+	public int updateCall(Call call) {
 		
 		return 0;
 	}
 
 	@Override
-	public Call selectCallInfo(int callNo) {
+	public Call selectCall(int callNo) {
 		
 		return null;
 	}

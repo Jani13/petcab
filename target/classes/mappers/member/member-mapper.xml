@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="member">
+<mapper namespace="com.petcab.work.user.model.dao.MemberDao">
 	
 	<!-- 중복되는 쿼리문 작성 -->
 	<sql id="selectUserSql">

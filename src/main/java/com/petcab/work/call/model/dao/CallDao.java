@@ -7,9 +7,9 @@ import com.petcab.work.call.model.vo.Call;
 @Mapper
 public interface CallDao {
 	
-	int bookCall(Call call);
+	int insertCall(Call call);
 	
-	int cancelCall(Call call);
+	int updateCall(Call call);
 	
-	Call selectCallInfo(int callNo);
+	Call selectCall(int callNo);
 }
