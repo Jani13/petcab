@@ -18,7 +18,9 @@ public class Partner {
 	
 	private String openTime;
 	
-	private String image;
+	private String imageOri;
+	
+	private String imageRe;
 	
 	private String about;
 	

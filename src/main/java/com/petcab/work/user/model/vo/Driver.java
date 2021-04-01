@@ -14,5 +14,7 @@ public class Driver {
 	
 	private String about;
 	
-	private String photo;
+	private String imageOri;
+	
+	private String imageRe;
 }
