@@ -51,25 +51,27 @@
             </div>
 
             <br><br>
-
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <div class="form-floating mb-3">
-                        <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디">
-                        <label for="floatingInput">아이디</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
-                        <label for="floatingPassword">비밀번호</label>               
-                    </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >로그인</button>
-                    </div>
-                </div>
-                <div class="col-lg-4"></div>
-            </div>
+			
+			<form action="login" method="POST">
+	            <div class="row">
+	                <div class="col-lg-4"></div>
+	                <div class="col-lg-4">
+	                    <div class="form-floating mb-3">
+	                        <input type="text" class="form-control form-control-sm" id="floatingInput" name="userId" placeholder="아이디" required>
+	                        <label for="floatingInput">아이디</label>
+	                    </div>
+	                    <div class="form-floating">
+	                        <input type="password" class="form-control" id="floatingPassword" name="userPwd" placeholder="비밀번호" required>
+	                        <label for="floatingPassword">비밀번호</label>               
+	                    </div>
+	                    <br>
+	                    <div style="text-align: center;">
+	                        <button type="submit" class="btn btn-outline-info justify-content-center btn-sm" >로그인</button>
+	                    </div>
+	                </div>
+	                <div class="col-lg-4"></div>
+	            </div>
+			</form>
 
             <br>
             
