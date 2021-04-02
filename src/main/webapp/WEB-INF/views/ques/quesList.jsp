@@ -64,20 +64,21 @@
             <br><br><br>
 
             <div class="input" align="right">
-               	<c:if test="${loginMember != null}">
+               	
                     <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
+                <c:if test="${loginMember != null}">     
                     <button type="button" id="btn-add"
                     onclick="location.href ='${path}/ques/write'">글쓰기</button>
+                 <br><br>
+                    <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
+		                <div class="card-body">
+		                    자유롭게 작성 해주세요. <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
+		                </div>
+		            </div>
                </c:if>
             </div>
 
             <br>
-
-            <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
-                <div class="card-body">
-                    자유롭게 작성 해주세요. <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
-                </div>
-            </div>
        
             <table class="table">
                 <thead style="text-align: center;">
