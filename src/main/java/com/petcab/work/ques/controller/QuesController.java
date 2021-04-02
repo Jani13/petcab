@@ -43,23 +43,22 @@ public class QuesController {
 		
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
-		model.setViewName("ques/list");
+		model.setViewName("ques/quesList");
 		
 		return model;
 	}
 	
-	//컨트롤러 메소드의 리턴 타입이 void인 경우 Mapping URL을 유추해서 View를 찾는다. 
 	@RequestMapping(value="/write", method={RequestMethod.GET})
-	public void writeView() {
-//		public String writeView() {		
-//		return "/user/quesWrite";
+	public String writeView() {		
+		
+		return "/ques/quesWrite";
 	}
 	
 	@RequestMapping(value="/write", method={RequestMethod.POST})
 	public ModelAndView write(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request, Ques ques,
-			@RequestParam("upfile") ModelAndView model) {
+			 ModelAndView model) {
 		
 		int result = 0;
 		

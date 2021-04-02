@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의작성</title>
     
-    <script src="../../../resources/se2/js/service/HuskyEZCreator.js"></script>
+    <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
@@ -147,7 +147,7 @@
       nhn.husky.EZCreator.createInIFrame({
        oAppRef: oEditors,
        elPlaceHolder: "ir1",
-       sSkinURI: "../../../resources/se2/SmartEditor2Skin.html",
+       sSkinURI: "${ path }/se2/SmartEditor2Skin.html",
        htParams : {
         bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
         bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
