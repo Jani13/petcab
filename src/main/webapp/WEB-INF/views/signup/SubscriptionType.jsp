@@ -34,11 +34,24 @@
             integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
             crossorigin="anonymous"
         ></script>
+        <link 
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+		integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+		crossorigin="anonymous">
         
     <script src="${path}/js/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
     <link rel="stylesheet" href="${path }/css/signupdog.css" />
+	<style>
+        .userType {
+            height: 350px;
+            background-color: white;
+        }
 
+        .userType:hover {
+            background-color: seashell;
+        }
+    </style>
     </head>
     <body>
 	  <jsp:include page="../common/header.jsp" />
@@ -113,55 +126,97 @@
                 <br />
                 <h1>가입유형 선택</h1>
                 <br />
-                
-                <form action="${path}/signup/Information" method="POST">
-                <div class="row row-cols-1 row-cols-md-2">
-                    <div class="col mb-4">
-                      <div class="card">
-                      	<!-- 4/1 작업중이었음. -->
-                      	<input type="hidden" id="userType">
-                        <img src="${path}/images/nb1.png" style="width: 50px;" alt="">
-                        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                        	<img src="${path}/images/five.png"  alt="...">
-                        </div>
-                        <div class="card-body">
-                          	<h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">데려다줄개 회원가입</h5><br>
-                          	<p class="card-text" style="text-align: center;">데려다줄개 회원으로 가입합니다. <br> 회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
-                        <br>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card"> 
-                        <img src="${path}/images/nb2.png" style="width: 50px;" alt="">
-                        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="${path}/images/six.png"  alt="...">
-                          </div>
-                        <div class="card-body">
-                          
-                          <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">드라이버 지원</h5><br>
-                          <p class="card-text" style="text-align: center;">회원가입 후 데려다줄개 드라이버 지원을 하실수 있습니다. <br>회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
-                          <br>  
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                        <img src="${path }/images/nb3.png" style="width: 50px;" alt="">
-                        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; ">
-                            <img src="${path }/images/seven.png"  alt="...">
-                          </div>
-                        <div class="card-body">
-                          <h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">제휴업체</h5><br>
-                          <p class="card-text" style="text-align: center;">회원가입 후 데려다줄개 제휴업체 파트너가 되어주세요.<br>파트너 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
-                          <br>  
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-            </div>
+           		<!-- <div class="container">
+			        <div class="row d-flex p-5">
+			            <div class="col-6 p-4 text-center">
+			                <a href="Information.jsp?userType='ROLE_MEMBER'" class="row d-flex justify-content-center 
+			                text-decoration-none text-dark userType" style="border: 1px ridge;">
+			                    <i class="col-12 far fa-user fa-4x my-5"></i>
+			                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 일반회원가입</p>
+			                    <p class="col-12"> 
+			                        데려다줄개 회원으로 가입됩니다. <br> 
+			                        회원자격을 유지하는 동안 <br>
+			                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+			                    </p>
+			                </a>
+			            </div>
+			            <div class="col-6 p-4 text-center">
+			                <a href="Information.jsp?userType='ROLE_DRIVER" class="row d-flex justify-content-center 
+			                text-decoration-none text-dark userType" style="border: 1px ridge;">
+			                    <i class="col-12 fas fa-car fa-4x my-5"></i>
+			                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 드라이버 회원가입</p>
+			                    <p class="col-12"> 
+			                        회원가입 후 데려다줄개 드라이버 지원을 하실수 있습니다.<br> 
+			                        회원자격을 유지하는 동안 <br> 
+			                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+			                    </p>
+			                </a>
+			            </div>
+			            <div class="col-6 p-4 text-center">
+			                <a href="Information.jsp?userType='ROLE_PARTNER'" class="row d-flex justify-content-center 
+			                text-decoration-none text-dark userType" style="border: 1px ridge;">
+			                    <i class="col-12 far fa-handshake fa-4x my-5"></i>
+			                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 제휴업체 회원가입</p>
+			                    <p class="col-12"> 
+			                        회원가입 후 데려다줄개 제휴업체 파트너가 되어주세요.<br> 
+			                        회원자격을 유지하는 동안 <br>
+			                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+			                    </p>
+			                </a>    
+			            </div>
+			        </div>            
+		    	</div>  -->
+                	
+                   <!-- <div class="container"> -->
+				        <div class="row d-flex p-5">
+				            <div class="col-md-6 p-4">
+				                <form action="Information" method="get">
+					                <button type="submit" class="row d-flex justify-content-center userType" 
+					                		onclick="location.href='${path}/singup/Information'">
+					                		
+					                    <i class="col-12 far fa-user fa-4x my-5"></i>
+					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 일반회원가입</p>
+					                    <p class="col-12"> 
+					                        데려다줄개 회원으로 가입됩니다. <br> 
+					                        회원자격을 유지하는 동안 <br>
+					                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+					                    </p>
+					                </button>
+				                </form>
+				            </div>
+				            <div class="col-md-6 p-4">
+				            	<form action="Information" method="get">
+					                <button type="submit" class="row d-flex justify-content-center userType" 
+					                		onclick="location.href='${path}/singup/Information'">
+					                		
+					                    <i class="col-12 fas fa-car fa-4x my-5"></i>
+					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 드라이버 회원가입</p>
+					                    <p class="col-12"> 
+					                        회원가입 후 데려다줄개 드라이버 지원을 하실수 있습니다.<br> 
+					                        회원자격을 유지하는 동안 <br> 
+					                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+					                    </p>
+					                </button>
+				            	</form>
+				            </div>
+				            <div class="col-md-6 p-4">
+				        		<form action="Information" method="get">
+					                <button type="submit" class="row d-flex justify-content-center userType" 
+					                		onclick="location.href='${path}/singup/Information'">
+					                		
+					                    <i class="col-12 far fa-handshake fa-4x my-5"></i>
+					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 제휴업체 회원가입</p>
+					                    <p class="col-12"> 
+					                        회원가입 후 데려다줄개 제휴업체 파트너가 되어주세요.<br> 
+					                        회원자격을 유지하는 동안 <br>
+					                        개인정보는 별도의 개인정보처리시스템에 저장됩니다.
+					                    </p>
+					                </button>    
+				               </form>
+				            </div>
+				        </div>            
+	    			</div> 
+            <!-- </div> -->
         </section>
   <jsp:include page="../common/footer.jsp" />
     </body>

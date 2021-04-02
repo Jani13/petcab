@@ -29,27 +29,28 @@
 <body>
    
     <br><br>
-    
-    <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <h4 class="text-center">아이디 찾기</h4>
-            <br>
-            <div class="form-floating mb-3">
-                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="이름">
-                <label for="floatingInput">이름</label>
-            </div>
-            <div class="form-floating">
-                <input type="phone" class="form-control" id="floatingPhone" placeholder="전화번호">
-                <label for="floatingPhone">전화번호</label>               
-            </div>
-            <br>
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
-            </div>
-        </div>
-        <div class="col-lg-4"></div>
-    </div>
+    <form action="">
+	    <div class="row">
+	        <div class="col-lg-4"></div>
+	        <div class="col-lg-4">
+	            <h4 class="text-center">아이디 찾기</h4>
+	            <br>
+	            <div class="form-floating mb-3">
+	                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="이름">
+	                <label for="floatingInput">이름</label>
+	            </div>
+	            <div class="form-floating">
+	                <input type="phone" class="form-control" id="floatingPhone" placeholder="전화번호">
+	                <label for="floatingPhone">전화번호</label>               
+	            </div>
+	            <br>
+	            <div style="text-align: center;">
+	                <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
+	            </div>
+	        </div>
+	        <div class="col-lg-4"></div>
+	    </div>
+    </form>
 
     <br>
 
