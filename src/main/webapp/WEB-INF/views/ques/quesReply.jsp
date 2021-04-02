@@ -54,13 +54,15 @@
 
             <div class="card" style="width: 18rem; margin-left: 100px;" >
                 <div class="card-header">
-                <h4>board.getBoardTitle() </h4>
+                <h4>${ques.title}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item"> board.getUserId() </li>
-                <li class="list-group-item">비밀 문의글입니다.</li>
-                <li class="list-group-item">get.날짜</li>
-                <li class="list-group-item">get.조회</li>
+	                <li class="list-group-item">${ member.userId }</li>
+	             
+	                <li class="list-group-item">비밀 문의글입니다.</li>
+
+	                <li class="list-group-item">${ques.postDate}</li>
+	                <li class="list-group-item">${ques.viewNo}</li>
                 </ul>
             </div>
 
@@ -68,7 +70,7 @@
 
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">Comments</label>
+                <label for="floatingTextarea2">${ques.content}</label>
             </div>
             
             <div style="text-align : center; padding: 30px;">
@@ -91,14 +93,16 @@
             <br>
             <div class="form-floating mb-3" style="width: 400px;">
                 <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디">
-                <label for="floatingInput">아이디</label>
+                <label for="floatingInput">${ loginMember.userId }</label>
             </div>
             <div class="form-floating">
-                <input type="hidden" name="boardNo" value="">
-	    		<input type="hidden" name="writer" value="">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">Comments</label>
-                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
+            	<form action="${ path }/board/reply" method="post">
+	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
+		    		<input type="hidden" name="writer" value="">
+	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
+	                <label for="floatingTextarea2">Comments</label>
+	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
+            	</form>
             </div>
             <br>
             <table class="table">
