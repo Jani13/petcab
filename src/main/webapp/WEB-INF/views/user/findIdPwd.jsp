@@ -38,12 +38,11 @@
             <br><br>
             <h3 class="ft">아이디 / 비밀번호 찾기</h3>
             <br><br>
-            <form action="" method="POST">
-                <div>
+            <form action="${path}/user/successFindId" method="POST">
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <h5>아이디 찾기</h5>
+                            <h5 class="fw-bolder">아이디 찾기</h5>
                             <br>
 
                             <table class="table table-borderless"
@@ -53,7 +52,7 @@
                                     <td>
                                         <div class="input-group mb-2">
                                             <input type="text" class="form-control" placeholder="이름을 입력해주세요."
-                                                aria-describedby="button-addon2" required>
+                                                aria-describedby="button-addon2" name="userName" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -125,17 +124,17 @@
                                         </div>
                                         <div class="input-group mb-2">
                                             <input type="tel" class="form-control" placeholder="'-' 빼고 입력해주세요.">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">인증번호 받기</button>
+                                            <!-- <button class="btn btn-outline-secondary" type="button"
+                                                id="button-addon2">인증번호 받기</button> -->
                                         </div>
-                                        <div class="input-group mb-1">
+                                        <!-- <div class="input-group mb-1">
                                             <input type="text" class="form-control" placeholder="인증번호 입력">
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>                         
                             </table>
                             <div style="text-align: right;">
-                                <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
+                                <button type="submit" id="idSearchBtn" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
                             </div>
                         </div>
                         <div class="col-md-3"></div>   
@@ -146,11 +145,10 @@
             <br>
 
             <form action="" method="POST">
-                <div>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <h5>비밀번호 찾기</h5>
+                            <h5 class="fw-bolder">비밀번호 찾기</h5>
                             <br>
 
                             <table class="table table-borderless"
@@ -241,12 +239,12 @@
                                         </div>
                                         <div class="input-group mb-2">
                                             <input type="tel" class="form-control" placeholder="'-' 빼고 입력해주세요.">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">인증번호 받기</button>
+                                            <!-- <button class="btn btn-outline-secondary" type="button"
+                                                id="button-addon2">인증번호 받기</button> -->
                                         </div>
-                                        <div class="input-group mb-1">
+                                        <!-- <div class="input-group mb-1">
                                             <input type="text" class="form-control" placeholder="인증번호 입력">
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr>                         
                             </table>
@@ -260,6 +258,7 @@
         </div>
         <br><br>
     </section>
+    
     <jsp:include page="../common/footer.jsp" />
 
 </body>

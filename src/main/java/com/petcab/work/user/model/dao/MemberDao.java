@@ -15,4 +15,6 @@ public interface MemberDao {
 	int updateMember(Member member);
 	
 	int deleteMember(@Param("id") String id);
+
+	String searchId(@Param("userName")String userName,@Param("phone")String phone);
 }

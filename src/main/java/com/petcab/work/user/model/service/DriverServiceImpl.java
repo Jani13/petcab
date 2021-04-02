@@ -25,4 +25,9 @@ public class DriverServiceImpl implements DriverService {
 		return result;
 	}
 
+	@Override
+	public Driver selectDriver(int userNo) {
+		return driverDao.selectDriver(userNo);
+	}
+
 }
