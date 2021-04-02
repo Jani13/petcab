@@ -1,11 +1,15 @@
 package com.petcab.work.user.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +26,13 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	//login
+	@RequestMapping("/login")
+	public String loginView() {
+		
+		return "user/login";
+	}
 	
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
@@ -43,14 +54,8 @@ public class MemberController {
 		
 		return model;
 	}
-	
-	@RequestMapping("/login")
-	public String loginView() {
-		
-		return "user/login";
-	}
-	
 
+	//logout
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status) {
 		
@@ -59,6 +64,8 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	
+	//enroll
 	@RequestMapping("/signup/agreement")
 	public String agreementView() {
 		
@@ -71,6 +78,11 @@ public class MemberController {
 		return "signup/SubscriptionType";
 	}
 	
+	@RequestMapping("/signup/Join")
+	public String joinCompleteView() {
+		
+		return "signup/Join";
+	}
 	
 	@RequestMapping(value = "signup/Information" , method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
@@ -80,7 +92,7 @@ public class MemberController {
 		if(result > 0) {
 			
 			model.addObject("msg", "회원가입이 완료되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/signup/Join");
 		} else {
 			model.addObject("msg", "회원가입에 실패하였습니다.");
 			model.addObject("location", "/signup/Information");
@@ -91,10 +103,54 @@ public class MemberController {
 		return model;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/member/idCheck")
+	public Object idCheck(@RequestParam("id")String userId) {
+		log.info("UserId : {}", userId);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("validate", service.validate(userId));
+
+		return map;
+	}
+	
+	//findId
+	@RequestMapping("/user/findIdPwd")
+	public String findIdPwdView() {
+		return "user/findIdPwd";
+	}
+	
+	@RequestMapping("/user/successFindId")
+	public String sucessFindIdView() {
+		return "user/successFindId";
+	}
+	
+	@RequestMapping(value="/user/findId")
+	public ModelAndView userIdSearch(ModelAndView model,@RequestParam("userName") String userName,
+			@RequestParam("phone") String phone) {
+		
+		String result = service.searchId(userName, phone);
+		
+		if(result != null) {
+			
+			model.addObject("location", "/user/successFindId");
+		} else {
+			model.addObject("msg", "회원정보를 확인해주세요!");
+			model.addObject("location", "/user/findId");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
+	//userMyPage
 	@RequestMapping("/user/userMyPage")
 	public String userMyPageView() {
 		return "user/userMypage";
 	}
+	
 	
 	
 }

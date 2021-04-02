@@ -495,6 +495,8 @@ CREATE SEQUENCE SEQ_REVIEW_GROUP_NO;
 CREATE SEQUENCE SEQ_QUES_GROUP_NO;
 
 ALTER TABLE MEMBER MODIFY USER_PWD VARCHAR2(100);
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+ALTER TABLE MEMBER MODIFY USER_TYPE VARCHAR2(20) DEFAULT 'ROLE_MEMBER';
+--------------------------------------------------------------------------------
 

@@ -111,7 +111,7 @@
                   </tr>
                   <tr>
                     <th scope="row">* 평점 *</th>
-                    <td>Jacob</td>
+                    <td><input type="number" id="starNo" class="form-control"></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>

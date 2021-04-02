@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.admin.AdminController;
@@ -29,9 +30,29 @@ public class DriverController {
 		return "driver/driverApply";
 	}
 	@RequestMapping(value = "/apply", method = RequestMethod.GET)
-	public String dirverDocument() {
-		
-		return "driver/driverDocument";
+	public ModelAndView dirverDocument(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
+		log.info(loginMember.toString());
+		Driver driver = service.selectDriver(loginMember.getUserNo());
+
+		if (driver != null) {
+			if(driver.getStatus().equals("W")) {
+				model.addObject("msg", "승인 대기 중인 회원입니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");	
+			}else if(driver.getStatus().equals("N")){
+				model.addObject("msg", "승인 거절된 드라이버 회원입니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");
+			}else {	
+				model.addObject("msg", "이미 드라이버 회원입니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");
+			}
+		} else { 
+			model.setViewName("driver/driverDocument");
+		}
+		return model;
 	}
 	
 	@RequestMapping(value = "/apply/enroll", method = {RequestMethod.POST})

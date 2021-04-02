@@ -62,8 +62,7 @@
 	                        <input type="password" class="form-control" id="floatingPassword" name="userPwd" placeholder="비밀번호" required>
 	                        <label for="floatingPassword">비밀번호</label>  
 	                        <div class="d-flex justify-content-end p-2 ">
-	                        	<a href="" class="mx-2 text-dark">아이디찾기</a>
-	                        	<a href="" class="text-dark">비밀번호찾기</a>
+	                        	<a href="${path}/user/findIdPwd" class="mx-2 text-dark">아이디찾기 &#38; 비밀번호찾기</a>
 	                        </div>          
 	                    </div>
             			

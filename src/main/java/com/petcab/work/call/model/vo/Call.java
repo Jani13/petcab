@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 @Component
 public class Call {
 	private int callNo;
+		
+	private String pickupTime;
 	
-	private Date time;
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH a z")
+//	@Temporal(TemporalType.DATE)
+//	private Date pickupTime;
 	
 	private String fromWhere;
 	
