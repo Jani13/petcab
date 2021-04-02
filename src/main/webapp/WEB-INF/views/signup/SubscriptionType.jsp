@@ -126,7 +126,7 @@
                         </div>
                         <div class="card-body">
                           	<h5 class="card-title" style="display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 20px;">데려다줄개 회원가입</h5><br>
-                          	<p class="card-text" style="text-align: center;"> 회원으로 가입하시면 데려다줄개 회원으로 가입됩니다. <br> 회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
+                          	<p class="card-text" style="text-align: center;">데려다줄개 회원으로 가입합니다. <br> 회원자격을 유지하는 동안 개인정보는 별도의 개인정보처리시스템에 저장됩니다.</p>
                         <br>
                         </div>
                       </div>

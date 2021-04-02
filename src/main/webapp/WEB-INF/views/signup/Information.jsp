@@ -126,7 +126,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th>재확인</th>
+									<th>비밀번호확인</th>
 									<td>
 										<div class="input-group mb-2">
 											<input type="password" class="form-control"
