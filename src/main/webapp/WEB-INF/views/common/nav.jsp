@@ -47,7 +47,13 @@
       </li>
       
       <c:if test="${loginMember  == null}">
-      <li class="nav-item" style="margin-left: 30px;">
+      <li class="nav-item">
+        <a class="nav-link text-black" href="">리뷰공간</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-black" href="">문의하기</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link text-black" href="${path}/signup/agreement">회원가입</a>
       </li>
       <li class="nav-item">
