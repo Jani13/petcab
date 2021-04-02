@@ -33,9 +33,9 @@
 		<include refid="selectDriverSql"></include>
 	</select>
 	
-	<select id="selectDriver" parameterType="string" resultMap="DriverResultMap">
+	<select id="selectDriver" parameterType="_int" resultMap="DriverResultMap">
 		<include refid="selectDriverSql"></include>
-		AND USER_NO = #{userNo}
+		WHERE USER_NO = #{userNo}
 	</select>
 	
 	<insert id="insertDriver" parameterType="Driver"
