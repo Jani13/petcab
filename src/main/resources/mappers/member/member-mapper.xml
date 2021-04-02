@@ -72,11 +72,11 @@
 		     #{userPwd},
 		     #{postCode},
 		     #{address},
-		     #{phone},
+		     #{phone}, 
 		     SYSDATE,
 		     SYSDATE,		      	
 		     DEFAULT,
-		     #{userType}
+		     DEFAULT
 		 )
 	</insert>
 	
@@ -97,4 +97,11 @@
 		WHERE
 			USER_ID = #{id}
 	</delete>
+	
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT USER_ID
+		FROM MEMBER
+		WHERE USER_NAME = #{userName}
+		AND PHONE = #{phone}
+	</select>
 </mapper>

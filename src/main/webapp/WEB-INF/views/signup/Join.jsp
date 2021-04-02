@@ -104,7 +104,9 @@
                 <br>
                   <div style="text-align:center;">
                     <button type="button" class="btn btn-outline-info" style="margin-right: 200px;">유형 보기</button>
-                    <button type="button" class="btn btn-outline-info" style="margin-left: 200px;" >시작 하기</button>
+                    <button type="button" class="btn btn-outline-info" 
+                    		onclick="location.href='${path}/login'"
+                    		style="margin-left: 200px;" >시작 하기</button>
                   </div>
             </form>
             <br>
