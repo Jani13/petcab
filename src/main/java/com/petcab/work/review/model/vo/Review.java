@@ -33,4 +33,8 @@ public class Review {
 	private int viewNo;
 	
 	private String status;
+	
+	private int userNo;
+	
+	private int callNo;
 }

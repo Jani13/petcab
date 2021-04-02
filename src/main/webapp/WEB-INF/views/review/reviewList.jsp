@@ -62,11 +62,11 @@
             <br><br><br>
 
             <div class="input" align="right">
-                
+                <c:if test="${ loginMember != null }">
                     <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
                     <button type="button" id="btn-add"
-                    onclick="location.href =''">글쓰기</button>
-              
+                    onclick="location.href ='${path}/review/reviewWrite'">글쓰기</button>
+                </c:if>
             </div>
 
             <br>
@@ -90,25 +90,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+                  <c:if test="${list == null}">
                     <tr>
                         <td colspan="7">
                             조회된 게시글이 없습니다.
                         </td>
                     </tr>			
-                                      
-                    <tr>
-                        <td></td>
-                        <td>
-                            
-                        </td>
-                        <td></td>
-                        <td>@mdo</td>
-                        <td></td>
-                        <td>@mdo</td>
-                        <td></td>
-                    </tr>                  
-                                
+                  </c:if>                 
+                    <c:if test="${list != null}">
+						<c:forEach var="review" items="${list}">
+		                    <tr>
+		                        <td><c:out value="${review.reviewNo}"/></td>
+		                        <td>
+		                        	<a href="${path}/review/reply?reviewNo=${review.reviewNo}">
+										<c:out value="${review.title}"/>
+									</a>
+		                        </td>
+		                        <td><c:out value="${loginMember.userId }"/></td>
+		                        <td><c:out value="${review.starNo}"/></td>
+		                        <td><fmt:formatDate type="both" value="${review.postDate}"/></td>
+		                        <td><c:out value="${review.callType}"/></td>
+		                        <td><c:out value="${review.viewNo}"/></td>
+		                    </tr>                  
+	                 	</c:forEach>
+					</c:if>        
                 </tbody>
             </table>
         
@@ -117,23 +122,26 @@
 
             <div class="pagination" style="display: flex; justify-content: center;">
                 <!-- 맨 처음으로 -->
-                <button onclick="location.href=''">&lt;&lt;</button>
-                    
-                <!-- 이전 페이지로 -->
-                <button onclick="location.href=''">&lt;</button>
-
-                <!--  10개 페이지 목록 -->
-              
-                        <button disabled></button>
-                   
-                        <button onclick="location.href=''"></button>
-                  
-                
-                <!-- 다음 페이지로 -->
-                <button onclick="location.href=''">&gt;</button>
-                
-                <!-- 맨 끝으로 -->
-                <button onclick="location.href=''">&gt;&gt;</button>
+				<button onclick="location.href='${path}/ques/list?page=1'">&lt;&lt;</button>
+				
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${path}/ques/list?page=${pageInfo.prvePage}'">&lt;</button>
+	
+				<!--  10개 페이지 목록 -->
+				<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+					<c:if test="${status.current == pageInfo.currentPage}">
+						<button disabled><c:out value="${status.current}"/></button>
+	   				</c:if>
+					<c:if test="${status.current != pageInfo.currentPage}">
+						<button onclick="location.href='${path}/ques/list?page=${status.current}'"><c:out value="${status.current}"/></button>
+	   				</c:if>
+				</c:forEach>
+				
+				<!-- 다음 페이지로 -->
+				<button onclick="location.href='${path}/ques/list?page=${pageInfo.nextPage}'">&gt;</button>
+				
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${path}/ques/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
 
             </div>
             <br><br>

@@ -6,6 +6,7 @@ import com.petcab.work.user.model.vo.Member;
 public interface DriverService {
 
 	int saveDriver(Driver driver);
-
+	
+	Driver selectDriver(int userNo);
 
 }
