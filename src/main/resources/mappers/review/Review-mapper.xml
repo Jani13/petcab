@@ -32,7 +32,7 @@
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
-	<select id="selectReviewList" parameterType="map" resultMap="reivewResultMap">
+	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
 		<include refid="ReviewListSql"></include>
 		ORDER BY R.REVIEW_NO DESC
 	</select>
