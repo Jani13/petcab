@@ -21,6 +21,7 @@ public class DogController {
 			
 			return"/signup/Information";
 		}
+		
 		@RequestMapping(value ="dog/dogInformation", method = {RequestMethod.GET,RequestMethod.POST})
 		public String dogInformation(@ModelAttribute Dog dog) {
 			
