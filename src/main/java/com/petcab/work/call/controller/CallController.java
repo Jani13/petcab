@@ -1,13 +1,16 @@
 package com.petcab.work.call.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,58 +30,53 @@ import lombok.extern.slf4j.Slf4j;
 public class CallController {
 	@Autowired
 	private CallService service;
-		
+
 	// 일반예약 신청
-//	@RequestMapping(value = "/book", method = {RequestMethod.POST})
-//	public String bookCall(
-//		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-//		HttpServletRequest request, Call call, ModelAndView model) {
-//		
-//		String[] names = {"meeting-time", "where-from", "where-to", 
-//				"est-cost", "with-owner", "to-driver"};
-//		// 애견정보 추가 필요
-//		
-//		for (String name : names) {
-//			model.addAttribute(name);
-//		}
-//		
-//		service.insertCall(call);
-//		
-//		return "call/book_gn";
-//	}
-	
-	@RequestMapping(value = "/book", method = {RequestMethod.POST})
-	public String bookCall(
-		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-		HttpServletRequest request, Call call, ModelAndView model) {
-		
-		String[] names = {"meeting-time", "where-from", "where-to", 
-				"est-cost", "with-owner", "to-driver"};
-		// 애견정보 추가 필요
-		
-		for (String name : names) {
-			model.addAttribute(name);
-		}
-		
-		service.insertCall(call);
-		
-		return "call/book_gn";
-	}
-	
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public String bookCall() {
+	public String book() {
 
 		return "call/book_gn";
 	}
-	
+
+	@RequestMapping(value = "/book", method = {RequestMethod.POST})
+	public ModelAndView book(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			HttpServletRequest request, 
+			@ModelAttribute Call call, ModelAndView model) {
+		// 애견정보 추가 필요
+		
+		// ......
+
+		log.info(call.toString());
+		
+		int result = service.insertCall(call); // 서비스등록
+
+		if(result > 0) {
+			model.addObject(call);
+		} else {
+			// 서비스등록 실패
+		}
+
+		model.setViewName("call/book?callNo=" + call.getCallNo()); // 신청완료 화면으로
+
+		return model;
+	}	
+
+	@RequestMapping(value = "/book?callNo={callNo}", method = RequestMethod.GET)
+	//	public String callDone(@RequestParam int callNo) {
+	public String callDone(@PathVariable int callNo) {
+
+		log.info("callNo : {}" , callNo);
+
+		return "call/book_gn_done";
+	}
+
 	// 일반예약 취소
 	@RequestMapping(value = "/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, Call call, ModelAndView model) {
-		
-		
-		
+
 		return model;
 	}
 
@@ -86,13 +84,11 @@ public class CallController {
 	@RequestMapping(value = "/view", method = { RequestMethod.GET })
 	public ModelAndView view(@RequestParam("callNo") int callNo, ModelAndView model) {
 		Call call = service.selectCall(callNo);
-		
-		
-		
+
 		model.addObject("call", call);
 		model.setViewName("call/view");
-		
+
 		return model;
 	}
-	
+
 }
