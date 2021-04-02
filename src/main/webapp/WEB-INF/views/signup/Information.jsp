@@ -6,6 +6,11 @@
 
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
+<% 
+	request.setCharacterEncoding("UTF-8");
+	String userType = request.getParameter("userType");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,6 +104,7 @@
 			<br />
 			<div>
 				<form action="${path}/signup/Information" method="POST">
+					
 					<div class="row">
 						<div class="col-md-3"></div>
 						<div class="col-md-6">
@@ -108,7 +114,7 @@
 									<th style="width: 130px;">아이디</th>
 									<td>
 										<div class="input-group mb-2">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="newId" name="userId"
 												placeholder="아이디 입력해주세요." aria-describedby="button-addon2"
 												required>
 											<button class="btn btn-outline-secondary" type="button"
@@ -120,7 +126,7 @@
 									<th>비밀번호</th>
 									<td>
 										<div class="input-group mb-2">
-											<input type="password" class="form-control"
+											<input type="password" name="userPwd" class="form-control" id="pass1"
 												placeholder="비밀번호 입력해주세요.">
 										</div>
 									</td>
@@ -129,7 +135,7 @@
 									<th>비밀번호확인</th>
 									<td>
 										<div class="input-group mb-2">
-											<input type="password" class="form-control"
+											<input type="password" class="form-control" id="pass2"
 												placeholder="비밀번호 입력해주세요.">
 										</div>
 									</td>
@@ -138,8 +144,8 @@
 									<th style="width: 130px;">이름</th>
 									<td>
 										<div class="input-group mb-2">
-											<input type="text" class="form-control"
-												placeholder="이름 입력해주세요.">
+											<input type="text" class="form-control" id="newName" name="userName"
+												placeholder="이름을 입력해주세요.">
 										</div>
 									</td>
 								</tr>
@@ -212,20 +218,20 @@
 										</div>
 										<div class="input-group mb-2">
 											<input type="tel" class="form-control"
-												placeholder="'-' 빼고 입력해주세요.">
-											<button class="btn btn-outline-secondary" type="button"
-												id="button-addon2">인증번호 받기</button>
+												placeholder="'-' 빼고 입력해주세요." id="newPhone" name="phone">
+											<!-- <button class="btn btn-outline-secondary" type="button"
+												id="button-addon2">인증번호 받기</button> -->
 										</div>
-										<div class="input-group mb-1">
+										<!-- <div class="input-group mb-1">
 											<input type="text" class="form-control" placeholder="인증번호 입력">
-										</div>
+										</div> -->
 									</td>
 								</tr>
 								<tr>
 									<th>주소</th>
 									<td>
 										<div class="input-group mb-2">
-											<input type="text" class="form-control" name="postalAddr"
+											<input type="text" class="form-control postalAddr" name="postCode"
 												id="postalAddr" placeholder="우편번호"
 												aria-label="Recipient's username"
 												aria-describedby="basic-addon2">
@@ -234,23 +240,21 @@
 												검색</button>
 										</div>
 										<div class="input-group mb-1">
-											<input type="text" class="form-control" name="addr1"
+											<input type="text" class="form-control addr1" name="address"
 												id="addr1" placeholder="주소">
 										</div> <!-- 동이름 / 빌딩이름 등이 나온다 -->
 										<div class="row">
 											<div class="col-md-7" style="height: 42px;">
-												<input type="text" class="form-control" name="addr2"
+												<input type="text" class="form-control addr2" name="address"
 													id="addr2" placeholder="상세주소">
 											</div>
 											<div class="col-md-5">
-												<input type="text" class="form-control" name="addr3"
+												<input type="text" class="form-control addr3" name="address"
 													id="addr3" placeholder="참고항목" readonly>
 											</div>
 										</div>
 									</td>
 								</tr>
-
-
 							</table>
 						</div>
 
@@ -265,8 +269,8 @@
 							<div style="text-align: center;">
 								<button type="button" class="btn btn-outline-info"
 									style="margin-right: 200px;">애완견 등록</button>
-								<button type="button" class="btn btn-outline-info"
-									style="margin-left: 200px;">확인</button>
+								<input type="submit" class="btn btn-outline-info" id="enrollSubmit"
+									value="가입하기" style="margin-left: 200px;"/>
 							</div>
 						</div>
 					</div>
@@ -312,19 +316,101 @@
 									extraAddr = ' (' + extraAddr + ')';
 								}
 								// 조합된 참고항목을 해당 필드에 넣는다.
-								document.getElementById("addr3").value = extraAddr;
+								document.querySelector(".addr3").value = extraAddr;
 
 							} else {
-								document.getElementById("addr3").value = '';
+								document.querySelector(".addr3").value = '';
 							}
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('postalAddr').value = data.zonecode;
-							document.getElementById("addr1").value = addr;
+							document.querySelector(".postalAddr").value = data.zonecode;
+							document.querySelector(".addr1").value = addr;
 							// 커서를 상세주소 필드로 이동한다.
-							document.getElementById("addr2").focus();
+							document.querySelector(".addr2").focus();
 						}
 					}).open();
 		}
+		
+		$(document).ready(() => {
+		      $("#pass2").blur((e) => {
+		         let pass1 = $("#pass1").val();
+		         let pass2 = $(e.target).val();
+		         if(pass1.trim() != pass2.trim()){
+		            alert("비밀번호가 일치하지 않습니다.");
+		            $("#pass1").val("");
+		            $(e.target).val("");
+		            $("#pass1").focus();
+		         }
+		      });      
+		      
+		      $("#enrollSubmit").on("click", () => {
+		         var id = $("#newId").val();
+		         var pass1 = $("#pass1").val();
+		         var pass2 = $("#pass2").val();
+		         var name = $("#newName").val();
+		         var phone = $("#newPhone").val();
+		         var addr = $("#addr2").val();
+		         
+		         if(id.length == 0) {
+		        	 alert("아이디를 입력해 주세요");
+		        	 $("#newId").focus();
+		        	 return false;
+		         }
+		         if(pass1.length == 0) {
+		        	 alert("비밀번호를 입력해 주세요");
+		        	 $("#pass1").focus();
+		        	 return false;
+		         }
+		         if(pass2.length == 0) {
+		        	 alert("비밀번호 확인을 입력해 주세요.");
+		        	 $("#pass2").focus();
+		        	 return false;
+		         }
+		         if(name.length == 0) {
+		        	 alert("이름을 입력해주세요");
+		        	 $("#newName").focus();
+		        	 return false;
+		         }
+		         if(phone.length == 0) {
+		        	 alert("전화번호를 입력해주세요");
+		        	 $("#newPhone").focus();
+		        	 return false;
+		         }
+		         if(addr.length == 0) {
+		        	 alert("전화번호를 입력해주세요");
+		        	 $("#addr2").focus();
+		        	 return false;
+		         }
+		         //return false;
+		      });
+		      
+		      // 아이디 중복을 확인 처리 콜백함수
+		      $("#button-addon2").on("click", () => {
+		    	  let id = $("#newId").val().trim();
+		    	  
+		          $.ajax({
+		        	  type: "get",
+		        	  url: "${path}/member/idCheck",
+		        	  dataType: "json",
+		        	  data: {
+		        		  id
+		        	  },
+		        	  success: function(data) {
+		        		  console.log(data);
+		        		  
+		        		  if(data.validate !== true) {
+		        			  alert("사용 가능한 아이디 입니다.")
+		        		  } else {
+		        			  alert("이미 사용중인 아이디 입니다.")        			  
+		        		  }
+		        	  },
+		        	  
+		        	  error: function(e) {
+		        		  console.log(e);
+		        	  }
+		       	  });
+		       });
+		   	});
+		
 	</script>
 </body>
 
