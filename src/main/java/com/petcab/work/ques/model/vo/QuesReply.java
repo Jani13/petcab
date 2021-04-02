@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QReply {
+public class QuesReply {
+	private int quesNo;
+	
 	private String content;
 	
 	private Date postDate;
 	
 	private Date editDate;
+	
+	private int userNo;
 }

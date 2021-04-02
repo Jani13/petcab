@@ -81,8 +81,6 @@ public class QuesController {
 			model.addObject("location", "/");
 		}
 		
-		
-
 //		model.setViewName("ques/write");
 		model.setViewName("common/msg");
 		
@@ -90,4 +88,14 @@ public class QuesController {
 		
 	}
 
+	@RequestMapping(value = "/view", method = {RequestMethod.GET})
+	public ModelAndView view(@RequestParam("quesNo") int quesNo, ModelAndView model) {
+		
+		Ques ques = service.findQuesByNo(quesNo);
+		
+		model.addObject("ques", ques);
+		model.setViewName("ques/quesView");
+		
+		return model;
+	}
 }

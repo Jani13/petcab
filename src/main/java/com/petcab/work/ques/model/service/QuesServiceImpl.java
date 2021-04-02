@@ -49,4 +49,11 @@ public class QuesServiceImpl implements QuesService {
 		return quesDao.selectCount();
 	}
 
+	@Override
+	public Ques findQuesByNo(int quesNo) {
+		
+		return quesDao.selectQuesDetail(quesNo);
+		
+	}
+
 }

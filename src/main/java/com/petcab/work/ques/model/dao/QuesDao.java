@@ -16,4 +16,6 @@ public interface QuesDao {
 
 	int updateQues(Ques ques);
 
+	Ques selectQuesDetail(int quesNo);
+
 }

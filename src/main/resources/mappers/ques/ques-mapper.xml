@@ -29,6 +29,26 @@
 		<result property="depth" column="DEPTH"/>
 	</resultMap>
 	
+		<resultMap type="Ques" id="quesDetailResultMap">
+		<id property="quesNo" column="QUES_NO"/>
+		<result property="userId" column="M_USER_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="viewNo" column="VIEW_NO"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="editDate" column="EDIT_DATE"/>
+		<result property="quesPwd" column="QUES_PWD"/>
+	 	<collection property="replies" javaType="java.util.ArrayList" resultMap="quesReplyResultMap"/>	
+	</resultMap>
+	
+	<resultMap type="QuesReply" id="quesReplyResultMap">
+		<id property="quesNo" column="QUES_NO"/>
+		<result property="content" column="CONTENT"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="editDate" column="EDIT_DATE"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	
 		<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>
 		ORDER BY Q.QUES_NO DESC
@@ -38,6 +58,24 @@
 		SELECT COUNT(*)
 		FROM QUES
 	</select>	 	
+	
+	<select id="selectQuesDetail" parameterType="_int" resultMap="quesDetailResultMap">
+		SELECT Q.QUES_NO,
+	       M.USER_ID
+	       Q.TITLE,
+	       Q.CONTENT,
+	       Q.VIEW_NO,
+	       Q.POST_DATE,
+	       Q.EDIT_DATE,
+	          R.QUES_NO, 
+	          M2.USER_ID AS R_USER_ID, 
+	          R.REPLY_CONTENT, 
+	          R.POST_DATE, 
+	          R.EDIT_DATE, 
+	      FROM Ques Q
+	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
+	      WHERE Q.USER_NO=#{quesNo}
+	</select>
 	
 	<insert id="insertQues" parameterType="map"
   		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">

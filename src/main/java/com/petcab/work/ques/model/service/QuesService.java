@@ -13,4 +13,6 @@ public interface QuesService {
 
 	int saveQues(Ques ques);
 
+	Ques findQuesByNo(int quesNo);
+
 }

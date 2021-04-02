@@ -74,12 +74,19 @@
             </div>
             
             <div style="text-align : center; padding: 30px;">
-                <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="수정하기"> 
-                </span>
-                <span>
-                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="삭제하기">
-                </span>
+            	<c:if test="${loginMember != null && (loginMember.userNo == reply.userNo) 
+	    					|| loginMember.userRole().equals("ROLE_ADMIN")}">
+	                <span style="padding-right : 3rem;">
+	                    <input type="submit" class="btn btn-primary" id="partnerSubmit" onclick="updateBoard()" value="수정하기"> 
+	                </span>
+	                <span>
+	                    <input type="button" class="btn btn-secondary" id="partnerCancel" onclick="deleteBoard()" value="삭제하기">
+	                </span>
+                </c:if>
+	                <span>
+	                    <input type="button" class="btn btn-secondary" id="partnerCancel" 
+	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
+	                </span>
             </div>
 
             <hr>
@@ -96,32 +103,34 @@
                 <label for="floatingInput">${ loginMember.userId }</label>
             </div>
             <div class="form-floating">
-            	<form action="${ path }/board/reply" method="post">
+            	<form action="${ path }/ques/quesReply" method="post">
 	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
-		    		<input type="hidden" name="writer" value="">
-	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
+		    		<input type="hidden" name="writer" value="${ loginMember.userId != null ? loginMember.userId : " " }">
+	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"
+	                			onfocus="checkLogin()"></textarea>
 	                <label for="floatingTextarea2">Comments</label>
 	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
             	</form>
             </div>
             <br>
             <table class="table">
-               
+               <c:forEach var="reply" items="${list}">
                     <tr class="level1">
                         <td>
-                            <sub class="comment-writer"></sub>
-                            <sub class="comment-date">></sub>
+                            <sub class="comment-writer">${ member.userId }</sub>
+                            <sub class="comment-date">${ quesReply.postDate }</sub>
                             <br>
-                            
+                            ${quesReply.content}
                         </td>
                         <td>
-                        
+                        	<c:if test="${loginMember != null && (loginMember.userNo == reply.userNo) 
+	    					|| loginMember.userRole eq 'ROLE_ADMIN')}">
                             <button class="btn-delete">삭제</button>
-                       
+                       	  	</c:if>
                         </td>
                     </tr>
-               
-              </table>
+               </c:forEach>
+             </table>
 
               <div style="text-align : center; padding: 30px;">
                 <span style="padding-right : 3rem;">
@@ -134,6 +143,26 @@
 
         </div>
     </section>
+    <script>
+
+function updateQues(){
+	location.href= "${path}/ques/update?quesNo=${ques.quesNo}";
+}
+
+function deleteBoard(){		
+	if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
+		location.replace('${path}/ques/delete?quesNo=${ques.quesNo}');
+	}
+}
+
+function checkLogin(){
+	<c:if test="${loginMember == null}">
+		alert("로그인 후 이용");
+		$("#userId").focus();
+	</c:if>
+}
+
+	</script>
      <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
