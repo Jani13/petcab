@@ -264,7 +264,7 @@
 							<br>
 							<div style="text-align: center;">
 								<button type="button" class="btn btn-outline-info"
-									style="margin-right: 200px;">애완견 등록</button>
+									style="margin-right: 200px;" onclick="location.href='${path}/dog/dogInformation'" >애완견 등록</button>
 								<button type="button" class="btn btn-outline-info"
 									style="margin-left: 200px;">확인</button>
 							</div>
