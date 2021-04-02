@@ -21,17 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/reivew")
+@RequestMapping("/review")
 public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	
 	// 리뷰 목록
-	@RequestMapping(value = "reviewList", method = {RequestMethod.GET})
+	@RequestMapping(value = "/list", method = {RequestMethod.GET})
 	public ModelAndView list (
 			ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLisit", required = false, defaultValue = "1") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "1") int listLimit) {
 		
 		List<Review> list = null;
 		int reviewCount = service.getReviewCount(); 
@@ -54,6 +54,7 @@ public class ReviewController {
 		
 	}
 	
+	// 게시글 작성처리
 	@RequestMapping(value = "/reviewWrite", method = {RequestMethod.POST})
 	public ModelAndView reviewrite(
 		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
@@ -81,6 +82,7 @@ public class ReviewController {
 		model.setViewName("common/msg");
 		return model;
 	}
+	
 	
 	
 }

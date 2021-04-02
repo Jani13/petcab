@@ -62,10 +62,10 @@
             <br><br><br>
 
             <div class="input" align="right">
-                <c:if test="${ loginMember ! = null }">
+                <c:if test="${ loginMember != null }">
                     <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
                     <button type="button" id="btn-add"
-                    onclick="location.href =''">글쓰기</button>
+                    onclick="location.href ='${path}/review/reviewWrite'">글쓰기</button>
                 </c:if>
             </div>
 

@@ -57,14 +57,14 @@
     
             <div class="card" style="width: 18rem; margin-left: 100px;" >
                 <div class="card-header">
-                <h4>board.getBoardTitle() </h4>
+                <h4>${review.title}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item"> board.getUserId() </li>
-                <li class="list-group-item">get.드라이버</li>
+                <li class="list-group-item">${loginMember.userId}</li>
+                <li class="list-group-item">${member.userId} 기사님</li>
                 <li class="list-group-item">get.제휴업체</li>
-                <li class="list-group-item">get.날짜</li>
-                <li class="list-group-item">get.조회</li>
+                <li class="list-group-item">${review.postDate}</li>
+                <li class="list-group-item">${review.viewNo}</li>
                 </ul>
             </div>
 
@@ -72,7 +72,7 @@
 
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">Comments</label>
+                <label for="floatingTextarea2">${review.content}</label>
             </div>
             
             <div style="text-align : center; padding: 30px;">
@@ -95,7 +95,7 @@
             <br>
             <div class="form-floating mb-3" style="width: 400px;">
                 <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디">
-                <label for="floatingInput">아이디</label>
+                <label for="floatingInput">${loginMember.userId}</label>
             </div>
             <div class="form-floating">
                 <input type="hidden" name="boardNo" value="">
