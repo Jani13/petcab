@@ -38,7 +38,7 @@
             <br><br>
             <h3 class="ft">아이디 / 비밀번호 찾기</h3>
             <br><br>
-            <form action="" method="POST">
+            <form action="${path}/user/successFindId" method="POST">
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -134,7 +134,7 @@
                                 </tr>                         
                             </table>
                             <div style="text-align: right;">
-                                <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
+                                <button type="submit" id="idSearchBtn" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
                             </div>
                         </div>
                         <div class="col-md-3"></div>   
@@ -258,6 +258,7 @@
         </div>
         <br><br>
     </section>
+    
     <jsp:include page="../common/footer.jsp" />
 
 </body>

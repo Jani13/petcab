@@ -27,6 +27,13 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	//login
+	@RequestMapping("/login")
+	public String loginView() {
+		
+		return "user/login";
+	}
+	
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
 			@RequestParam("userId") String userId, @RequestParam("userPwd") String userPwd) {
@@ -48,6 +55,7 @@ public class MemberController {
 		return model;
 	}
 
+	//logout
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status) {
 		
@@ -56,6 +64,25 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	
+	//enroll
+	@RequestMapping("/signup/agreement")
+	public String agreementView() {
+		
+		return "signup/agreement";
+	}
+	
+	@RequestMapping("/signup/SubscriptionType")
+	public String subTypeView() {
+		
+		return "signup/SubscriptionType";
+	}
+	
+	@RequestMapping("/signup/Join")
+	public String joinCompleteView() {
+		
+		return "signup/Join";
+	}
 	
 	@RequestMapping(value = "signup/Information" , method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
@@ -88,39 +115,42 @@ public class MemberController {
 		return map;
 	}
 	
-//	view 컨트롤러 모음
-	@RequestMapping("/login")
-	public String loginView() {
-		
-		return "user/login";
+	//findId
+	@RequestMapping("/user/findIdPwd")
+	public String findIdPwdView() {
+		return "user/findIdPwd";
 	}
 	
+	@RequestMapping("/user/successFindId")
+	public String sucessFindIdView() {
+		return "user/successFindId";
+	}
+	
+	@RequestMapping(value="/user/findId")
+	public ModelAndView userIdSearch(ModelAndView model,@RequestParam("userName") String userName,
+			@RequestParam("phone") String phone) {
+		
+		String result = service.searchId(userName, phone);
+		
+		if(result != null) {
+			
+			model.addObject("location", "/user/successFindId");
+		} else {
+			model.addObject("msg", "회원정보를 확인해주세요!");
+			model.addObject("location", "/user/findId");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
+	//userMyPage
 	@RequestMapping("/user/userMyPage")
 	public String userMyPageView() {
 		return "user/userMypage";
 	}
 	
-	@RequestMapping("/signup/agreement")
-	public String agreementView() {
-		
-		return "signup/agreement";
-	}
 	
-	@RequestMapping("/signup/SubscriptionType")
-	public String subTypeView() {
-		
-		return "signup/SubscriptionType";
-	}
-	
-	@RequestMapping("/signup/Join")
-	public String joinCompleteView() {
-		
-		return "signup/Join";
-	}
-	
-	@RequestMapping("/user/findIdPwd")
-	public String findIdPwdView() {
-		return "user/findIdPwd";
-	}
 	
 }

@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.service;
 
+
+
 import com.petcab.work.user.model.vo.Member;
 
 public interface MemberService {
@@ -12,4 +14,7 @@ public interface MemberService {
 	Member findMemberByUserId(String userId);
 	
 	int deleteMember(String userId);
+
+	String searchId(String userName, String phone);
+
 }
