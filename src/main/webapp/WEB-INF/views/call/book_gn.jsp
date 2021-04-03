@@ -51,10 +51,12 @@
 					</div>
 
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book" method="POST">
+						<form action="${ path }/call/book/done" method="POST">
+						<!-- TEST -->
 							<!-- 
-							<input type="hidden" name="callNo" value="100">
+							<input type="hidden" name="userNo" value="1">
 							-->
+						<!-- TEST -->
 						
 							<div class="form-group mb-3">
 								<label for="pickupTime">예약 시간</label> <input
@@ -87,7 +89,7 @@
 
 							<div class="form-group mb-3">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""
+									<input class="form-check-input" type="checkbox" value="Y"
 										id="flexCheckDefault" name="withOwner" />
 									<label class="form-check-label" for="flexCheckDefault">
 										보호자 탑승 </label>
