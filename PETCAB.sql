@@ -473,8 +473,6 @@ ALTER TABLE REVIEW MODIFY POST_DATE DATE DEFAULT SYSDATE;
 ALTER TABLE REVIEW MODIFY EDIT_DATE DATE DEFAULT SYSDATE;
 ALTER TABLE REVIEW MODIFY VIEW_NO NULL;
 
-ALTER TABLE GEN_CALL MODIFY MERCHANT_UID NULL;
-
 ALTER TABLE REVIEW_REPLY MODIFY GROUP_NO NOT NULL;
 ALTER TABLE REVIEW_REPLY MODIFY POST_DATE DATE DEFAULT SYSDATE; 
 ALTER TABLE REVIEW_REPLY MODIFY EDIT_DATE DATE DEFAULT SYSDATE;
@@ -503,7 +501,7 @@ ALTER TABLE MEMBER MODIFY USER_TYPE VARCHAR2(20) DEFAULT 'ROLE_MEMBER';
 DROP SEQUENCE SEQ_ANMAL_NO;
 --------------------------------------------------------------------------------
 
------예약 관련 쿼리 추가 -----
+-----예약 관련 쿼리 추가 (1) -----
 
 -- 예약신청 varchar2 늘리기
 alter table 
@@ -515,7 +513,7 @@ modify
 
 alter table GEN_CALL modify MERCHANT_UID NULL;
 
-alter table GEN_CALL modify TIME NULL; -- ?
+alter table GEN_CALL modify TIME NULL;
 
 --ALTER TABLE GEN_CALL MODIFY TIME DATE DEFAULT SYSDATE;
 
@@ -534,12 +532,18 @@ alter table GEN_CALL modify CALL_TYPE NULL;
 -- 드라이버매칭 후 값이 추가되므로 NULL
 alter table GEN_CALL modify USER_NO NULL;
 
+-----예약 관련 쿼리 추가 (2) -----
+alter table GEN_CALL drop constraint SYS_C008223;
+alter table GEN_CALL modify STATUS NULL;
+ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
+
 --------------------------------------------------------------------------------
 
 ----- 예약 관련 쿼리 테스트 -----
 
 --SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 --SELECT TO_DATE('2021-04-02T19:00', "YYYY-MM-DD'T'HH:MI") FROM DUAL;
+-- UPDATE GEN_CALL SET STATUS = '신청';
 
 --------------------------------------------------------------------------------
 --도그 부분 --
@@ -550,7 +554,7 @@ ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;
 -- 1. 도그 DOG_NO 생성 -> PRIMARY_KEY 로 바꾸기 -> 시퀀스 넘버
  ALTER TABLE DOG ADD DOG_NO NUMBER NOT NULL;
  ALTER TABLE DOG DROP CONSTRAINT PK_DOG CASCADE;
- ALTER TABLE DOG ADD PRIMARY KEY (DOG_NO);
+ ALTER TABLE DOG ADD PRIMARY KEY (DOG_NO); 
  COMMENT ON COLUMN DOG.DOG_NO IS '애견번호';
  CREATE SEQUENCE SEQ_DOG_NO;
  

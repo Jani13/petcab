@@ -18,6 +18,8 @@
 		<result property="animalNoB" column="ANIMAL_NO_B" />
 		<result property="animalNoC" column="ANIMAL_NO_C" />
 		<result property="merchantUid" column="MERCHANT_UID" />
+		<result property="driver.carNo" column="CAR_NO" />
+		<result property="driver.carType" column="CAR_TYPE" />
 	</resultMap>
 	
 	<select id="selectCall" parameterType="_int" resultMap="callResultMap">
@@ -60,8 +62,56 @@
 		
 	<!-- 예약취소 -->
 	<update id="updateCall" parameterType="Call">
-		UPDATE CALL SET STATUS=#{status}
+		UPDATE GEN_CALL 
+		SET STATUS='취소'
 		WHERE CALL_NO=#{callNo}
 	</update>
 	
+	
+	
+	<!-- 원석작업 -->
+	<select id="driverWaitCallList" parameterType="_int" resultMap="callResultMap">
+		SELECT 
+			C.CALL_NO,
+		    C.TIME,
+		    C.FROM_WHERE,
+		    C.TO_WHERE,
+		    C.WITH_OWNER,
+		    C.TO_DRIVER,
+		    C.STATUS,
+		    C.CALL_TYPE,
+		    D.USER_NO,
+            D.CAR_NO,
+            D.CAR_TYPE,
+		    C.ANIMAL_NO_A,
+		    C.ANIMAL_NO_B,
+		    C.ANIMAL_NO_C,
+		    C.MERCHANT_UID
+		FROM GEN_CALL C, DRIVER D
+		WHERE C.USER_NO = D.USER_NO 
+		AND C.STATUS = 'Y'
+		AND C.USER_NO = #{userNo}
+	</select>
+	<select id="driverEndCallList" parameterType="_int" resultMap="callResultMap">
+		SELECT 
+			C.CALL_NO,
+		    C.TIME,
+		    C.FROM_WHERE,
+		    C.TO_WHERE,
+		    C.WITH_OWNER,
+		    C.TO_DRIVER,
+		    C.STATUS,
+		    C.CALL_TYPE,
+		    D.USER_NO,
+            D.CAR_NO,
+            D.CAR_TYPE,
+		    C.ANIMAL_NO_A,
+		    C.ANIMAL_NO_B,
+		    C.ANIMAL_NO_C,
+		    C.MERCHANT_UID
+		FROM GEN_CALL C, DRIVER D
+		WHERE C.USER_NO = D.USER_NO 
+		AND C.STATUS = 'N'
+		AND C.USER_NO = #{userNo}
+	</select>
 </mapper>	

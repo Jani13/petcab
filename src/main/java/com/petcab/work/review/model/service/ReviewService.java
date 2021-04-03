@@ -13,4 +13,6 @@ public interface ReviewService {
 
 	int saveReview(Review review);
 
+	List<Review> searchUserNo(int userNo);
+
 }
