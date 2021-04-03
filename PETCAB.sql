@@ -503,7 +503,7 @@ ALTER TABLE MEMBER MODIFY USER_TYPE VARCHAR2(20) DEFAULT 'ROLE_MEMBER';
 DROP SEQUENCE SEQ_ANMAL_NO;
 --------------------------------------------------------------------------------
 
------예약 관련 쿼리 추가 -----
+-----예약 관련 쿼리 추가 (1) -----
 
 -- 예약신청 varchar2 늘리기
 alter table 
@@ -534,11 +534,17 @@ alter table GEN_CALL modify CALL_TYPE NULL;
 -- 드라이버매칭 후 값이 추가되므로 NULL
 alter table GEN_CALL modify USER_NO NULL;
 
+-----예약 관련 쿼리 추가 (2) -----
+alter table GEN_CALL drop constraint SYS_C008223;
+alter table GEN_CALL modify STATUS NULL;
+ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
+
 --------------------------------------------------------------------------------
 
 ----- 예약 관련 쿼리 테스트 -----
 
 --SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 --SELECT TO_DATE('2021-04-02T19:00', "YYYY-MM-DD'T'HH:MI") FROM DUAL;
+-- UPDATE GEN_CALL SET STATUS = '신청';
 
 --------------------------------------------------------------------------------

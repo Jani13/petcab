@@ -70,7 +70,11 @@
                 <!--  -->
 
                 <div class="col-md">
-                    <div class="">
+                	<form action="${ path }/call/book/cancel" method="POST">
+                		<!--  -->
+                		<input type="hidden" name="callNo" value="${ call.getCallNo() }">
+                		<!--  -->
+                		
                         <div class="pt-5 pb-3 pickup-heading">
                             <h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
                             <h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
@@ -89,7 +93,7 @@
                                 </tr> -->
                                 <tr>
                                     <th scope="row">예약시간</th>
-                                    <td>${ call }</td>
+                                    <td>${ call.getPickupTime() }</td>
                                 </tr>
                                 <!-- <tr>
                                     <th scope="row">요청사항</th>
@@ -97,39 +101,36 @@
                                 </tr> -->
                                 <tr>
                                     <th scope="row">출발지</th>
-                                    <td>신용산역 1번출구</td>
+                                    <td>${ call.getFromWhere() }</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">도착지</th>
-                                    <td>홍대입구역 9번출구</td>
+                                    <td>${ call.getToWhere() }</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">보호자 탑승 여부</th>
-                                    <td>YES</td>
+                                    <td>${ call.getWithOwner() }</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">드라이버 성함</th>
-                                    <td>홍길동</td>
+                                    <td>매칭중</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">차량번호판</th>
-                                    <td>123가4567</td>
+                                    <td>매칭중</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">드라이버 요청사항</th>
-                                    <td>조심히 와주세요</td>
+                                    <td>${ call.getToDriver() }</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">애견</th>
-                                    <td>뭉뭉이</td>
+                                    <td>애견등록작업완료 후 추가</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="pt-5 pb-3 book-time-cost row row-cols" style="margin-left: 0; margin-right: 0;">
-                            <!-- <h2 class="mb-3">예약신청이 완료되었습니다</h2>
-                            <h3 class="mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3> -->
-
                             <div class="col-8">
                                 <table class="table">
                                     <tbody>
@@ -145,9 +146,15 @@
                                 </table>
                             </div>
 
-                            <button class="btn btn-lg btn-outline-info btn-cancel col" type="button">예약취소</button>
+							<!-- 
+                            <button class="btn btn-lg btn-outline-info btn-cancel col" 
+                            	type="button">예약취소</button>
+                            -->
+                            	
+                            <input class="btn btn-lg btn-outline-info btn-cancel col" 
+                            	type="submit" value="예약취소">
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
     </section>
