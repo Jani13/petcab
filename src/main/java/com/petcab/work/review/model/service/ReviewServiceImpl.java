@@ -23,12 +23,8 @@ public class ReviewServiceImpl implements ReviewService{
 	@Transactional
 	public int saveReview(Review review) {
 		int result = 0;
-		
-		if(review.getReviewNo() != 0) {
-			result = reviewDao.updateReview(review);
-		} else {
-			result = reviewDao.insertReview(review);
-		}
+		result = reviewDao.insertReview(review);
+//			result = reviewDao.updateReview(review);
 		
 		return result;
 	}

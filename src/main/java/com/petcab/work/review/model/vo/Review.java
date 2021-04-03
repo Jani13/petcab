@@ -37,4 +37,5 @@ public class Review {
 	private int userNo;
 	
 	private int callNo;
+	
 }

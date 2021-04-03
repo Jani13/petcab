@@ -85,7 +85,7 @@
           <br><br><br>
 
           <hr>
-          <form action='${path}/ques/write' method="post">
+          <form action='${path}/ques/write' method="ㅋ">
             <table class="table">
                 <thead>
                   <tr>
