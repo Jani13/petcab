@@ -1,9 +1,8 @@
 package com.petcab.work.call.model.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +42,17 @@ public class CallServiceImpl implements CallService {
 		
 		return callDao.selectCall(callNo);
 	}
-	
+
+	@Override
+	public List<Call> driverWaitCallList(int userNo) {
+		// TODO Auto-generated method stub
+		return callDao.driverWaitCallList(userNo);
+	}
+
+	@Override
+	public List<Call> driverEndCallList(int userNo) {
+		// TODO Auto-generated method stub
+		return callDao.driverEndCallList(userNo);
+	}
+
 }

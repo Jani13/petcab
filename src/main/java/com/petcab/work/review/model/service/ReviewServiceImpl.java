@@ -47,6 +47,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewList(rowBounds);
 	}
 
+	@Override
+	public List<Review> searchUserNo(int userNo) {
+		return reviewDao.searchUserNo(userNo);
+	}
+
 	
 	
 }

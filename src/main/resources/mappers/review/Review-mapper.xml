@@ -9,6 +9,7 @@
 				M.USER_ID,
 				R.STAR_NO,
 				R.POST_DATE,
+				R.CONTENT,
 				R.STATUS,
 				R.VIEW_NO
 			FROM REVIEW R
@@ -74,5 +75,8 @@
   		WHERE
   			REIVEW_NO=#{reviewNo}
   	</update>
-
+  	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
+		<include refid="ReviewListSql"></include>
+		WHERE M.USER_NO = #{userNo}
+	</select>
 </mapper>
