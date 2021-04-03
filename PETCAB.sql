@@ -542,3 +542,6 @@ alter table GEN_CALL modify USER_NO NULL;
 --SELECT TO_DATE('2021-04-02T19:00', "YYYY-MM-DD'T'HH:MI") FROM DUAL;
 
 --------------------------------------------------------------------------------
+--도그 부분 --
+ALTER TABLE DOG MODIFY USER_NO NUMBER NULL;
+ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;

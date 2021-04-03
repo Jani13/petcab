@@ -22,7 +22,7 @@
 		WHERE STATUS = 'Y'
 	</sql>
 	 
-	 <resultMap type="Dog" id="dogResultMap">
+	 <resultMap type="Dog" id="DogResultMap">
 			 <!-- 기본키 -->
 			 <id property="animalNo" column="ANIMAL_NO"/>
 			 <!-- 일반컬럼  -->
@@ -40,21 +40,51 @@
 			 <result property="status" column="STATUS"/>
 	 </resultMap>
 	 
-	 <resultMap type="Dog" id="DogDetailResultMap">
-			 <id property="animalNo" column="ANIMAL_NO"/>
-			 <result property="dogName" column="DOG_NAME"/>
-			 <result property="dogType" column="DOG_TYPE"/>
-			 <result property="age" column="AGE"/>
-			 <result property="vacc" column="VACC"/>
-			 <result property="disorder" column="DISORDER"/>
-			 <result property="other" column="OTHER"/>
-			 <result property="imageOri" column="IMAGE_ORI"/>
-			 <result property="imageRe" column="IMAGE_RE"/>
-			 <result property="userNo" column="USER_NO"/>
-			 <result property="enrollDate" column="ENROLL_DATE"/>
-			 <result property="modifyDate" column="MODIFY_DATE"/>
-			 <result property="status" column="STATUS"/>
-			 <result property="dogCreateDate" column="DOG_CREATE_DATE"/>
-	 	<collection property="replies" javaType="java.util.ArrayList" resultMap="dogResultMap"/>	
-	</resultMap>
+	 	<select id="selectDogCount" resultType="_int">
+		SELECT COUNT(*) FROM DOG
+		</select>
+	 	
+	 <select id="selectDogAll" resultMap="DogResultMap">
+		<include refid="selectDogSql"></include>
+	 </select>
+	 	
+	 	<select id="selectDog" parameterType="string" resultMap="DogResultMap">	
+			<include refid="selectDogSql"></include>		
+			AND USER_NO = #{userNo}	
+		</select>
+		
+		<insert id="insertDog" parameterType="Dog"
+		useGeneratedKeys="true" keyProperty="animalNo" keyColumn="ANIMAL_NO">	
+		INSERT INTO DOG (
+				ANIMAL_NO,
+				DOG_NAME,
+				DOG_TYPE,
+				AGE,
+				VACC,
+				DISORDER,
+				OTHER,
+				IMAGE_ORI,
+				IMAGE_RE,
+				USER_NO,
+				ENROLL_DATE,
+				MODIFY_DATE,
+				STATUS
+			)
+			VALUES(
+				#{animalNo},
+				#{dogName}, 
+				#{dogType}, 
+				#{age}, 				 
+				#{vacc}, 
+				#{disorder}, 
+				#{other}, 
+				#{imageOri}, 
+				#{imageRe},				 
+				#{userNo},				 
+				SYSDATE, 
+				SYSDATE,
+				DEFAULT  
+			)
+	</insert>
+	 	
 </mapper>
