@@ -138,12 +138,46 @@ public class MemberController {
 			model.addObject("member", result);
 			model.setViewName("user/successFindId");
 		} else {
-			model.addObject("msg", "없는 회원입니다.");
+			model.addObject("msg", "존재하지 않는 회원입니다.");
 			model.addObject("location", "/user/findIdPwd");
 			model.setViewName("common/msg");
 		}
 		return model;
 	}
+	
+	@RequestMapping("/user/findPwd/success")
+	public ModelAndView searchPwd(@ModelAttribute Member member
+			,ModelAndView model) {
+		
+		log.info(member.toString());
+		
+		Member result = service.searchMemberPwd(member.getUserId(),member.getPhone());
+		
+		if (result != null) {
+			model.addObject("member", result);
+			model.setViewName("user/successFindPwd");
+		} else {
+			model.addObject("msg", "정보가 존재하지 않습니다. 회원가입을 진행 해 주세요.");
+			model.addObject("location", "/user/findIdPwd");
+			model.setViewName("common/msg");
+		}
+		return model;
+	}
+	
+	@RequestMapping("/updatePwd")
+	public ModelAndView updatePwd(ModelAndView model, @ModelAttribute Member member) {
+		
+		int result = service.updatePwd(member);
+
+		log.info(member.toString());
+		
+		if(result > 0) {
+			model.addObject("msg", "비밀번호가 변경되었습니다.");
+			model.addObject("location", "/user/login");
+		}
+		return model;
+	}
+	
 	
 	//userMyPage
 	@RequestMapping("/myPage/user")

@@ -65,6 +65,23 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.searchMember(userName,phone);
 	}
 
+	@Override
+	public Member searchMemberPwd(String userId, String phone) {	
+		return memberDao.searchMemberPwd(userId, phone);
+	}
+
+	@Override
+	public int updatePwd(Member member) {
+		int result = 0;
+		
+		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
+		
+		result = memberDao.updatePwd(member);
+		
+		return result;
+	}
+
+
 
 	
 

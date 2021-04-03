@@ -18,5 +18,7 @@ public interface MemberDao {
 
 	Member searchMember(@Param("userName")String userName, @Param("phone")String phone);
 
+	Member searchMemberPwd(@Param("userId")String userId, @Param("phone") String phone);
 
+	int updatePwd(Member member);
 }

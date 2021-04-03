@@ -103,5 +103,17 @@
 		AND USER_NAME = #{userName}
 		AND PHONE = #{phone}
 	</select>
+
+	<select id="searchMemberPwd" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql"></include>
+		AND USER_ID = #{userId}
+		AND PHONE = #{phone}
+	</select>
+	
+	<update id="updatePwd" parameterType="Member">
+		UPDATE MEMBER
+		SET USER_PWD = #{userPwd}
+		WHERE USER_NO = #{userNo}
+	</update>
 	
 </mapper>

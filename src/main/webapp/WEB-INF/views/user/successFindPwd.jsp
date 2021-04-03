@@ -3,6 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }" />
+
+<% 
+	request.setCharacterEncoding("UTF-8");
+	String userId = request.getParameter("userId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,25 +45,45 @@
 	
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
 <title>Insert title here</title>
-<%  %>
 </head>
 <body class="body-wrap">
 	<jsp:include page="../common/header.jsp" />
   	<jsp:include page="../common/nav.jsp" />
   	
 	<section>
-		<div class="container p-5" style="width: 1200px; height:500px;">
-            <div class="row d-felx text-center" style="height: 300px">
-                <i class="far fa-laugh-wink fa-5x my-5"></i>
-                <div class="col-md-12 h3">
-                    회원님의 비밀번호를 찾았습니다!
-                </div>
-                <div class="col-md-12 h4 my-5 mb-5">
-                    ${member.getUserPwd()}                    
-                </div>
+		<form action="/updatePwd" method="POST">
+		  <input type="hidden" value="<%= userId %>>"/>
+          <div class="container d-flex justify-content-center p-5" style="width: 1200px;">
+            <div class="input-group mb-3 flex-column my-5" style="width: 300px;">
+              <div class="fw-bolder">
+                변경할비밀번호
+                <input type="password" name="userPwd" id="pass1" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="fw-bolder">
+                변경할비밀번호확인
+                <input type="password" class="form-control" id="pass2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <input type="submit" class="btn border-info" value="변경하기">
             </div>
-        </div>
+          </div>
+        </form>
 	</section>
+	
 	<jsp:include page="../common/footer.jsp" />
+	
+	<script type="text/javascript">
+		$(document).ready(() => {
+		      $("#pass2").blur((e) => {
+		         let pass1 = $("#pass1").val();
+		         let pass2 = $(e.target).val();
+		         if(pass1.trim() != pass2.trim()){
+		            alert("비밀번호가 일치하지 않습니다.");
+		            $("#pass1").val("");
+		            $(e.target).val("");
+		            $("#pass1").focus();
+		         }
+		      });  
+		});
+	</script>
 </body>
 </html>

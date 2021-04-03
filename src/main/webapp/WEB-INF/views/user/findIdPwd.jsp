@@ -167,8 +167,9 @@
 
             <br>
             <br>
-
-            <form action="" method="POST">
+			
+			<!-- 04/03작업중 -->
+            <form action="successFindPwd" method="POST">
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -182,16 +183,7 @@
                                     <td>
                                         <div class="input-group mb-2">
                                             <input type="text" class="form-control" placeholder="아이디를 입력해주세요."
-                                                aria-describedby="button-addon2" required>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 130px;">비밀번호</th>
-                                    <td>
-                                        <div class="input-group mb-2">
-                                            <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요."
-                                                aria-describedby="button-addon2" required>
+                                                aria-describedby="button-addon2" name="userId" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -262,7 +254,7 @@
                                             </select>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input type="tel" class="form-control" placeholder="'-' 빼고 입력해주세요.">
+                                            <input type="tel" class="form-control" name="phone" placeholder="'-' 빼고 입력해주세요.">
                                             <!-- <button class="btn btn-outline-secondary" type="button"
                                                 id="button-addon2">인증번호 받기</button> -->
                                         </div>
@@ -273,7 +265,7 @@
                                 </tr>                         
                             </table>
                             <div style="text-align: right;">
-                                <button type="button" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
+                                <button type="submit" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
                             </div>
                         </div>
                         <div class="col-md-3"></div>   
