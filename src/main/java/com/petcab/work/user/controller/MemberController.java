@@ -115,7 +115,7 @@ public class MemberController {
 		return map;
 	}
 	
-	//findId
+	//findId findPwd
 	@RequestMapping("/user/findIdPwd")
 	public String findIdPwdView() {
 		return "user/findIdPwd";
@@ -129,6 +129,7 @@ public class MemberController {
 	@RequestMapping("/user/findId/success")
 	public ModelAndView searchId(@ModelAttribute Member member
 			,ModelAndView model) {
+		
 		log.info(member.toString());
 		
 		Member result = service.searchMember(member.getUserName(),member.getPhone());
@@ -145,7 +146,7 @@ public class MemberController {
 	}
 	
 	//userMyPage
-	@RequestMapping("/user/userMyPage")
+	@RequestMapping("/myPage/user")
 	public String userMyPageView() {
 		return "user/userMypage";
 	}
