@@ -1,6 +1,5 @@
 package com.petcab.work.user.model.service;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -62,16 +61,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String searchId(String userName, String phone) {
-		
-		String result = "";
-		
-		try {
-			result = memberDao.searchId(userName, phone);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+	public Member searchMember(String userName, String phone) {
+		return memberDao.searchMember(userName,phone);
 	}
 
 

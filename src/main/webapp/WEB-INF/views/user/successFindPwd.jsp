@@ -49,15 +49,14 @@
             <div class="row d-felx text-center" style="height: 300px">
                 <i class="far fa-laugh-wink fa-5x my-5"></i>
                 <div class="col-md-12 h3">
-                    회원님의 아이디를 찾았습니다!
+                    회원님의 비밀번호를 찾았습니다!
                 </div>
                 <div class="col-md-12 h4 my-5 mb-5">
-                    ${member.getUserId()}                    
+                    ${member.getUserPwd()}                    
                 </div>
             </div>
         </div>
 	</section>
-	
 	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

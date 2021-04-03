@@ -71,7 +71,7 @@
 				STATUS
 			)
 			VALUES(
-				#{animalNo},
+			    #{animalNo},
 				#{dogName}, 
 				#{dogType}, 
 				#{age}, 				 
