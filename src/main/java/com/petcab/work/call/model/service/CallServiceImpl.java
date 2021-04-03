@@ -22,20 +22,13 @@ public class CallServiceImpl implements CallService {
 	@Override
 	public int insertCall(Call call) {
 		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");	
-//		Date sqlDate = null;
-//		
-//		sqlDate = (Date) sdf.parse((String));
-//
-//		call.setPickupTime(sqlDate);
-		
 		return callDao.insertCall(call);
 	}
 
 	@Override
-	public int updateCall(Call call) {
+	public int updateCall(int callNo) {
 		
-		return 0;
+		return callDao.updateCall(callNo);
 	}
 
 	@Override
