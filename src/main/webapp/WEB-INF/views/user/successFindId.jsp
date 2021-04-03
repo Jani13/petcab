@@ -44,7 +44,7 @@
 	<jsp:include page="../common/header.jsp" />
   	<jsp:include page="../common/nav.jsp" />
   	
-	<section style="background-color: rgb(0,0,0,0.15);">
+	<section>
 		<div class="container p-5" style="width: 1200px; height:500px;">
             <div class="row d-felx text-center" style="height: 300px">
                 <i class="far fa-laugh-wink fa-5x my-5"></i>
