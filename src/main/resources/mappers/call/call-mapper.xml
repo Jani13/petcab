@@ -39,18 +39,21 @@
 	</select>
 	
 	<!-- 예약신청 -->
-	<insert id="insertCall" parameterType="map">
+	<insert id="insertCall" parameterType="map"
+			useGeneratedKeys="true" keyProperty="callNo" keyColumn="CALL_NO">
+		<!-- 
 		<selectKey keyProperty="callNo" resultType="int" order="BEFORE">
 			SELECT SEQ_CALL_NO.NEXTVAL FROM DUAL
 		</selectKey>
+		-->
 			INSERT INTO GEN_CALL (
 				CALL_NO, TIME, TO_WHERE, FROM_WHERE, 
 				WITH_OWNER, TO_DRIVER, STATUS, CALL_TYPE, USER_NO, 
 				ANIMAL_NO_A, ANIMAL_NO_B, ANIMAL_NO_C, 
 				MERCHANT_UID
 			) VALUES (
-				#{callNo}, TO_DATE(#{pickupTime}, 'YYYY:MM:DD HH24:MI'), #{toWhere}, #{fromWhere},
-				#{withOwner}, #{toDriver}, #{status}, #{callType}, #{userNo},
+				SEQ_CALL_NO.NEXTVAL, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'), #{toWhere}, #{fromWhere},
+				#{withOwner}, #{toDriver}, #{status}, #{callType}, NULL,
 				#{animalNoA}, #{animalNoB}, #{animalNoC}, #{merchantUid}
 			)
 	</insert>
