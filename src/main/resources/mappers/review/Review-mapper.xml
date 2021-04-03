@@ -9,6 +9,7 @@
 				M.USER_ID,
 				R.STAR_NO,
 				R.POST_DATE,
+				R.CONTENT,
 				R.STATUS,
 				R.VIEW_NO
 			FROM REVIEW R
@@ -32,35 +33,52 @@
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
+  	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+	</select>
+	
+	
 	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
 		<include refid="ReviewListSql"></include>
 		ORDER BY R.REVIEW_NO DESC
 	</select>
 	
-	<select id="selectCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*)
-		FROM REVIEW
-	</select>
 	
-	<insert id="insertReview" parameterType="map"
-  		useGeneratedKeys="true" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
+  	<insert id="insertReview" parameterType="map"
+  		useGeneratedKeys="false" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
   		
-  		INSERT INTO REVIEW 
+  		INSERT INTO REVIEW(
+			REVIEW_NO,
+			CALL_TYPE,
+			GROUP_NO,
+			GROUP_SEQ,
+			"DEPTH",
+			TITLE,
+			"CONTENT",
+			STAR_NO,
+			POST_DATE,
+			EDIT_DATE,
+			VIEW_NO,
+			STATUS,
+			USER_NO,
+			CALL_NO)
   		VALUES(
   			SEQ_REVIEW_NO.NEXTVAL,
   			#{callType},
-  			#{starNo},
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
   			#{title},
   			#{content},
+  			#{starNo},
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT
+  			#{userNo},
+  			#{callNo}
+  			
  		)
   	</insert>
   	
@@ -74,5 +92,9 @@
   		WHERE
   			REIVEW_NO=#{reviewNo}
   	</update>
+  	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
+		<include refid="ReviewListSql"></include>
+		WHERE M.USER_NO = #{userNo}
+	</select>
 
 </mapper>

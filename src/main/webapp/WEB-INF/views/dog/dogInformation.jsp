@@ -241,6 +241,7 @@
                                     <td>
                                         <div class="input-group mb-2">
                                             <input type="file" class="form-control" name="imageOri" id="inputGroupFile02">
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -310,7 +311,8 @@
                     	<button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
                    			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;">추가 등록</button>
                    		  <button type="submit" class="btn btn-outline-info" style="margin-left: 200px;">확인</button>
-                    
+                    	<input type="button" value="값받기" name="userNo" >
+                    	<button type="submit" name="userNo">값 받음</button>
          	       		</div>
                   </form>
          

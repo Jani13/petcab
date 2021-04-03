@@ -66,6 +66,8 @@ public class QuesController {
 
 		if (loginMember.getUserNo() == ques.getUserNo()) {
 			
+//			ques.setQuesNo(loginMember.getUserNo());
+			
 			result = service.saveQues(ques);
 			
 			if(result > 0) {
@@ -98,4 +100,51 @@ public class QuesController {
 		
 		return model;
 	}
+	
+	
+	@RequestMapping(value = "/update", method = {RequestMethod.GET})
+	public ModelAndView updateView(@RequestParam("quesNo") int quesNo, ModelAndView model) {
+		
+	
+		Ques ques = service.findQuesByNo(quesNo);
+		
+		model.addObject("ques", ques);
+		model.setViewName("ques/quesUpdate");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/update", method = {RequestMethod.POST})
+	public  ModelAndView update(
+					@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+					HttpServletRequest request,
+					Ques ques, ModelAndView model) {
+		
+		int result = 0;
+		
+		if(loginMember.getUserNo() == ques.getUserNo()) {
+			
+			
+			
+			result = service.saveQues(ques);
+			
+			if(result > 0) {
+				model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+				model.addObject("location", "/board/list");
+			}else {
+				model.addObject("msg", "게시글 수정이 실패하였습니다.");
+				model.addObject("location", "/board/list");
+			}
+			
+		}else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
+
 }
