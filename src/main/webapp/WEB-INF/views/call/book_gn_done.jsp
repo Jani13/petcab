@@ -89,7 +89,7 @@
                                 </tr> -->
                                 <tr>
                                     <th scope="row">예약시간</th>
-                                    <td>YYYYMMDD HH:SS</td>
+                                    <td>${ call }</td>
                                 </tr>
                                 <!-- <tr>
                                     <th scope="row">요청사항</th>
