@@ -62,7 +62,7 @@ public class QuesController {
 		
 		int result = 0;
 		
-//		System.out.println(ques);
+		System.out.println(ques);
 
 		if (loginMember.getUserNo() == ques.getUserNo()) {
 			
