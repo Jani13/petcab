@@ -169,7 +169,7 @@
             <br>
 			
 			<!-- 04/03작업중 -->
-            <form action="successFindPwd" method="POST">
+            <form action="${path}/user/findPwd/success" method="POST">
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">

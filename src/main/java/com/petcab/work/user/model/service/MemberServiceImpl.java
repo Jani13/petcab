@@ -70,16 +70,28 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.searchMemberPwd(userId, phone);
 	}
 
+//	@Override
+//	public int updatePwd(Member member) {
+//		int result = 0;
+//		
+//		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
+//		
+//		result = memberDao.updatePwd(member);
+//		
+//		return result;
+//	}
+
 	@Override
-	public int updatePwd(Member member) {
-		int result = 0;
+	public Member updatePwd(String userId, String userPwd) {
 		
-		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
+		userPwd = passwordEncoder.encode(userPwd);
 		
-		result = memberDao.updatePwd(member);
+//		memberDao.updatePwd(userId,passwordEncoder.encode(userPwd));
 		
-		return result;
+		
+		return memberDao.updatePwd(userId, userPwd);
 	}
+
 
 
 

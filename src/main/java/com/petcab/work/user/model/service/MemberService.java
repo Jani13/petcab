@@ -19,7 +19,7 @@ public interface MemberService {
 
 	Member searchMemberPwd(String userId, String phone);
 
-	int updatePwd(Member member);
+	Member updatePwd(String userId, String userPwd);
 
 
 }

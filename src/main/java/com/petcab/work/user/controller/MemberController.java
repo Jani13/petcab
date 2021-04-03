@@ -144,6 +144,7 @@ public class MemberController {
 		}
 		return model;
 	}
+
 	
 	@RequestMapping("/user/findPwd/success")
 	public ModelAndView searchPwd(@ModelAttribute Member member
@@ -164,17 +165,22 @@ public class MemberController {
 		return model;
 	}
 	
-	@RequestMapping("/updatePwd")
+	@RequestMapping("/user/successFindPwd")
 	public ModelAndView updatePwd(ModelAndView model, @ModelAttribute Member member) {
 		
-		int result = service.updatePwd(member);
+		Member result = service.updatePwd(member.getUserId(), member.getUserPwd());
 
 		log.info(member.toString());
 		
-		if(result > 0) {
+		if(result != null) {
 			model.addObject("msg", "비밀번호가 변경되었습니다.");
 			model.addObject("location", "/user/login");
+		} else {
+			model.addObject("msg", "문제가 발생했습니다. 관리자에게 문의해주세요.");
+			model.addObject("location", "/");
 		}
+		model.setViewName("common/msg");
+
 		return model;
 	}
 	
