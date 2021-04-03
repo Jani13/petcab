@@ -12,7 +12,7 @@ public interface CallDao {
 	
 	int insertCall(Call call);
 	
-	int updateCall(Call call);
+	int updateCall(int callNo);
 	
 	Call selectCall(int callNo);
 

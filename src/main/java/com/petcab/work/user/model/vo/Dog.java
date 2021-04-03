@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dog {
+	private String dogNo;
+	
 	private String animalNo;
 	
 	private int userNo;
@@ -24,5 +28,14 @@ public class Dog {
 
 	private String other;
 
-	private String photo;
+	private String imageOri;
+	
+	private String imageRe;
+	
+	private Date enrollDate;
+	
+	private Date modifyDate;
+	
+	private String status;
+	
 }

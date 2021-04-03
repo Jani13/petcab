@@ -62,7 +62,8 @@
 		
 	<!-- 예약취소 -->
 	<update id="updateCall" parameterType="Call">
-		UPDATE CALL SET STATUS=#{status}
+		UPDATE GEN_CALL 
+		SET STATUS='취소'
 		WHERE CALL_NO=#{callNo}
 	</update>
 	

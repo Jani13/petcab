@@ -16,5 +16,7 @@ public interface MemberDao {
 	
 	int deleteMember(@Param("id") String id);
 
-	String searchId(@Param("userName")String userName,@Param("phone")String phone);
+	Member searchMember(@Param("userName")String userName, @Param("phone")String phone);
+
+
 }
