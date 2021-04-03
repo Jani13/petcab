@@ -76,7 +76,7 @@
                             <h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
                         </div>
 
-                        <table class="table call-sum text-center">
+                        <table class="table call-sum text-center tb-call-done">
                             <thead>
                                 <tr>
                                     <th colspan="4" class="text-center">예약내역</th>
