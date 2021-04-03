@@ -542,3 +542,15 @@ alter table GEN_CALL modify USER_NO NULL;
 --SELECT TO_DATE('2021-04-02T19:00', "YYYY-MM-DD'T'HH:MI") FROM DUAL;
 
 --------------------------------------------------------------------------------
+--도그 부분 --
+ALTER TABLE DOG MODIFY USER_NO NUMBER NULL;
+ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;
+--------------------------------------------------------------------------------
+--도그 칼럼 변경
+-- 1. 도그 DOG_NO 생성 -> PRIMARY_KEY 로 바꾸기 -> 시퀀스 넘버
+ ALTER TABLE DOG ADD DOG_NO NUMBER NOT NULL;
+ ALTER TABLE DOG DROP CONSTRAINT PK_DOG CASCADE;
+ ALTER TABLE DOG ADD PRIMARY KEY (DOG_NO);
+ COMMENT ON COLUMN DOG.DOG_NO IS '애견번호';
+ CREATE SEQUENCE SEQ_DOG_NO;
+ 
