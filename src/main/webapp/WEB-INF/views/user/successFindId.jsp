@@ -50,7 +50,7 @@
                     회원님의 아이디를 찾았습니다!
                 </div>
                 <div>
-                    
+                    ${member.getUserId()}                    
                 </div>
             </div>
         </div>

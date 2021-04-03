@@ -38,7 +38,7 @@
             <br><br>
             <h3 class="ft">아이디 / 비밀번호 찾기</h3>
             <br><br>
-            <form action="${path}/user/successFindId" method="POST">
+            <form action="${path}/user/findId/success" method="POST">
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -123,7 +123,7 @@
                                             </select>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input type="tel" class="form-control" placeholder="'-' 빼고 입력해주세요.">
+                                            <input type="tel" name="phone" class="form-control" placeholder="'-' 빼고 입력해주세요.">
                                             <!-- <button class="btn btn-outline-secondary" type="button"
                                                 id="button-addon2">인증번호 받기</button> -->
                                         </div>

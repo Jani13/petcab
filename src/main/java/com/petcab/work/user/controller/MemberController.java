@@ -126,22 +126,21 @@ public class MemberController {
 		return "user/successFindId";
 	}
 	
-	@RequestMapping(value="/user/findId")
-	public ModelAndView userIdSearch(ModelAndView model,@RequestParam("userName") String userName,
-			@RequestParam("phone") String phone) {
+	@RequestMapping("/user/findId/success")
+	public ModelAndView searchId(@ModelAttribute Member member
+			,ModelAndView model) {
+		log.info(member.toString());
 		
-		String result = service.searchId(userName, phone);
+		Member result = service.searchMember(member.getUserName(),member.getPhone());
 		
-		if(result != null) {
-			
-			model.addObject("location", "/user/successFindId");
+		if (result != null) {
+			model.addObject("member", result);
+			model.setViewName("user/successFindId");
 		} else {
-			model.addObject("msg", "회원정보를 확인해주세요!");
-			model.addObject("location", "/user/findId");
+			model.addObject("msg", "없는 회원입니다.");
+			model.addObject("location", "/user/findIdPwd");
+			model.setViewName("common/msg");
 		}
-		
-		model.setViewName("common/msg");
-		
 		return model;
 	}
 	
