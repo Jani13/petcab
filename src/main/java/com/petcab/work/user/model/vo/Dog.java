@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dog {
+	private String dogNo;
+	
 	private String animalNo;
 	
 	private int userNo;

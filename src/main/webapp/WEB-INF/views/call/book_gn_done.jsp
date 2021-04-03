@@ -72,7 +72,7 @@
                 <div class="col-md">
                 	<form action="${ path }/call/book/cancel" method="POST">
                 		<!--  -->
-                		<input type="hidden" name="callNo" value="${ call.getCallNo() }">
+                		<input type="hidden" name="callNo" value="${call.pickupTime}">
                 		<!--  -->
                 		
                         <div class="pt-5 pb-3 pickup-heading">
