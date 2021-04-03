@@ -5,7 +5,8 @@
 <mapper namespace="com.petcab.work.dog.model.dao.DogDao">
 	
 	<sql id="selectDogSql">
-		SELECT 	ANIMAL_NO,
+		SELECT 	DOG_NO,
+				ANIMAL_NO,
 				DOG_NAME,
 				DOG_TYPE,
 				AGE,
@@ -24,8 +25,9 @@
 	 
 	 <resultMap type="Dog" id="DogResultMap">
 			 <!-- 기본키 -->
-			 <id property="animalNo" column="ANIMAL_NO"/>
+			 <id property="dogNo" column="DOG_NO"/>
 			 <!-- 일반컬럼  -->
+			 <result property="animalNo" column="ANIMAL_NO"/>
 			 <result property="dogName" column="DOG_NAME"/>
 			 <result property="dogType" column="DOG_TYPE"/>
 			 <result property="age" column="AGE"/>
@@ -56,6 +58,7 @@
 		<insert id="insertDog" parameterType="Dog"
 		useGeneratedKeys="true" keyProperty="animalNo" keyColumn="ANIMAL_NO">	
 		INSERT INTO DOG (
+				DOG_NO,
 				ANIMAL_NO,
 				DOG_NAME,
 				DOG_TYPE,
@@ -71,6 +74,7 @@
 				STATUS
 			)
 			VALUES(
+				SEQ_DOG_NO.NEXTVAL,
 			    #{animalNo},
 				#{dogName}, 
 				#{dogType}, 
