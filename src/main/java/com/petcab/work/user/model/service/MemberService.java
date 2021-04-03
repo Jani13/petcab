@@ -15,6 +15,7 @@ public interface MemberService {
 	
 	int deleteMember(String userId);
 
-	String searchId(String userName, String phone);
+	Member searchMember(String userName, String phone);
+
 
 }
