@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리뷰작성</title>
     
-    <script src="../../../resources/se2/js/service/HuskyEZCreator.js"></script>
+    <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
@@ -54,6 +54,7 @@
 
   <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
       <script src="${ path }/js/jquery-3.5.1.js"></script>
+      <script type="text/javascript" src="${ path }/resources/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
@@ -64,7 +65,7 @@
         <br><br>
         
         <div class="container ">
-
+		<form action="reviewWriteResult" method="post">
           <br><br>
           <div class="row">
               <div class="col-lg-2"></div>
@@ -85,14 +86,15 @@
                 <thead>
                   <tr>
                     <th scope="col" style="width: 300px;">
-                        <select class="form-select" aria-label="Default select example" style="width: 300px;">
-                            <option selected>Open this select menu</option>
+                        <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
+                            <option selected>내가 사용한 내역</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                           </select>
                     </th>
-                    <th scope="col"><input type="text" id="useInfo" class="form-control" ></th>
+                    <th scope="col">
+                    <input type="text" id="useInfo" name="useInfo" class="form-control" ></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -100,22 +102,22 @@
                     <th scope="row">* 긴급콜 이용 *</th>
                     <td>
                         <div class="form-check">
+                            <!-- <label class="form-check-label">
+                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="">Y
+                            </label>&nbsp; &nbsp; &nbsp; &nbsp;  -->
                             <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" value="">Y
-                            </label>&nbsp; &nbsp; &nbsp; &nbsp; 
-                            <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" value="">N
+                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="N">N
                             </label>
                           </div>
                     </td>         
                   </tr>
                   <tr>
                     <th scope="row">* 평점 *</th>
-                    <td><input type="number" id="starNo" class="form-control"></td>
+                    <td><input type="number" id="starNo" name="starNo" class="form-control"></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" class="form-control" placeholder="제목을 입력하세요."></td>
+                    <td><input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row" colspan="2">
@@ -125,73 +127,29 @@
                           <div class="editor-box__editor">
                               <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
                               <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
+                              <script type="text/javascript">
+                 						 CKEDITOR.replace('ir1', {height: 500});
+                  				</script>
                           </div>
                       </div>
                       <div style="text-align : center; padding: 30px;">
                           <span style="padding-right : 3rem;">
-                              <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
+                              <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">
                           </span>
                       </div>
                     </th>
                   </tr>
                 </tbody>
               </table>
+              </form>
         </div>
 
     </section>
     <jsp:include page="../common/footer.jsp" />
 
-    <script type="text/javascript">
-      var oEditors = [];
-      nhn.husky.EZCreator.createInIFrame({
-       oAppRef: oEditors,
-       elPlaceHolder: "ir1",
-       sSkinURI: "../../../resources/se2/SmartEditor2Skin.html",
-       htParams : {
-        bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-        bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-        bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-        //aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
-        fOnBeforeUnload : function(){
-          //alert("완료!");
-        }
-      }, //boolean
-      fOnAppLoad : function(){
-        //예제 코드
-        //oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-      },
-      fCreator: "createSEditor2"
-    });
-  
-      // 스마트 에디터 이미지 삽입방법 
-      function pasteHTML() {
-      var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-      oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
-    }
     
-    function showHTML() {
-      var sHTML = oEditors.getById["ir1"].getIR();
-      alert(sHTML);
-    }
-      
-    function submitContents(elClickedObj) {
-      oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
-      
-      // 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
-      
-      try {
-        elClickedObj.form.submit();
-      } catch(e) {}
-    }
-    
-    function setDefaultFont() {
-      var sDefaultFont = '궁서';
-      var nFontSize = 24;
-      oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
-    }
-      </script>
 </body>
 </html>

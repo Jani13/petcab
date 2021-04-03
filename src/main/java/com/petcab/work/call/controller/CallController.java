@@ -42,18 +42,16 @@ public class CallController {
 	@RequestMapping(value = "/book/done", method = {RequestMethod.POST})
 	public ModelAndView book(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, 
+			HttpServletRequest request,
 			@ModelAttribute Call call, ModelAndView model) {
 		// 애견정보 추가 필요
-		
-		log.info(call.toString());
-		
+				
 		int result = service.insertCall(call); // 서비스등록
 		
 		log.info(call.toString());
 
 		if(result > 0) {
-			model.addObject(call);
+//			model.addObject(call);
 		} else {
 			// 서비스등록 실패
 		}
@@ -72,11 +70,30 @@ public class CallController {
 	}
 
 	// 일반예약 취소
-	@RequestMapping(value = "/cancel", method = {RequestMethod.POST})
+	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, Call call, ModelAndView model) {
-
+			HttpServletRequest request, 
+			@ModelAttribute Call call, ModelAndView model) {
+						
+		log.info(call.toString()); // call 객체에 callNo만 존재
+				
+		int result = service.updateCall(call.getCallNo()); // DB 상태 업데이트
+		
+		call = service.selectCall(call.getCallNo());
+		
+		if(result > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+		
+		log.info(call.toString());
+		
+		model.addObject("call", call);
+		
+		model.setViewName("call/book_gn_cancel");
+		
 		return model;
 	}
 

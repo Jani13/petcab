@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.petcab.work.user.model.vo.Driver;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,4 +44,6 @@ public class Call {
 	private String animalNoC;
 	
 	private String merchantUid;
+	
+	private Driver driver;
 }

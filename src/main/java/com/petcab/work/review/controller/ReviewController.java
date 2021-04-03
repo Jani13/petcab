@@ -37,6 +37,7 @@ public class ReviewController {
 		int reviewCount = service.getReviewCount(); 
 		PageInfo pageInfo = new PageInfo(page, 10, reviewCount, listLimit);
 		
+		
 		System.out.println(reviewCount);
 		
 		list = service.getReviewList(pageInfo);
@@ -48,24 +49,39 @@ public class ReviewController {
 		return model;
 	}
 	
-	// 리뷰 작성화면
 	@RequestMapping(value = "/reviewWrite", method = {RequestMethod.GET})
-	public void WriteView() {
+	public String aaa() {
 		
+		return "/review/reviewWrite";
 	}
 	
+	
 	// 게시글 작성처리
-	@RequestMapping(value = "/reviewWrite", method = {RequestMethod.POST})
-	public ModelAndView reviewrite(
+	@RequestMapping(value = "/reviewWriteResult", method = {RequestMethod.POST})
+	public ModelAndView reviewWriteResult(
 		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-		HttpServletRequest request, Review review, ModelAndView model) {
+		HttpServletRequest request, ModelAndView model) {
 		
 		int result = 0;
+		Review review = new Review();
 		
-		if (loginMember.getUserNo() == review.getUserNo()) {
-			
+		int callNo = Integer.parseInt(request.getParameter("callNo"));
+		String callType = request.getParameter("callType");
+		int starNo = Integer.parseInt(request.getParameter("starNo"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("ir1");
+		int userNo = loginMember.getUserNo();
+		
+		
+		System.out.println("asdasdasdsd"+userNo);
+		
+		review.setCallNo(callNo);
+		review.setCallType(callType);
+		review.setStarNo(starNo);
+		review.setTitle(title);
+		review.setContent(content);
+		review.setUserNo(userNo);
 			result = service.saveReview(review);
-			
 			if(result > 0) {
 				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 				model.addObject("location", "/review/list");
@@ -74,11 +90,7 @@ public class ReviewController {
 				model.addObject("location", "/review/list");
 			}
 			
-		}else {
-			model.addObject("msg", "잘못된 접근입니다.");
-			model.addObject("location", "/");
-		}
-		
+
 		model.setViewName("common/msg");
 		return model;
 	}

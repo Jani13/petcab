@@ -71,7 +71,7 @@
   	  			<a class="nav-link text-black" href="${path}/user/userMyPage">마이페이지</a>
   	  		</c:when>
   	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
-  	  			<a class="nav-link text-black" href="${path}/driver/driverMyPage">마이페이지</a>
+  	  			<a class="nav-link text-black" href="${path}/driver/mypage">마이페이지</a>
   	  		</c:when>
   	  		<c:otherwise>
   	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
