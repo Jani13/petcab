@@ -20,7 +20,7 @@ public interface MemberDao {
 
 	Member searchMemberPwd(@Param("userId")String userId, @Param("phone") String phone);
 
-//	int updatePwd(Member member);
-	// 4/3일 작업중 다시.. 해야함...
-	Member updatePwd(String userId, String userPwd);
+	int updatePwd(Member member);
+
+//	Member updatePwd(@Param("userId") String userId, @Param("userPwd") String userPwd);
 }
