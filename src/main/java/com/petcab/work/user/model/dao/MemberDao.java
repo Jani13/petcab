@@ -22,5 +22,4 @@ public interface MemberDao {
 
 	int updatePwd(Member member);
 
-//	Member updatePwd(@Param("userId") String userId, @Param("userPwd") String userPwd);
 }

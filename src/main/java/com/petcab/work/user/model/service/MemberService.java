@@ -19,7 +19,5 @@ public interface MemberService {
 
 	Member searchMemberPwd(String userId, String phone);
 
-//	int updatePwd(String userId, String userPwd);
-
 	int updatePwd(Member member);
 }

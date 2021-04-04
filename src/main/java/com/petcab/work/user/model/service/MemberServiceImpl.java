@@ -80,19 +80,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updatePwd(member);
 	}
 
-//	@Override
-//	public int updatePwd(Member member) {
-//		userPwd = passwordEncoder.encode(userPwd);
-//		
-////		memberDao.updatePwd(userId,passwordEncoder.encode(userPwd));
-//		
-//		
-//		return memberDao.updatePwd(userId, userPwd);
-//	}
-
-
-
-
-	
-
 }
