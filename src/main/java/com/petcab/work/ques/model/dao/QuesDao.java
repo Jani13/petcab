@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.ques.model.vo.Ques;
+import com.petcab.work.ques.model.vo.QuesReply;
 
 public interface QuesDao {
 
@@ -17,5 +18,9 @@ public interface QuesDao {
 	int updateQues(Ques ques);
 
 	Ques selectQuesDetail(int quesNo);
+
+	Ques delete(int quesNo);
+
+	int insertQuesReply(QuesReply reply);
 
 }
