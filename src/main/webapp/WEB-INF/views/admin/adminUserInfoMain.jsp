@@ -22,46 +22,12 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/admin/adminUserInfoMain.html
-    <style>
-      section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.05);
-      }
 
-      .heightbox {
-        width: 300px;
-        height: 300px;
-      }
-      .admin__elements {
-        background-color: #86f3ff;
-      }
-      .admin-box__elements {
-        border: none;
-      }
-      .wheather-box {
-        width: 200px;
-        display: block;
-        margin-bottom: 10px;
-      }
-      .chart-box {
-        width: 400px;
-        height: 300px;
-        border: 1px solid black;
-      }
-    </style>
-
-    <link rel="stylesheet" href="../../../resources/css/headerfooter.css" />
-    <script src="../../../resources/js/jquery-3.5.1.js"></script>
-    <script src="../../../resources/js/headerfooter.js"></script>
-=======
-    <link rel="stylesheet" href="${path}/css/adminpage.css" />
-    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <link rel="stylesheet" href="${path}/css/headerfooter.css"/>
+    <link rel="stylesheet" href="${path}/css/adminpage.css"/>
     <script src="${path}/js/jquery-3.5.1.js"></script>
->>>>>>> 69f0f7758c8419f0b486cb5fa93f81b984a6e3af:src/main/webapp/WEB-INF/views/admin/adminUserInfoMain.jsp
+    <script src="${path}/js/headerfooter.js"></script>
+
   </head>
   <body>
  

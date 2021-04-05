@@ -22,4 +22,12 @@ public interface CallDao {
 	List<Call> driverWaitCallList(@Param("userNo") int userNo);
 
 	List<Call> driverEndCallList(@Param("userNo") int userNo);
+	
+	int selectAllCall();
+
+	int selectGenCall();
+
+	int selectEmergCall();
+
+	int selectCancelledCall();
 }

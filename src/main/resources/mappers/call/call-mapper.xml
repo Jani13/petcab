@@ -181,4 +181,27 @@
 		AND C.USER_NO = #{userNo}
 	</select>
 
+	<!-- 이슬 작업 -->
+	<select id="selectAllCall" resultType="_int">
+		SELECT COUNT(*) FROM GEN_CALL
+	</select>
+	
+	<select id="selectGenCall" resultType="_int">
+		SELECT COUNT(*) 
+		FROM GEN_CALL
+		WHERE CALL_TYPE = 1
+	</select>
+
+	<select id="selectEmergCall" resultType="_int">
+		SELECT COUNT(*) 
+		FROM GEN_CALL
+		WHERE CALL_TYPE = 2
+	</select>
+	
+	<select id="selectCancelledCall" resultType="_int">
+		SELECT COUNT(*) 
+		FROM GEN_CALL
+		WHERE STATUS = 'N'
+	</select>
+
 </mapper>	

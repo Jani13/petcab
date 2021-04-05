@@ -22,4 +22,6 @@ public interface MemberDao {
 
 	int updatePwd(Member member);
 
+	int selectCount();
+
 }

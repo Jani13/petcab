@@ -4,6 +4,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<% 	
+Cookie [] cookieArray = request.getCookies();
+Cookie cookie = null;
+int countNum = 0;
+String countStr = "";
+
+if(cookieArray != null) {
+	for(int i = 0; i < cookieArray.length; i++) {
+		if(cookieArray[i].getName().equals("counter")) {
+			cookie = cookieArray[i];
+			break;
+		}
+	}
+}
+
+if(cookie != null) {
+	countNum = Integer.parseInt(cookie.getValue()) + 1;
+	countStr = Integer.toString(countNum);
+	cookie.setValue(countStr);
+} else {
+	cookie = new Cookie("counter", "1");
+}
+
+response.addCookie(cookie);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +52,7 @@
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
     <script src="${path}/js/jquery-3.5.1.js"></script>
   </head>
-  <body>
+  <body onload="go_time()">
   <jsp:include page="../common/header.jsp" />
   <jsp:include page="../common/nav.jsp" />
     <section>
@@ -59,7 +85,7 @@
                       class="card-title fs-4 fw-bolder"
                       style="text-align: center"
                     >
-                      100 명
+                      ${memberCount}명
                     </h5>
                   </div>
                 </div>
@@ -77,7 +103,7 @@
                       class="card-title fs-4 fw-bolder"
                       style="text-align: center"
                     >
-                      3명
+                    <%= cookie.getValue() %>명 <%-- <%= application.getAttribute("Counter") %> --%>
                     </h5>
                   </div>
                 </div>
@@ -97,15 +123,15 @@
                       class="card-title fs-4 fw-bolder"
                       style="text-align: center"
                     >
-                      3천원
+                      ${amountAll}원
                     </h5>
                   </div>
                 </div>
               </div>
               <div class="col-xs-12">
                 <div class="card border-dark mb-3 admin-box__elements">
-                  <div class="card-header fs-4 fw-bolder admin__elements">
-                    2021-03-28 12:21
+                  <div class="card-header fs-4 fw-bolder admin__elements" id="clock">
+                    	
                   </div>
                   <div style="padding: 0 30px">
                     <div
@@ -114,36 +140,23 @@
                     >
                       <button
                         type="button"
-                        class="btn btn-primary btn-lg col-auto"
+                        class="btn btn-primary btn-lg col-7"
+                        style="height: 200px;"
                         disabled
                       >
-                        <span class="wheather-box">
-                          <i class="fas fa-thermometer-half fa-2x"></i>
-                        </span>
-                        <h3 class="fw-bolder">온도</h3>
-                        <h5>30도</h5>
+                        <div class="CurrIcon fa-3x"></div>
+                        <div class="CurrTemp fw-bolder"></div>
+                        <div class="City fw-bolder"></div>
                       </button>
                       <button
                         type="button"
-                        class="btn btn-primary btn-lg col-auto"
+                        class="btn btn-primary btn-lg col-4"
+                        style="height: 200px"
                         disabled
                       >
-                        <span class="wheather-box"
-                          ><i class="far fa-sad-tear fa-2x"></i
-                        ></span>
-                        <h3 class="fw-bolder">미먼세지</h3>
+                        <i class="far fa-sad-tear fa-3x"></i>
+                        <h3 class="fw-bolder">미세먼지</h3>
                         <h5>아주 나쁨</h5>
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-lg col-auto"
-                        disabled
-                      >
-                        <span class="wheather-box"
-                          ><i class="fas fa-smog fa-2x"></i
-                        ></span>
-                        <h3 class="fw-bolder">날씨</h3>
-                        <h5>별로</h5>
                       </button>
                     </div>
                   </div>
@@ -166,7 +179,7 @@
                         style="width: 180px"
                       >
                         <h5 class="fs-4 fw-bolder">총 예약건</h5>
-                        <h6>1건</h6>
+                        <h6>${allCall}건</h6>
                       </button>
                       <button
                         type="button"
@@ -174,7 +187,7 @@
                         style="width: 180px"
                       >
                         <h5 class="fs-4 fw-bolder">일반 예약</h5>
-                        <h6>1건</h6>
+                        <h6>${genCall}건</h6>
                       </button>
                       <button
                         type="button"
@@ -182,7 +195,7 @@
                         style="width: 180px"
                       >
                         <h5 class="fs-4 fw-bolder">긴급 콜</h5>
-                        <h6>1건</h6>
+                        <h6>${emergCall}건</h6>
                       </button>
                       <button
                         type="button"
@@ -190,7 +203,7 @@
                         style="width: 180px"
                       >
                         <h5 class="fs-4 fw-bolder">취소</h5>
-                        <h6>1건</h6>
+                        <h6>${cancelledCall}건</h6>
                       </button>
                     </div>
                   </div>
@@ -199,7 +212,7 @@
               <div class="col-xs-12">
                 <div class="card border-dark mb-3 admin-box__elements">
                   <div class="card-header fs-4 fw-bolder admin__elements">
-                    알림
+                    문의 알림
                   </div>
                   <div class="card-body text-dark">
                     <table class="table table-striped">
@@ -244,5 +257,64 @@
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript">
+    	function go_time() {
+			var	now = new Date();
+			
+			var year = now.getFullYear();
+			var month = now.getMonth()+1;
+			month = month >= 10 ? month : '0' + month;
+			var date = now.getDate(); 
+			date = date >= 10 ? date : '0' + date;
+			var hour = now.getHours();
+			var min = now.getMinutes(); 
+			var sec = now.getSeconds();
+			
+			var week = new Array("일", "월", "화", "수", "목", "금", "토");
+			
+			
+			document.getElementById("clock").innerHTML 
+			 = year+"년 "+ month +"월 "+ date +"일 " + week[now.getDay()] + "요일 " + hour + ":"+ min +":"+ sec
+			 //id가 clock인 html에 현재시각을 넣음
+			 
+			 setTimeout("go_time()", 1000);
+		}
+    	
+    	$(document).ready(function() { 
+    		let weatherIcon = { 
+    				'01' : 'fas fa-sun', 
+    				'02' : 'fas fa-cloud-sun', 
+    				'03' : 'fas fa-cloud', 
+    				'04' : 'fas fa-cloud-meatball', 
+    				'09' : 'fas fa-cloud-sun-rain', 
+    				'10' : 'fas fa-cloud-showers-heavy', 
+    				'11' : 'fas fa-poo-storm', 
+    				'13' : 'far fa-snowflake', 
+    				'50' : 'fas fa-smog' 
+    		};
+    		
+    		$.ajax({ 
+    			url:'http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=b8fbfc238137e86d2625f29e9516ce38&units=metric', 
+    			dataType:'json', 
+    			type:'GET', 
+    			success:function(data){ 
+    				var $Icon = (data.weather[0].icon).substr(0,2); 
+    				var $Temp = Math.floor(data.main.temp) + 'º'; 
+    				var $city = data.name; 
+    					
+    				$('.CurrIcon').append('<i class="' + weatherIcon[$Icon] +'"></i>'); 
+    				$('.CurrTemp').prepend($Temp); 
+    				$('.City').append($city); 
+    				} 
+    			}) 
+    		});
+
+  
+
+    
+    	
+    	
+    </script>
+    
   </body>
 </html>

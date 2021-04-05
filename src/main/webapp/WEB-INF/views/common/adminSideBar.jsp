@@ -7,7 +7,7 @@
 
 <div id="adminSidebar" class="p-3" style="width: 280px; height: auto; background-color: #4ec7f2">
 <a
-  href="${path}/admin/"
+  href="${path}/admin/adminMain"
   class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
 >
   <span class="fs-5 fw-semibold text-light fs-2 fw-bolder">Adminpage</span>

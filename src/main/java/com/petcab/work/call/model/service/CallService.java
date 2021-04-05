@@ -18,4 +18,12 @@ public interface CallService {
 
 	List<Call> driverEndCallList(int userNo);
 
+	int selectAllCall();
+
+	int selectGenCall();
+
+	int selectEmergCall();
+
+	int selectCancelledCall();
+
 }
