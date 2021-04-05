@@ -48,4 +48,24 @@ public class CallServiceImpl implements CallService {
 		return callDao.driverEndCallList(userNo);
 	}
 
+	@Override
+	public int selectAllCall() {
+		return callDao.selectAllCall();
+	}
+
+	@Override
+	public int selectGenCall() {
+		return callDao.selectGenCall();
+	}
+
+	@Override
+	public int selectEmergCall() {
+		return callDao.selectEmergCall();
+	}
+
+	@Override
+	public int selectCancelledCall() {
+		return callDao.selectCancelledCall();
+	}
+
 }

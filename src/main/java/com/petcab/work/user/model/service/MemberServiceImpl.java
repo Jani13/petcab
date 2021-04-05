@@ -80,4 +80,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updatePwd(member);
 	}
 
+//	adminPage에서 사용
+	// member count
+	@Override
+	public int getMemberCount() {
+		
+		return memberDao.selectCount();
+	}
+
 }
