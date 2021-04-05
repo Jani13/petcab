@@ -14,6 +14,8 @@ public class Ques {
 	
 	private int userNo;
 	
+	private String userId;
+	
 	private String title;
 	
 	private String content;
