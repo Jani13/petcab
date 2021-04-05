@@ -35,9 +35,10 @@
         <div class="col-lg-4">
             <h4 class="text-center">비밀번호 수정</h4>
             <br>
+            
             <div class="form-floating mb-3">
                 <input type="password" class="form-control form-control-sm" id="floatingPassword1" placeholder="새 비밀번호">
-                <label for="floatingPassword1">새 비밀번호</label>
+                <label for="floatingPassword1">변경할 비밀번호</label>
             </div>
             <div class="form-floating">
                 <input type="password" class="form-control" id="floatingPassword2" placeholder="비밀번호 확인">

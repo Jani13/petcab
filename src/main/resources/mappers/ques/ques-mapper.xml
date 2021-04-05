@@ -9,6 +9,7 @@
 		       Q.TITLE,
 		       M.USER_ID,
 		       Q.POST_DATE,
+		       Q.QUES_TYPE,
 		       Q.VIEW_NO
 		FROM QUES Q
 		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)			
@@ -68,11 +69,11 @@
 	       Q.POST_DATE,
 	       Q.EDIT_DATE,
 	          R.QUES_NO, 
-	          M2.USER_ID AS R_USER_ID, 
+	          M2.USER_ID AS M_USER_ID, 
 	          R.REPLY_CONTENT, 
 	          R.POST_DATE, 
 	          R.EDIT_DATE, 
-	      FROM Ques Q
+	      FROM QUES Q
 	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
 	      WHERE Q.USER_NO=#{quesNo}
 	</select>
@@ -83,17 +84,18 @@
   		INSERT INTO QUES 
   		VALUES(
   			SEQ_QUES_NO.NEXTVAL,
-  			#{quesType},
-  			#{quesPwd},
   			#{title},
   			#{content},
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
+  			#{quesType},
+  			#{quesPwd},
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
-  			DEFAULT
+  			#{userNo}
+  			
  		)
   	</insert>
   	

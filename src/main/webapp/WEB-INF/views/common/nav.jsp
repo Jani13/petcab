@@ -62,22 +62,23 @@
       </c:if>
     	
   	  <c:if test="${loginMember != null}">
-  	  <li class="nav-item">
-  	  	<c:choose>
-  	  		<c:when test="${loginMember.userType eq 'ROLE_ADMIN'}">
-  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">마이페이지</a>
-  	  		</c:when>
-  	  		<c:when test="${loginMember.userType eq 'ROLE_MEMBER'}">
-  	  			<a class="nav-link text-black" href="${path}/user/userMyPage">마이페이지</a>
-  	  		</c:when>
-  	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
-  	  			<a class="nav-link text-black" href="${path}/driver/mypage">마이페이지</a>
-  	  		</c:when>
-  	  		<c:otherwise>
-  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
-  	  		</c:otherwise> 	  		
-  	  	</c:choose>
-      </li>
+	  	  <li class="nav-item">
+	  	  	<c:choose>
+	  	  		<c:when test="${loginMember.userType eq 'ROLE_ADMIN'}">
+	  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">마이페이지</a>
+	  	  		</c:when>
+	  	  		<c:when test="${loginMember.userType eq 'ROLE_MEMBER'}">
+	  	  			<a class="nav-link text-black" href="${path}/mypage">마이페이지</a>	  	  		
+	  	  		</c:when>
+	  	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
+	  	  			<a class="nav-link text-black" href="${path}/mypage">마이페이지</a>
+	  	  		</c:when>
+	  	  		<c:otherwise>
+	  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
+	  	  		</c:otherwise> 	  		
+	  	  	</c:choose>
+
+	      </li>
   	  </c:if>
       
     </ul>
