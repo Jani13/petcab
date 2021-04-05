@@ -14,7 +14,7 @@ public class Dog {
 	
 	private String animalNo;
 	
-	private int userNo;
+	private String userId;
 	
 	private String dogName;
 	

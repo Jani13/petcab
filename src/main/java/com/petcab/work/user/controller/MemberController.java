@@ -88,7 +88,7 @@ public class MemberController {
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
 		
 		int result = service.saveMember(member);
-		
+		log.info(member.toString());		
 		if(result > 0) {
 			
 			model.addObject("msg", "회원가입이 완료되었습니다.");

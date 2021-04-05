@@ -10,6 +10,8 @@ import com.petcab.work.user.model.vo.Member;
 @Mapper
 public interface DogDao {
 	int insertDog(Dog dog);
-//	int updateDog(Dog dog);
-//	int deleteDog(Dog dog);
+
+//	int updatedog(Dog dog);
+
+
 }

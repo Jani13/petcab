@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,34 +50,56 @@ public class DogController {
 		@RequestMapping(value = "/dog/dogInformation/enroll", method = {RequestMethod.POST})
 		public ModelAndView enroll(ModelAndView model, @ModelAttribute Dog dog) {
 			
-			log.info(dog.toString());
 			
-//			int result = service.saveDog(dog);
+			int result = service.saveDog(dog);
 			log.info(dog.toString());		
 			
-//			if(result > 0) {
+			if(result > 0) {
 				model.addObject("msg", "등록 되었습니다.");
-				model.addObject("location", "/signup/Information");
-//			} else {
-//				model.addObject("msg", " 실패했습니다.");
-//				model.addObject("location", "/");
-//			}
+				model.addObject("location", "/");
+			} else {
+				model.addObject("msg", " 실패했습니다.");
+				model.addObject("location", "/dog/dogInformation/enroll");
+			}
 			
 			model.setViewName("common/msg");		
 			
 			return model;
 		}
 		
-//		@RequestMapping("/signup/Information")
-//		@ResponseBody
-//		@Transactional
-//		public String Infromation(ModelAndView model, 
-//				@ModelAttribute Dog dog,
-//				@ModelAttribute Member member) {
+//		@RequestMapping(value ="/dog/dogInformation/enroll",method = {RequestMethod.POST} )
+//		
+//		@RequestMapping("/dog/mdogInformation")
+//		public ModelAndView update(@ModelAttribute Dog dog,
+//				@SessionAttribute(name = "mydog", required = false) Dog mydog,
+//				ModelAndView model) {
+////			Dog mydogDog = service.mydogg(String userId);
+//			int result = 0;
 //			
-//			int result = service.saveDog(dog,member);
-//			return "/signup/Information";
+//			if(mydog.getUserId().equals(dog.getUserId())) {
+//				dog.setDogNo(mydog.getDogNo());
+//				
+//				result = service.saveDog(dog);
+//				
+//				if(result > 0) {
+//					model.addObject("mydog", service.mydogg(mydog.getUserId()));
+//					model.addObject("msg", "수정을 완료했습니다.");
+//					model.addObject("location", "/member/myPage");				
+//				} else {
+//					model.addObject("msg", "수정에 실패 했습니다.");
+//					model.addObject("location", "/dog/mdogInformation");
+//				}
+//			} else {
+//				model.addObject("msg", "잘못된 접근입니다.");
+//				model.addObject("location", "/");
+//			}
+//			
+//			model.setViewName("common/msg");
+//			
+//			return model;
 //		}
+//
+//		
 //		private String saveFile(MultipartFile file, HttpServletRequest request) {
 //			String renamePath = null; 
 //			String originalFileName = null;
@@ -109,6 +132,5 @@ public class DogController {
 //			}
 //			
 //			return renameFileName;
-//		}
-			
+//		}			
 }
