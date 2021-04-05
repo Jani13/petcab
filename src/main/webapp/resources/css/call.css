@@ -1,4 +1,6 @@
 /* 공통 */
+
+
 .container {
     /* width: 1200px; */
 }
@@ -37,7 +39,7 @@
     height: 100%;
 }
 
-.btn-back, .btn-next, .btn-emg-book {
+.btn-back, .btn-next {
     width: 100%;
 }
 

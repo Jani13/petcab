@@ -35,14 +35,12 @@
 		<div class="container mt-5 mb-5 bg-light">
 			<div class="row row-call-1 text-center">
 				<div
-					class="col btn-call-gen bg-info h-100 d-flex justify-content-center flex-column"
-					onclick="selectGen();">
+					class="col btn-call-gen bg-info h-100 d-flex justify-content-center flex-column">
 					<h1 class="text-white">일반</h1>
 				</div>
 				<div
-					class="col btn-call-emg bg-warning h-100 d-flex justify-content-center flex-column"
-					onclick="selectEmg();">
-					<h1 class="text-white">긴급</h1>					
+					class="col btn-call-emg bg-warning h-100 d-flex justify-content-center flex-column">
+					<h1 class="text-white">긴급</h1>
 				</div>
 			</div>
 
@@ -54,6 +52,12 @@
 
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form action="${ path }/call/book/done" method="POST">
+						<!-- TEST -->
+							<!-- 
+							<input type="hidden" name="userNo" value="1">
+							-->
+						<!-- TEST -->
+						
 							<div class="form-group mb-3">
 								<label for="pickupTime">예약 시간</label> <input
 									type="datetime-local" id="pickupTime" name="pickupTime" />
@@ -133,32 +137,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
-
-<!-- <script type="text/javascript" src="${ path }/resources/js/call.js" ></script> -->
-<script>
-    $(document).ready(function(){
-    // var btnCallGen = document.getElementsByClassName('btn-call-gen');
-
-    // for (var i = 0; i < btnCallGen.length; i++) {
-    //     btnCallGen.style.backgroundColor="black";
-    // }
-});
-	
-function selectGen() {
-	$('input[name=callType]').val('일반');
-
-    // hover, border change
-
-    window.location = "${path}/call/book";
-}
-
-function selectEmg() {
-	$('input[name=callType]').val('긴급');
-
-    // hover, border change
-
-    window.location = "${path}/call/book/emg_a";
-}
-
-</script>
 </html>

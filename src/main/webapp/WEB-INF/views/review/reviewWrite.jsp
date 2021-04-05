@@ -106,9 +106,6 @@
                               <input type="checkbox" id="callType" name="callType" class="form-check-input" value="">Y
                             </label>&nbsp; &nbsp; &nbsp; &nbsp;  -->
                             <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="Y">Y
-                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="form-check-label">
                               <input type="checkbox" id="callType" name="callType" class="form-check-input" value="N">N
                             </label>
                           </div>

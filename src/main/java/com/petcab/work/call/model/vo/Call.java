@@ -18,7 +18,11 @@ public class Call {
 	private int callNo;
 		
 	private String pickupTime;
-
+	
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH a z")
+//	@Temporal(TemporalType.DATE)
+//	private Date pickupTime;
+	
 	private String fromWhere;
 	
 	private String toWhere;
@@ -29,9 +33,9 @@ public class Call {
 	
 	private String status;
 	
-	private String callType;
+	private int callType;
 	
-//	private int dUserNo;
+	private int userNo;
 	
 	private String animalNoA;
 	

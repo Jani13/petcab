@@ -48,6 +48,7 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.searchUserNo(userNo);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public List<Review> searchSUserNo(int userNo) {
 		return reviewDao.searchSUserNo(userNo);
@@ -59,6 +60,8 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewDetail(reviewNo);
 	}
 
+=======
+>>>>>>> parent of d4e329e (0405_관리자마이페이지작업중)
 	
 	
 }

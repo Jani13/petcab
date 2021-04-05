@@ -35,7 +35,6 @@
 	 <interceptors>
 	 	<interceptor>
 	 	<!-- 이곳은 로그인 인터셉터를 등록 하는 곳입니다~! -->
-	 		<mapping path="/dog/**"/>
 	 		<mapping path="/driver/apply"/>
 	 		<mapping path="/driver/mypage"/>
 	 		<beans:bean id="LoginCheckInterceptor" class="com.petcab.work.common.interceptor.LoginCheckInterceptor"/>

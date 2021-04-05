@@ -11,7 +11,6 @@ import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.ques.model.dao.QuesDao;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
-import com.petcab.work.ques.model.vo.QuesReply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,25 +54,6 @@ public class QuesServiceImpl implements QuesService {
 		
 		return quesDao.selectQuesDetail(quesNo);
 		
-	}
-
-	@Override
-	public Ques delete(int quesNo) {
-		
-		
-		return quesDao.delete(quesNo);
-	}
-
-	@Override
-	public int saveQuesReply(QuesReply reply) {
-		
-		return quesDao.insertQuesReply(reply);
-	}
-
-	@Override
-	public int updateViewNo(int quesNo) {
-		
-		return quesDao.updateViewNo(quesNo);
 	}
 
 }

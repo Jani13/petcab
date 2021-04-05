@@ -6,14 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.petcab.work.call.model.vo.Call;
-import com.petcab.work.call.model.vo.EmgCall;
 
 @Mapper
 public interface CallDao {
 	
 	int insertCall(Call call);
-	
-	int insertEmgCall(EmgCall emgCall);
 	
 	int updateCall(int callNo);
 	

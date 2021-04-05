@@ -15,7 +15,7 @@
 				OTHER,
 				IMAGE_ORI,
 				IMAGE_RE,
-				USER_ID,
+				USER_NO,
 				ENROLL_DATE,
 				MODIFY_DATE,
 				STATUS
@@ -36,7 +36,7 @@
 			 <result property="other" column="OTHER"/>
 			 <result property="imageOri" column="IMAGE_ORI"/>
 			 <result property="imageRe" column="IMAGE_RE"/>
-			 <result property="userId" column="USER_ID"/>
+			 <result property="userNo" column="USER_NO"/>
 			 <result property="enrollDate" column="ENROLL_DATE"/>
 			 <result property="modifyDate" column="MODIFY_DATE"/>
 			 <result property="status" column="STATUS"/>
@@ -47,16 +47,16 @@
 		</select>
 	 	
 	 <select id="selectDogAll" resultMap="DogResultMap">
-		 <include refid="selectDogSql"></include>
+		<include refid="selectDogSql"></include>
 	 </select>
 	 	
 	 	<select id="selectDog" parameterType="string" resultMap="DogResultMap">	
 			<include refid="selectDogSql"></include>		
-			AND USER_Id = #{userId}	
+			AND USER_NO = #{userNo}	
 		</select>
 		
 		<insert id="insertDog" parameterType="Dog"
-		useGeneratedKeys="true" keyProperty="dogNo" keyColumn="DOG_NO">	
+		useGeneratedKeys="true" keyProperty="animalNo" keyColumn="ANIMAL_NO">	
 		INSERT INTO DOG (
 				DOG_NO,
 				ANIMAL_NO,
@@ -68,7 +68,7 @@
 				OTHER,
 				IMAGE_ORI,
 				IMAGE_RE,
-				USER_ID,
+				USER_NO,
 				ENROLL_DATE,
 				MODIFY_DATE,
 				STATUS
@@ -83,14 +83,15 @@
 				#{disorder}, 
 				#{other}, 
 				#{imageOri}, 
-				#{imageRe},
-				#{userId},		  
+				#{imageRe},				 
+				#{userNo},				 
 				SYSDATE, 
 				SYSDATE,
 				DEFAULT  
 			)
 	</insert>
 	 	
+<<<<<<< HEAD
 	<select id="searchUserNo" parameterType="_int" resultMap="DogResultMap">
 		<include refid="selectDogSql"></include>
 		AND USER_NO = #{userNo}
@@ -101,4 +102,6 @@
 			FROM MEMBER M , DOG D
 			WHERE M.USER_ID = D.USER_ID;
 	</select>
+=======
+>>>>>>> parent of d4e329e (0405_관리자마이페이지작업중)
 </mapper>
