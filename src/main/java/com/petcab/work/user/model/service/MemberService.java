@@ -17,5 +17,7 @@ public interface MemberService {
 
 	Member searchMember(String userName, String phone);
 
+	Member searchMemberPwd(String userId, String phone);
 
+	int updatePwd(Member member);
 }
