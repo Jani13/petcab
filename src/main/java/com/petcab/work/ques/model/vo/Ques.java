@@ -28,7 +28,7 @@ public class Ques {
 	
 	private String quesType;
 	
-	private int quesPwd;
+	private String quesPwd;
 	
 	private int groupNo;
 	

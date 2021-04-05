@@ -70,4 +70,10 @@ public class QuesServiceImpl implements QuesService {
 		return quesDao.insertQuesReply(reply);
 	}
 
+	@Override
+	public int updateViewNo(int quesNo) {
+		
+		return quesDao.updateViewNo(quesNo);
+	}
+
 }
