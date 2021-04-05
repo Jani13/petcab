@@ -1,7 +1,5 @@
 package com.petcab.work.call.model.service;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +23,12 @@ public class CallServiceImpl implements CallService {
 		return callDao.insertCall(call);
 	}
 
+	@Override
+	public int insertEmgCall(EmgCall emgCall) {
+		
+		return callDao.insertEmgCall(emgCall);
+	}
+	
 	@Override
 	public int updateCall(int callNo) {
 		
@@ -49,6 +54,23 @@ public class CallServiceImpl implements CallService {
 	@Override
 	public List<Call> searchUserCallList(int userNo) {
 		return callDao.searchUserCallList(userNo);
+	public int selectAllCall() {
+		return callDao.selectAllCall();
+	}
+
+	@Override
+	public int selectGenCall() {
+		return callDao.selectGenCall();
+	}
+
+	@Override
+	public int selectEmergCall() {
+		return callDao.selectEmergCall();
+	}
+
+	@Override
+	public int selectCancelledCall() {
+		return callDao.selectCancelledCall();
 	}
 
 }

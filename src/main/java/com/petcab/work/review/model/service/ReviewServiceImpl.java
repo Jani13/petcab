@@ -52,6 +52,12 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<Review> searchSUserNo(int userNo) {
 		return reviewDao.searchSUserNo(userNo);
 	}
+	
+	@Override
+	public Review findreviewNo(int reviewNo) {
+		
+		return reviewDao.selectReviewDetail(reviewNo);
+	}
 
 	
 	

@@ -1,25 +1,25 @@
 package com.petcab.work.call.controller;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.user.model.vo.Member;
+import com.petcab.work.user.model.vo.Partner;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,9 +51,9 @@ public class CallController {
 		log.info(call.toString());
 
 		if(result > 0) {
-//			model.addObject(call);
+			// 성공
 		} else {
-			// 서비스등록 실패
+			// 실패
 		}
 		
 		model.addObject("call", call);
@@ -75,37 +75,86 @@ public class CallController {
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, 
 			@ModelAttribute Call call, ModelAndView model) {
-						
-		log.info(call.toString()); // call 객체에 callNo만 존재
-				
+										
 		int result = service.updateCall(call.getCallNo()); // DB 상태 업데이트
 		
+		log.info(call.toString()); // call 객체에 callNo만 존재
+		
 		call = service.selectCall(call.getCallNo());
+		
+		log.info(call.toString());
 		
 		if(result > 0) {
 			// 성공
 		} else {
 			// 실패
 		}
-		
-		log.info(call.toString());
-		
+				
 		model.addObject("call", call);
 		
 		model.setViewName("call/book_gn_cancel");
 		
 		return model;
 	}
+	
+	// 긴급예약 신청 정보 입력 a
+	@RequestMapping(value = "/book/emg_a", method = RequestMethod.GET)
+	public String bookEmg() {
 
-	// 일반예약 조회
-	@RequestMapping(value = "/view", method = { RequestMethod.GET })
-	public ModelAndView view(@RequestParam("callNo") int callNo, ModelAndView model) {
-		Call call = service.selectCall(callNo);
-
-		model.addObject("call", call);
-		model.setViewName("call/view");
-
-		return model;
+		return "call/book_em_a";
 	}
+
+	@RequestMapping(value = "/book/emg_a", method = {RequestMethod.POST})
+	public ModelAndView bookEmg(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			HttpServletRequest request,
+			@ModelAttribute Partner partner,
+			@ModelAttribute EmgCall emgCall,
+			ModelAndView model) {
+						
+		emgCall.setPartner(partner);
+		
+//		int resultG = service.insertCall(emgCall); // callNo 생성됨
+				
+		int resultE = service.insertEmgCall(emgCall);
+					
+		if(resultE > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+		
+		log.info(emgCall.toString());
+		
+		model.addObject("emgCall", emgCall);
+
+		model.setViewName("call/book_gn_done");
+				
+		return model;
+	}	
+	
+	// JSON으로 데이터 전송 시 AJAX 필요
+//	@RequestMapping(value = "/book/emg_a", 
+//			method = {RequestMethod.POST}, 
+//			produces = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public Call bookEmg(
+//			@ModelAttribute Partner partner,
+//			@ModelAttribute EmgCall emgCall,
+//			@ModelAttribute Call call) {
+//
+//		// partnerName : Partner
+//		// pickupTime : Call
+//		// toPartner : EmgCall
+//				
+//		emgCall.setPartner(partner);
+//		call.setEmgCall(emgCall);
+//						
+//		log.info(emgCall.toString());
+//		
+//		// 쿼리문
+//		
+//		return call; // blank page 로...
+//	}	
 
 }

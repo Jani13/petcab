@@ -109,7 +109,7 @@
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
                     <td><input type="password" id="password" class="form-control" 
-                    		name="quesPwd" placeholder="비밀번호를 입력하세요."></td>
+                    		name="quesPwd" placeholder="숫자만 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
@@ -136,7 +136,8 @@
                               <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="partnerCancel" 
+                              			onclick="location.replace('${path}/ques/list')" value="취소하기">
                           </span>
                       </div>
                     </th>

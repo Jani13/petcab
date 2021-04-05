@@ -51,7 +51,8 @@
             </div>
             
             <br><br><br><br>
-
+            
+           
             <div class="card" style="width: 18rem; margin-left: 100px;" >
                 <div class="card-header">
                 <h4>${ques.title}</h4>
@@ -69,34 +70,37 @@
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" 
                 			style="resize: vertical;"><c:out value="${ques.content}"/></textarea>
-                <label for="floatingTextarea2">comment</label>
+                <label for="floatingTextarea2"></label>
             </div>
                        	
+            
             <c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
 	    					|| loginMember.userType == 'ROLE_ADMIN')}">
-            <div style="text-align : center; padding: 30px;">
+	    					
+            	<div style="text-align : center; padding: 30px;">
  
 	                <span style="padding-right : 3rem;">
-	                    <input type="submit" class="btn btn-primary" onclick="updateBoard()" value="수정하기"> 
+	                    <input type="submit" class="btn btn-primary" onclick="updateQues()" value="수정하기"> 
 	                </span>
 	                <span style="padding-right : 3rem;">
-	                    <input type="button" class="btn btn-secondary" onclick="deleteBoard()" value="삭제하기">
+	                    <input type="button" class="btn btn-secondary" onclick="deleteQues()" value="삭제하기">
 	                </span>
 	                <span>
 	                    <input type="button" class="btn btn-secondary" 
 	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
 	                </span>             	
   
-            </div>
-             </c:if>
+            	</div>
+            </c:if>
 
+			<c:if test="${ loginMember == null}">
            <div style="text-align : center; padding: 30px;">
 	                <span>
 	                    <input type="button" class="btn btn-secondary" 
 	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
 	                </span>	            
             </div>
-
+			</c:if>
             <hr>
 
             <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
@@ -115,7 +119,7 @@
 	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
 	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"
 	                			onfocus="checkLogin()"></textarea>
-	                <label for="floatingTextarea2">Comments</label>
+	                <label for="floatingTextarea2"></label>
 	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
             	</form>
             </div>
@@ -147,7 +151,7 @@ function updateQues(){
 	location.href= "${path}/ques/update?quesNo=${ques.quesNo}";
 }
 
-function deleteBoard(){		
+function deleteQues(){		
 	if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
 		location.replace('${path}/ques/delete?quesNo=${ques.quesNo}');
 	}

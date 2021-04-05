@@ -6,11 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 
 @Mapper
 public interface CallDao {
 	
 	int insertCall(Call call);
+	
+	int insertEmgCall(EmgCall emgCall);
 	
 	int updateCall(int callNo);
 	
@@ -21,4 +24,12 @@ public interface CallDao {
 	List<Call> driverEndCallList(@Param("userNo") int userNo);
 
 	List<Call> searchUserCallList(@Param("userNo")int userNo);
+	
+	int selectAllCall();
+
+	int selectGenCall();
+
+	int selectEmergCall();
+
+	int selectCancelledCall();
 }

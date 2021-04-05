@@ -1,13 +1,17 @@
-package com.petcab.work.admin;
+package com.petcab.work.admin.controller;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.payment.model.service.PaymentService;
+import com.petcab.work.user.model.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,11 +19,64 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String adminMain() {
-
-		return "admin/adminMain";
+	
+	@Autowired
+	private MemberService service;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private CallService callService;
+	
+	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
+	public ModelAndView adminMainView(ModelAndView model) {
+		Date today = new Date();
+		
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss a");
+		
+		int memberCount = service.getMemberCount();
+		int amountAll = paymentService.selectAmount();
+		int allCall = callService.selectAllCall();
+		int genCall = callService.selectGenCall();
+		int emergCall = callService.selectEmergCall();
+		int cancelledCall = callService.selectCancelledCall();
+		
+		System.out.println("총 회원수 : " + memberCount);
+		
+		model.addObject("date", date.format(today));
+		model.addObject("time", time.format(today));
+		model.addObject("memberCount", memberCount);
+		model.addObject("amountAll", amountAll);
+		model.addObject("allCall", allCall);
+		model.addObject("genCall", genCall);
+		model.addObject("emergCall", emergCall);
+		model.addObject("cancelledCall", cancelledCall);
+		model.setViewName("admin/adminMain");
+		
+		return model;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String infoMain() {

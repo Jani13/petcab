@@ -18,11 +18,12 @@ public class DogServiceImpl implements DogService {
 	
 	@Override
 	@Transactional
-	public int saveDog(Dog dog ) {
-		int result = 0;
-
-		result = dogDao.insertDog(dog);
-
+	public int saveDog(Dog dog) {
+		
+		int result =0;
+		
+		result=dogDao.insertDog(dog);
+		
 		return result;
 	}
 
@@ -34,12 +35,8 @@ public class DogServiceImpl implements DogService {
 
 //	@Override
 //	@Transactional
-////	public int saveDog(Dog dog) {
-//		public int saveDog(Dog dog,Member member) {
-//		int result = 0;
-//		
-//		result = dogDao.insertDog(dog,member);
-//		
-//		return result;
+//	public int saveDog(Dog dog, Member member) {
+//		// TODO Auto-generated method stub
+//		return 0;
 //	}
 }

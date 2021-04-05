@@ -17,4 +17,5 @@ public interface DogDao {
 //	int deleteDog(Dog dog);
 
 	List<Dog> searchUserNo(@Param("userNo") int userNo);
+
 }

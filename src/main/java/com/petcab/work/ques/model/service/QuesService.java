@@ -20,4 +20,6 @@ public interface QuesService {
 
 	int saveQuesReply(QuesReply reply);
 
+	int updateViewNo(int quesNo);
+
 }

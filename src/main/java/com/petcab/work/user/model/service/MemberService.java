@@ -20,4 +20,6 @@ public interface MemberService {
 	Member searchMemberPwd(String userId, String phone);
 
 	int updatePwd(Member member);
+
+	int getMemberCount();
 }

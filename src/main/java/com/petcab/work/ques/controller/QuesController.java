@@ -36,7 +36,8 @@ public class QuesController {
 		
 		List<Ques> list = null;
 		int quesCount = service.getQuesCount();
-		PageInfo pageInfo = new PageInfo(page, 10, 100, listLimit);
+//		PageInfo pageInfo = new PageInfo(page, 10, 100, listLimit);
+		PageInfo pageInfo = new PageInfo(page, 10, quesCount, listLimit);
 		
 		
 		System.out.println(quesCount);
@@ -65,6 +66,7 @@ public class QuesController {
 			 ModelAndView model) {
 		
 		int result = 0;
+//		int userNo = loginMember.getUserNo();
 		
 		System.out.println(ques);
 
@@ -125,9 +127,9 @@ public class QuesController {
 	@RequestMapping(value = "/view", method = {RequestMethod.GET})
 	public ModelAndView view(@RequestParam("quesNo") int quesNo, ModelAndView model) {
 		
+		service.updateViewNo(quesNo);
 		Ques ques = service.findQuesByNo(quesNo);
-		
-		
+
 		model.addObject("ques", ques);
 		model.setViewName("ques/quesView");
 		

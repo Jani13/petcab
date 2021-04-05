@@ -23,4 +23,6 @@ public interface QuesDao {
 
 	int insertQuesReply(QuesReply reply);
 
+	int updateViewNo(int viewNo);
+
 }
