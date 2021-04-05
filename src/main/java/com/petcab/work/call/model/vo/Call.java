@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.petcab.work.user.model.vo.Driver;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +18,7 @@ public class Call {
 	private int callNo;
 		
 	private String pickupTime;
-	
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH a z")
-//	@Temporal(TemporalType.DATE)
-//	private Date pickupTime;
-	
+
 	private String fromWhere;
 	
 	private String toWhere;
@@ -31,9 +29,9 @@ public class Call {
 	
 	private String status;
 	
-	private int callType;
+	private String callType;
 	
-	private int userNo;
+//	private int dUserNo;
 	
 	private String animalNoA;
 	
@@ -42,4 +40,10 @@ public class Call {
 	private String animalNoC;
 	
 	private String merchantUid;
+	
+	// class
+//	private EmgCall emgCall;
+	
+	// class
+	private Driver driver;
 }

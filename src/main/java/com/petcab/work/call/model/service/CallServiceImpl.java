@@ -1,15 +1,11 @@
 package com.petcab.work.call.model.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +21,12 @@ public class CallServiceImpl implements CallService {
 		return callDao.insertCall(call);
 	}
 
+	@Override
+	public int insertEmgCall(EmgCall emgCall) {
+		
+		return callDao.insertEmgCall(emgCall);
+	}
+	
 	@Override
 	public int updateCall(int callNo) {
 		

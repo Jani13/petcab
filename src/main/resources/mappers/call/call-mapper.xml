@@ -13,56 +13,117 @@
 		<result property="toDriver" column="TO_DRIVER" />
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
-		<result property="userNo" column="USER_NO" />
+		<!-- <result property="userNo" column="USER_NO" /> -->
 		<result property="animalNoA" column="ANIMAL_NO_A" />
 		<result property="animalNoB" column="ANIMAL_NO_B" />
 		<result property="animalNoC" column="ANIMAL_NO_C" />
 		<result property="merchantUid" column="MERCHANT_UID" />
+		<association property="emgCall"
+			resultMap="EmgCallResultMap" />
+		<association property="driver" resultMap="DriverResultMap" />
 	</resultMap>
-	
-	<select id="selectCall" parameterType="_int" resultMap="callResultMap">
+
+	<resultMap type="emgCall" id="EmgCallResultMap">
+		<id property="callNo" column="CALL_NO" />
+		<result property="toPartner" column="TO_PARTNER" />
+		<result property="toReject" column="TO_REJECT" />
+		<association property="partner"
+			resultMap="PartnerResultMap" />
+	</resultMap>
+
+	<resultMap type="partner" id="PartnerResultMap">
+		<result property="partnerName" column="PARTNER_NAME" />
+	</resultMap>
+
+	<resultMap type="driver" id="DriverResultMap">
+		<id property="userNo" column="USER_NO" />
+	</resultMap>
+
+
+
+	<select id="selectCall" parameterType="_int"
+		resultMap="callResultMap">
 		SELECT CALL_NO,
-		    TIME,
-		    FROM_WHERE,
-		    TO_WHERE,
-		    WITH_OWNER,
-		    TO_DRIVER,
-		    STATUS,
-		    CALL_TYPE,
-		    USER_NO,
-		    ANIMAL_NO_A,
-		    ANIMAL_NO_B,
-		    ANIMAL_NO_C,
-		    MERCHANT_UID
+		TIME,
+		FROM_WHERE,
+		TO_WHERE,
+		WITH_OWNER,
+		TO_DRIVER,
+		STATUS,
+		CALL_TYPE,
+		USER_NO,
+		ANIMAL_NO_A,
+		ANIMAL_NO_B,
+		ANIMAL_NO_C,
+		MERCHANT_UID
 		FROM GEN_CALL
 		WHERE CALL_NO = #{callNo}
 	</select>
-	
+
 	<!-- 예약신청 -->
 	<insert id="insertCall" parameterType="map"
-			useGeneratedKeys="true" keyProperty="callNo" keyColumn="CALL_NO">
-		<!-- 
-		<selectKey keyProperty="callNo" resultType="int" order="BEFORE">
-			SELECT SEQ_CALL_NO.NEXTVAL FROM DUAL
-		</selectKey>
-		-->
-			INSERT INTO GEN_CALL (
-				CALL_NO, TIME, TO_WHERE, FROM_WHERE, 
-				WITH_OWNER, TO_DRIVER, STATUS, CALL_TYPE, USER_NO, 
-				ANIMAL_NO_A, ANIMAL_NO_B, ANIMAL_NO_C, 
-				MERCHANT_UID
-			) VALUES (
-				SEQ_CALL_NO.NEXTVAL, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'), #{toWhere}, #{fromWhere},
-				#{withOwner}, #{toDriver}, #{status}, #{callType}, NULL,
-				#{animalNoA}, #{animalNoB}, #{animalNoC}, #{merchantUid}
-			)
+		useGeneratedKeys="true" keyProperty="callNo" keyColumn="CALL_NO">
+		INSERT INTO
+		GEN_CALL (
+		CALL_NO, TIME, TO_WHERE, FROM_WHERE,
+		WITH_OWNER,
+		TO_DRIVER,
+		STATUS, CALL_TYPE, USER_NO,
+		ANIMAL_NO_A, ANIMAL_NO_B,
+		ANIMAL_NO_C,
+		MERCHANT_UID
+		) VALUES (
+		SEQ_CALL_NO.NEXTVAL,
+		TO_DATE(#{pickupTime},
+		'YYYY-MM-DD"T"HH24:MI'), #{toWhere},
+		#{fromWhere},
+		#{withOwner},
+		#{toDriver}, #{status}, #{callType}, NULL,
+		#{animalNoA}, #{animalNoB},
+		#{animalNoC}, #{merchantUid}
+		)
 	</insert>
-		
+
 	<!-- 예약취소 -->
 	<update id="updateCall" parameterType="Call">
-		UPDATE GEN_CALL 
-		SET STATUS='취소'
+		UPDATE GEN_CALL
+		SET
+		STATUS='취소'
 		WHERE CALL_NO=#{callNo}
 	</update>
-	
+
+	<!-- 긴급콜 신청 -->
+	<insert id="insertEmgCall" parameterType="map"
+		useGeneratedKeys="true" keyProperty="callNo" keyColumn="CALL_NO">
+		<!-- 
+		INSERT ALL
+		INTO GEN_CALL G (
+			CALL_NO, TIME, TO_WHERE, FROM_WHERE,
+			WITH_OWNER,
+			TO_DRIVER,
+			STATUS, CALL_TYPE, USER_NO,
+			ANIMAL_NO_A, ANIMAL_NO_B,
+			ANIMAL_NO_C,
+			MERCHANT_UID
+		) VALUES (
+			SEQ_CALL_NO.NEXTVAL,
+			TO_DATE(#{pickupTime},
+			'YYYY-MM-DD"T"HH24:MI'), #{toWhere},
+			#{fromWhere},
+			#{withOwner},
+			#{toDriver}, #{status}, #{callType}, NULL,
+			#{animalNoA}, #{animalNoB},
+			#{animalNoC}, #{merchantUid}
+		)
+		INTO EMERG_CALL E (
+			CALL_NO, TO_PARTNER, TO_REJECT, USER_NO
+		) VALUES (
+			#{callNo}, #{toPartner}, NULL, P.USER_NO
+		)
+		SELECT *
+		FROM PARTNER P
+		WHERE P.USER_NO = 3
+		-->
+	</insert>
+
 </mapper>	

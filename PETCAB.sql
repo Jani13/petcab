@@ -537,6 +537,8 @@ alter table GEN_CALL drop constraint SYS_C008223;
 alter table GEN_CALL modify STATUS NULL;
 ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
 
+ALTER TABLE GEN_CALL MODIFY (CALL_TYPE VARCHAR2(10));
+
 --------------------------------------------------------------------------------
 
 ----- 예약 관련 쿼리 테스트 -----
