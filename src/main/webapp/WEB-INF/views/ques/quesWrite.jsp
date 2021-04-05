@@ -11,9 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의작성</title>
-    
-    <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
-
+	
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
       crossorigin="anonymous">
@@ -85,19 +83,19 @@
           <br><br><br>
 
           <hr>
-          <form action='${path}/ques/write' method="post">
+          <form action='${path}/ques/write' method="POST">
             <table class="table">
                 <thead>
                   <tr>
                     <th scope="col"  style="width: 300px;"> * 문의 분류 *</th>
                     <th scope="col" >
-                        <select class="form-select" aria-label="Default select example"  style="width: 300px;">
+                        <select class="form-select" aria-label="Default select example" name="quesType" style="width: 300px;">
                             <option selected>아이디 관련 문의</option>
-                            <option value="1">결재 문의</option>
-                            <option value="2">긴급콜 관련 문의</option>
-                            <option value="3">드라이버 지원 문의</option>
-                            <option value="3">제휴업체 문의</option>
-                            <option value="3">기타</option>
+                            <option value="결재 문의">결재 문의</option>
+                            <option value="긴급콜 관련 문의">긴급콜 관련 문의</option>
+                            <option value="드라이버 지원 문의">드라이버 지원 문의</option>
+                            <option value="제휴업체 문의">제휴업체 문의</option>
+                            <option value="기타">기타</option>
                           </select>
                     </th>
                   </tr>
@@ -110,11 +108,16 @@
                   </tr>
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
-                    <td><input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요."></td>
+                    <td><input type="password" id="password" class="form-control" 
+                    		name="quesPwd" placeholder="숫자만 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" class="form-control" placeholder="제목을 입력하세요."></td>
+                    <td>
+                    	<input type="text" id="title" class="form-control" name="title" placeholder="제목을 입력하세요.">
+                    	<input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->
+                    </td>
+  
                   </tr>
                   <tr>
                     <th scope="row" colspan="2">
@@ -122,10 +125,9 @@
                         <!-- ====  스마트 에디터  ===== -->
                         <div class="editor-box">
                           <div class="editor-box__editor">
-                              <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
+                              <textarea name="content" id="ir1" rows="10" cols="100" style="resize: vertical"></textarea>
                               <script type="text/javascript">
-                 						 CKEDITOR.replace('ir1', {height: 500});
+                 						 CKEDITOR.replace('ir1', {height: 300});
                   				</script>
                           </div>
                       </div>
@@ -134,7 +136,8 @@
                               <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="partnerCancel" 
+                              			onclick="location.replace('${path}/ques/list')" value="취소하기">
                           </span>
                       </div>
                     </th>

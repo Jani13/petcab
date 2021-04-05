@@ -16,6 +16,8 @@ public class Review {
 	
 	private int groupNo;
 	
+	private String userId;
+	
 	private int groupSeq;
 	
 	private int depth;
@@ -37,4 +39,5 @@ public class Review {
 	private int userNo;
 	
 	private int callNo;
+	
 }

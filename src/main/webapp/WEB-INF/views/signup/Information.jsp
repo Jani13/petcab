@@ -257,21 +257,17 @@
 								</tr>
 							</table>
 						</div>
-
 						<div class="input-group mb-1"
 							style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
 							<p style="font-size: 20px;">
-								<br> * 애완견이 있을 경우 등록을 해주세요~ <br> * 제휴업체(파트너) 또는 드라이버
-								지원 인 경우 확인을 눌러주세요~
+								<br> * 애완견이 있을 경우 로그인 후 등록을 해주세요~ <br> * 제휴업체(파트너) 또는 드라이버
+								지원 인 경우 가입 후 유형보기를 눌러주세요~
 							</p>
 							<br>
 							<br>
 							<div style="text-align: center;">
-								<button type="button" class="btn btn-outline-info"
-
-									style="margin-right: 200px;" onclick="location.href='${path}/dog/dogInformation'" >애완견 등록</button>
-								<button type="button" class="btn btn-outline-info"
-									style="margin-left: 200px;">확인</button>
+								<button type="submit" class="btn btn-outline-info"
+									style="margin-left: 450px;">확인</button>
 
 							</div>
 						</div>

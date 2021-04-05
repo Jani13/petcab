@@ -1,5 +1,7 @@
 package com.petcab.work.call.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,17 @@ public class CallServiceImpl implements CallService {
 		
 		return callDao.selectCall(callNo);
 	}
-	
+
+	@Override
+	public List<Call> driverWaitCallList(int userNo) {
+
+		return callDao.driverWaitCallList(userNo);
+	}
+
+	@Override
+	public List<Call> driverEndCallList(int userNo) {
+
+		return callDao.driverEndCallList(userNo);
+	}
+
 }

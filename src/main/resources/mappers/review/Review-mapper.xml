@@ -9,6 +9,7 @@
 				M.USER_ID,
 				R.STAR_NO,
 				R.POST_DATE,
+				R.CONTENT,
 				R.STATUS,
 				R.VIEW_NO
 			FROM REVIEW R
@@ -18,6 +19,7 @@
 	<resultMap type="Review" id="reviewResultMap">
 		<id property="reviewNo" column="REVIEW_NO"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
 		<result property="callNo" column="CALL_NO"/>
 		<result property="title" column="TITLE"/>
 		<result property="content" column="CONTENT"/>
@@ -32,36 +34,73 @@
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
-	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
-		<include refid="ReviewListSql"></include>
-		ORDER BY R.REVIEW_NO DESC
-	</select>
-	
-	<select id="selectCount" parameterType="map" resultType="_int">
+	<resultMap type="Review" id="reviewDetailResultMap">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="userId" column="M_USER_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="viewNo" column="VIEW_NO"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="editDate" column="EDIT_DATE"/>
+	 	<collection property="replies" javaType="java.util.ArrayList" resultMap="reviewReplyResultMap"/>	
+	</resultMap>
+	<!-- 
+	<resultMap type="QuesReply" id="quesReplyResultMap">
+		<id property="quesNo" column="QUES_NO"/>
+		<result property="content" column="CONTENT"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="editDate" column="EDIT_DATE"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	 -->
+  	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM REVIEW
 	</select>
 	
-	<insert id="insertReview" parameterType="map"
-  		useGeneratedKeys="true" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
-  		
-  		INSERT INTO REVIEW 
+	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
+		<include refid="ReviewListSql"></include>
+		ORDER BY R.REVIEW_NO DESC
+	</select>
+	 
+	 <select id="selectReviewDetail" parameterType="_int" resultMap="reviewResultMap">
+	      <include refid="ReviewListSql"></include>
+	      WHERE REVIEW_NO=#{reviewNo}
+   	 </select>
+	 
+  	<insert id="insertReview" parameterType="map"
+  		useGeneratedKeys="false" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
+  		INSERT INTO REVIEW(
+			REVIEW_NO,
+			CALL_TYPE,
+			GROUP_NO,
+			GROUP_SEQ,
+			"DEPTH",
+			TITLE,
+			"CONTENT",
+			STAR_NO,
+			POST_DATE,
+			EDIT_DATE,
+			VIEW_NO,
+			STATUS,
+			USER_NO,
+			CALL_NO)
   		VALUES(
   			SEQ_REVIEW_NO.NEXTVAL,
   			#{callType},
-  			#{starNo},
+  			DEFAULT,
+  			DEFAULT,
+  			DEFAULT,
   			#{title},
   			#{content},
+  			#{starNo},
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
   			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT
- 		)
+  			#{userNo},
+  			#{callNo}
+ 			)
   	</insert>
   	
   	<update id="updateReview" parameterType="Review">
@@ -74,5 +113,10 @@
   		WHERE
   			REIVEW_NO=#{reviewNo}
   	</update>
+  	
+  	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
+		<include refid="ReviewListSql"></include>
+		WHERE M.USER_NO = #{userNo}
+	</select>
 
 </mapper>

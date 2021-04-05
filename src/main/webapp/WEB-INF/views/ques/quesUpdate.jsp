@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리뷰작성</title>
+    <title>문의작성</title>
     
     <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
 
@@ -54,18 +54,19 @@
 
   <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
       <script src="${ path }/js/jquery-3.5.1.js"></script>
-      <script type="text/javascript" src="${ path }/resources/ckeditor/ckeditor.js"></script>
-
+     
+         <script type="text/javascript" src="${ path }/resources/ckeditor/ckeditor.js"></script>
+     
 </head>
 <body>
-    <jsp:include page="../common/header.jsp" />
+ 	<jsp:include page="../common/header.jsp" />
     <jsp:include page="../common/nav.jsp" />
     <section class="content">
 
         <br><br>
         
         <div class="container ">
-		<form action="reviewWriteResult" method="post">
+
           <br><br>
           <div class="row">
               <div class="col-lg-2"></div>
@@ -73,54 +74,51 @@
               <div class="col-lg-2"></div>
           </div>
           
-          <br><br><br>
+          <br><br><br><br>
+          
           <div class="row">
-              <div class="col-lg-5"></div>
-              <div class="col-lg-2"><h2><b>리뷰 작성</b></h2></div>
-              <div class="col-lg-5"></div>
+              <div class="col-lg-2"></div>
+              <div class="col-lg-2"><h2><b>1 : 1 문의</b></h2></div>
+              <div class="col-lg-8"></div>
           </div>
 
           <br><br><br>
 
+          <hr>
+          <form action='${path}/ques/write' method="post">
+          	<input type="hidden" name="quesNo" value = "${ques.quesNo}">
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col" style="width: 300px;">
-                        <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
-                            <option selected>내가 사용한 내역</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                    <th scope="col"  style="width: 300px;"> * 문의 분류 *</th>
+                    <th scope="col" >
+                        <select class="form-select" aria-label="Default select example"  style="width: 300px;">
+                            <option selected>${ques.quesType}</option>
+                            <option value="1">아이디 관련 문의</option>
+                            <option value="2">결재 문의</option>
+                            <option value="3">긴급콜 관련 문의</option>
+                            <option value="4">드라이버 지원 문의</option>
+                            <option value="5">제휴업체 문의</option>
+                            <option value="6">기타</option>
                           </select>
                     </th>
-                    <th scope="col">
-                    <input type="text" id="useInfo" name="useInfo" class="form-control" ></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">* 긴급콜 이용 *</th>
-                    <td>
-                        <div class="form-check">
-                            <!-- <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="">Y
-                            </label>&nbsp; &nbsp; &nbsp; &nbsp;  -->
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="Y">Y
-                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="N">N
-                            </label>
-                          </div>
-                    </td>         
+                    <th scope="row">* 작성자 *</th>
+                    <td><input type="text" id="userId" class="form-control" 
+                    				name="userId" value="${ loginMember.userId }" readonly></td>         
                   </tr>
                   <tr>
-                    <th scope="row">* 평점 *</th>
-                    <td><input type="number" id="starNo" name="starNo" class="form-control"></td>
+                    <th scope="row">* 비밀번호 *</th>
+                    <td><input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요."></td>
+                    <td><input type="text" id="title" class="form-control" value="${ques.title}">
+                    	<input type="hidden" name="quesNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row" colspan="2">
@@ -129,7 +127,7 @@
                         <div class="editor-box">
                           <div class="editor-box__editor">
                               <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
+                              <textarea name="ir1" id="ir1" rows="10" cols="100"><c:out value="${ques.content}"/></textarea>
                               <script type="text/javascript">
                  						 CKEDITOR.replace('ir1', {height: 500});
                   				</script>
@@ -137,22 +135,22 @@
                       </div>
                       <div style="text-align : center; padding: 30px;">
                           <span style="padding-right : 3rem;">
-                              <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
+                              <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
                           </span>
                       </div>
                     </th>
                   </tr>
                 </tbody>
               </table>
-              </form>
+            </form>
         </div>
 
     </section>
-    <jsp:include page="../common/footer.jsp" />
+        <jsp:include page="../common/footer.jsp" />
+   
 
-    
 </body>
 </html>

@@ -34,7 +34,8 @@ CREATE TABLE REVIEW (
 	VIEW_NO	NUMBER NULL,
     STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N')),
 	USER_NO	NUMBER	NOT NULL,
-	CALL_NO	NUMBER	NOT NULL
+	CALL_NO	NUMBER	NOT NULL,
+    S_USER_NO NUMBER NOT NULL
 );
 
 CREATE TABLE DOG (
@@ -116,7 +117,8 @@ CREATE TABLE DRIVER (
 	CAR_NO	VARCHAR2(50)	NULL,
 	ABOUT	VARCHAR2(2000)	NULL,
 	IMAGE_ORI	VARCHAR2(2000)	NULL,
-	IMAGE_RE	VARCHAR2(2000)	NULL
+	IMAGE_RE	VARCHAR2(2000)	NULL,
+	STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'))
 );
 
 CREATE TABLE QUES_REPLY (
@@ -532,13 +534,6 @@ alter table GEN_CALL modify CALL_TYPE NULL;
 -- 드라이버매칭 후 값이 추가되므로 NULL
 alter table GEN_CALL modify USER_NO NULL;
 
------예약 관련 쿼리 추가 (2) -----
-alter table GEN_CALL drop constraint SYS_C008223;
-alter table GEN_CALL modify STATUS NULL;
-ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
-
-ALTER TABLE GEN_CALL MODIFY (CALL_TYPE VARCHAR2(10));
-
 --------------------------------------------------------------------------------
 
 ----- 예약 관련 쿼리 테스트 -----
@@ -560,3 +555,38 @@ ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;
  COMMENT ON COLUMN DOG.DOG_NO IS '애견번호';
  CREATE SEQUENCE SEQ_DOG_NO;
  
+ ------ 현재 위에까지 DB 맞춰놨음 4/5 아래부터 시작하기 ------------------------------
+ 
+-- 문의하기 그룹명 NULL 변경
+ALTER TABLE QUES MODIFY GROUP_NO NULL;
+ALTER TABLE REVIEW MODIFY GROUP_NO NULL;
+
+--------------------------------------------------------------------------------
+--드라이버 status 추가--
+ALTER TABLE DRIVER ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'));
+
+ALTER TABLE DRIVER modify 	STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N','W'));
+
+------------페이먼트 결제날짜 -----------------------------------------------------
+ALTER TABLE PAYMENT ADD PAYMENT_DATE DATE DEFAULT SYSDATE;
+
+-----예약 관련 쿼리 추가 (2) -----
+alter table GEN_CALL drop constraint SYS_C008223;
+alter table GEN_CALL modify STATUS NULL;
+ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
+ALTER TABLE GEN_CALL MODIFY (CALL_TYPE VARCHAR2(10));
+
+-- 4/5일 도그 컬럼 변경 userno삭제 및 userid추가
+ALTER TABLE DOG DROP COLUMN USER_NO;
+ALTER TABLE DOG ADD USER_ID VARCHAR2(20)  NULL;
+COMMENT ON COLUMN DOG.USER_ID IS '회원아이디';
+
+-- 문의하기 ---------------------
+ALTER TABLE QUES ADD (USER_ID VARCHAR2(30));
+
+ALTER TABLE QUES MODIFY VIEW_NO   NUMBER DEFAULT 0;
+
+ALTER TABLE QUES MODIFY QUES_PWD VARCHAR2(30);
+
+--- 리뷰 서비스 제공자 번호 --------------------------
+ALTER TABLE REVIEW ADD S_USER_NO NUMBER NOT NULL;
