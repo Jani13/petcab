@@ -53,14 +53,13 @@
             </div>
             
             <br><br><br><br>
-
     
             <div class="card" style="width: 18rem; margin-left: 100px;" >
                 <div class="card-header">
                 <h4>${review.title}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item">${loginMember.userId}</li>
+                <li class="list-group-item">${review.userId}</li>
                 <li class="list-group-item">${member.userId} 기사님</li>
                 <li class="list-group-item">get.제휴업체</li>
                 <li class="list-group-item">${review.postDate}</li>
@@ -69,10 +68,9 @@
             </div>
 
             <hr>
-
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">${review.content}</label>
+			
+            <div class="form-floating text-center" style="height: auto;">
+                ${review.content}
             </div>
             
             <div style="text-align : center; padding: 30px;">
@@ -93,33 +91,38 @@
                 </div>
             </div>
             <br>
+            <!-- 댓글 -->
             <div class="form-floating mb-3" style="width: 400px;">
-                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디">
-                <label for="floatingInput">${loginMember.userId}</label>
+                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디" readonly>
+                <label for="floatingInput">${review.userId}</label>
             </div>
             <div class="form-floating">
-                <input type="hidden" name="boardNo" value="">
+            
+                <input type="hidden" name="reviewboardNo" value="">
 	    		<input type="hidden" name="writer" value="">
+    		 <form action="">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
                 <label for="floatingTextarea2">Comments</label>
                 <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
+             </form>
             </div>
             <br>
             <table class="table">
+            	<c:forEach var="reply" items="${list}">
                      <tr class="level1">
                         <td>
-                            <sub class="comment-writer">이무기</sub>
-                            <sub class="comment-date">2020/03/29</sub>
+                            <sub class="comment-writer">${member.userId}</sub>
+                            <sub class="comment-date">${reviewReply.postDate}</sub>
                             <br>
-                          
+                          ${reviewReply.content}
                         </td>
                         <td>
-                      
-                            <button class="btn-delete">삭제</button>
-                      
+                      		<c:if test="${!empty loginMember && (loginMember.userNo == review.userNo
+                     		 || loginMember.userType == 'ROLE_ADMIN')}">
+                     		 </c:if>
                         </td>
                     </tr>
-              
+              </c:forEach>
               </table>
 
               <div style="text-align : center; padding: 30px;">
