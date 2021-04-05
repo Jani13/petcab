@@ -102,11 +102,11 @@
 		                    <tr>
 		                        <td><c:out value="${review.reviewNo}"/></td>
 		                        <td>
-		                        	<a href="${path}/review/reply?reviewNo=${review.reviewNo}">
+		                        	<a href="${path}/review/reviewView?reviewNo=${review.reviewNo}">
 										<c:out value="${review.title}"/>
 									</a>
 		                        </td>
-		                        <td><c:out value="${loginMember.userId }"/></td>
+		                        <td><c:out value="${review.userId }"/></td>
 		                        <td><c:out value="${review.starNo}"/></td>
 		                        <td><fmt:formatDate type="both" value="${review.postDate}"/></td>
 		                        <td><c:out value="${review.callType}"/></td>
@@ -122,10 +122,10 @@
 
             <div class="pagination" style="display: flex; justify-content: center;">
                 <!-- 맨 처음으로 -->
-				<button onclick="location.href='${path}/ques/list?page=1'">&lt;&lt;</button>
+				<button onclick="location.href='${path}/review/list?page=1'">&lt;&lt;</button>
 				
 				<!-- 이전 페이지로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.prvePage}'">&lt;</button>
+				<button onclick="location.href='${path}/review/list?page=${pageInfo.prvePage}'">&lt;</button>
 	
 				<!--  10개 페이지 목록 -->
 				<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
@@ -133,15 +133,15 @@
 						<button disabled><c:out value="${status.current}"/></button>
 	   				</c:if>
 					<c:if test="${status.current != pageInfo.currentPage}">
-						<button onclick="location.href='${path}/ques/list?page=${status.current}'"><c:out value="${status.current}"/></button>
+						<button onclick="location.href='${path}/review/list?page=${status.current}'"><c:out value="${status.current}"/></button>
 	   				</c:if>
 				</c:forEach>
 				
 				<!-- 다음 페이지로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.nextPage}'">&gt;</button>
+				<button onclick="location.href='${path}/review/list?page=${pageInfo.nextPage}'">&gt;</button>
 				
 				<!-- 맨 끝으로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+				<button onclick="location.href='${path}/review/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
 
             </div>
             <br><br>

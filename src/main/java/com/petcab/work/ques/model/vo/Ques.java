@@ -14,6 +14,8 @@ public class Ques {
 	
 	private int userNo;
 	
+	private String userId;
+	
 	private String title;
 	
 	private String content;
@@ -26,7 +28,7 @@ public class Ques {
 	
 	private String quesType;
 	
-	private int quesPwd;
+	private String quesPwd;
 	
 	private int groupNo;
 	
