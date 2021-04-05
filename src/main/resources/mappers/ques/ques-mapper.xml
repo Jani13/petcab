@@ -60,9 +60,15 @@
 		FROM QUES
 	</select>	 	
 	
-	<select id="selectQuesDetail" parameterType="_int" resultMap="quesDetailResultMap">
+	<select id="selectQuesDetail" parameterType="_int" resultMap="quesResultMap">
+		<include refid="quesListSql"></include>
+		WHERE Q.QUES_NO=#{quesNo}
+	</select>
+	
+	
+	<select id="selectQuesDetail2" parameterType="_int" resultMap="quesDetailResultMap">
 		SELECT Q.QUES_NO,
-	       M.USER_ID
+	       M.USER_ID,
 	       Q.TITLE,
 	       Q.CONTENT,
 	       Q.VIEW_NO,
@@ -70,12 +76,14 @@
 	       Q.EDIT_DATE,
 	          R.QUES_NO, 
 	          M2.USER_ID AS M_USER_ID, 
-	          R.REPLY_CONTENT, 
+	          R.CONTENT, 
 	          R.POST_DATE, 
 	          R.EDIT_DATE, 
 	      FROM QUES Q
 	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
-	      WHERE Q.USER_NO=#{quesNo}
+	      LEFT OUTER JOIN QUES_REPLY R ON(Q.QUES_NO = R.QUES_NO)
+	      LEFT OUTER JOIN MEMBER M2 ON(R.USER_NO = M2.USER_NO)
+	      WHERE Q.QUES_NO=#{quesNo}
 	</select>
 	
 	<insert id="insertQues" parameterType="map"
@@ -99,6 +107,19 @@
  		)
   	</insert>
   	
+  		<insert id="insertQuesReply" parameterType="map"
+  		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
+  		
+  		INSERT INTO QUES_REPLY 
+		VALUES(
+			#{quesNo},
+			#{content},
+			#{postDate},
+			#{editDate},
+			#{userNo} 			
+ 		)
+  	</insert>
+  	
 	<update id="updateQues" parameterType="Ques">
 		UPDATE QUES 
 		SET 
@@ -108,4 +129,11 @@
 		WHERE 
 			QUES_NO=#{quesNo}
 	</update>	
+	
+	<delete id="delete" parameterType="int">
+		DELETE
+		FROM QUES
+		WHERE QUES_NO=#{quesNo}
+	
+	</delete>
 </mapper>

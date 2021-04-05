@@ -83,7 +83,7 @@
           <br><br><br>
 
           <hr>
-          <form action='${path}/ques/write' method="ㅋ">
+          <form action='${path}/ques/write' method="POST">
             <table class="table">
                 <thead>
                   <tr>
@@ -108,7 +108,8 @@
                   </tr>
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
-                    <td><input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요."></td>
+                    <td><input type="password" id="password" class="form-control" 
+                    		name="quesPwd" placeholder="비밀번호를 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>

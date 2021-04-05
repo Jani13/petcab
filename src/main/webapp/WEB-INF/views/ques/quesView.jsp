@@ -57,64 +57,73 @@
                 <h4>${ques.title}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-	                <li class="list-group-item">${ member.userId }</li>
-	             
+	                <li class="list-group-item">${ ques.userId }</li>             
 	                <li class="list-group-item">비밀 문의글입니다.</li>
-
 	                <li class="list-group-item">${ques.postDate}</li>
 	                <li class="list-group-item">${ques.viewNo}</li>
                 </ul>
             </div>
 
             <hr>
-
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">${ques.content}</label>
-            </div>
             
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" 
+                			style="resize: vertical;"><c:out value="${ques.content}"/></textarea>
+                <label for="floatingTextarea2">comment</label>
+            </div>
+                       	
+            <c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
+	    					|| loginMember.userType == 'ROLE_ADMIN')}">
             <div style="text-align : center; padding: 30px;">
-            	<c:if test="${loginMember != null && (loginMember.userNo == reply.userNo) 
-	    					|| loginMember.userRole().equals("ROLE_ADMIN")}">
+ 
 	                <span style="padding-right : 3rem;">
-	                    <input type="submit" class="btn btn-primary" id="partnerSubmit" onclick="updateBoard()" value="수정하기"> 
+	                    <input type="submit" class="btn btn-primary" onclick="updateBoard()" value="수정하기"> 
+	                </span>
+	                <span style="padding-right : 3rem;">
+	                    <input type="button" class="btn btn-secondary" onclick="deleteBoard()" value="삭제하기">
 	                </span>
 	                <span>
-	                    <input type="button" class="btn btn-secondary" id="partnerCancel" onclick="deleteBoard()" value="삭제하기">
-	                </span>
-                </c:if>
-	                <span>
-	                    <input type="button" class="btn btn-secondary" id="partnerCancel" 
+	                    <input type="button" class="btn btn-secondary" 
 	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
-	                </span>
+	                </span>             	
+  
+            </div>
+             </c:if>
+
+           <div style="text-align : center; padding: 30px;">
+	                <span>
+	                    <input type="button" class="btn btn-secondary" 
+	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
+	                </span>	            
             </div>
 
             <hr>
 
             <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
                 <div class="card-body">
-                    <h3>댓글</h3>
-                    <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
+                    <h3>관리자의 답글입니다.</h3>
+                    <span style="color: blue;">(* 서비스 이용에 불편이 없도록 최선을 다 하겠습니다. * )</span>
                 </div>
             </div>
             <br>
-            <div class="form-floating mb-3" style="width: 400px;">
-                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디">
-                <label for="floatingInput">${ loginMember.userId }</label>
-            </div>
+            
+            
+           
+ 
             <div class="form-floating">
-            	<form action="${ path }/ques/quesReply" method="post">
+            	<form action="${ path }/ques/reply" method="post">
 	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
-		    		<input type="hidden" name="writer" value="${ loginMember.userId != null ? loginMember.userId : " " }">
 	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"
 	                			onfocus="checkLogin()"></textarea>
 	                <label for="floatingTextarea2">Comments</label>
 	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
             	</form>
             </div>
+            
+           
             <br>
+            
             <table class="table">
-               <c:forEach var="reply" items="${list}">
                     <tr class="level1">
                         <td>
                             <sub class="comment-writer">${ member.userId }</sub>
@@ -123,23 +132,12 @@
                             ${quesReply.content}
                         </td>
                         <td>
-                        	<c:if test="${loginMember != null && (loginMember.userNo == reply.userNo) 
-	    					|| loginMember.userRole eq 'ROLE_ADMIN')}">
+                        	
                             <button class="btn-delete">삭제</button>
-                       	  	</c:if>
+                       	  	
                         </td>
                     </tr>
-               </c:forEach>
              </table>
-
-              <div style="text-align : center; padding: 30px;">
-                <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="뒤로가기"> 
-                </span>
-                <span>
-                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="확인">
-                </span>
-            </div>
 
         </div>
     </section>

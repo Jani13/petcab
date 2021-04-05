@@ -108,7 +108,10 @@
 										<c:out value="${ques.title}"/>
 									</a>
 		                        </td>
-		                        <td><c:out value="${loginMember.userId }"/></td>
+		                        <td><c:out value="${ques.userId }"/></td>
+		                        <c:if test="${ques.editDate !=null}">
+		                        <td><fmt:formatDate value="${ques.editDate}" type="date"/></td>
+		                        </c:if>
 		                        <td><fmt:formatDate value="${ques.postDate}" type="date"/></td>
 		                        <td><c:out value="${ques.quesType}"/></td>
 		                        <td><c:out value="${ques.viewNo}"/></td>
