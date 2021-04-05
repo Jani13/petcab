@@ -65,13 +65,13 @@
 	  	  <li class="nav-item">
 	  	  	<c:choose>
 	  	  		<c:when test="${loginMember.userType eq 'ROLE_ADMIN'}">
-	  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">마이페이지</a>
+	  	  			<a class="nav-link text-black" href="${path}/admin/adminMain">관리자페이지</a>
 	  	  		</c:when>
 	  	  		<c:when test="${loginMember.userType eq 'ROLE_MEMBER'}">
-	  	  			<a class="nav-link text-black" href="${path}/mypage">마이페이지</a>	  	  		
+	  	  			<a class="nav-link text-black" href="${path}/user/mypage">마이페이지</a>	  	  		
 	  	  		</c:when>
 	  	  		<c:when test="${loginMember.userType eq 'ROLE_DRIVER'}">
-	  	  			<a class="nav-link text-black" href="${path}/mypage">마이페이지</a>
+	  	  			<a class="nav-link text-black" href="${path}/driver/mypage">마이페이지</a>
 	  	  		</c:when>
 	  	  		<c:otherwise>
 	  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
