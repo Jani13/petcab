@@ -37,15 +37,18 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> driverWaitCallList(int userNo) {
-		// TODO Auto-generated method stub
-		return callDao.driverWaitCallList(userNo);
+	public List<Call> driverWaitCallList() {
+		return callDao.driverWaitCallList();
 	}
 
 	@Override
 	public List<Call> driverEndCallList(int userNo) {
-		// TODO Auto-generated method stub
 		return callDao.driverEndCallList(userNo);
+	}
+
+	@Override
+	public List<Call> searchUserCallList(int userNo) {
+		return callDao.searchUserCallList(userNo);
 	}
 
 }

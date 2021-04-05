@@ -91,4 +91,8 @@
 			)
 	</insert>
 	 	
+	 <select id="searchUserNo" parameterType="_int" resultMap="DogResultMap">
+		<include refid="selectDogSql"></include>
+		AND USER_NO = #{userNo}
+	</select>
 </mapper>

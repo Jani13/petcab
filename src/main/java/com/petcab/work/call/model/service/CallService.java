@@ -11,8 +11,11 @@ public interface CallService {
 	
 	Call selectCall(int callNo);
 
-	List<Call> driverWaitCallList(int userNo);
+	List<Call> driverWaitCallList();
 
 	List<Call> driverEndCallList(int userNo);
+
+	List<Call> searchUserCallList(int userNo);
+
 
 }

@@ -92,8 +92,32 @@
   		WHERE
   			REIVEW_NO=#{reviewNo}
   	</update>
+  	
+  	<!-- 원석작업  -->
   	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
-		<include refid="ReviewListSql"></include>
+		SELECT  R.REVIEW_NO,
+				R.TITLE,
+				M.USER_ID,
+				R.STAR_NO,
+				R.POST_DATE,
+				R.CONTENT,
+				R.STATUS,
+				R.VIEW_NO
+			FROM REVIEW R
+			JOIN MEMBER M ON (R.S_USER_NO = M.USER_NO)
+		WHERE M.USER_NO = #{userNo}
+	</select>
+	<select id="searchSUserNo" parameterType="_int" resultMap="reviewResultMap">
+		SELECT  R.REVIEW_NO,
+				R.TITLE,
+				M.USER_ID,
+				R.STAR_NO,
+				R.POST_DATE,
+				R.CONTENT,
+				R.STATUS,
+				R.VIEW_NO
+			FROM REVIEW R
+			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE M.USER_NO = #{userNo}
 	</select>
 

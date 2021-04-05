@@ -1,5 +1,7 @@
 package com.petcab.work.dog.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,12 @@ public class DogServiceImpl implements DogService {
 		result = dogDao.insertDog(dog);
 
 		return result;
+	}
+
+	@Override
+	public List<Dog> searchUserNo(int userNo) {
+		// TODO Auto-generated method stub
+		return dogDao.searchUserNo(userNo);
 	}
 
 //	@Override

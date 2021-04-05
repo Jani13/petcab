@@ -567,3 +567,7 @@ ALTER TABLE REVIEW MODIFY GROUP_NO NULL;
 --드라이버 status 추가--
 ALTER TABLE DRIVER ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'));
 ALTER TABLE DRIVER modify 	STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N','W'));
+
+------------------------------------------------
+-- 리뷰 테이블 S_USER_NO 추가-- (서비스 제공하는 제휴업체, 드라이버)
+ALTER TABLE REVIEW ADD S_USER_NO NUMBER NOT NULL;
