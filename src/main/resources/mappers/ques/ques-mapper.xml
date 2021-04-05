@@ -50,7 +50,7 @@
 		<result property="userNo" column="USER_NO"/>
 	</resultMap>
 	
-		<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
+	<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>
 		ORDER BY Q.QUES_NO DESC
 	</select>
