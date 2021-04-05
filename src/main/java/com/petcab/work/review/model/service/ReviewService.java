@@ -15,11 +15,6 @@ public interface ReviewService {
 
 	List<Review> searchUserNo(int userNo);
 
-<<<<<<< HEAD
-	List<Review> searchSUserNo(int userNo);
-	
 	Review findreviewNo(int reviewNo);
 
-=======
->>>>>>> parent of d4e329e (0405_관리자마이페이지작업중)
 }

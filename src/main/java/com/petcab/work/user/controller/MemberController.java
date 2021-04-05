@@ -1,7 +1,6 @@
 package com.petcab.work.user.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.petcab.work.call.model.service.CallService;
-import com.petcab.work.call.model.vo.Call;
-import com.petcab.work.dog.model.service.DogService;
-import com.petcab.work.review.model.service.ReviewService;
-import com.petcab.work.review.model.vo.Review;
 import com.petcab.work.user.model.service.MemberService;
-import com.petcab.work.user.model.vo.Dog;
-import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +26,6 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
-	@Autowired
-	private ReviewService reviewService;
-	@Autowired
-	private DogService dogService;
-	@Autowired
-	private CallService callService;
 	
 	//login
 	@RequestMapping("/login")
@@ -103,7 +88,7 @@ public class MemberController {
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
 		
 		int result = service.saveMember(member);
-		
+		log.info(member.toString());		
 		if(result > 0) {
 			
 			model.addObject("msg", "회원가입이 완료되었습니다.");
@@ -201,36 +186,12 @@ public class MemberController {
 		return model;
 	}
 		
-
-	@RequestMapping(value = "/user/mypage", method = RequestMethod.GET)
-	public ModelAndView userMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model) {
-		log.info(loginMember.toString());
-		
-		List<Review> review = reviewService.searchSUserNo(loginMember.getUserNo());
-		List<Dog> dog = dogService.searchUserNo(loginMember.getUserNo());
-		log.info(review.toString());
-		log.info(dog.toString());
-		List<Call> nowCall = callService.searchUserCallList(loginMember.getUserNo());
-		log.info(nowCall.toString());
-//		List<Review> review = reviewService.searchUserNo(loginMember.getUserNo());
-//		
-//		List<Call> waitCall = callService.driverWaitCallList();
-//		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
-//		
-//		log.info(review.toString());
-//		log.info(waitCall.toString());
-//		log.info(endCall.toString());
-//		
-		model.addObject("dog", dog);
-		model.addObject("review", review);
-		model.addObject("nowCall", nowCall);
-//		model.addObject("waitCall", waitCall);
-//		model.addObject("endCall", endCall);
-		model.setViewName("user/userMyPage");
-		
-		return model;
+	//userMyPage
+	@RequestMapping("/mypage")
+	public String userMyPageView() {
+		return "user/userMypage";
 	}
+	
 	
 	
 }
