@@ -47,7 +47,6 @@
 	
   	<insert id="insertReview" parameterType="map"
   		useGeneratedKeys="false" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
-  		
   		INSERT INTO REVIEW(
 			REVIEW_NO,
 			CALL_TYPE,
@@ -78,8 +77,7 @@
   			DEFAULT,
   			#{userNo},
   			#{callNo}
-  			
- 		)
+ 			)
   	</insert>
   	
   	<update id="updateReview" parameterType="Review">
@@ -92,6 +90,7 @@
   		WHERE
   			REIVEW_NO=#{reviewNo}
   	</update>
+  	
   	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
 		<include refid="ReviewListSql"></include>
 		WHERE M.USER_NO = #{userNo}

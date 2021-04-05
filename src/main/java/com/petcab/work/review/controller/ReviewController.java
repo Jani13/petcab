@@ -72,7 +72,6 @@ public class ReviewController {
 		String content = request.getParameter("ir1");
 		int userNo = loginMember.getUserNo();
 		
-		
 		System.out.println("asdasdasdsd"+userNo);
 		
 		review.setCallNo(callNo);
@@ -89,7 +88,6 @@ public class ReviewController {
 				model.addObject("msg", "게시글 등록을 실패하였습니다.");
 				model.addObject("location", "/review/list");
 			}
-			
 
 		model.setViewName("common/msg");
 		return model;

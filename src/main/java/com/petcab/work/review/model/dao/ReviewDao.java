@@ -2,11 +2,13 @@ package com.petcab.work.review.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.review.model.vo.Review;
 
+@Mapper
 public interface ReviewDao {
 
 	int updateReview(Review review);
