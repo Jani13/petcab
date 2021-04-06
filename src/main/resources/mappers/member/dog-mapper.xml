@@ -96,9 +96,10 @@
 			WHERE M.USER_ID = D.USER_ID;
 	</select>
 	
-	<!-- 
-	<select id="searchUserId" resultType="string">
-		SELECT 
+	 
+	<select id="searchUserId" resultMap="DogResultMap">
+		 <include refid="selectDogSql"></include>
+		 AND USER_ID = #{userId}
 	</select>
-	 -->
+	
 </mapper>

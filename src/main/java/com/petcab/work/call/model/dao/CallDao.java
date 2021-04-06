@@ -30,4 +30,8 @@ public interface CallDao {
 	int selectEmergCall();
 
 	int selectCancelledCall();
+
+	List<Call> useCallUserId(String userId);
+
+	List<Call> endCallUserId(String userId);
 }
