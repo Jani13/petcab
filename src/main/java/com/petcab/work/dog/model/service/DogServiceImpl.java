@@ -36,6 +36,7 @@ public class DogServiceImpl implements DogService {
 		return dogDao.searchUserId(userId);
 	}
 
+
 	
 //	@Service
 //	public class DogServiceImpl implements DogService {
