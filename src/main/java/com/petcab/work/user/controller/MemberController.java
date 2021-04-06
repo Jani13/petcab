@@ -1,6 +1,7 @@
 package com.petcab.work.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.dog.model.service.DogService;
+import com.petcab.work.review.model.service.ReviewService;
+import com.petcab.work.review.model.vo.Review;
 import com.petcab.work.user.model.service.MemberService;
+import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +32,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+
+	@Autowired
+	private ReviewService reviewServcie;
+	
+	@Autowired
+	private DogService dogService;
 	
 	//login
 	@RequestMapping("/login")
@@ -187,9 +199,16 @@ public class MemberController {
 	}
 		
 	//userMyPage
-	@RequestMapping("/mypage")
-	public String userMyPageView() {
-		return "user/userMypage";
+	@RequestMapping("/user/mypage")
+	public ModelAndView userMyPageView(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
+		List<Review> review = reviewServcie.searchUserNo(loginMember.getUserNo());
+		List<Dog> dog = dogService.searchUserId(loginMember.getUserId());
+		model.addObject("review", review);
+		model.setViewName("user/userMyPage");
+		
+		log.info(review.toString());
+		return model;
 	}
 	
 	

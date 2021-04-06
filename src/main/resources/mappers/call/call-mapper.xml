@@ -133,8 +133,7 @@
 	</insert>
 
 	<!-- 원석작업 -->
-	<select id="driverWaitCallList" parameterType="_int"
-		resultMap="callResultMap">
+	<select id="driverWaitCallList" resultMap="callResultMap">
 		SELECT
 		C.CALL_NO,
 		C.TIME,
@@ -153,8 +152,7 @@
 		C.MERCHANT_UID
 		FROM GEN_CALL C, DRIVER D
 		WHERE C.USER_NO = D.USER_NO
-		AND C.STATUS = 'Y'
-		AND C.USER_NO = #{userNo}
+		AND C.STATUS = '신청'
 	</select>
 
 	<select id="driverEndCallList" parameterType="_int"
@@ -177,7 +175,7 @@
 		C.MERCHANT_UID
 		FROM GEN_CALL C, DRIVER D
 		WHERE C.USER_NO = D.USER_NO
-		AND C.STATUS = 'N'
+		AND C.STATUS = '종료'
 		AND C.USER_NO = #{userNo}
 	</select>
 

@@ -95,4 +95,10 @@
 			FROM MEMBER M , DOG D
 			WHERE M.USER_ID = D.USER_ID;
 	</select>
+	
+	<!-- 
+	<select id="searchUserId" resultType="string">
+		SELECT 
+	</select>
+	 -->
 </mapper>
