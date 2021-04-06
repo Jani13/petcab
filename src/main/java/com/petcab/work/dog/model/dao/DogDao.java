@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 
-
-
 @Mapper
 public interface DogDao {
-	int insertDog(Dog dog);
+	int insertdog(Dog dog);
+
+	int updatedog(Dog dog);
 
 	List<Dog> searchUserId(String userId);
 
