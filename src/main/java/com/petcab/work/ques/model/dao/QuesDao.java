@@ -19,10 +19,14 @@ public interface QuesDao {
 
 	Ques selectQuesDetail(int quesNo);
 
-	Ques delete(int quesNo);
+	int delete(int quesNo);
 
-	int insertQuesReply(QuesReply reply);
+	int insertQuesReply(QuesReply quesReply);
 
 	int updateViewNo(int viewNo);
+
+	QuesReply selectQuesReply(int quesNo);
+
+	int deleteReply(int quesNo);
 
 }

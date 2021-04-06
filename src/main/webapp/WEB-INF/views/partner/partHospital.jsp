@@ -62,43 +62,79 @@
       </div>
     </div>
 	
+	
+	
+	
+	
+	<!-- 0406_이슬 화면에 어떻게 뿌려줄지 테스트 중입니다.∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨ -->
+	
 	<div class="container my-5">
       	<div class="row">
 	        <div class="col">
+	        	<div class="input-group mx-1 d-flex justify-content-end row">
+          			<input type="text" class="form-control col-md-3" name="" id="" placeholder="입력해주세요">
+          			<input type="button" class="btn btn-secondary bg-gradient col-md-1" id="" onclick="" value="검색하기"></input>
+        		</div>
 	        	<ul class="nav nav-tabs">
 	            	<li class="nav-item">
-	                	<a class="nav-link active" data-toggle="tab" href="#all">모두보기</a>
+	                	<a class="nav-link active text-info" data-toggle="tab" href="#all">모두보기</a>
 	              	</li>
 	            	<li class="nav-item">
-	                	<a class="nav-link" data-toggle="tab" href="#hospital">병원</a>
+	                	<a class="nav-link text-info" data-toggle="tab" href="#hospital">병원</a>
 	              	</li>
 		        	<li class="nav-item">
-		                <a class="nav-link" data-toggle="tab" href="#kinGar">유치원</a>
+		                <a class="nav-link text-info" data-toggle="tab" href="#kinGar">유치원</a>
 		            </li>
 	              	<li class="nav-item">
-	                	<a class="nav-link" data-toggle="tab" href="#shop">샵</a>
+	                	<a class="nav-link text-info" data-toggle="tab" href="#shop">샵</a>
 	              	</li>
-	            </ul>
-	            <div class="tab-content">
-	            	<div class="tab-pane fade show active" id="all">
-	            		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id ornare libero. Vivamus iaculis, justo vel mattis pharetra, nisi ligula varius nisl, sit amet mollis tortor ligula vitae nisi.</p>
+	          	</ul> 
+	            <div class="tab-content container pt-4">
+	            	<div class="tab-pane fade show active row d-flex justify-content-between" id="all" style="height: 350px;">
+                  		<div class="card col-md-3" style="height: 350px;">
+                    		<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
+                   			<div class="card-body">
+                   				<p>위치 : </p>
+                   				<p>전화번호 : </p>
+                   				<p>운영시간 : </p>
+                   			</div>
+                  		</div>
+		                <div class="card col-md-3" style="height: 350px;">
+		                	<img src="${path}/images/mung.png" class="card-img-top h-50 my-2 rounded-3" alt="">
+		                    <div class="card-body">
+		                    	<p>위치 : </p>
+                   				<p>전화번호 : </p>
+                   				<p>운영시간 : </p>
+		                    </div>
+		                </div>
+		                <div class="card col-md-3" style="height: 350px;">
+		                	<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
+		                    <div class="card-body">
+		                    	<p>위치 : </p>
+                   				<p>전화번호 : </p>
+                   				<p>운영시간 : </p>
+		                    </div>
+		                </div>
 	              	</div>
-	            	<div class="tab-pane fade" id="hospital">
-	            		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id ornare libero. Vivamus iaculis, justo vel mattis pharetra, nisi ligula varius nisl, sit amet mollis tortor ligula vitae nisi.</p>
+	            	<div class="tab-pane fade row d-flex justify-content-between" id="hospital">
+	            		<p>병원 보여 줄꺼야</p>
 	              	</div>
 	              	<div class="tab-pane fade" id="kinGar">
-	                	<p>Nunc vitae turpis id nibh sodales commodo et non augue. Proin fringilla ex nunc. Integer tincidunt risus ut facilisis tristique.</p>
+	                	<p>유치원 보여 줄꺼야</p>
 	              	</div>
 	              	<div class="tab-pane fade" id="shop">
-	                	<p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut mattis leo, vel fermentum tellus. Sed sagittis rhoncus venenatis. Quisque commodo consectetur faucibus. Aenean eget ultricies justo.</p>
+	                	<p>샵 보여 줄꺼야</p>
 	              	</div>
 	            </div>
 	        </div>
     	</div>
     </div>
-    
+	<!-- 테스트 중입니다 ^^^^^^^^^^^^^^^^^^^^^-->	
 	
 	
+
+
+
 	
     <div class="row">
       <div class="col-md-8"></div>
@@ -118,9 +154,9 @@
         페이징 처리가 쓸모없지 않도록 하기 -->
     
      
-        <div style="text-align: center;">
-          <h3 style="padding-top: 50px;">제휴병원이 존재하지 않습니다.</h3>
-        </div>
+    <div style="text-align: center;">
+        <h3 style="padding-top: 50px;">제휴병원이 존재하지 않습니다.</h3>
+    </div>
  
     <div class="row row-cols-1 row-cols-md-4 g-4">
         
