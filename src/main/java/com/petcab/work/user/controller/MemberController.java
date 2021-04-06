@@ -204,6 +204,10 @@ public class MemberController {
 		
 	//userMyPage
 	@RequestMapping("/user/mypage")
+<<<<<<< HEAD
+	public String userMyPageView() {
+		return "user/userMyPage";
+=======
 	public ModelAndView userMyPageView(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model) {
 		List<Review> review = reviewServcie.searchUserNo(loginMember.getUserNo());
@@ -221,6 +225,7 @@ public class MemberController {
 		model.setViewName("user/userMyPage");
 		
 		return model;
+>>>>>>> dcb31bcac635def54b211bfdc3c9693c109c841f
 	}
 	
 	

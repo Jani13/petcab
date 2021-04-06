@@ -171,8 +171,8 @@
 				        <div class="row d-flex p-5">
 				            <div class="col-md-6 p-4">
 				                <form action="Information" method="get">
-					                <button type="submit" class="row d-flex justify-content-center userType" 
-					                		onclick="location.href='${path}/singup/Information'">
+					                <button type="submit" class="row d-flex justify-content-center userType" name="userType" 
+					                		value="ROLE_MEMBER" onclick="location.href='${path}/singup/Information'">
 					                		
 					                    <i class="col-12 far fa-user fa-4x my-5"></i>
 					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 일반회원가입</p>
@@ -186,9 +186,8 @@
 				            </div>
 				            <div class="col-md-6 p-4">
 				            	<form action="Information" method="get">
-					                <button type="submit" class="row d-flex justify-content-center userType" 
-					                		onclick="location.href='${path}/singup/Information'">
-					                		
+					                <button type="submit" class="row d-flex justify-content-center userType" name="userType"
+					                		value="ROLE_DRIVER" onclick="location.href='${path}/singup/Information'">
 					                    <i class="col-12 fas fa-car fa-4x my-5"></i>
 					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 드라이버 회원가입</p>
 					                    <p class="col-12"> 
@@ -201,10 +200,9 @@
 				            </div>
 				            <div class="col-md-6 p-4">
 				        		<form action="Information" method="get">
-					                <button type="submit" class="row d-flex justify-content-center userType" 
-					                		onclick="location.href='${path}/singup/Information'">
-					                		
-					                    <i class="col-12 far fa-handshake fa-4x my-5"></i>
+					                <button type="submit" class="row d-flex justify-content-center userType" name="userType"
+					                		value="ROLE_PARTNER" onclick="location.href='${path}/singup/Information'">
+				                   		<i class="col-12 far fa-handshake fa-4x my-5"></i>
 					                    <p class="col-12 h5 fw-bold fs-3">데려다줄개 제휴업체 회원가입</p>
 					                    <p class="col-12"> 
 					                        회원가입 후 데려다줄개 제휴업체 파트너가 되어주세요.<br> 
