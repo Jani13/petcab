@@ -86,7 +86,8 @@
                     <th scope="col">No</th>
                     <th scope="col">제목</th>
                     <th scope="col">글쓴이</th>
-                    <th scope="col">날짜</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">수정일</th>
                     <th scope="col">문의분류</th>
                     <th scope="col">조회</th>
                   </tr>
