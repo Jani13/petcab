@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Partner {
+	private int userNo;
+	
 	private String partnerName;
 	
 	private String partnerType;
@@ -18,7 +20,9 @@ public class Partner {
 	
 	private String openTime;
 	
-	private String image;
+	private String imageOri;
+	
+	private String imageRe;
 	
 	private String about;
 	

@@ -6,17 +6,32 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 
 @Mapper
 public interface CallDao {
 	
 	int insertCall(Call call);
 	
+	int insertEmgCall(EmgCall emgCall);
+	
 	int updateCall(int callNo);
 	
 	Call selectCall(int callNo);
 
-	List<Call> driverWaitCallList(@Param("userNo") int userNo);
+	List<Call> driverWaitCallList();
 
 	List<Call> driverEndCallList(@Param("userNo") int userNo);
+	
+	int selectAllCall();
+
+	int selectGenCall();
+
+	int selectEmergCall();
+
+	int selectCancelledCall();
+
+	List<Call> useCallUserId(String userId);
+
+	List<Call> endCallUserId(String userId);
 }

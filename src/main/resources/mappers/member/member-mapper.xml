@@ -76,7 +76,7 @@
 		     SYSDATE,
 		     SYSDATE,		      	
 		     DEFAULT,
-		     DEFAULT
+		     #{userType}
 		 )
 	</insert>
 	
@@ -115,5 +115,11 @@
 		SET USER_PWD = #{userPwd}
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<select id="save" resultType="string">
+			SELECT M.USER_ID,D.USER_ID,D.ANIMAL_NO
+			FROM MEMBER M , DOG D
+			WHERE M.USER_ID = D.USER_ID;
+	</select>
 	
 </mapper>

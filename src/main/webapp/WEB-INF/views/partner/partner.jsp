@@ -13,20 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>제휴업체 상세내용 작성</title>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
     <script src="${path}/se2/js/service/HuskyEZCreator.js"></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    
     <script src="${path}/js/jquery-3.5.1.js"></script>
-   
+    
+    <script type="text/javascript" src="${ path }/resources/ckeditor/ckeditor.js"></script>
 </head>
 <style>
-
-    div, input, label, table, form{
-        /* 이거는 후에 삭제해야함 작업 때 편히 보이도록 만든거 */
-            /* border:1px solid red; */
-            box-sizing:border-box;
-        }
 
     /* 제휴업체 스마트 에디트 */
     #edit{
@@ -51,12 +50,12 @@
  	
 <section id="content">
     <div id="partner-container" style="margin: 0 auto; text-align:center">
-        <form name="partnerFrm" action="" method="">
+        <form name="partnerFrm" action="${path}/partner/partApply" method="POST">
+        	<input type="hidden" name="userNo" value="${loginMember.getUserNo()}">
             <div class="container show-grid text-center">
-                <div class="row">
-                  <div class="col-md-3"></div>
+                <div class="row d-flex justify-content-center">
                   <div class="col-md-6">
-                    <table class="table table-borderless" style="text-align:left; margin:auto; border-spacing: 30px;">
+                    <table class="table table-borderless my-5" style="text-align:left; margin:auto; border-spacing: 30px;">
                         <tr>
                             <th colspan="2">
                                 <h2 style="line-height: 3.0; text-align: center;">제휴업체 상세내용 작성</h2>
@@ -69,33 +68,42 @@
                         </tr>
                         <tr>
                             <th>업체사진</th>
-                            <td><input type="file" class="form-control" name="image" id="image" required></td>
+                            <td><input type="file" class="form-control" name="imageOri" id="image" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
                             <td>
-                                <label style="margin-right: 20px;"><input type="radio" class="form-check-input" name="partnerType" value="병원" required>병원</label>
-                                <label style="margin-right: 20px;"><input type="radio" class="form-check-input" name="partnerType" value="유치원" required>유치원</label>
-                                <label><input type="radio" class="form-check-input" name="partnerType" value="샵" required>샵</label>
+                            	<label style="margin-right: 20px;">
+                                	<input type="radio" class="form-check-input" name="partnerType" value="병원" required>
+                                	병원
+                                </label>
+                                <label style="margin-right: 20px;">
+                                	<input type="radio" class="form-check-input" name="partnerType" value="유치원" required>
+                                	유치원
+                                </label>
+                                <label>
+                                	<input type="radio" class="form-check-input" name="partnerType" value="샵" required>
+                                	샵
+                                </label>
                             </td>
                         </tr>
                         <tr>
                             <th>주소</th>
                             <td>
                                 <div class="input-group mb-1">
-                                    <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control postalAddr" name="postCode" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
                                 </div>   
                                 <div class="input-group mb-1">
-                                    <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소">
+                                    <input type="text" class="form-control addr1" name="location" id="addr1" placeholder="주소">
                                 </div>
                                 <!-- 동이름 / 빌딩이름 등이 나온다 -->
                                 <div class="row">
                                     <div class="col-md-7" style="height: 42px;">
-                                        <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소">
+                                        <input type="text" class="form-control addr2" name="location" id="addr2" placeholder="상세주소">
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
+                                        <input type="text" class="form-control addr3" name="location" id="addr3" placeholder="참고항목" readonly>
                                     </div>
                                 </div>
                             </td>
@@ -109,31 +117,39 @@
                         <tr>
                             <th>운영시간</th>
                             <td>
-                                <input type="text" class="form-control" name="openTime" placeholder="평일" required> <br>
-                                <span style="margin-left: 20px;">* 시간은 00:00 ~ 24:00 표기해주세요.(상세시간은 소개에 작성해주세요.)</span>
+                                <input type="text" class="form-control" name="openTime" placeholder="평일" required>
+                                <span class="mx-3" style="font-size: 13px">* 시간은 00:00 ~ 24:00 표기해주세요.(상세시간은 소개에 작성해주세요.)</span>
                             </td>
                         </tr>
                     </table>
                   </div>
-                  <div class="col-md-2"> </div>
+                 
                 </div>
             <!-- ====  스마트 에디터  ===== -->
-            <div class="editor-box">
-                <div style="padding-top: 20px;">
-                    <h3>제휴업체 소개</h3>
+            	<div class="editor-box">
+                	<div style="padding-top: 50px;">
+                    	<h3>제휴업체 소개</h3>
+                	</div>
+	            	<div class="editor-box">
+	                	<div class="editor-box__editor">
+	                              <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
+	                    	<textarea name="about" id="ir1" rows="10" cols="100"></textarea>
+	                    	<script type="text/javascript">
+	                 			CKEDITOR.replace('ir1', {height: 400});
+	                  	 	</script>
+	                    </div>
+	                </div>
+            	</div>
+                <div style="text-align : center; padding: 30px;">
+                	<span style="padding-right : 3rem;">
+                    	<input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
+                    </span>
+                    <span>
+                    	<a href="${path}/">
+                    		<input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">                    	
+                    	</a>
+                    </span>
                 </div>
-                <div class="editor-box__editor">
-                    <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                    <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
-                </div>
-            </div>
-            <div style="text-align : center; padding: 30px;">
-                <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
-                </span>
-                <span>
-                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
-                </span>
             </div>
         </form>
     </div>
@@ -172,16 +188,16 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("addr3").value = extraAddr;
+                    document.querySelector(".addr3").value = extraAddr;
                 
                 } else {
-                    document.getElementById("addr3").value = '';
+                    document.querySelector(".addr3").value = '';
                 }
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postalAddr').value = data.zonecode;
-                document.getElementById("addr1").value = addr;
+                document.querySelector('.postalAddr').value = data.zonecode;
+                document.querySelector(".addr1").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("addr2").focus();
+                document.querySelector(".addr2").focus();
             }
         }).open();
     }

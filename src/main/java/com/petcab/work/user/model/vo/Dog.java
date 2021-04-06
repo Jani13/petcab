@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dog {
-	private String dogNo;
+	private int dogNo;
 	
 	private String animalNo;
 	
-	private int userNo;
+	private String userId;
 	
 	private String dogName;
 	

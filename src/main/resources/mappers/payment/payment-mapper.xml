@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.petcab.work.payment.model.dao.PaymentDao">
+	
+	<!-- 중복되는 쿼리문 작성 -->
+	<sql id="selectPaymentSql">
+		SELECT MERCHANT_UID,
+			   PG,
+			   PAY_METHOD,
+			   NAME,
+			   AMOUNT,
+			   IMP_UID,
+			   PAID_AMOUNT,
+			   APPLY_NUM,
+			   SUCCESS,
+			   STATUS,
+			   PG_PROVIDER,
+			   PG_TID,
+			   PAID_AT,
+			   RECEIPT_URL,
+			   VBANK_NUM,
+			   VBANK_NAME,
+			   VBANK_HOLDER,
+			   VBANK_DATE,
+			   USER_NO ,
+			   PAYMENT_DATE				
+		FROM PAYMENT
+	</sql>
+	
+	<resultMap type="Payment" id="PaymentResultMap">
+	
+		<id property="userNo" column="USER_NO"/>
+		
+		<result property="merchatuid" column="MERCHANT_UID"/>
+		<result property="pg" column="PG" />
+		<result property="payMethod" column="PAY_METHOD" />
+		<result property="name" column="NAME" />
+		<result property="amount" column="AMOUNT" />
+		<result property="impUid" column="IMP_UID" />
+		<result property="paidAmount" column="PAID_AMOUNT" />
+		<result property="applyNum" column="APPLY_NUM" />
+		<result property="success" column="SUCCESS" />
+		<result property="status" column="STATUS" />
+		<result property="pgProvider" column="PG_PROVIDER" />
+		<result property="pgTid" column="PG_TID" />
+		<result property="paidAt" column="PAID_AT" />
+		<result property="receipUrl" column="RECEIPT_URL" />
+		<result property="vbankNum" column="VBANK_NUM" />
+		<result property="vbankName" column="VBANK_NAME" />
+		<result property="vbankHolder" column="VBANK_HOLDER" />
+		<result property="vbankDate" column="VBANK_DATE" />
+		<result property="paymentDate" column="PAYMENT_DATE" />
+	</resultMap>
+
+	<select id="selectPaymentCount" resultType="_int">
+		SELECT COUNT(*) FROM PAYMENT
+	</select>
+	
+	<select id="selectPaymentById" parameterType="string" resultMap="PaymentResultMap">
+		<include refid="selectPaymentSql"></include>
+		WHERE USER_ID = #{id}
+	</select>
+	
+	<select id="selectTodayPaymentAmount" resultType="_int">
+		SELECT SUM(PAID_AMOUNT)
+		FROM PAYMENT
+		WHERE TO_CHAR(PAYMENT_DATE, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd') 
+		AND STATUS = 'Y'
+	</select>
+	
+</mapper>
