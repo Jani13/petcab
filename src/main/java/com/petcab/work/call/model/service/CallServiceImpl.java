@@ -73,4 +73,10 @@ public class CallServiceImpl implements CallService {
 		return callDao.selectCancelledCall();
 	}
 
+	@Override
+	public EmgCall selectEmgCall(int callNo) {
+		
+		return callDao.selectEmgCall(callNo);
+	}
+
 }

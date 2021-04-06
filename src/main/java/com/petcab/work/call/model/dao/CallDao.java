@@ -30,4 +30,6 @@ public interface CallDao {
 	int selectEmergCall();
 
 	int selectCancelledCall();
+
+	EmgCall selectEmgCall(int callNo);
 }

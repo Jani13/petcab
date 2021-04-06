@@ -13,6 +13,8 @@ public interface CallService {
 	int updateCall(int callNo);
 	
 	Call selectCall(int callNo);
+	
+	EmgCall selectEmgCall(int callNo);
 
 	List<Call> driverWaitCallList(int userNo);
 

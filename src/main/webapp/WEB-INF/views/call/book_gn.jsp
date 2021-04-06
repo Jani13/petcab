@@ -42,7 +42,7 @@
 				<div
 					class="col btn-call-emg bg-warning h-100 d-flex justify-content-center flex-column"
 					onclick="selectEmg();">
-					<h1 class="text-white">긴급</h1>					
+					<h1 class="text-white">긴급</h1>
 				</div>
 			</div>
 
@@ -66,9 +66,9 @@
 									style="margin-left: 0; margin-right: 0">
 									<div class="col-9" style="padding-left: 0; padding-right: 0">
 										<input type="text" class="form-control where-from"
-											name="fromWhere" placeholder="출발지" />
-										<input type="text" class="form-control where-to"
-											name="toWhere" placeholder="도착지" />
+											name="fromWhere" placeholder="출발지" /> <input type="text"
+											class="form-control where-to" name="toWhere"
+											placeholder="도착지" />
 									</div>
 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
@@ -86,9 +86,9 @@
 							<div class="form-group mb-3">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value="Y"
-										id="flexCheckDefault" name="withOwner" />
-									<label class="form-check-label" for="flexCheckDefault">
-										보호자 탑승 </label>
+										id="flexCheckDefault" name="withOwner" /> <label
+										class="form-check-label" for="flexCheckDefault"> 보호자
+										탑승 </label>
 								</div>
 							</div>
 
@@ -96,6 +96,9 @@
 								<button class="btn btn-sm btn-outline-info" type="button">
 									애견정보 불러오기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
+								<input type="hidden" name="dogNo" value="1">
+								<input type="hidden" name="dogNo" value="">
+								<input type="hidden" name="dogNo" value="">
 							</div>
 
 							<div class="form-floating mb-3">

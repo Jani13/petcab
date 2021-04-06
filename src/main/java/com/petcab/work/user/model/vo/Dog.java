@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dog {
-	private String dogNo;
+	private int dogNo;
 	
 	private String animalNo;
 	
@@ -37,5 +37,9 @@ public class Dog {
 	private Date modifyDate;
 	
 	private String status;
+	
+	public Dog (int dogNo) {
+		this.dogNo = dogNo;
+	}
 	
 }

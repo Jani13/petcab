@@ -9,4 +9,6 @@ public interface DriverService {
 	
 	Driver selectDriver(int userNo);
 
+	Driver selectDriverMember(int userNo);
+
 }
