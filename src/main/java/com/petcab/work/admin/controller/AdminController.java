@@ -1,8 +1,5 @@
 package com.petcab.work.admin.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +28,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
-		Date today = new Date();
 		
-		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-		SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss a");
-		
+		//  amountAll 은 DB에 오늘날짜로 된 데이터가 없으면 에러가 납니다. 처리해야함.
 		int memberCount = service.getMemberCount();
 		int amountAll = paymentService.selectAmount();
 		int allCall = callService.selectAllCall();
@@ -45,8 +39,7 @@ public class AdminController {
 		
 		System.out.println("총 회원수 : " + memberCount);
 		
-		model.addObject("date", date.format(today));
-		model.addObject("time", time.format(today));
+		
 		model.addObject("memberCount", memberCount);
 		model.addObject("amountAll", amountAll);
 		model.addObject("allCall", allCall);

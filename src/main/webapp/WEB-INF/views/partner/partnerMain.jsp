@@ -47,7 +47,37 @@
         </div>
       </div>
     </div>
-    
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div>
+          <ul class="nav navbar-nav nav-tabs">
+              <li class="active"><a href="#first" >탭화면 첫번째</a></li>
+              <li><a href="#second" >탭화면 두번째</a></li>
+              <li><a href="#third" >탭화면 마지막</a></li>
+          </ul>
+        </div>
+</nav>
+<div class="tab-content" style="margin-top: 80px;">
+  <div class="tab-pane fade active in" id="first">
+    <p>
+        첫번째 탭포커스가 위치할 내용입니다.<br/>
+        id="first인대 상단 네비게이션의 href속성값인 #아이디"명과 일치하는 패널이랑 맵핑을 시켜줍니다.
+    </p>
+  </div>
+  <div class="tab-pane fade" id="second">
+    <p>
+        두번째 탭포커스 위치할 내용입니다.<br/>
+        data-togge="tab"을 지정해주셔야 탭버튼으로 인식을 합니다.
+    </p>
+  </div>
+  <div class="tab-pane fade" id="third">
+    <p>
+        마지막 세번째 탭클릭시 보여지는 컨텐츠 내용입니다.
+    </p>
+  </div>
+</div>
+
+
+출처: https://hellogk.tistory.com/54 [IT Code Storage]
     <div class="container show-grid text-center">
       <div class="row">
         <div class="col-md-4">
@@ -74,9 +104,19 @@
     </div>
 
   </div>
-  <!-- /.container -->
+  
 </section>
+  <script type="text/javascript">
+  $(function(){
+	    $('ul.nav-tabs a').click(function (e) {
+	      e.preventDefault()
+	      $(this).tab('show')
+	    })
+	})
 
+
+	출처: https://hellogk.tistory.com/54 [IT Code Storage]
+  </script>
   <jsp:include page="../common/footer.jsp" />
 
 </html>

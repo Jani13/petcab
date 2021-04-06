@@ -33,14 +33,18 @@
   
 <section>
   <div class="container">
-    <div class="card text-white bg-secondary bg-gradient my-4 py-5 text-center">
+    <div class="card text-white my-4 py-5 text-center" style="background-color: #4ec7f2">
       <div class="card-body">
-        <p class="text-white m-">데려다줄개는 제휴업체와의 연계를 통하여 <span style="color: red;"><b>긴급콜</b></span> 을 호출할 수 있습니다.</p>
+        <p class="text-white fw-bold fs-3">
+        	데려다줄개는 제휴업체와의 연계를 통하여 
+        	<span style="color: red;"><b>긴급콜</b></span> 
+        	을 호출할 수 있습니다.
+        </p>
         <br><br>
         <div class="container show-grid">
           <div class="row">
-            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/imagesssss/emergencyyy.png" style="width: 100px;"></div>
-            <div class="col-md-9" style="text-align: left;">
+            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/images/emergencyyy.png" style="width: 100px;"></div>
+            <div class="col-md-9 fs-5" style="text-align: left;">
               <p><b>긴급콜</b> 이란 ?</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 바로 의사의 진료를 통하여 처방 및 수술을 받을 수 있도록 하는 서비스'</p>
@@ -54,7 +58,7 @@
         </div>
       </div>
     </div>
-
+	
     <div class="row">
       <div class="col-md-8"></div>
       <div class="col-md-4">

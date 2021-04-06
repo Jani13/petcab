@@ -187,9 +187,9 @@ public class MemberController {
 	}
 		
 	//userMyPage
-	@RequestMapping("/mypage")
+	@RequestMapping("/user/mypage")
 	public String userMyPageView() {
-		return "user/userMypage";
+		return "user/userMyPage";
 	}
 	
 	

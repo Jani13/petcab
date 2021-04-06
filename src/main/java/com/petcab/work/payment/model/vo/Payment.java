@@ -45,4 +45,6 @@ public class Payment {
 	private String vbankHolder;
 	
 	private int vbankDate;
+	
+	private int paymentDate;
 }
