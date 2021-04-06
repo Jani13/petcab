@@ -26,4 +26,8 @@ public interface CallService {
 
 	int selectCancelledCall();
 
+	List<Call> useCallUserId(String userId);
+
+	List<Call> endCallUserId(String userId);
+
 }

@@ -95,8 +95,8 @@ public class DriverController {
 		Driver driver = service.selectDriver(loginMember.getUserNo());
 		List<Review> review = reviewService.searchSUserNo(loginMember.getUserNo());
 		List<Call> waitCall = callService.driverWaitCallList();
-		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
 		log.info(waitCall.toString());
+		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
 		log.info(endCall.toString());
 		
 		model.addObject("driver", driver);

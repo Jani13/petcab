@@ -73,4 +73,15 @@ public class CallServiceImpl implements CallService {
 		return callDao.selectCancelledCall();
 	}
 
+	@Override
+	public List<Call> useCallUserId(String userId) {
+		return callDao.useCallUserId(userId);
+	}
+
+	@Override
+	public List<Call> endCallUserId(String userId) {
+		// TODO Auto-generated method stub
+		return callDao.endCallUserId(userId);
+	}
+
 }

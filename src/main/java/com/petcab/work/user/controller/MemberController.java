@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.review.model.service.ReviewService;
 import com.petcab.work.review.model.vo.Review;
@@ -39,6 +41,8 @@ public class MemberController {
 	@Autowired
 	private DogService dogService;
 	
+	@Autowired
+	private CallService callService;
 	//login
 	@RequestMapping("/login")
 	public String loginView() {
@@ -204,10 +208,18 @@ public class MemberController {
 			,ModelAndView model) {
 		List<Review> review = reviewServcie.searchUserNo(loginMember.getUserNo());
 		List<Dog> dog = dogService.searchUserId(loginMember.getUserId());
+		List<Call> useCall = callService.useCallUserId(loginMember.getUserId());
+		List<Call> endCall = callService.endCallUserId(loginMember.getUserId());
+
+		log.info(useCall.toString());
+		log.info(endCall.toString());
+
 		model.addObject("review", review);
+		model.addObject("dog", dog);
+		model.addObject("useCall", useCall);
+		model.addObject("endCall", endCall);
 		model.setViewName("user/userMyPage");
 		
-		log.info(review.toString());
 		return model;
 	}
 	

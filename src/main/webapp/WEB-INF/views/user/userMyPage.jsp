@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<c:set var="addr" value="${fn:split(loginMember.address,',')}"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -101,22 +102,22 @@
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                    <div for="postalAddr">주소</div>
                                    <div class="input-group mb-1">
-                                       <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                       <input type="text" class="form-control postalAddr" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
                                        value="${loginMember.postCode}">
                                        <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
                                    </div>   
                                    <div class="input-group mb-1">
-                                       <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소"
+                                       <input type="text" class="form-control addr1" name="addr1" id="addr1" placeholder="주소"
                                        value="${addr[0]}">
                                    </div>
                                    <!-- 동이름 / 빌딩이름 등이 나온다 -->
                                    <div class="row">
                                        <div class="col-md-7" style="height: 42px;">
-                                           <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소"
+                                           <input type="text" class="form-control addr2" name="addr2" id="addr2" placeholder="상세주소"
                                            value="${addr[1]}">
                                        </div>
                                        <div class="col-md-5">
-                                           <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
+                                           <input type="text" class="form-control addr3" name="addr3" id="addr3" placeholder="참고항목" readonly>
                                        </div>
                                     </div>
                                 </div>
@@ -161,24 +162,19 @@
                             </div>
                             <div class="container my-2">
                                 <div class="row">
-                                    <div class="col-sm text-center py-4 myDogsEvent">
-                                        <a href="" class="text-decoration-none text-dark">
-                                            <img src="../../../resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
-                                            <p class="h5 my-4 fw-bold">멍멍이</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm text-center py-4 myDogsEvent">
-                                        <a href="" class="text-decoration-none text-dark">
-                                            <img src="../../../resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
-                                            <p class="h5 my-4 fw-bold">멍멍이</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm text-center py-4 myDogsEvent">
-                                        <a href="" class="text-decoration-none text-dark">
-                                            <img src="../../../resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
-                                            <p class="h5 my-4 fw-bold">멍멍이</p>
-                                        </a>
-                                    </div>  
+									<c:if test="${dog == null}">
+										<div>조회된 애견이 없습니다</div>
+									</c:if>
+									<c:if test="${dog != null}">
+										<c:forEach var="dog" items="${dog}" end="2">
+		                                    <div class="col-sm text-center py-4 myDogsEvent">
+		                                        <a href="" class="text-decoration-none text-dark">
+		                                            <img src="${path }/resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
+		                                            <p class="h5 my-4 fw-bold">${dog.dogName }</p>
+		                                        </a>
+		                                    </div>
+	                                    </c:forEach>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -191,43 +187,39 @@
                     <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
-                    <div class="card w-70 m-5 userPageEvent">
-                        <div class="card-body p-4">
-                            <i class="fas fa-meteor text-danger">긴급</i>
-                            <h5 class="card-title fw-bold">
-                                출발지 
-                                <i class="fas fa-arrow-right"></i> 
-                                목적지
-                                <span class="mx-3">YYYY/MM/DD HH:mm:ss</span>
-                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
-                            </h5>
-                            <p class="card-text">
-                                애견 이름 : 멍멍이<br>
-                                예상 소요 시간 : 30분<br>
-                                예상 결제 금액 : 3만원<br>
-                                드라이버 : XXX / xx마 1234<br>
-                                제휴업체 : 멍멍이 미용
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card w-70 m-5 userPageEvent">
-                        <div class="card-body p-4">
-                            <i class="fas fa-bone text-secondary">일반콜</i>
-                            <h5 class="card-title fw-bold">
-                                출발지 
-                                <i class="fas fa-arrow-right"></i> 
-                                목적지
-                                <span class="mx-3">YYYY/MM/DD HH:mm:ss</span>
-                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
-                            </h5>
-                            <p class="card-text">
-                                애견 이름 : 멍멍이<br>
-                                예상 소요 시간 : 30분<br>
-                                예상 결제 금액 : 3만원<br>
-                                드라이버 : XXX / xx마 1234<br>
-                            </p>
-                        </div>
-                    </div>
+                	<c:if test="${useCall== null}">
+						<div class="card-body p-4">
+							조회된 예약이 없습니다
+						</div>
+					</c:if>
+					<c:if test="${useCall != null}">
+						<c:forEach var="call" items="${useCall}" end="1">
+		                    <div class="card w-70 m-5 userPageEvent">
+		                        <div class="card-body p-4">
+		                            <c:if test='${call.callType == "일반"}'> 
+		                            	<i class="fas fa-bone text-secondary">일반</i>
+		                            </c:if>
+		                            <c:if test='${call.callType == "긴급"}'>
+		                            	<i class="fas fa-meteor text-danger">긴급</i>
+		                            </c:if>
+		                            <h5 class="card-title fw-bold">
+		                                ${call.fromWhere}
+		                                <i class="fas fa-arrow-right"></i> 
+		                                 ${call.toWhere}
+		                                <span class="mx-3">${call.pickupTime}</span>
+		                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
+		                            </h5>
+		                            <p class="card-text">
+		                                애견 이름 : ${call.animalNoA}<br>
+		                                예상 소요 시간 : 미정<br>
+		                                예상 결제 금액 : 미정<br>
+		                                드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
+		                                제휴업체 : 미정
+		                            </p>
+		                        </div>
+		                    </div>
+	                    </c:forEach>
+                   	</c:if>
                 </div>
 
                 <!-- 이용 완료 목록 -->
@@ -236,65 +228,38 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="card m-5 successCall userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-meteor text-danger">긴급</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지
-                                    </h5>
-                                    <p class="fs-5">YYYY/MM/DD HH:mm:ss</p>
-                                    <p class="card-text">
-                                        애견 이름 : 멍멍이<br>
-                                        예상 소요 시간 : 30분<br>
-                                        예상 결제 금액 : 3만원<br>
-                                        드라이버 : XXX / xx마 1234<br>
-                                        제휴업체 : 멍멍이 미용
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card m-5 successCall userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-bone text-secondary">일반콜</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지
-                                    </h5>
-                                    <p class="fs-5">YYYY/MM/DD HH:mm:ss</p>
-                                    <p class="card-text">
-                                        애견 이름 : 멍멍이<br>
-                                        예상 소요 시간 : 30분<br>
-                                        예상 결제 금액 : 3만원<br>
-                                        드라이버 : XXX / xx마 1234<br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card m-5 successCall userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-meteor text-danger">긴급</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지
-                                    </h5>
-                                    <p class="fs-5">YYYY/MM/DD HH:mm:ss</p>
-                                    <p class="card-text">
-                                        애견 이름 : 멍멍이<br>
-                                        예상 소요 시간 : 30분<br>
-                                        예상 결제 금액 : 3만원<br>
-                                        드라이버 : XXX / xx마 1234<br>
-                                        제휴업체 : 멍멍이 미용
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    	<c:if test="${endCall == null}">
+							<div>조회된 예약이 없습니다</div>
+						</c:if>
+						<c:if test="${endCall != null}">
+							<c:forEach var="call" items="${endCall}" end="2">
+		                        <div class="col-sm-4">
+		                            <div class="card m-5 successCall">
+		                                <div class="card-body p-4">
+		                                    <c:if test='${call.callType == "일반"}'> 
+		                                    	<i class="fas fa-bone text-secondary">일반</i>
+		                                    </c:if>
+		                                    <c:if test='${call.callType == "긴급"}'>
+		                                    	<i class="fas fa-meteor text-danger">긴급</i>
+		                                    </c:if>
+		                                    <h5 class="card-title fw-bold">
+		                                        ${call.fromWhere}
+		                                        <i class="fas fa-arrow-right"></i> 
+		                                        ${call.toWhere}
+		                                    </h5>
+		                                    <p class="fs-5">${call.pickupTime}</p>
+		                                    <p class="card-text m-0">
+		                                        애견 이름 : ${call.animalNoA}<br>
+		                                        예상 소요 시간 : 아직미정<br>
+		                                        예상 결제 금액 : 아직미정<br>
+		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
+		                                        제휴업체 : 아직미정
+		                                    </p>
+		                            	</div>
+		                            </div>
+		                        </div>
+			                </c:forEach>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -346,6 +311,7 @@
 						// 우편번호와 주소 정보를 해당 필드에 넣는다.
 						document.querySelector(".postalAddr").value = data.zonecode;
 						document.querySelector(".addr1").value = addr;
+						document.querySelector(".addr2").value = '';
 						// 커서를 상세주소 필드로 이동한다.
 						document.querySelector(".addr2").focus();
 					}
