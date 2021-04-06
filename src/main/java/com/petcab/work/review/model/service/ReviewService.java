@@ -17,4 +17,6 @@ public interface ReviewService {
 
 	Review findreviewNo(int reviewNo);
 
+	List<Review> searchSUserNo(int userNo);
+
 }

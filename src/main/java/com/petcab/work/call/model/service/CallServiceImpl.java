@@ -42,9 +42,9 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> driverWaitCallList(int userNo) {
+	public List<Call> driverWaitCallList() {
 
-		return callDao.driverWaitCallList(userNo);
+		return callDao.driverWaitCallList();
 	}
 
 	@Override

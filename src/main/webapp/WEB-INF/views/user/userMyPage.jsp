@@ -85,33 +85,39 @@
                             <form class="row my-5 d-flex justify-content-center">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
-                                    <input type="text" class="form-control" id="Id" name="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
+                                    <input type="text" class="form-control" id="Id" name="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    value="${loginMember.userId }">
                                 </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="Name">이름</label>
-                                    <input type="text" class="form-control" id="Name" name="userName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
+                                    <input type="text" class="form-control" id="Name" name="userName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    value="${loginMember.userName }">
                                 </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
-                                    <input type="text" class="form-control" id="callNum" name="phone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" class="form-control" id="callNum" name="phone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                    value="${loginMember.phone }">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
-                                    <div for="postalAddr">주소</div>
-                                    <div class="input-group mb-1">
-                                        <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                        <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
-                                    </div>   
-                                    <div class="input-group mb-1">
-                                        <input type="text" class="form-control addr1" name="address" id="addr1" placeholder="주소">
-                                    </div>
-                                    <!-- 동이름 / 빌딩이름 등이 나온다 -->
-                                    <div class="row">
-                                        <div class="col-md-7" style="height: 42px;">
-                                            <input type="text" class="form-control addr2" name="address" id="addr2" placeholder="상세주소">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control addr3" name="address" id="addr3" placeholder="참고항목" readonly>
-                                        </div>
+                                   <div for="postalAddr">주소</div>
+                                   <div class="input-group mb-1">
+                                       <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                       value="${loginMember.postCode}">
+                                       <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
+                                   </div>   
+                                   <div class="input-group mb-1">
+                                       <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소"
+                                       value="${addr[0]}">
+                                   </div>
+                                   <!-- 동이름 / 빌딩이름 등이 나온다 -->
+                                   <div class="row">
+                                       <div class="col-md-7" style="height: 42px;">
+                                           <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소"
+                                           value="${addr[1]}">
+                                       </div>
+                                       <div class="col-md-5">
+                                           <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
+                                       </div>
                                     </div>
                                 </div>
                                 <div class="row d-flex justify-content-center my-3">    
@@ -127,28 +133,23 @@
                                 <p class="h3 fw-bold mt-3 mx-4">리뷰 관리</p>
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
-                            <div class="container-fluid">
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height: 150px;" >
-                                    <div class="card-header bg-transparent ">YYYY/MM/DD HH:mm:ss </div>
-                                    <div class="card-body ">
-                                        <h5 class="card-title fw-bold">리뷰 제목</h5>
-                                        <p class="card-text">리뷰 내용</p>
-                                    </div>
-                                </div>
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height: 150px;" >
-                                    <div class="card-header bg-transparent ">YYYY/MM/DD HH:mm:ss </div>
-                                    <div class="card-body ">
-                                        <h5 class="card-title fw-bold">리뷰 제목</h5>
-                                        <p class="card-text">리뷰 내용</p>
-                                    </div>
-                                </div>
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height: 150px;" >
-                                    <div class="card-header bg-transparent ">YYYY/MM/DD HH:mm:ss </div>
-                                    <div class="card-body ">
-                                        <h5 class="card-title fw-bold">리뷰 제목</h5>
-                                        <p class="card-text">리뷰 내용</p>
-                                    </div>
-                                </div>
+	                        <div class="container-fluid">
+								<c:if test="${review == null}">
+									<div>조회된 리뷰가 없습니다</div>
+								</c:if>
+								<c:if test="${review != null}">
+									<c:forEach var="board" items="${review}" end="2">
+			                        	<div class="w-100 card border-light mb-3 my-5" >
+				                            <div class="card-header bg-transparent ">
+				                            	<fmt:formatDate type="both" value="${board.postDate}" pattern="yyyy.MM.dd"/>
+				                            </div>
+				                            <div class="card-body ">
+					                            <h5 class="card-title fw-bold">${board.title}</h5>
+					                            <p class="card-text">${board.content}</p>
+			                            	</div>
+			                    	    </div>
+			                    	</c:forEach>
+								</c:if>
                             </div>   
                         </div>
                         <!-- 세 번째 컨텐츠 내 애완동물 정보 박스 -->
