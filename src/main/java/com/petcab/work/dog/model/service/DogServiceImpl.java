@@ -19,11 +19,31 @@ public class DogServiceImpl implements DogService {
 	public int saveDog(Dog dog) {
 		
 		int result =0;
-		
-		result=dogDao.insertDog(dog);
+		if(dog.getDogNo() != 0) {
+			result = dogDao.updatedog(dog);
+		} else {
+			result = dogDao.insertdog(dog);
+		}	
 		
 		return result;
 	}
+
+	}
+//	@Service
+//	public class DogServiceImpl implements DogService {
+//		@Autowired
+//		private DogDao dogDao;
+//		
+//		@Override
+//		@Transactional
+//		public int saveDog(Dog dog) {
+//			
+//			int result =0;
+//			
+//			result=dogDao.insertDog(dog);
+//			
+//			return result;
+//		}
 
 
 //	@Override
@@ -32,4 +52,4 @@ public class DogServiceImpl implements DogService {
 //		// TODO Auto-generated method stub
 //		return 0;
 //	}
-}
+

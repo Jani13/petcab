@@ -50,7 +50,11 @@
                                     <th>나의 애견</th>
                                     <div class="input-group mb-2">
                                         <select class="form-select" aria-label="Default select example">
-                                            <option selected> - 선택 - </option>
+                                        	<option type="button"><c:out value="${dog.dogName}"/></option>
+                                        	<option type="button"><c:out value="${dog.dogName}"/></option>
+                                        	
+                                        	<%-- <c:out value="${dog.dogNo}"/> --%>
+                                            <!-- <option selected> - 선택 - </option>
                                             <option value="1"></option>
                                             <option value="2"></option>
                                             <option value="3"></option>
@@ -60,8 +64,8 @@
                                             <option value="7"></option>
                                             <option value="8"></option>
                                             <option value="9"></option>
-                                            <option value="10"></option>
-                                        </select>
+                                            <option value="10"></option> -->
+                                        </select>                           
                                     </div>
                                 </tr>
                             </div>
@@ -72,7 +76,7 @@
                                         <th style="width: 130px;">등록번호</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" placeholder="동물등록증 등록번호 입력해주세요."
+                                                <input type="text" class="form-control" name="animalNo" value="${dog.animalNo}"
                                                     aria-describedby="button-addon2" required>
                                             </div>
                                         </td>
@@ -200,7 +204,7 @@
                                     <th style="width: 130px;">애 견 명</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="text" class="form-control" placeholder="이름 입력해주세요.">
+                                            <input type="text" class="form-control" value="${dog.dogName}">
                                         </div>
                                     </td>
                                     </tr>
@@ -208,7 +212,13 @@
                                         <th style="width: 130px;">애견 사진</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="file" class="form-control" id="inputGroupFile02">
+                                                <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
+                                            <c:if test="${ !empty dog.imageOri }">
+												<br>현재 업로드한 파일 : 
+												<a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }">
+													${ dog.imageOri }
+												</a>
+											</c:if>
                                             </div>
                                         </td>
                                     </tr>
@@ -216,7 +226,7 @@
                                         <th style="width: 130px;">나이</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" placeholder="나이"
+                                                <input type="text" class="form-control" name="age" value="${dog.age}"
                                                     aria-describedby="button-addon2" required>
                                             </div>
                                         </td>
@@ -258,8 +268,7 @@
                                 </p>
                                 <div class="editor-box">
                                     <div class="editor-box__editor">
-                                        <textarea name="" id="" rows="5" cols="80"
-                                            placeholder="질병이 있을 경우 작성해주세요~"></textarea>
+                                        <textarea  id="" rows="5" cols="80" name="disorder" ><c:out value="${dog.disorder}"/></textarea>
                                     </div>
                                 </div>
                                 <p style="font-size: 20px;"><br>
@@ -267,20 +276,17 @@
                                 </p>
                                 <div class="editor-box">
                                     <div class="editor-box__editor">
-                                        <textarea name="" id="" rows="5" cols="80"
-                                            placeholder="이용시 반영됩니다."></textarea>
+                                        <textarea  id="" rows="5" cols="80" name="other" ><c:out value="${dog.other}"/></textarea>
                                     </div>
                                 </div>
+                                 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+                                 <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
                                 <br>
                                 <div style="text-align:center;">
-                                    <button type="button" class="btn btn-outline-info"
-                                        style="margin-right: 50px;">정보 수정</button>
-                                    <button type="button" class="btn btn-outline-info"
-                                        style="margin-left: 50px;">확인</button>
+                                    <button type="submit" class="btn btn-outline-info" style="margin-right: 50px;">정보 수정</button>
+                                    <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;">확인</button>
                                 </div>
                             </div>
-
-
                         </div>
                 </form>
             </div>

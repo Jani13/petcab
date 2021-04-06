@@ -155,8 +155,8 @@
                         <div class="col-12 pt-2 pt-3 row justify-content-center" style="border-top: 1px ridge;">
                             <div class="col-12 h3 fw-bold mt-3">
                                 내 애완동물 정보
-                                <button type="button" class="btn btn-outline-info border-white rounded-pill"><i class="fas fa-eraser"></i>수정</button>
-                                <button type="button" class="btn btn-outline-info border-white rounded-pill"><i class="fas fa-plus"></i>추가</button>
+                                <button type="button" class="btn btn-outline-info border-white rounded-pill" onclick="location.href ='${path}/dog/mdogInformation'" ><i class="fas fa-eraser"></i>수정</button>
+                                <button type="button" class="btn btn-outline-info border-white rounded-pill" onclick="location.href ='${path}/dog/dogInformation'" ><i class="fas fa-plus"></i>추가</button>
                             </div>
                             <div class="container my-2">
                                 <div class="row">
