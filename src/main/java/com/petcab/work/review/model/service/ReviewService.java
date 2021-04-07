@@ -7,16 +7,18 @@ import com.petcab.work.review.model.vo.Review;
 
 public interface ReviewService {
 
-	int getReviewCount();
-
 	List<Review> getReviewList(PageInfo pageInfo);
+
+	int getReviewCount();
 
 	int saveReview(Review review);
 
-	List<Review> searchUserNo(int userNo);
-
 	Review findreviewNo(int reviewNo);
+	
+	int delete(int reviewNo);
 
-	List<Review> searchSUserNo(int userNo);
+//	int updateViewNo(int reviewNo);
+
+	List<Review> searchUserNo(int userNo);
 
 }

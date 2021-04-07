@@ -101,12 +101,81 @@ public class ReviewController {
 	@RequestMapping(value = "/reviewView", method = {RequestMethod.GET})
 	public ModelAndView view (@RequestParam("reviewNo") int reviewNo, ModelAndView model) {
 		
+//		service.updateViewNo(reviewNo);
 		Review review = service.findreviewNo(reviewNo);
+		
 		model.addObject("review", review);
-		model.addObject("review/reviewView");
+		model.setViewName("review/reviewView");
 		
 		return model;
 	}
+	
+	// 게시글 수정하기
+		@RequestMapping(value = "/update", method = {RequestMethod.GET})
+		public ModelAndView updateView(@RequestParam("reviewNo") int reviewNo, ModelAndView model) {
+			
+			Review review = service.findreviewNo(reviewNo);
+			
+			model.addObject("review", review);
+			model.setViewName("review/reviewUpdate");
+			
+			return model;
+		}
+		
+		@RequestMapping(value = "/update", method = {RequestMethod.POST})
+		public ModelAndView update(
+							@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+							HttpServletRequest request, Review review, ModelAndView model) {
+			
+			int result = 0;
+			
+//			System.out.println("xxxxxxxxxxxxxxxxx" + review);
+			if(loginMember.getUserNo() == review.getUserNo()) {
+				result = service.saveReview(review);
+				
+				if (result > 0) {
+					model.addObject("msg", "리뷰가 정상적으로 수정되었습니다.");
+					model.addObject("location", "/review/reviewView?reviewNo="+review.getReviewNo());
+
+					} else {
+					model.addObject("msg", "리뷰 수정을 실패하였습니다.");
+					model.addObject("location", "/review/list");
+				}
+			
+			} else {
+				model.addObject("msg", "잘못된 접근입니다.");
+				model.addObject("location","/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
+		// 게시글 삭제하기
+		@RequestMapping(value = "/delete", method = {RequestMethod.GET})
+		public ModelAndView reviewDelete(@RequestParam("reviewNo") int reviewNo,
+				 ModelAndView model) {
+			int result = 0;
+			System.out.println("22222222222222" + reviewNo);
+			
+			result = service.delete(reviewNo);
+			
+			System.out.println("3333333333" + result);
+			if(result > 0) {
+				System.out.println("444444444444" + result);
+				model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+//				model.addObject("location", "/review/reviewView?reviewNo="+reviewNo);
+				model.addObject("location", "/review/list");
+			}else {
+				model.addObject("msg", "게시글 삭제에 실패하였습니다.");
+				model.addObject("location", "/review/list");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
 	
 }
 
