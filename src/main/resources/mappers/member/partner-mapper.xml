@@ -28,23 +28,14 @@
 		<result property="imageRe" column="IMAGE_RE"/>
 		<result property="about" column="ABOUT"/>
 		<result property="status" column="STATUS"/>
+		<association property="member" resultMap="MemberResultMap"/>
 	</resultMap>
 	
-	<select id="selectPtYesList" resultMap="PartnerResultMap">
-		SELECT P.USER_NO,
-      		   P.PARTNER_NAME,
-		       P.PARTNER_TYPE,
-		       P.PHONE,
-		       P.OPEN_TIME,
-		       P.IMAGE_ORI,
-		       P.IMAGE_RE,
-		       P.ABOUT,
-		       P.STATUS,
-		       M.ADDRESS
-		FROM PARTNER P, MEMBER M
-		WHERE P.USER_NO = M.USER_NO 
-		AND P.STATUS = 'Y'
-	</select>
+	<resultMap type="member" id="MemberResultMap">
+		<id property="userNo" column="USER_NO"/>
+		
+		<result property="address" column="ADDRESS"/>
+	</resultMap>
 	
 	<insert id="insertPartner" parameterType="Partner"
 		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
@@ -70,6 +61,56 @@
 		    DEFAULT
 		)
 	</insert>
+
+	<select id="selectPtHospital" resultMap="PartnerResultMap">
+		SELECT P.USER_NO,
+			   P.PARTNER_TYPE,
+			   P.PARTNER_NAME,
+			   P.IMAGE_ORI,
+			   P.IMAGE_RE,
+			   M.ADDRESS,
+			   P.PHONE,
+			   P.OPEN_TIME
+		FROM PARTNER P, MEMBER M
+		WHERE P.USER_NO = M.USER_NO
+		AND P.STATUS = 'Y'
+		AND P.PARTNER_TYPE = '병원'
+	</select>
+	
+	<select id="selectPtKinderGarten" resultMap="PartnerResultMap">
+		SELECT P.USER_NO,
+			   P.PARTNER_TYPE,
+			   P.PARTNER_NAME,
+			   P.IMAGE_ORI,
+			   P.IMAGE_RE,
+			   M.ADDRESS,
+			   P.PHONE,
+			   P.OPEN_TIME
+		FROM PARTNER P, MEMBER M
+		WHERE P.USER_NO = M.USER_NO
+		AND P.STATUS = 'Y'
+		AND P.PARTNER_TYPE = '유치원'
+	</select>
+	
+	<select id="selectPtShop" resultMap="PartnerResultMap">
+		SELECT P.USER_NO,
+			   P.PARTNER_TYPE,
+			   P.PARTNER_NAME,
+			   P.IMAGE_ORI,
+			   P.IMAGE_RE,
+			   M.ADDRESS,
+			   P.PHONE,
+			   P.OPEN_TIME
+		FROM PARTNER P, MEMBER M
+		WHERE P.USER_NO = M.USER_NO
+		AND P.STATUS = 'Y'
+		AND P.PARTNER_TYPE = '샵'
+	</select>
+	
+	<select id="selectPartner" parameterType="_int" resultMap="PartnerResultMap">
+		<include refid="selectPartnerSql"></include>
+		WHERE USER_NO = #{userNo}
+	</select>
 
 
 </mapper>

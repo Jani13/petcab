@@ -19,24 +19,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <link rel="stylesheet" href="${path}/css/headerfooter.css" />
-  <script src="${path}/js/jquery-3.5.1.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <link 
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+		integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+		crossorigin="anonymous">
 </head>
-<style>
-  /* div{
-    border: red solid 1px;
-  } */
-</style>
 
   <jsp:include page="../common/header.jsp" />
   <jsp:include page="../common/nav.jsp" />
   
 <section>
   <div class="container">
-    <div class="card text-white my-4 py-5 text-center" style="background-color: #4ec7f2">
+    <div class="card text-white mt-4 py-5 text-center" style="background-color: #4ec7f2">
       <div class="card-body">
         <p class="text-white fw-bold fs-3">
         	데려다줄개는 제휴업체와의 연계를 통하여 
@@ -61,26 +59,62 @@
         </div>
       </div>
     </div>
-	
+
+    <div class="fs-3 fw-bold rounded-3" style="background-color: #86f3ff; height: 60px">
+		<p class="mx-4 p-2">병원</p>
+	</div>
+	<div class="container">
+		<!-- <div class="row d-flex justify-content-md-end">
+          <div class="col-12 input-group row" style="width: 500px;">
+            <input type="text" class="form-control col-md-3" name="" id="" placeholder="입력해주세요"/>
+            <input type="button" class="btn btn-secondary bg-gradient col-md-3" id="" onclick="" value="검색하기"/>
+          </div>
+        </div> -->
+        
+        <c:if test="${partnerList == null}">
+        <div style="text-align: center;">
+        	<h3 style="padding: 200px;">제휴업체가 존재하지 않습니다.</h3>
+    	</div>
+        </c:if>
+        
+        <c:if test="${partnerList != null}">
+       	<div class="row justify-content-center">
+       	
+        	<c:forEach var="partner" items="${partnerList}" end="8">
+	        <div class="col-md-3 my-5 m-4 card" style="height: 450px; cursor: pointer" onclick="location.href='${path}/'"> 
+		    	<p class="fw-bold"><i class="fas fa-stethoscope"></i>병원</p>
+				<img src="${path}/images/hos1.png" class="imgWrap card-img-top h-50 my-2 rounded-3" alt="" >           			
+		        <div class="card-body">
+			    	<p>업체명 : ${partner.partnerName}</p>
+			        <p>위치 : ${partner.member.address}</p>
+			        <p>전화번호 : ${partner.phone}</p>
+			        <p>운영시간 : ${partner.openTime}</p>
+		        </div>
+	        </div>
+        	</c:forEach>
+        	
+        </div>
+        </c:if>
+	</div>
 	
 	
 	
 	
 	<!-- 0406_이슬 화면에 어떻게 뿌려줄지 테스트 중입니다.∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨ -->
 	
-	<div class="container my-5">
-      	<div class="row">
+	<%-- <div class="container my-5">
+      	<div class="row" >
 	        <div class="col">
 	        	<div class="input-group mx-1 d-flex justify-content-end row">
           			<input type="text" class="form-control col-md-3" name="" id="" placeholder="입력해주세요">
           			<input type="button" class="btn btn-secondary bg-gradient col-md-1" id="" onclick="" value="검색하기"></input>
         		</div>
-	        	<ul class="nav nav-tabs">
+	        	<ul class="nav nav-tabs" id="myTab" role="tablist">
 	            	<li class="nav-item">
-	                	<a class="nav-link active text-info" data-toggle="tab" href="#all">모두보기</a>
+	                	<a class="nav-link active text-info" id="all-tab" data-toggle="tab" role="tab" aria-controls="all" aria-selected="true"  href="#all">모두보기</a>
 	              	</li>
 	            	<li class="nav-item">
-	                	<a class="nav-link text-info" data-toggle="tab" href="#hospital">병원</a>
+	                	<a class="nav-link text-info" id="hospital-tab" data-toggle="tab" role="tab" aria-controls="hospital" aria-selected="false" href="#hospital">병원</a>
 	              	</li>
 		        	<li class="nav-item">
 		                <a class="nav-link text-info" data-toggle="tab" href="#kinGar">유치원</a>
@@ -89,35 +123,37 @@
 	                	<a class="nav-link text-info" data-toggle="tab" href="#shop">샵</a>
 	              	</li>
 	          	</ul> 
-	            <div class="tab-content container pt-4">
-	            	<div class="tab-pane fade show active row d-flex justify-content-between" id="all" style="height: 350px;">
-                  		<div class="card col-md-3" style="height: 350px;">
-                    		<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
-                   			<div class="card-body">
-                   				<p>위치 : </p>
-                   				<p>전화번호 : </p>
-                   				<p>운영시간 : </p>
-                   			</div>
-                  		</div>
-		                <div class="card col-md-3" style="height: 350px;">
-		                	<img src="${path}/images/mung.png" class="card-img-top h-50 my-2 rounded-3" alt="">
-		                    <div class="card-body">
-		                    	<p>위치 : </p>
-                   				<p>전화번호 : </p>
-                   				<p>운영시간 : </p>
-		                    </div>
-		                </div>
-		                <div class="card col-md-3" style="height: 350px;">
-		                	<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
-		                    <div class="card-body">
-		                    	<p>위치 : </p>
-                   				<p>전화번호 : </p>
-                   				<p>운영시간 : </p>
-		                    </div>
-		                </div>
+	            <div class="tab-content container pt-4" id="postTabContent">
+	            	<div class="tab-pane fade show active row d-flex justify-content-center m-3" id="all">
+                    	<c:if test="${ partnerList == null }">
+                    		<div style="text-align: center;">
+        						<h3 style="padding-top: 50px;">제휴업체가 존재하지 않습니다.</h3>
+    						</div>	
+                    	</c:if>
+                    	<c:if test="${ partnerList != null }">
+	                    	<c:forEach var="partner" items="${partnerList}" end="8" >
+		                  		<div class="card col-md-3 m-4 " style="height: 430px">
+		                  			<c:if test="${partner.partnerType == '병원' }">
+		                  				<div class=" partnerType fw-bold"><i class="fas fa-stethoscope"></i>병원</div>                  			
+		                  			</c:if>
+		                  			<c:if test="${partner.partnerType == '유치원' }">
+		                  				<div class=" partnerType fw-bold"><i class="fas fa-school"></i>유치원</div>                  			
+		                  			</c:if>
+		                  			<c:if test="${partner.partnerType == '샵' }">
+		                  				<div class=" partnerType fw-bold"><i class="fas fa-store"></i>샵</div>                  			
+		                  			</c:if>
+		                    		<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
+		                   			<div class="card-body">
+		                   				<p>위치 : <br>${partner.member.address}</p>
+		                   				<p>전화번호 : <br>${partner.phone}</p>
+		                   				<p>운영시간 : <br>${partner.openTime}</p>
+		                   			</div>
+		                  		</div>
+	                    	</c:forEach>
+                    	</c:if>
+		              
 	              	</div>
-	            	<div class="tab-pane fade row d-flex justify-content-between" id="hospital">
-	            		<p>병원 보여 줄꺼야</p>
+	            	<div class="tab-pane fade" id="hospital">
 	              	</div>
 	              	<div class="tab-pane fade" id="kinGar">
 	                	<p>유치원 보여 줄꺼야</p>
@@ -125,59 +161,13 @@
 	              	<div class="tab-pane fade" id="shop">
 	                	<p>샵 보여 줄꺼야</p>
 	              	</div>
+	              	
 	            </div>
 	        </div>
     	</div>
-    </div>
+    </div> --%>
+
 	<!-- 테스트 중입니다 ^^^^^^^^^^^^^^^^^^^^^-->	
-	
-	
-
-
-
-	
-    <div class="row">
-      <div class="col-md-8"></div>
-      <div class="col-md-4">
-        <div class="input-group mb-1">
-          <input type="text" class="form-control" name="" id="" placeholder="입력해주세요">
-          <input type="button" class="btn btn-secondary bg-gradient" id="" onclick="" value="검색하기"></input>
-        </div>
-      </div>
-    </div>
-
-    <div class="card text-white bg-secondary bg-gradient my-3 py-3 text-left">
-      <span style="margin-left: 20px;"> 제휴병원</span>
-    </div>
-
-     <!-- 나중에 꼭 div 생성할 시에 밑으로만 늘어나서
-        페이징 처리가 쓸모없지 않도록 하기 -->
-    
-     
-    <div style="text-align: center;">
-        <h3 style="padding-top: 50px;">제휴병원이 존재하지 않습니다.</h3>
-    </div>
- 
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-        
-      <div class="col" style="height: fit-content;">
-        <div class="card">
-          <a href="제휴업체에서 만든 에디터가 보이는 페이지 연결">
-            <img src="" class="card-img-top" alt="..."></a>
-          <div class="card-body">
-            <h5 class="card-title" style="text-align: center;"><!-- 제휴업체 이름이 들어가야하는 부분 --></h5>
-            <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : 
-              <span><!-- 위치가 들어가는 부분 --></span></p>
-            <p class="card-text">전화번호 : 
-              <span><!-- 전화번호가 들어가는 부분 --></span></p>
-            <p class="card-text">운영시간 : 
-              <span><!-- 운영시간이 들어가는 부분 --></span></p>
-          </div>
-        </div>
-      </div>
-    
-    </div>
-    <br><br>
 
     <!-- 페이징 파트 -->
     <div style="display: flex; align-items: center; justify-content: center;">
@@ -200,7 +190,7 @@
         </ul>
       </nav>
     </div>
-    
+   
   </div>
 </section>
   <jsp:include page="../common/footer.jsp" />

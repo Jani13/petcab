@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.user.model.service.MemberService;
 import com.petcab.work.user.model.service.PartnerService;
+import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +24,35 @@ public class PartnerController {
 	@Autowired
 	private PartnerService partnerService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	// 파트너 등록 페이지
 	@RequestMapping("/")
-	public String partnerAppView() {
+	public ModelAndView partnerAppView(ModelAndView model,
+			@SessionAttribute(name="loginMember", required = false )Member loginMember) {
 		
-		return "partner/partner";
+		log.info(loginMember.toString());
+		
+		Partner partner = partnerService.selectPartner(loginMember.getUserNo());
+		
+		if(partner != null) {
+			if(partner.getStatus().equals("W")) {
+				model.setViewName("partner/partner");
+				
+			} else if (partner.getStatus().equals("N")) {
+				model.addObject("msg", "업체승인이 거절된 업체입니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");
+				
+			} else {
+				model.addObject("msg", "이미 업체승인이 완료되었습니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");
+			}
+		} 
+		
+		return model;
 	}
 	
 	@RequestMapping(value = "/partApply", method = {RequestMethod.POST})
@@ -50,15 +76,54 @@ public class PartnerController {
 	}
 	
 	// 제휴 업체 검색 페이지
-	@RequestMapping("/partHospital")
-	public ModelAndView partSearchView(ModelAndView model, @SessionAttribute(name="pList", required = false) Partner partner) {
-			
-		List<Partner> partnerList = partnerService.ptListSearchYes();
+	@RequestMapping("/partnerMain")
+	public String partnerMainView() {
+		
+		return "partner/partnerMain";
+	}
+	
+	@RequestMapping(value = "/partHospital", method = {RequestMethod.GET})
+	public ModelAndView partHospitalView(ModelAndView model) {
+		
+		List<Partner> partnerList = partnerService.ptSearchHospital();
 		
 		log.info(partnerList.toString());
 		
+		if(partnerList.size() == 0) {
+			partnerList = null;
+		}
+		
 		model.addObject("partnerList", partnerList);
 		model.setViewName("partner/partHospital");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/partKindergarten")
+	public ModelAndView partKindergardenView(ModelAndView model) {
+		
+		List<Partner> partnerList = partnerService.ptSearchKinderGarten();
+		
+		if(partnerList.size() == 0) {
+			partnerList = null;
+		}
+		
+		model.addObject("partnerList", partnerList);
+		model.setViewName("partner/partKindergarden");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/partShop")
+	public ModelAndView partShopView(ModelAndView model) {
+		
+		List<Partner> partnerList = partnerService.ptSearchShop();
+		if(partnerList.size() == 0) {
+			partnerList = null;
+		}
+		
+		model.addObject("partnerList", partnerList);
+		model.setViewName("partner/partShop");
 		return model;
 	}
 	

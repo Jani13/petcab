@@ -25,4 +25,6 @@ public class Partner {
 	private String about;
 	
 	private String status;
+	
+	private Member member;
 }

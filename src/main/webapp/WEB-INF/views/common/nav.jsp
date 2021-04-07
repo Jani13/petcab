@@ -35,7 +35,7 @@
         >
         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
           <li>
-            <a class="dropdown-item text-black" href="${path}/partner/partHospital">제휴업체검색</a>
+            <a class="dropdown-item text-black" href="${path}/partner/partnerMain">제휴업체보기</a>
           </li>
           <li>
           	<c:if test="${loginMember.userType eq 'ROLE_PARTNER' }">

@@ -23,10 +23,32 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	public List<Partner> ptListSearchYes() {
-		// TODO Auto-generated method stub
+	public List<Partner> ptSearchHospital() {
 		
-		return partnerDao.selectPtYesList();
+		return partnerDao.selectPtHospital();
 	}
+
+	@Override
+	public List<Partner> ptSearchKinderGarten() {
+		
+		return partnerDao.selectPtKinderGarten();
+	}
+
+	@Override
+	public List<Partner> ptSearchShop() {
+		
+		return partnerDao.selectPtShop();
+	}
+
+	@Override
+	public Partner selectPartner(int userNo) {
+		
+		return partnerDao.selectPartner(userNo);
+	}
+
+
+
+
+
 
 }

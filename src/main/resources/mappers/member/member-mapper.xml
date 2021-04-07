@@ -122,4 +122,10 @@
 			WHERE M.USER_ID = D.USER_ID;
 	</select>
 	
+	<select id="selectPartnerAddr" resultType="string">
+		SELECT M.ADDRESS
+		FROM PARTNER P , MEMBER M
+		WHERE P.USER_NO = M.USER_NO AND P.STATUS = 'Y'
+	</select>
+	
 </mapper>
