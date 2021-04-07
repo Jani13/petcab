@@ -1,5 +1,6 @@
 package com.petcab.work.user.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,8 +96,9 @@ public class DriverController {
 		Driver driver = service.selectDriver(loginMember.getUserNo());
 		List<Review> review = reviewService.searchSUserNo(loginMember.getUserNo());
 		List<Call> waitCall = callService.driverWaitCallList();
-		log.info(waitCall.toString());
 		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
+		
+		log.info(waitCall.toString());
 		log.info(endCall.toString());
 		
 		model.addObject("driver", driver);

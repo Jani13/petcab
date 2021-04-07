@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,5 +25,7 @@ public interface MemberDao {
 	int updatePwd(Member member);
 
 	int selectCount();
+
+	List<Member> selectPartnerAddr();
 
 }
