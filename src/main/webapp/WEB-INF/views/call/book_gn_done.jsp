@@ -183,7 +183,13 @@
 										</tr>
 										<tr>
 											<th scope="row">애견</th>
-											<td>애견등록작업완료 후 추가</td>
+											<td>
+												<c:forEach var="dog" items="${ emgCall.getDogs() }">
+													<c:if test="${ dog.dogNo > 0}">
+														<c:out value="${ dog.dogNo }" /><br>
+													</c:if>
+												</c:forEach>
+											</td>	
 										</tr>
 									</c:when>
 
@@ -324,5 +330,7 @@
 
 		window.location = "${path}/call/book/emg_a";
 	}
+	
+	
 </script>
 </html>
