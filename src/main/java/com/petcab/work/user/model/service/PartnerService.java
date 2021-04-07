@@ -10,6 +10,7 @@ public interface PartnerService {
 
 	List<Partner> ptSearchHospital();
 
+
 	List<Partner> ptSearchKinderGarten();
 
 	List<Partner> ptSearchShop();

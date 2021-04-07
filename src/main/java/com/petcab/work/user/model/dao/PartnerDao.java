@@ -20,4 +20,6 @@ public interface PartnerDao {
 
 	Partner selectPartner(@Param("userNo") int userNo);
 
+	List<Partner> selectPtYesList();
+
 }

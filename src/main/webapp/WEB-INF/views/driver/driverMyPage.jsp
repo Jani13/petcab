@@ -187,7 +187,7 @@
 		                                    </h5>
 		                                    <p class="fs-5">${call.pickupTime}</p>
 		                                    <p class="card-text m-0">
-		                                        애견 이름 : ${call.animalNoA}<br>
+		                                        애견 이름 : ${call.dogs.dogNo}<br>
 		                                        예상 소요 시간 : 아직미정<br>
 		                                        예상 결제 금액 : 아직미정<br>
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
@@ -231,7 +231,7 @@
 		                                    </h5>
 		                                    <p class="fs-5">${call.pickupTime}</p>
 		                                    <p class="card-text m-0">
-		                                        애견 이름 : ${call.animalNoA}<br>
+		                                        애견 이름 : ${call.dogs.dogNo}<br>
 		                                        예상 소요 시간 : 아직미정<br>
 		                                        예상 결제 금액 : 아직미정<br>
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>

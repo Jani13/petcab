@@ -74,14 +74,28 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
+	public EmgCall selectEmgCall(int callNo) {
+		
+		return callDao.selectEmgCall(callNo);
+	}
+	
 	public List<Call> useCallUserId(String userId) {
 		return callDao.useCallUserId(userId);
 	}
 
 	@Override
 	public List<Call> endCallUserId(String userId) {
-		// TODO Auto-generated method stub
 		return callDao.endCallUserId(userId);
+	}
+
+	@Override
+	public List<Call> waitECallList(int userNo) {
+		return callDao.waitECallList(userNo);
+	}
+
+	@Override
+	public List<Call> eCallList(int userNo) {
+		return callDao.eCallList(userNo);
 	}
 
 }

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.user.model.service.MemberService;
+
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
@@ -23,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class PartnerController {
 	@Autowired
 	private PartnerService partnerService;
+	@Autowired
+	private CallService callService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -124,6 +129,21 @@ public class PartnerController {
 		
 		model.addObject("partnerList", partnerList);
 		model.setViewName("partner/partShop");
+		return model;
+	}
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ModelAndView partnerMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
+		Partner partner = partnerService.selectPartner(loginMember.getUserNo());
+		List<Call> waitCall = callService.waitECallList(loginMember.getUserNo());
+		List<Call> eCallList = callService.eCallList(loginMember.getUserNo());
+		
+		log.info(waitCall.toString());
+		log.info(eCallList.toString());
+		model.addObject("partner",partner);
+		model.addObject("waitCall",waitCall);
+		model.addObject("eCallList",eCallList);
+		model.setViewName("mypage/partMyPage");
 		return model;
 	}
 	

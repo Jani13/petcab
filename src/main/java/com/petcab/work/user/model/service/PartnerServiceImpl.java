@@ -29,6 +29,7 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
+
 	public List<Partner> ptSearchKinderGarten() {
 		
 		return partnerDao.selectPtKinderGarten();
@@ -45,10 +46,5 @@ public class PartnerServiceImpl implements PartnerService {
 		
 		return partnerDao.selectPartner(userNo);
 	}
-
-
-
-
-
 
 }

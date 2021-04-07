@@ -19,7 +19,6 @@
 	
 	<resultMap type="Partner" id="PartnerResultMap">
 		<id property="userNo" column="USER_NO"/>
-		
 		<result property="partnerName" column="PARTNER_NAME"/>
 		<result property="partnerType" column="PARTNER_TYPE"/>
 		<result property="phone" column="PHONE"/>
@@ -107,7 +106,7 @@
 		AND P.PARTNER_TYPE = '샵'
 	</select>
 	
-	<select id="selectPartner" parameterType="_int" resultMap="PartnerResultMap">
+	<select id="selectPartner" resultMap="PartnerResultMap">
 		<include refid="selectPartnerSql"></include>
 		WHERE USER_NO = #{userNo}
 	</select>

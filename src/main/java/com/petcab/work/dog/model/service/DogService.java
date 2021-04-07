@@ -13,7 +13,6 @@ public interface DogService {
 
 	List<Dog> searchUserId(String userId);
 
-
 //	int getdogCount();
 	
 

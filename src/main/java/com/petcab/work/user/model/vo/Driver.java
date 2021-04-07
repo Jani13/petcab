@@ -11,6 +11,8 @@ public class Driver {
 	
 	private int userNo;
 	
+	private String userName;
+	
 	private String carType;
 	
 	private String carNo;

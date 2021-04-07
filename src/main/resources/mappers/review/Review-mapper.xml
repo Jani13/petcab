@@ -11,6 +11,7 @@
 				R.POST_DATE,
 				R.CONTENT,
 				R.STATUS,
+				R.CALL_TYPE,
 				R.VIEW_NO
 			FROM REVIEW R
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
@@ -66,7 +67,7 @@
 	 
 	 <select id="selectReviewDetail" parameterType="_int" resultMap="reviewResultMap">
 	      <include refid="ReviewListSql"></include>
-	      WHERE REVIEW_NO=#{reviewNo}
+	      WHERE R.REVIEW_NO=#{reviewNo}
    	 </select>
 	 
   	<insert id="insertReview" parameterType="map"
@@ -85,7 +86,8 @@
 			VIEW_NO,
 			STATUS,
 			USER_NO,
-			CALL_NO)
+			CALL_NO,
+			S_USER_NO)
   		VALUES(
   			SEQ_REVIEW_NO.NEXTVAL,
   			#{callType},
@@ -100,20 +102,10 @@
   			DEFAULT,
   			DEFAULT,
   			#{userNo},
-  			#{callNo}
+  			#{callNo},
+  			#{userNo}
  			)
   	</insert>
-  	
-  	<update id="updateReview" parameterType="Review">
-  		UPDATE REIVEW
-  		SET
-  			STAR_NO=#{starNo},
-  			TITLE=#{title},
-  			CONTENT=#{content},
-  			EDIT_DATE=SYSDATE
-  		WHERE
-  			REIVEW_NO=#{reviewNo}
-  	</update>
   	
   	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
 		SELECT  R.REVIEW_NO,
@@ -130,6 +122,25 @@
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE M.USER_NO = #{userNo}
 	</select>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE REVIEW 
+		SET 
+			CALL_TYPE=#{callType},
+			STAR_NO=#{starNo},
+			TITLE=#{title},
+			CONTENT=#{content},
+			EDIT_DATE=SYSDATE 
+		WHERE 
+			REVIEW_NO=#{reviewNo}
+	</update>	
+	
+	<delete id="delete" parameterType="int">
+		DELETE
+		FROM REVIEW
+		WHERE REVIEW_NO=#{reviewNo}
+	</delete>
+	
 	<select id="searchSUserNo" parameterType="_int" resultMap="reviewResultMap">
 		SELECT  R.REVIEW_NO,
 				R.TITLE,
@@ -145,5 +156,8 @@
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE R.S_USER_NO = #{userNo}
 	</select>
-
 </mapper>
+
+
+
+

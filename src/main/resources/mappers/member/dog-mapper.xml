@@ -102,6 +102,7 @@
 		 <include refid="selectDogSql"></include>
 		 AND USER_ID = #{userId}
 	</select>
+	
 
 	<update id="updatedog" parameterType="Dog">
 		UPDATE DOG 
