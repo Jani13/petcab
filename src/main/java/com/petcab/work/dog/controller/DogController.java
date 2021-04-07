@@ -48,73 +48,64 @@ public class DogController {
 			return "/dog/dogInformation";
 		}
 		
-		@RequestMapping("/dog/mdogInformation")
-		public String mdogInformationView() {
-			log.info("수정요청");
-			return "/dog/mdogInformation";
-		}
-		
-		
-//		하... 다시 하자... 
-//		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
-//		public ModelAndView doglist(ModelAndView model,
-//				@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {		
-//			
-//			List<Dog> list = null;
-//			int dogCount = service.getdogCount();		
-//			PageInfo pageInfo = new PageInfo( 10, dogCount, doglistLimit);
-//			
-////			System.out.println(dogCount);
-//			
-////			list = service.getdogList(pageInfo);
-//			
-////			model.addObject("list", list);
-////			model.addObject("pageInfo", pageInfo);		
-//			model.setViewName("/dog/mdogInformation");
-//			
-//			return model;
+//		@RequestMapping("/dog/mdogInformation")
+//		public String mdogInformationView() {
+//			log.info("수정요청");
+//			return "/dog/mdogInformation";
 //		}
-		
-		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
-		public ModelAndView dogupdate(
-				@SessionAttribute(name="loginMember", required = false) Member loginMember,
-				@RequestParam("reloadFile") MultipartFile reloadFile, HttpServletRequest request, 
-				@ModelAttribute Dog dog, ModelAndView model) {
-			int result = 0;
-			
-			System.out.println(dog);
-			
-			if(loginMember.getUserId().equals(dog.getUserId())) {
-				if(reloadFile != null && !reloadFile.isEmpty()) {
-					if(dog.getImageRe() != null) {
-						deleteFile(dog.getImageRe(), request);
-					}
-					
-					String renameFileName = saveFile(reloadFile, request);
-					
-					if(renameFileName != null) {
-						dog.setImageOri(reloadFile.getOriginalFilename());
-						dog.setImageRe(renameFileName);
-					}
-				}
+//		
 				
-				result = service.saveDog(dog);
-				
-				if(result > 0) {
-					model.addObject("msg", "정상적으로 수정되었습니다.");
-					model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
-				} else {
-					model.addObject("msg", "수정을 실패하였습니다.");
-					model.addObject("location", "/dog/list");
-				}
-			} else {
-				model.addObject("msg", "잘못된 접근입니다.");
-				model.addObject("location", "/");
-			}		
+		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
+		public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
+				,ModelAndView model) {
+			List<Dog> dogs = service.searchUserId(loginMember.getUserId());
+			log.info(dogs.toString());
 			
-			model.setViewName("common/msg");
+			model.addObject("dogs", dogs);
+			model.setViewName("dog/mdogInformation");
+			
 			return model;
 		}
+		
+//		public ModelAndView dogupdate(
+//				@SessionAttribute(name="loginMember", required = false) Member loginMember,
+//				@RequestParam("reloadFile") MultipartFile reloadFile, HttpServletRequest request, 
+//				@ModelAttribute Dog dog, ModelAndView model) {
+//			int result = 0;
+//			
+//			System.out.println(dog);
+//			
+//			if(loginMember.getUserId().equals(dog.getUserId())) {
+//				if(reloadFile != null && !reloadFile.isEmpty()) {
+//					if(dog.getImageRe() != null) {
+//						deleteFile(dog.getImageRe(), request);
+//					}
+//					
+//					String renameFileName = saveFile(reloadFile, request);
+//					
+//					if(renameFileName != null) {
+//						dog.setImageOri(reloadFile.getOriginalFilename());
+//						dog.setImageRe(renameFileName);
+//					}
+//				}
+//				
+//				result = service.saveDog(dog);
+//				
+//				if(result > 0) {
+//					model.addObject("msg", "정상적으로 수정되었습니다.");
+//					model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
+//				} else {
+//					model.addObject("msg", "수정을 실패하였습니다.");
+//					model.addObject("location", "/dog/list");
+//				}
+//			} else {
+//				model.addObject("msg", "잘못된 접근입니다.");
+//				model.addObject("location", "/");
+//			}		
+//			
+//			model.setViewName("common/msg");
+//			return model;
+//		}
 		
 		private void deleteFile(String fileName, HttpServletRequest request) {
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");

@@ -88,27 +88,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>주소</th>
-                            <td>
-                                <div class="input-group mb-1">
-                                    <input type="text" class="form-control postalAddr" name="postCode" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
-                                </div>   
-                                <div class="input-group mb-1">
-                                    <input type="text" class="form-control addr1" name="location" id="addr1" placeholder="주소">
-                                </div>
-                                <!-- 동이름 / 빌딩이름 등이 나온다 -->
-                                <div class="row">
-                                    <div class="col-md-7" style="height: 42px;">
-                                        <input type="text" class="form-control addr2" name="location" id="addr2" placeholder="상세주소">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control addr3" name="location" id="addr3" placeholder="참고항목" readonly>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <th>전화번호</th>
                             <td><input type="tel" class="form-control" name="phone" id="phone" 
                                 placeholder="'-'빼고 입력해주세요" maxlength="11">
