@@ -23,5 +23,4 @@ public interface ReviewDao {
 
 	Review selectReviewDetail(int reviewNo);
 
-
 }

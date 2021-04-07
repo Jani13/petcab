@@ -17,4 +17,8 @@ public interface ReviewService {
 
 	Review findreviewNo(int reviewNo);
 
+	void updateViewNo(int reviewNo);
+
+	Review delete(int reviewNo);
+
 }

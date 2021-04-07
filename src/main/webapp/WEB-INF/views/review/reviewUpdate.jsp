@@ -66,6 +66,7 @@
         
         <div class="container ">
 		<form action="reviewWriteResult" method="post">
+		<input type="hidden" name="reviewNo" value="${review.reviewNo}">
           <br><br>
           <div class="row">
               <div class="col-lg-2"></div>
@@ -87,10 +88,11 @@
                   <tr>
                     <th scope="col" style="width: 300px;">
                         <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
-                            <option selected>내가 사용한 내역</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option selected>${review.callNo}</option>
+                            <option value="1">내가 사용한 내역</option>
+                            <option value="2">One</option>
+                            <option value="3">Two</option>
+                            <option value="4">Three</option>
                           </select>
                     </th>
                     <th scope="col">
@@ -103,21 +105,22 @@
                     <td>
                         <div class="form-check">
                             <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="Y">Y
+                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="${review.callType}">Y
                             </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="N">N
+                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="${review.callType}">N
                             </label>
                           </div>
                     </td>         
                   </tr>
                   <tr>
                     <th scope="row">* 평점 *</th>
-                    <td><input type="number" id="starNo" name="starNo" class="form-control"></td>
+                    <td><input type="number" id="starNo" name="starNo" value="${review.starNo}" class="form-control"></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요."></td>
+                    <td><input type="text" id="title" name="title" class="form-control" value="${review.title}" placeholder="제목을 입력하세요.">
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row" colspan="2">
@@ -126,7 +129,7 @@
                         <div class="editor-box">
                           <div class="editor-box__editor">
                               <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
+                              <textarea name="ir1" id="ir1" rows="10" cols="100"><c:out value="${review.content}"/> </textarea>
                               <script type="text/javascript">
                  						 CKEDITOR.replace('ir1', {height: 500});
                   				</script>
