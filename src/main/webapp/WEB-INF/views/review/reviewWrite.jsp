@@ -137,7 +137,8 @@
                               <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="reviewCancel"
+                              			onclick="location.replace('${path}/review/list')" value="취소하기">
                           </span>
                       </div>
                     </th>

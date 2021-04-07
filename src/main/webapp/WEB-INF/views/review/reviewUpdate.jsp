@@ -65,7 +65,7 @@
         <br><br>
         
         <div class="container ">
-		<form action="reviewWriteResult" method="post">
+	<form action='${path}/review/update' method="post">
 		<input type="hidden" name="reviewNo" value="${review.reviewNo}">
           <br><br>
           <div class="row">
@@ -120,6 +120,7 @@
                   <tr>
                     <th scope="row">* 제목 *</th>
                     <td><input type="text" id="title" name="title" class="form-control" value="${review.title}" placeholder="제목을 입력하세요.">
+                    	<input type="hidden" name="userNo" value = "${loginMember.userNo}">
                     </td>
                   </tr>
                   <tr>
@@ -129,9 +130,9 @@
                         <div class="editor-box">
                           <div class="editor-box__editor">
                               <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"><c:out value="${review.content}"/> </textarea>
+                              <textarea name="content" id="ir1" rows="10" cols="100"><c:out value="${review.content}"/> </textarea>
                               <script type="text/javascript">
-                 						 CKEDITOR.replace('ir1', {height: 500});
+                 						 CKEDITOR.replace('content', {height: 500});
                   				</script>
                           </div>
                       </div>
@@ -140,7 +141,8 @@
                               <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">
+                              <input type="button" class="btn btn-secondary" id="reviewCancel"
+                              			onclick="location.replace('${path}/review/list')" value="취소하기">
                           </span>
                       </div>
                     </th>

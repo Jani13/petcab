@@ -23,4 +23,8 @@ public interface ReviewDao {
 
 	Review selectReviewDetail(int reviewNo);
 
+//	int updateViewNo(int reviewNo);
+
+	int delete(int reviewNo);
+
 }
