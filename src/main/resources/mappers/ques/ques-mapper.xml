@@ -89,10 +89,6 @@
 		WHERE QUES_NO = #{quesNo}
 	</update>
 	
-	
-	
-
-	
 	<insert id="insertQues" parameterType="map"
   		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
   		

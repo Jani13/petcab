@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.review.model.dao.ReviewDao;
+import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,16 +59,22 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewDetail(reviewNo);
 	}
 
-//	@Override
-//	public int updateViewNo(int reviewNo) {
-//		
-//		return reviewDao.updateViewNo(reviewNo);
-//	}
+	@Override
+	public int updateViewNo(int reviewNo) {
+		
+		return reviewDao.updateViewNo(reviewNo);
+	}
 
 	@Override
 	public int delete(int reviewNo) {
-		System.out.println("2ddd22222ddd22" + reviewNo);
+		System.out.println("aaaaaaaaaaaaaaaaaaa" + reviewNo);
 		return reviewDao.delete(reviewNo);
+	}
+
+	@Override
+	public int saveRReply(RReply rReply) {
+		
+		return reviewDao.insertRRely(rReply);
 	}
 
 }

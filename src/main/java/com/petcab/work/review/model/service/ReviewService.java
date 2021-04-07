@@ -3,6 +3,7 @@ package com.petcab.work.review.model.service;
 import java.util.List;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 
 public interface ReviewService {
@@ -17,8 +18,10 @@ public interface ReviewService {
 	
 	int delete(int reviewNo);
 
-//	int updateViewNo(int reviewNo);
+	int updateViewNo(int reviewNo);
 
 	List<Review> searchUserNo(int userNo);
+
+	int saveRReply(RReply rReply);
 
 }
