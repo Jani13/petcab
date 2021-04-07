@@ -14,8 +14,6 @@ public class Partner {
 	
 	private String partnerType;
 	
-	private String location;
-	
 	private String phone;
 	
 	private String openTime;

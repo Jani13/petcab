@@ -253,6 +253,9 @@
 													id="addr3" placeholder="참고항목" readonly>
 											</div>
 										</div>
+										<%if(userType.equals("ROLE_PARTNER")){%>
+										<p class="text-danger">* 제휴업체의 경우 업체의 주소를 기입해 주세요.</p>
+										<%}%>	
 									</td>
 								</tr>
 							</table>

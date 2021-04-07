@@ -8,7 +8,6 @@
 		SELECT USER_NO,
 			   PARTNER_NAME,
     		   PARTNER_TYPE,
-    		   LOCATION,
 			   PHONE,
 			   OPEN_TIME,
 			   IMAGE_ORI,
@@ -18,11 +17,10 @@
 		FROM PARTNER
 	</sql>
 	
-	<resultMap type="Partner" id="partnerResultMap">
+	<resultMap type="Partner" id="PartnerResultMap">
 		<id property="userNo" column="USER_NO"/>
 		<result property="partnerName" column="PARTNER_NAME"/>
 		<result property="partnerType" column="PARTNER_TYPE"/>
-		<result property="location" column="LOCATION"/>
 		<result property="phone" column="PHONE"/>
 		<result property="openTime" column="OPEN_TIME"/>
 		<result property="imageOri" column="IMAGE_ORI"/>
@@ -31,13 +29,28 @@
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
+	<select id="selectPtYesList" resultMap="PartnerResultMap">
+		SELECT P.USER_NO,
+      		   P.PARTNER_NAME,
+		       P.PARTNER_TYPE,
+		       P.PHONE,
+		       P.OPEN_TIME,
+		       P.IMAGE_ORI,
+		       P.IMAGE_RE,
+		       P.ABOUT,
+		       P.STATUS,
+		       M.ADDRESS
+		FROM PARTNER P, MEMBER M
+		WHERE P.USER_NO = M.USER_NO 
+		AND P.STATUS = 'Y'
+	</select>
+	
 	<insert id="insertPartner" parameterType="Partner"
 		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
 		INSERT INTO PARTNER (
 		    USER_NO,
 		    PARTNER_NAME,
 		    PARTNER_TYPE,
-		    LOCATION,
 		    PHONE,
 		    OPEN_TIME,
 		    IMAGE_ORI,
@@ -48,7 +61,6 @@
 		    #{userNo},
 		    #{partnerName},
 		    #{partnerType},
-		    #{location},
 		    #{phone},
 		    #{openTime},
 		    #{imageOri},

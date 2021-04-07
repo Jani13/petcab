@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.petcab.work.user.model.vo.Partner;
@@ -9,7 +11,7 @@ public interface PartnerDao {
 
 	int insertPartner(Partner partner);
 
-	Partner selectPartner(int userNo);
+	List<Partner> selectPtYesList();
 	
 
 }

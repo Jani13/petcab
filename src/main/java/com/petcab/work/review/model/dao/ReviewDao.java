@@ -23,5 +23,8 @@ public interface ReviewDao {
 
 	Review selectReviewDetail(int reviewNo);
 
-	List<Review> searchSUserNo(@Param("userNo") int userNo);
+//	int updateViewNo(int reviewNo);
+
+	int delete(int reviewNo);
+
 }

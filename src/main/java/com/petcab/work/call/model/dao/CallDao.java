@@ -31,6 +31,8 @@ public interface CallDao {
 
 	int selectCancelledCall();
 
+	EmgCall selectEmgCall(int callNo);
+	
 	List<Call> useCallUserId(String userId);
 
 	List<Call> endCallUserId(String userId);

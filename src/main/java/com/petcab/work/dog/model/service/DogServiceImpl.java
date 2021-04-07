@@ -21,11 +21,15 @@ public class DogServiceImpl implements DogService {
 	public int saveDog(Dog dog) {
 		
 		int result =0;
-		
-		result=dogDao.insertDog(dog);
+		if(dog.getDogNo() != 0) {
+			result = dogDao.updatedog(dog);
+		} else {
+			result = dogDao.insertdog(dog);
+		}	
 		
 		return result;
 	}
+
 
 	@Override
 	public List<Dog> searchUserId(String userId) {
@@ -33,10 +37,22 @@ public class DogServiceImpl implements DogService {
 	}
 
 
-//	@Override
-//	@Transactional
-//	public int saveDog(Dog dog, Member member) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
+	
+//	@Service
+//	public class DogServiceImpl implements DogService {
+//		@Autowired
+//		private DogDao dogDao;
+//		
+//		@Override
+//		@Transactional
+//		public int saveDog(Dog dog) {
+//			
+//			int result =0;
+//			
+//			result=dogDao.insertDog(dog);
+//			
+//			return result;
+//		}
+
+
 }

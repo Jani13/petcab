@@ -74,6 +74,11 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
+	public EmgCall selectEmgCall(int callNo) {
+		
+		return callDao.selectEmgCall(callNo);
+	}
+	
 	public List<Call> useCallUserId(String userId) {
 		return callDao.useCallUserId(userId);
 	}

@@ -103,7 +103,7 @@
 			</c:if>
             <hr>
 
-            <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
+            <div class="card" style="width: 85%; align-items: center; margin-left: 90px;">
                 <div class="card-body">
                     <h3>관리자의 답글입니다.</h3>
                     <span style="color: blue;">(* 서비스 이용에 불편이 없도록 최선을 다 하겠습니다. * )</span>
@@ -111,38 +111,45 @@
             </div>
             <br>
             
-            
-           
+            <div class="form-floating">
+            	<sub class="comment-date">${ quesReply.postDate }</sub>
+                <textarea class="form-control" placeholder="" onclick="checkAdmin()" id="floatingTextarea2" 
+                			style="resize: vertical;"><c:out value="${quesReply.content}"/></textarea>
+                <label for="floatingTextarea1"></label>
+            </div>
+            <br>
+                       	          
+            <c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
+	    					|| loginMember.userType == 'ROLE_ADMIN')}">
+	    					
+            	<div style="text-align : center; padding: 30px;">
  
+	                <span style="padding-right : 3rem;">
+	                    <input type="button" class="btn btn-secondary" onclick="deleteReply()" value="삭제하기">
+	                </span>
+	                <span>
+	                    <input type="button" class="btn btn-secondary" 
+	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
+	                </span>             	
+  
+            	</div>
+            </c:if>
+            
+            <br>          
             <div class="form-floating">
             	<form action="${ path }/ques/reply" method="post">
 	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
-	                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"
-	                			onfocus="checkLogin()"></textarea>
+	                <textarea class="form-control" name="content" placeholder="관리자님이 곧 답을 드리겠습니다." 
+	                				id="floatingTextarea2" style="resize: vertical;" onclick="checkAdmin()"></textarea>
 	                <label for="floatingTextarea2"></label>
-	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
+	                <input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->	                
+	                <input type="submit" class="btn btn-secondary" id="partnerCancel" 
+	                											onclick="return checkAdmin2()" value="등록">
             	</form>
             </div>
-            
-           
+                      
             <br>
             
-            <table class="table">
-                    <tr class="level1">
-                        <td>
-                            <sub class="comment-writer">${ member.userId }</sub>
-                            <sub class="comment-date">${ quesReply.postDate }</sub>
-                            <br>
-                            ${quesReply.content}
-                        </td>
-                        <td>
-                        	
-                            <button class="btn-delete">삭제</button>
-                       	  	
-                        </td>
-                    </tr>
-             </table>
-
         </div>
     </section>
     <script>
@@ -157,10 +164,28 @@ function deleteQues(){
 	}
 }
 
-function checkLogin(){
-	<c:if test="${loginMember == null}">
-		alert("로그인 후 이용");
-		$("#userId").focus();
+
+function deleteReply(){		
+	if(confirm("정말로 답글을 삭제 하시겠습니까?")){
+		location.replace('${path}/ques/deleteReply?quesNo=${ques.quesNo}');
+	}
+}
+
+function checkAdmin(){
+	<c:if test="${loginMember.userType != 'ROLE_ADMIN'}">
+		alert("작성 및 수정 권한이 없습니다.");
+		location.href="${path}/ques/view?quesNo=${ques.quesNo}";
+	</c:if>
+}
+
+function checkAdmin2(){
+	<c:if test="${loginMember.userType != 'ROLE_ADMIN'}">
+		alert("작성 및 수정 권한이 없습니다.");		
+		return false;
+	</c:if>
+	<c:if test="${quesReply.content != null}">
+		alert("삭제 후 제작성이 가능합니다.");		
+		return false;
 	</c:if>
 }
 

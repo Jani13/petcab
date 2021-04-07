@@ -23,8 +23,12 @@ public class ReviewServiceImpl implements ReviewService{
 	@Transactional
 	public int saveReview(Review review) {
 		int result = 0;
-		result = reviewDao.insertReview(review);
-//			result = reviewDao.updateReview(review);
+		
+		if(review.getReviewNo() > 0) {
+			result = reviewDao.updateReview(review);
+		} else{
+			result = reviewDao.insertReview(review);
+		}
 		
 		return result;
 	}
@@ -54,11 +58,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewDetail(reviewNo);
 	}
 
+//	@Override
+//	public int updateViewNo(int reviewNo) {
+//		
+//		return reviewDao.updateViewNo(reviewNo);
+//	}
+
 	@Override
-	public List<Review> searchSUserNo(int userNo) {
-		return reviewDao.searchSUserNo(userNo);
+	public int delete(int reviewNo) {
+		System.out.println("2ddd22222ddd22" + reviewNo);
+		return reviewDao.delete(reviewNo);
 	}
 
-	
-	
 }

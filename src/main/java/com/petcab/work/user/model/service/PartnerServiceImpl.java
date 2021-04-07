@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,10 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	public Partner selectPartner(int userNo) {
-		return partnerDao.selectPartner(userNo);
+	public List<Partner> ptListSearchYes() {
+		// TODO Auto-generated method stub
+		
+		return partnerDao.selectPtYesList();
 	}
 
 }
