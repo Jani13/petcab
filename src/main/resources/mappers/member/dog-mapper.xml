@@ -96,14 +96,11 @@
 			WHERE M.USER_ID = D.USER_ID;
 	</select>
 	
-
-	 
 	<select id="searchUserId" resultMap="DogResultMap">
 		 <include refid="selectDogSql"></include>
 		 AND USER_ID = #{userId}
 	</select>
 	
-
 	<update id="updatedog" parameterType="Dog">
 		UPDATE DOG 
 		SET 

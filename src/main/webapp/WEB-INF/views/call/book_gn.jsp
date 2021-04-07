@@ -93,12 +93,14 @@
 							</div>
 
 							<div class="d-grid gap-1 mb-3">
-								<button class="btn btn-sm btn-outline-info" type="button">
+								<button class="btn btn-sm btn-outline-info" type="button"
+									onclick="selectDogs();">
 									애견정보 불러오기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
-								<input type="hidden" name="dogNo" value="1">
-								<input type="hidden" name="dogNo" value="">
-								<input type="hidden" name="dogNo" value="">
+								<!-- 미로그인 시 로그인 페이지로 이동 -->
+								<input type="hidden" name="dogNo" value="1"> <input
+									type="hidden" name="dogNo" value=""> <input
+									type="hidden" name="dogNo" value="">
 							</div>
 
 							<div class="form-floating mb-3">
@@ -161,6 +163,15 @@ function selectEmg() {
     // hover, border change
 
     window.location = "${path}/call/book/emg_a";
+}
+
+function selectDogs() {
+	let url = '${path}/call/book/selectDogs/${}';
+	let windowName = 'dogsForCall';
+	// let windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,height=500,width=300";
+	let windowFeatures = "resizable=no,height=800,width=600";
+
+	window.open(url, windowName, windowFeatures);
 }
 
 </script>
