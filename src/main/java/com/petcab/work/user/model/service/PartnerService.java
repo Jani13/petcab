@@ -10,4 +10,6 @@ public interface PartnerService {
 
 	List<Partner> ptListSearchYes();
 
+	Partner selectPartner(int userNo);
+	
 }

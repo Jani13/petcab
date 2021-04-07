@@ -29,4 +29,10 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.selectPtYesList();
 	}
 
+	@Override
+	public Partner selectPartner(int userNo) {
+		// TODO Auto-generated method stub
+		return partnerDao.selectPartner(userNo);
+	}
+	
 }

@@ -27,4 +27,6 @@ public interface ReviewDao {
 
 	int delete(int reviewNo);
 
+	List<Review> searchSUserNo(int userNo);
+
 }

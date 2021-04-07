@@ -13,5 +13,5 @@ public interface PartnerDao {
 
 	List<Partner> selectPtYesList();
 	
-
+	Partner selectPartner(int userNo);
 }

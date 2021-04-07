@@ -154,7 +154,7 @@
 										대기중인 긴급 콜이 없습니다
 									</div>
 								</c:if>
-                            	<c:if test="${waitCall == null}">
+                            	<c:if test="${waitCall != null}">
 									<c:forEach var="call" items="${waitCall}" end="2">
 		                            	<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
 		                                    <div class="card-header bg-transparent">
@@ -182,66 +182,35 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="card w-70 m-5 userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-meteor text-danger">긴급</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 <!-- 출발지 주소 연결해야할 부분 -->
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지 <!-- 도착지 주소 연결해야할 부분 -->
-                                        <p>YYYY/MM/DD HH:mm <!-- 날짜가연결해야할 부분 --></p>
-                                    </h5>
-                                    <p class="card-text">
-                                        고객명 : 멍멍이 <!-- 고객명이 들어가야할 부분 --><br>
-                                        애견명 : 30분 <!-- 애견명이 연결해야할 부분 --> <br>
-                                        예상 결제 금액 : 3만원 <!-- 연결해야할 부분 --> <br>
-                                        드라이버 : XXX / xx마 1234 <!--연결해야할 부분--><br>
-                                        비고 : 완료 / 취소 <!--연결해야할 부분--><br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card w-70 m-5 userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-meteor text-danger">긴급</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 <!-- 출발지 주소 들어가야할 부분 -->
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지 <!-- 도착지 주소 들어가야할 부분 -->
-                                        <p>YYYY/MM/DD HH:mm <!-- 날짜가 들어가야하는 부분 --></p>
-                                    </h5>
-                                    <p class="card-text">
-                                        고객명 : 멍멍이 <!-- 고객명이 들어가야할 부분 --><br>
-                                        애견명 : 30분 <!-- 애견명이 들어가야할 부분 --> <br>
-                                        예상 결제 금액 : 3만원 <!-- 들어가야할 부분 --> <br>
-                                        드라이버 : XXX / xx마 1234<br>
-                                        비고 : 완료 / 취소 <!--연결해야할 부분--><br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card w-70 m-5 userPageEvent">
-                                <div class="card-body p-4">
-                                    <i class="fas fa-meteor text-danger">긴급</i>
-                                    <h5 class="card-title fw-bold">
-                                        출발지 <!-- 출발지 주소 들어가야할 부분 -->
-                                        <i class="fas fa-arrow-right"></i> 
-                                        목적지 <!-- 도착지 주소 들어가야할 부분 -->
-                                        <p>YYYY/MM/DD HH:mm <!-- 날짜가 들어가야하는 부분 --></p>
-                                    </h5>
-                                    <p class="card-text">
-                                        고객명 : 멍멍이 <!-- 고객명이 들어가야할 부분 --><br>
-                                        애견명 : 30분 <!-- 애견명이 들어가야할 부분 --> <br>
-                                        예상 결제 금액 : 3만원 <!-- 들어가야할 부분 --> <br>
-                                        드라이버 : XXX / xx마 1234<br>
-                                        비고 : 완료 / 취소 <!--연결해야할 부분--><br>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+	                    <c:if test="${eCallList == null}">
+	                        <div class="col-sm-4">
+								요청이 없습니다
+							</div>
+						</c:if>
+	                    <c:if test="${eCallList != null}">
+							<c:forEach var="call" items="${eCallList}" end="2">
+								<div class="col-sm-4">
+		                            <div class="card w-70 m-5 userPageEvent">
+		                                <div class="card-body p-4">
+		                                    <i class="fas fa-meteor text-danger">긴급</i>
+		                                    <h5 class="card-title fw-bold">
+		                                        ${call.fromWhere} <!-- 출발지 주소 연결해야할 부분 -->
+		                                        <i class="fas fa-arrow-right"></i> 
+		                                        ${call.toWhere} <!-- 도착지 주소 연결해야할 부분 -->
+		                                        <p>${call.pickupTime} <!-- 날짜가연결해야할 부분 --></p>
+		                                    </h5>
+		                                    <p class="card-text">
+		                                        고객명 :  <!-- 고객명이 들어가야할 부분 --><br>
+		                                        애견명 :  <!-- 애견명이 연결해야할 부분 --> <br>
+		                                        예상 결제 금액 : 3만원 <!-- 연결해야할 부분 --> <br>
+		                                        드라이버 : ${call.driver.carType } /${call.driver.carNo } <!--연결해야할 부분--><br>
+		                                        비고 : ${call.status } <!--연결해야할 부분--><br>
+		                                    </p>
+		                                </div>
+		                            </div>
+                        		</div>
+		                    </c:forEach>
+	                    </c:if>
                     </div>
                 </div>
             </div>

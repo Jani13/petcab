@@ -141,6 +141,21 @@
 		WHERE REVIEW_NO=#{reviewNo}
 	</delete>
 	
+	<select id="searchSUserNo" parameterType="_int" resultMap="reviewResultMap">
+		SELECT  R.REVIEW_NO,
+				R.TITLE,
+				M.USER_ID,
+				R.STAR_NO,
+				R.POST_DATE,
+				R.CONTENT,
+				R.STATUS,
+				R.VIEW_NO,
+				R.USER_NO,
+				R.S_USER_NO
+			FROM REVIEW R
+			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
+		WHERE R.S_USER_NO = #{userNo}
+	</select>
 </mapper>
 
 

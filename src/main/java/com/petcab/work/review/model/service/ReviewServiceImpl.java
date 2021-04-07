@@ -70,4 +70,10 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.delete(reviewNo);
 	}
 
+	@Override
+	public List<Review> searchSUserNo(int userNo) {
+		// TODO Auto-generated method stub
+		return reviewDao.searchSUserNo(userNo);
+	}
+
 }

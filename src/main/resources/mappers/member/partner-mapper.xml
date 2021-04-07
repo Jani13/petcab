@@ -70,9 +70,10 @@
 		)
 	</insert>
 
-	<select id="selectPartner" resultMap="partnerResultMap">
+	<select id="selectPartner" resultMap="PartnerResultMap">
 		<include refid="selectPartnerSql"></include>
 		WHERE USER_NO = #{userNo}
 	</select>
+
 
 </mapper>
