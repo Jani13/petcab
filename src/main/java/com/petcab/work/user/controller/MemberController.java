@@ -221,9 +221,6 @@ public class MemberController {
 		model.setViewName("user/userMyPage");
 		
 		return model;
-
-
-
 	}
 	
 }

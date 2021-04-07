@@ -166,7 +166,7 @@ function deleteQues(){
 
 
 function deleteReply(){		
-	if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
+	if(confirm("정말로 답글을 삭제 하시겠습니까?")){
 		location.replace('${path}/ques/deleteReply?quesNo=${ques.quesNo}');
 	}
 }
@@ -180,8 +180,11 @@ function checkAdmin(){
 
 function checkAdmin2(){
 	<c:if test="${loginMember.userType != 'ROLE_ADMIN'}">
-		alert("작성 및 수정 권한이 없습니다.");
-		
+		alert("작성 및 수정 권한이 없습니다.");		
+		return false;
+	</c:if>
+	<c:if test="${quesReply.content != null}">
+		alert("삭제 후 제작성이 가능합니다.");		
 		return false;
 	</c:if>
 }

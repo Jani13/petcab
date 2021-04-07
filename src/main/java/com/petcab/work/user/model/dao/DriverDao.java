@@ -12,4 +12,6 @@ public interface DriverDao {
 
 	Driver selectDriver(@Param("userNo") int userNo);
 
+	Driver selectDriverMember(@Param("userNo") int userNo);
+
 }
