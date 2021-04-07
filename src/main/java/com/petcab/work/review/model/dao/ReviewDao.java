@@ -30,4 +30,7 @@ public interface ReviewDao {
 
 	int insertRRely(RReply rReply);
 
+	List<Review> searchSUserNo(int userNo);
+
+
 }

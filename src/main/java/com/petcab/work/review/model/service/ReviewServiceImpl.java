@@ -76,5 +76,10 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return reviewDao.insertRRely(rReply);
 	}
+	
+	public List<Review> searchSUserNo(int userNo) {
+		
+		return reviewDao.searchSUserNo(userNo);
+	}
 
 }

@@ -37,4 +37,7 @@ public interface CallDao {
 
 	List<Call> endCallUserId(String userId);
 
+	List<Call> waitECallList(int userNo);
+
+	List<Call> eCallList(int userNo);
 }

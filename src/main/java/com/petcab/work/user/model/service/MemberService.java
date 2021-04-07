@@ -2,6 +2,8 @@ package com.petcab.work.user.model.service;
 
 
 
+import java.util.List;
+
 import com.petcab.work.user.model.vo.Member;
 
 public interface MemberService {
@@ -22,4 +24,6 @@ public interface MemberService {
 	int updatePwd(Member member);
 
 	int getMemberCount();
+
+	List<Member> selectMemberAddr();
 }

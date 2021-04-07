@@ -24,4 +24,7 @@ public interface ReviewService {
 
 	int saveRReply(RReply rReply);
 
+	List<Review> searchSUserNo(int userNo);
+
+
 }

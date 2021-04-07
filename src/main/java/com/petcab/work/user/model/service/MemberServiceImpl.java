@@ -1,5 +1,7 @@
 package com.petcab.work.user.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -86,6 +88,12 @@ public class MemberServiceImpl implements MemberService {
 	public int getMemberCount() {
 		
 		return memberDao.selectCount();
+	}
+
+	// 제휴업체검색에서 사용
+	@Override
+	public List<Member> selectMemberAddr() {
+		return memberDao.selectPartnerAddr();
 	}
 
 }
