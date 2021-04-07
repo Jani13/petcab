@@ -33,6 +33,7 @@
 		<result property="groupSeq" column="GROUP_SEQ"/>
 		<result property="depth" column="DEPTH"/>
 		<result property="status" column="STATUS"/>
+		<result property="sUserNo" column="S_USER_NO"/>
 	</resultMap>
 	
 	<resultMap type="Review" id="reviewDetailResultMap">
@@ -107,9 +108,19 @@
   	</insert>
   	
   	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
-		<include refid="ReviewListSql"></include>
+		SELECT  R.REVIEW_NO,
+				R.TITLE,
+				M.USER_ID,
+				R.STAR_NO,
+				R.POST_DATE,
+				R.CONTENT,
+				R.STATUS,
+				R.VIEW_NO,
+				R.USER_NO,
+				R.S_USER_NO
+			FROM REVIEW R
+			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE M.USER_NO = #{userNo}
 	</select>
-
 	
 </mapper>

@@ -44,7 +44,7 @@ public class QuesController {
 		
 		list = service.getQuesList(pageInfo);
 		
-		log.info(list.toString());
+//		log.info(list.toString());
 		
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
@@ -93,43 +93,16 @@ public class QuesController {
 		
 	}
 	
-	@RequestMapping(value="/reply", method={RequestMethod.POST})
-	public ModelAndView write(
-			@SessionAttribute(name="loginMember", required=false) Member loginMember,
-			HttpServletRequest request, QuesReply reply,
-			 ModelAndView model) {
-		
-		int result = 0;
 
-		if (loginMember.getUserType().equals("ROLE_ADMIN")) {
-			
-			result = service.saveQuesReply(reply);
-			
-			if(result > 0) {
-				model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
-				model.addObject("location", "/ques/list");
-			} else {
-				model.addObject("msg", "답글 등록을 실패하였습니다.");
-				model.addObject("location", "/ques/list");
-			}
-			
-		}else {
-			model.addObject("msg", "잘못된 접근입니다.");
-			model.addObject("location", "/");
-		}
-		
-		model.setViewName("common/msg");
-		
-		return model;
-		
-	}
 
 	@RequestMapping(value = "/view", method = {RequestMethod.GET})
 	public ModelAndView view(@RequestParam("quesNo") int quesNo, ModelAndView model) {
 		
 		service.updateViewNo(quesNo);
 		Ques ques = service.findQuesByNo(quesNo);
+		QuesReply quesReply = service.findQuesReplyByNo(quesNo);
 
+		model.addObject("quesReply", quesReply);
 		model.addObject("ques", ques);
 		model.setViewName("ques/quesView");
 		
@@ -157,18 +130,18 @@ public class QuesController {
 		
 		int result = 0;
 		
+		System.out.println(ques);
+		
 		if(loginMember.getUserNo() == ques.getUserNo()) {
-			
-			
 			
 			result = service.saveQues(ques);
 			
 			if(result > 0) {
 				model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
-				model.addObject("location", "/list");
+				model.addObject("location", "/ques/view");
 			}else {
 				model.addObject("msg", "게시글 수정이 실패하였습니다.");
-				model.addObject("location", "/list");
+				model.addObject("location", "/ques/list");
 			}
 			
 		}else {
@@ -185,14 +158,14 @@ public class QuesController {
 	public ModelAndView QuesDelete(@RequestParam("quesNo") int quesNo, ModelAndView model) {
 		int result = 0;
 		
-		Ques ques = service.delete(quesNo);
+		result = service.delete(quesNo);
 		
 		if(result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-			model.addObject("location", "/list");
+			model.addObject("location", "/ques/list");
 		}else {
 			model.addObject("msg", "게시글 삭제에 실패하였습니다.");
-			model.addObject("location", "/list");
+			model.addObject("location", "/ques/list");
 		}
 		
 		model.setViewName("common/msg");
@@ -201,5 +174,59 @@ public class QuesController {
 		
 	}
 	
+	@RequestMapping(value="/reply", method={RequestMethod.POST})
+	public ModelAndView write(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			HttpServletRequest request, QuesReply quesReply,
+			 ModelAndView model) {
+		
+		int result = 0;
+		
+		System.out.println(quesReply);
+
+		if (loginMember.getUserType().equals("ROLE_ADMIN")) {
+			
+			result = service.saveQuesReply(quesReply);
+			
+			if(result > 0) {
+				model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
+				model.addObject("location", "/ques/view");
+			} else {
+				model.addObject("msg", "답글 등록을 실패하였습니다.");
+				model.addObject("location", "/ques/list");
+			}
+			
+		}else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/deleteReply", method = {RequestMethod.GET})
+	public ModelAndView QuesReplyDelete(@RequestParam("quesNo") int quesNo, ModelAndView model) {
+		int result = 0;
+		
+		result = service.deleteReply(quesNo);
+		
+		if(result > 0) {
+			model.addObject("msg", "답글이 정상적으로 삭제되었습니다.");
+			model.addObject("location", "/ques/list");
+		}else {
+			model.addObject("msg", "답글 삭제에 실패하였습니다.");
+			model.addObject("location", "/ques/list");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
 
 }

@@ -42,9 +42,9 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> driverWaitCallList(int userNo) {
+	public List<Call> driverWaitCallList() {
 
-		return callDao.driverWaitCallList(userNo);
+		return callDao.driverWaitCallList();
 	}
 
 	@Override
@@ -71,6 +71,17 @@ public class CallServiceImpl implements CallService {
 	@Override
 	public int selectCancelledCall() {
 		return callDao.selectCancelledCall();
+	}
+
+	@Override
+	public List<Call> useCallUserId(String userId) {
+		return callDao.useCallUserId(userId);
+	}
+
+	@Override
+	public List<Call> endCallUserId(String userId) {
+		// TODO Auto-generated method stub
+		return callDao.endCallUserId(userId);
 	}
 
 }

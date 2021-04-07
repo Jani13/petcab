@@ -19,7 +19,7 @@ public interface CallDao {
 	
 	Call selectCall(int callNo);
 
-	List<Call> driverWaitCallList(@Param("userNo") int userNo);
+	List<Call> driverWaitCallList();
 
 	List<Call> driverEndCallList(@Param("userNo") int userNo);
 	
@@ -30,4 +30,8 @@ public interface CallDao {
 	int selectEmergCall();
 
 	int selectCancelledCall();
+
+	List<Call> useCallUserId(String userId);
+
+	List<Call> endCallUserId(String userId);
 }

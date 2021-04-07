@@ -8,17 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Partner {
+	private int userNo;
+	
 	private String partnerName;
 	
 	private String partnerType;
-	
-	private String location;
 	
 	private String phone;
 	
 	private String openTime;
 	
-	private String image;
+	private String imageOri;
+	
+	private String imageRe;
 	
 	private String about;
 	

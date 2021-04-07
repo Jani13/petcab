@@ -59,6 +59,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
+	
 	public void updateViewNo(int reviewNo) {
 		
 //		return reviewDao.;

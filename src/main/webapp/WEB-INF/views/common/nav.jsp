@@ -35,10 +35,12 @@
         >
         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
           <li>
-            <a class="dropdown-item text-black" href="#">제휴업체검색</a>
+            <a class="dropdown-item text-black" href="${path}/partner/partHospital">제휴업체검색</a>
           </li>
           <li>
-            <a class="dropdown-item text-black" href="#">제휴업체등록</a>
+          	<c:if test="${loginMember.userType eq 'ROLE_PARTNER' }">
+            <a class="dropdown-item text-black" href="${path}/partner/">제휴업체등록</a>
+          	</c:if>
           </li>
         </ul>
       </li>

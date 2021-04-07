@@ -40,4 +40,5 @@ public class Review {
 	
 	private String userId;
 	
+	private int sUserNo;
 }

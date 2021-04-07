@@ -24,7 +24,8 @@
 			   VBANK_NAME,
 			   VBANK_HOLDER,
 			   VBANK_DATE,
-			   USER_NO 				
+			   USER_NO ,
+			   PAYMENT_DATE				
 		FROM PAYMENT
 	</sql>
 	
@@ -50,6 +51,7 @@
 		<result property="vbankName" column="VBANK_NAME" />
 		<result property="vbankHolder" column="VBANK_HOLDER" />
 		<result property="vbankDate" column="VBANK_DATE" />
+		<result property="paymentDate" column="PAYMENT_DATE" />
 	</resultMap>
 
 	<select id="selectPaymentCount" resultType="_int">

@@ -16,10 +16,14 @@ public interface QuesService {
 
 	Ques findQuesByNo(int quesNo);
 
-	Ques delete(int quesNo);
+	int delete(int quesNo);
 
-	int saveQuesReply(QuesReply reply);
+	int saveQuesReply(QuesReply quesReply);
 
 	int updateViewNo(int quesNo);
+
+	QuesReply findQuesReplyByNo(int quesNo);
+
+	int deleteReply(int quesNo);
 
 }

@@ -105,22 +105,22 @@
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                     <div for="postalAddr">주소</div>
                                     <div class="input-group mb-1">
-                                        <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                        <input type="text" class="form-control postalAddr" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
                                         value="${loginMember.postCode}">
                                         <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
                                     </div>   
                                     <div class="input-group mb-1">
-                                        <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소"
+                                        <input type="text" class="form-control addr1" name="addr1" id="addr1" placeholder="주소"
                                         value="${addr[0]}">
                                     </div>
                                     <!-- 동이름 / 빌딩이름 등이 나온다 -->
                                     <div class="row">
                                         <div class="col-md-7" style="height: 42px;">
-                                            <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소"
+                                            <input type="text" class="form-control addr2" name="addr2" id="addr2" placeholder="상세주소"
                                             value="${addr[1]}">
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
+                                            <input type="text" class="form-control addr3" name="addr3" id="addr3" placeholder="참고항목" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -174,10 +174,10 @@
 		                        <div class="col-sm-4">
 		                            <div class="card m-5 successCall">
 		                                <div class="card-body p-4">
-		                                    <c:if test="${call.callType == 1}"> 
+		                                    <c:if test='${call.callType == "일반"}'> 
 		                                    	<i class="fas fa-bone text-secondary">일반</i>
 		                                    </c:if>
-		                                    <c:if test="${call.callType == 2}">
+		                                    <c:if test='${call.callType == "긴급"}'>
 		                                    	<i class="fas fa-meteor text-danger">긴급</i>
 		                                    </c:if>
 		                                    <h5 class="card-title fw-bold">
@@ -218,10 +218,10 @@
 		                        <div class="col-sm-4">
 		                            <div class="card m-5 successCall">
 		                                <div class="card-body p-4">
-		                                    <c:if test="${call.callType == 1}"> 
+		                                    <c:if test='${call.callType == "일반"}'> 
 		                                    	<i class="fas fa-bone text-secondary">일반</i>
 		                                    </c:if>
-		                                    <c:if test="${call.callType == 2}">
+		                                    <c:if test='${call.callType == "긴급"}'>
 		                                    	<i class="fas fa-meteor text-danger">긴급</i>
 		                                    </c:if>
 		                                    <h5 class="card-title fw-bold">
@@ -289,6 +289,7 @@
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('postalAddr').value = data.zonecode;
                     document.getElementById("addr1").value = addr;
+                    document.getElementById("addr2").value = '';
                     // 커서를 상세주소 필드로 이동한다.
                     document.getElementById("addr2").focus();
                 }
