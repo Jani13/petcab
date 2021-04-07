@@ -10,9 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의작성</title>
-    
-    <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
+    <title>문의글 수정</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
@@ -85,7 +83,7 @@
           <br><br><br>
 
           <hr>
-          <form action='${path}/ques/write' method="post">
+          <form action='${path}/ques/update' method="post">
           	<input type="hidden" name="quesNo" value = "${ques.quesNo}">
             <table class="table">
                 <thead>
@@ -112,12 +110,13 @@
                   </tr>
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
-                    <td><input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요."></td>
+                    <td><input type="password" id="password" class="form-control" 
+                    				name="quesPwd" placeholder="숫자만 입력하세요."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" class="form-control" value="${ques.title}">
-                    	<input type="hidden" name="quesNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->
+                    <td><input type="text" id="title" class="form-control" name="title" value="${ques.title}">
+                    	<input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->
                     </td>
                   </tr>
                   <tr>
@@ -127,18 +126,19 @@
                         <div class="editor-box">
                           <div class="editor-box__editor">
                               <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"><c:out value="${ques.content}"/></textarea>
+                              <textarea name="content" id="ir1" rows="10" cols="100"><c:out value="${ques.content}"/></textarea>
                               <script type="text/javascript">
-                 						 CKEDITOR.replace('ir1', {height: 500});
+                 						 CKEDITOR.replace('ir1', {height: 300});
                   				</script>
                           </div>
                       </div>
                       <div style="text-align : center; padding: 30px;">
                           <span style="padding-right : 3rem;">
-                              <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
+                              <input type="submit" class="btn btn-primary" id="partnerSubmit" value="수정완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="partnerCancel" value="취소하기">
+                              <input type="reset" class="btn btn-secondary" id="partnerCancel" 
+                              			onclick="location.replace('${path}/ques/list')" value="취소하기">
                           </span>
                       </div>
                     </th>

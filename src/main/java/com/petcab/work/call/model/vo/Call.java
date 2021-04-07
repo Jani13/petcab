@@ -46,4 +46,7 @@ public class Call {
 	private String merchantUid;
 	
 	private Driver driver;
+	
+	private EmgCall emgCall;
+	
 }

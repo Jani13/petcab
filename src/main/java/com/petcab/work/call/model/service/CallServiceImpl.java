@@ -42,9 +42,9 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> driverWaitCallList(int userNo) {
+	public List<Call> driverWaitCallList() {
 
-		return callDao.driverWaitCallList(userNo);
+		return callDao.driverWaitCallList();
 	}
 
 	@Override
@@ -77,6 +77,16 @@ public class CallServiceImpl implements CallService {
 	public EmgCall selectEmgCall(int callNo) {
 		
 		return callDao.selectEmgCall(callNo);
+	}
+	
+	public List<Call> useCallUserId(String userId) {
+		return callDao.useCallUserId(userId);
+	}
+
+	@Override
+	public List<Call> endCallUserId(String userId) {
+		
+		return callDao.endCallUserId(userId);
 	}
 
 }

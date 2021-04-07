@@ -58,22 +58,34 @@ public class QuesServiceImpl implements QuesService {
 	}
 
 	@Override
-	public Ques delete(int quesNo) {
+	public int delete(int quesNo) {
 		
 		
 		return quesDao.delete(quesNo);
 	}
 
 	@Override
-	public int saveQuesReply(QuesReply reply) {
+	public int saveQuesReply(QuesReply quesReply) {
 		
-		return quesDao.insertQuesReply(reply);
+		return quesDao.insertQuesReply(quesReply);
 	}
 
 	@Override
 	public int updateViewNo(int quesNo) {
 		
 		return quesDao.updateViewNo(quesNo);
+	}
+
+	@Override
+	public QuesReply findQuesReplyByNo(int quesNo) {
+		
+		return quesDao.selectQuesReply(quesNo);
+	}
+
+	@Override
+	public int deleteReply(int quesNo) {
+		
+		return quesDao.deleteReply(quesNo);
 	}
 
 }

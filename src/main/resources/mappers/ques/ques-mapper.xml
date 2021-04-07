@@ -70,6 +70,19 @@
 		WHERE Q.QUES_NO=#{quesNo}
 	</select>
 	
+	<select id="selectQuesReply" parameterType="_int" resultType="QuesReply">	
+		
+		SELECT 
+		    QUES_NO AS quesNo,
+		    CONTENT AS content,
+		    POST_DATE AS postDate,
+		    EDIT_DATE AS editDate,
+		    USER_NO AS userNo
+		FROM QUES_REPLY
+		WHERE QUES_NO = #{quesNo}
+		
+	</select>
+	
 	<update id="updateViewNo">
 		UPDATE QUES SET 	
 		VIEW_NO = VIEW_NO + 1 
@@ -78,26 +91,7 @@
 	
 	
 	
-	
-	<select id="selectQuesDetail2" parameterType="_int" resultMap="quesDetailResultMap">
-		SELECT Q.QUES_NO,
-	       M.USER_ID,
-	       Q.TITLE,
-	       Q.CONTENT,
-	       Q.VIEW_NO,
-	       Q.POST_DATE,
-	       Q.EDIT_DATE,
-	          R.QUES_NO, 
-	          M2.USER_ID AS M_USER_ID, 
-	          R.CONTENT, 
-	          R.POST_DATE, 
-	          R.EDIT_DATE, 
-	      FROM QUES Q
-	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
-	      LEFT OUTER JOIN QUES_REPLY R ON(Q.QUES_NO = R.QUES_NO)
-	      LEFT OUTER JOIN MEMBER M2 ON(R.USER_NO = M2.USER_NO)
-	      WHERE Q.QUES_NO=#{quesNo}
-	</select>
+
 	
 	<insert id="insertQues" parameterType="map"
   		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
@@ -128,8 +122,8 @@
 		VALUES(
 			#{quesNo},
 			#{content},
-			#{postDate},
-			#{editDate},
+			DEFAULT,
+  			DEFAULT,
 			#{userNo} 			
  		)
   	</insert>
@@ -148,6 +142,31 @@
 		DELETE
 		FROM QUES
 		WHERE QUES_NO=#{quesNo}
-	
 	</delete>
+	
+	<delete id="deleteReply" parameterType="int">
+		DELETE
+		FROM QUES_REPLY
+		WHERE QUES_NO=#{quesNo}
+	</delete>
+	
+		<select id="selectQuesDetail2" parameterType="_int" resultMap="quesDetailResultMap">
+		SELECT Q.QUES_NO,
+	       M.USER_ID,
+	       Q.TITLE,
+	       Q.CONTENT,
+	       Q.VIEW_NO,
+	       Q.POST_DATE,
+	       Q.EDIT_DATE,
+	          R.QUES_NO, 
+	          M2.USER_ID AS M_USER_ID, 
+	          R.CONTENT, 
+	          R.POST_DATE, 
+	          R.EDIT_DATE, 
+	      FROM QUES Q
+	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
+	      LEFT OUTER JOIN QUES_REPLY R ON(Q.QUES_NO = R.QUES_NO)
+	      LEFT OUTER JOIN MEMBER M2 ON(R.USER_NO = M2.USER_NO)
+	      WHERE Q.QUES_NO=#{quesNo}
+	</select>
 </mapper>

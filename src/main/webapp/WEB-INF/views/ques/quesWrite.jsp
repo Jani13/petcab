@@ -109,7 +109,7 @@
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
                     <td><input type="password" id="password" class="form-control" 
-                    		name="quesPwd" placeholder="숫자만 입력하세요."></td>
+                    		name="quesPwd" placeholder="비공개 설정입니다."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>

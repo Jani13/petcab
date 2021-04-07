@@ -104,7 +104,7 @@
 			<br />
 			<div>
 				<form action="${path}/signup/Information" method="POST">
-					
+					<input type="hidden" name="userType" value="<%= userType %>">
 					<div class="row">
 						<div class="col-md-3"></div>
 						<div class="col-md-6">
@@ -253,22 +253,22 @@
 													id="addr3" placeholder="참고항목" readonly>
 											</div>
 										</div>
+										<%if(userType.equals("ROLE_PARTNER")){%>
+										<p class="text-danger">* 제휴업체의 경우 업체의 주소를 기입해 주세요.</p>
+										<%}%>	
 									</td>
 								</tr>
 							</table>
 						</div>
-						<div class="input-group mb-1"
-							style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-							<p style="font-size: 20px;">
-								<br> * 애완견이 있을 경우 로그인 후 등록을 해주세요~ <br> * 제휴업체(파트너) 또는 드라이버
-								지원 인 경우 가입 후 유형보기를 눌러주세요~
+						<div class="input-group mb-1 row flex-column">
+							<p class="col-md-12 text-center my-5" style="font-size: 20px;">
+									<br> * 애완견이 있을 경우 로그인 후 등록을 해주세요. <br> * 제휴업체(파트너) 또는 드라이버
+									지원 인 경우 가입 후 유형보기를 눌러주세요.
 							</p>
-							<br>
-							<br>
-							<div style="text-align: center;">
-								<button type="submit" class="btn btn-outline-info"
-									style="margin-left: 450px;">확인</button>
-
+							<div class="col-12 row d-flex justify-content-center p-3">
+								<button type="submit" id="enrollSubmit" class="col-2 btn btn-outline-info">
+					                확인
+					            </button>
 							</div>
 						</div>
 					</div>
@@ -351,7 +351,7 @@
 		         if(id.length == 0) {
 		        	 alert("아이디를 입력해 주세요");
 		        	 $("#newId").focus();
-		        	 return false;
+		        	 /* return false; */
 		         }
 		         if(pass1.length == 0) {
 		        	 alert("비밀번호를 입력해 주세요");

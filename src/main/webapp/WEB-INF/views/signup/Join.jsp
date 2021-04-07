@@ -6,6 +6,11 @@
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+<% 
+	request.setCharacterEncoding("UTF-8");
+	String userType = request.getParameter("userType");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,19 +99,20 @@
                 <br />
                 <br />
                 <div class="card bg-dark text-white">
-                    <img src="${path }/images/cjoin.png" class="card-img" alt="...">
-                    <div class="card-img-overlay"> <br><br>
-                        <p class="card-text" style="font-size: 40px; margin-left: 500px;" >xxx 님 환영합니다.!!</p>
-                      <br><br>
-                      <p class="card-text" style="font-size: 30px; margin-left: 700px;" >가입이 완료되었습니다. <br>데려다줄개 많이 이용해주세요~</p>
+                    <img src="${path}/images/joinImg.jpg" class="card-img" alt="...">
+                    <div class="card-img-overlay my-5 p-4">
+                      <p class="card-text my-5" style="font-size: 30px; margin-left: 700px;" >
+                      	가입이 완료되었습니다. 
+                      	<br>데려다줄개 많이 이용해주세요.<br>
+                      	<span class="fs-5">* 모든 서비스는 로그인 후 이용 가능합니다.</span>
+                      </p>
                     </div>
                 </div>
                 <br>
                   <div style="text-align:center;">
-                    <button type="button" class="btn btn-outline-info" style="margin-right: 200px;">유형 보기</button>
                     <button type="button" class="btn btn-outline-info" 
                     		onclick="location.href='${path}/login'"
-                    		style="margin-left: 200px;" >시작 하기</button>
+                    >시작 하기</button>
                   </div>
             </form>
             <br>

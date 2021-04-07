@@ -91,22 +91,19 @@ public class DriverController {
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView driverMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model) {
-		log.info(loginMember.toString());
 		
 		Driver driver = service.selectDriver(loginMember.getUserNo());
-		List<Review> review = reviewService.searchUserNo(loginMember.getUserNo());
-		
-		List<Call> waitCall = callService.driverWaitCallList(loginMember.getUserNo());
-		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
-		
-		log.info(review.toString());
+		List<Review> review = reviewService.searchSUserNo(loginMember.getUserNo());
+		List<Call> waitCall = callService.driverWaitCallList();
 		log.info(waitCall.toString());
+		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
 		log.info(endCall.toString());
 		
 		model.addObject("driver", driver);
 		model.addObject("review", review);
 		model.addObject("waitCall", waitCall);
 		model.addObject("endCall", endCall);
+		
 		model.setViewName("driver/driverMyPage");
 		
 		return model;

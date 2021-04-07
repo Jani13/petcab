@@ -16,7 +16,7 @@ public interface CallService {
 	
 	EmgCall selectEmgCall(int callNo);
 
-	List<Call> driverWaitCallList(int userNo);
+	List<Call> driverWaitCallList();
 
 	List<Call> driverEndCallList(int userNo);
 
@@ -27,5 +27,9 @@ public interface CallService {
 	int selectEmergCall();
 
 	int selectCancelledCall();
+
+	List<Call> useCallUserId(String userId);
+
+	List<Call> endCallUserId(String userId);
 
 }

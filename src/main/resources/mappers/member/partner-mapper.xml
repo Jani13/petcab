@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.petcab.work.user.model.dao.PartnerDao">
+	
+	<sql id="selectPartnerSql">
+		SELECT USER_NO,
+			   PARTNER_NAME,
+    		   PARTNER_TYPE,
+			   PHONE,
+			   OPEN_TIME,
+			   IMAGE_ORI,
+			   IMAGE_RE,
+			   ABOUT,
+			   STATUS
+		FROM PARTNER
+	</sql>
+	
+	<resultMap type="Partner" id="PartnerResultMap">
+		<id property="userNo" column="USER_NO"/>
+		
+		<result property="partnerName" column="PARTNER_NAME"/>
+		<result property="partnerType" column="PARTNER_TYPE"/>
+		<result property="phone" column="PHONE"/>
+		<result property="openTime" column="OPEN_TIME"/>
+		<result property="imageOri" column="IMAGE_ORI"/>
+		<result property="imageRe" column="IMAGE_RE"/>
+		<result property="about" column="ABOUT"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	
+	<select id="selectPtYesList" resultMap="PartnerResultMap">
+		SELECT P.USER_NO,
+      		   P.PARTNER_NAME,
+		       P.PARTNER_TYPE,
+		       P.PHONE,
+		       P.OPEN_TIME,
+		       P.IMAGE_ORI,
+		       P.IMAGE_RE,
+		       P.ABOUT,
+		       P.STATUS,
+		       M.ADDRESS
+		FROM PARTNER P, MEMBER M
+		WHERE P.USER_NO = M.USER_NO 
+		AND P.STATUS = 'Y'
+	</select>
+	
+	<insert id="insertPartner" parameterType="Partner"
+		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+		INSERT INTO PARTNER (
+		    USER_NO,
+		    PARTNER_NAME,
+		    PARTNER_TYPE,
+		    PHONE,
+		    OPEN_TIME,
+		    IMAGE_ORI,
+		    IMAGE_RE,
+		    ABOUT,
+		    STATUS
+		) VALUES (
+		    #{userNo},
+		    #{partnerName},
+		    #{partnerType},
+		    #{phone},
+		    #{openTime},
+		    #{imageOri},
+		    #{imageRe},
+		    #{about},
+		    DEFAULT
+		)
+	</insert>
+
+
+</mapper>
