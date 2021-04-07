@@ -8,6 +8,8 @@ import com.petcab.work.user.model.vo.Partner;
 public interface PartnerDao {
 
 	int insertPartner(Partner partner);
+
+	Partner selectPartner(int userNo);
 	
 
 }

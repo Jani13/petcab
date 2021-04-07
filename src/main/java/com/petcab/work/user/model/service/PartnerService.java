@@ -6,4 +6,6 @@ public interface PartnerService {
 
 	int savePartner(Partner partner);
 
+	Partner selectPartner(int userNo);
+
 }

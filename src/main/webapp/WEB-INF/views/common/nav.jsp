@@ -76,7 +76,7 @@
 	  	  			<a class="nav-link text-black" href="${path}/driver/mypage">마이페이지</a>
 	  	  		</c:when>
 	  	  		<c:otherwise>
-	  	  			<a class="nav-link text-black" href="${path}/mypage/partMyPage">마이페이지</a>  	  		
+	  	  			<a class="nav-link text-black" href="${path}/partner/mypage">마이페이지</a>  	  		
 	  	  		</c:otherwise> 	  		
 	  	  	</c:choose>
 

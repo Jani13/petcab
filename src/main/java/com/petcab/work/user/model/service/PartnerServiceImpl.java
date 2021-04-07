@@ -20,4 +20,9 @@ public class PartnerServiceImpl implements PartnerService {
 		return result;
 	}
 
+	@Override
+	public Partner selectPartner(int userNo) {
+		return partnerDao.selectPartner(userNo);
+	}
+
 }

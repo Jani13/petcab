@@ -14,9 +14,9 @@
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
 		<!-- <result property="userNo" column="USER_NO" /> -->
-		<result property="animalNoA" column="ANIMAL_NO_A" />
-		<result property="animalNoB" column="ANIMAL_NO_B" />
-		<result property="animalNoC" column="ANIMAL_NO_C" />
+		<result property="dogNoA" column="DOG_NO_A" />
+		<result property="dogNoB" column="DOG_NO_B" />
+		<result property="dogNoC" column="DOG_NO_C" />
 		<result property="merchantUid" column="MERCHANT_UID" />
 		<association property="emgCall" resultMap="EmgCallResultMap" />
 		<association property="driver" resultMap="DriverResultMap" />
@@ -51,9 +51,9 @@
 		STATUS,
 		CALL_TYPE,
 		USER_NO,
-		ANIMAL_NO_A,
-		ANIMAL_NO_B,
-		ANIMAL_NO_C,
+		DOG_NO_A,
+		DOG_NO_B,
+		DOG_NO_C,
 		MERCHANT_UID
 		FROM GEN_CALL
 		WHERE CALL_NO = #{callNo}
@@ -68,8 +68,8 @@
 		WITH_OWNER,
 		TO_DRIVER,
 		STATUS, CALL_TYPE, USER_NO,
-		ANIMAL_NO_A, ANIMAL_NO_B,
-		ANIMAL_NO_C,
+		DOG_NO_A, DOG_NO_B,
+		DOG_NO_C,
 		MERCHANT_UID
 		) VALUES (
 		SEQ_CALL_NO.NEXTVAL,
@@ -78,8 +78,8 @@
 		#{fromWhere},
 		#{withOwner},
 		#{toDriver}, #{status}, #{callType}, NULL,
-		#{animalNoA}, #{animalNoB},
-		#{animalNoC}, #{merchantUid}
+		#{dogNoA}, #{dogNoB},
+		#{dogNoC}, #{merchantUid}
 		)
 	</insert>
 
@@ -104,12 +104,12 @@
 		INTO GEN_CALL (
 			CALL_NO, TIME, TO_WHERE, FROM_WHERE, WITH_OWNER,
 			TO_DRIVER, STATUS, CALL_TYPE, USER_NO,
-			ANIMAL_NO_A, ANIMAL_NO_B, ANIMAL_NO_C, MERCHANT_UID
+			DOG_NO_A, DOG_NO_B, DOG_NO_C, MERCHANT_UID
 		) VALUES (
 			#{callNo}, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'),
 			#{toWhere}, #{fromWhere}, #{withOwner},
 			#{toDriver}, #{status}, #{callType}, NULL,
-			#{animalNoA}, #{animalNoB}, #{animalNoC}, #{merchantUid}
+			#{dogNoA}, #{dogNoB}, #{dogNoC}, #{merchantUid}
 		)
 		<!-- 
 		<selectKey resultType="_int" keyProperty="callNo" order="AFTER">
@@ -145,9 +145,9 @@
 		D.USER_NO,
 		D.CAR_NO,
 		D.CAR_TYPE,
-		C.ANIMAL_NO_A,
-		C.ANIMAL_NO_B,
-		C.ANIMAL_NO_C,
+		C.DOG_NO_A,
+		C.DOG_NO_B,
+		C.DOG_NO_C,
 		C.MERCHANT_UID
 		FROM GEN_CALL C, DRIVER D
 		WHERE C.USER_NO = D.USER_NO
@@ -168,9 +168,9 @@
 		D.USER_NO,
 		D.CAR_NO,
 		D.CAR_TYPE,
-		C.ANIMAL_NO_A,
-		C.ANIMAL_NO_B,
-		C.ANIMAL_NO_C,
+		C.DOG_NO_A,
+		C.DOG_NO_B,
+		C.DOG_NO_C,
 		C.MERCHANT_UID
 		FROM GEN_CALL C, DRIVER D
 		WHERE C.USER_NO = D.USER_NO
@@ -211,16 +211,16 @@
 		    C.STATUS,
 		    C.CALL_TYPE,
 		    D.CAR_TYPE,
-		    C.ANIMAL_NO_A,
-		    C.ANIMAL_NO_B,
-		    C.ANIMAL_NO_C,
+		    C.DOG_NO_A,
+		    C.DOG_NO_B,
+		    C.DOG_NO_C,
 		    D.CAR_NO
 		FROM GEN_CALL C,
 		     DRIVER D,
 		     DOG D2,
 		     MEMBER U
 		WHERE C.USER_NO = D.USER_NO
-		    AND D2.ANIMAL_NO = C.ANIMAL_NO_A
+		    AND D2.DOG_NO = C.DOG_NO_A
 		    AND U.USER_ID = D2.USER_ID
 		    AND C.STATUS='확정'
 		    AND D2.USER_ID = #{userId}
@@ -235,9 +235,9 @@
 		    C.TO_WHERE,
 		    C.STATUS,
 		    C.CALL_TYPE,
-		    C.ANIMAL_NO_A,
-		    C.ANIMAL_NO_B,
-		    C.ANIMAL_NO_C,
+		    C.DOG_NO_A,
+		    C.DOG_NO_B,
+		    C.DOG_NO_C,
 		    D.CAR_TYPE,
 		    D.CAR_NO
 		FROM GEN_CALL C,
@@ -245,9 +245,54 @@
 		     DOG D2,
 		     MEMBER U
 		WHERE C.USER_NO = D.USER_NO
-		    AND D2.ANIMAL_NO = C.ANIMAL_NO_A
+		    AND D2.DOG_NO = C.DOG_NO_A
 		    AND U.USER_ID = D2.USER_ID
 		    AND C.STATUS='종료'
 		    AND D2.USER_ID = #{userId}
 	</select>
+	
+	<select id="waitECallList" parameterType="_int" resultMap="callResultMap">
+		SELECT
+		    C.CALL_NO,
+		    C.TIME,
+		    C.FROM_WHERE,
+		    C.TO_WHERE,
+		    C.WITH_OWNER,
+		    C.STATUS,
+		    C.CALL_TYPE,
+		    E.USER_NO,
+		    E.TO_PARTNER,
+		    E.TO_REJECT,           
+		    M.USER_NAME,
+		    D.DOG_NAME
+		FROM GEN_CALL C, EMERG_CALL E, MEMBER M, DOG D
+		WHERE C.CALL_NO=E.CALL_NO
+		AND C.DOG_NO_A = D.DOG_NO
+		AND M.USER_ID = D.USER_ID
+		AND C.STATUS='업체'
+		AND E.USER_NO = #{userNo}
+	</select>
+	
+	<select id="eCallList" parameterType="_int" resultMap="callResultMap">
+		SELECT
+		    C.CALL_NO,
+		    C.TIME,
+		    C.FROM_WHERE,
+		    C.TO_WHERE,
+		    C.WITH_OWNER,
+		    C.STATUS,
+		    C.CALL_TYPE,
+		    E.USER_NO,
+		    E.TO_PARTNER,
+		    E.TO_REJECT,           
+		    M.USER_NAME,
+		    D.DOG_NAME
+		FROM GEN_CALL C, EMERG_CALL E, MEMBER M, DOG D
+		WHERE C.CALL_NO=E.CALL_NO
+		AND C.DOG_NO_A = D.DOG_NO
+		AND M.USER_ID = D.USER_ID
+		AND E.USER_NO = #{userNo}
+	</select>
+	
+	
 </mapper>	

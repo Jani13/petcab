@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<c:set var="addr" value="${fn:split(loginMember.address,',')}"/>
  
 <!DOCTYPE html>
 <html lang="en">
@@ -94,33 +95,40 @@
                             <form class="row my-5 d-flex justify-content-center">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
-                                    <input type="text" class="form-control" id="Id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
+                                    <input type="text" class="form-control" id="Id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    value="${loginMember.userId }">
                                 </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="Name">이름</label>
-                                    <input type="text" class="form-control" id="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
+                                    <input type="text" class="form-control" id="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    value="${loginMember.userName }">
                                 </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">제휴업체명</label>
-                                    <input type="text" class="form-control" id="partName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" class="form-control" id="partName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                    value="${partner.partnerName }">
                                 </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
-                                    <input type="text" class="form-control" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" class="form-control" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                    value="${partner.phone }">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                     <div for="postalAddr">주소</div>
                                     <div class="input-group mb-1">
-                                        <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                        value="${loginMember.postCode }">
                                         <input type="button" class="input-group-text" id="findPostalAddr" onclick="DaumPostcode()" value="우편번호 검색"></input>
                                     </div>   
                                     <div class="input-group mb-1">
-                                        <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소">
+                                        <input type="text" class="form-control" name="addr1" id="addr1" placeholder="주소"
+                                        value="${addr[0] }">
                                     </div>
                                     <!-- 동이름 / 빌딩이름 등이 나온다 -->
                                     <div class="row">
                                         <div class="col-md-7" style="height: 42px;">
-                                            <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소">
+                                            <input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세주소"
+                                            value="${addr[1] }">
                                         </div>
                                         <div class="col-md-5">
                                             <input type="text" class="form-control" name="addr3" id="addr3" placeholder="참고항목" readonly>
@@ -141,51 +149,30 @@
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
                             <div class="container-fluid">
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
-                                    <div class="card-header bg-transparent">
-                                        <span class="card-text" style="padding-right: 15px;">YYYY/MM/DD HH:mm:ss <!-- 날짜 넣을 부분--></span> 
-                                        <span class="card-text" style="padding-right: 15px;">고객 : <!-- 고객명 넣을 부분--></span>
-                                        <span class="card-text" style="padding-right: 15px;">애견 : <!-- 애견명 넣을 부분--></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">도착 예상시간 : <!--도착예상시간 넣을 부분--></p>
-                                        <span class="card-text">요청사항 : <!--요청사항 넣을 부분--></span> 
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-danger">수락</button>
-                                            <button type="button" class="btn btn-secondary" onclick="popup()">거절</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
-                                    <div class="card-header bg-transparent">
-                                        <span class="card-text" style="padding-right: 15px;">YYYY/MM/DD HH:mm:ss <!-- 날짜 넣을 부분--></span> 
-                                        <span class="card-text" style="padding-right: 15px;">고객 : <!-- 고객명 넣을 부분--></span>
-                                        <span class="card-text" style="padding-right: 15px;">애견 : <!-- 애견명 넣을 부분--></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">도착 예상시간 : <!--도착예상시간 넣을 부분--></p>
-                                        <span class="card-text">요청사항 : <!--요청사항 넣을 부분--></span> 
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-danger">수락</button>
-                                            <button type="button" class="btn btn-secondary" onclick="popup()">거절</button>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
-                                    <div class="card-header bg-transparent">
-                                        <span class="card-text" style="padding-right: 15px;">YYYY/MM/DD HH:mm:ss <!-- 날짜 넣을 부분--></span> 
-                                        <span class="card-text" style="padding-right: 15px;">고객 : 땡떙떙<!-- 고객명 넣을 부분--></span>
-                                        <span class="card-text" style="padding-right: 15px;">애견 : 뿡뿡뿡<!-- 애견명 넣을 부분--></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">도착 예상시간 : 32분<!--도착예상시간 넣을 부분--></p>
-                                        <span class="card-text">요청사항 : 애기가 아파요! 도착하면 바로 치료해주세요!<!--요청사항 넣을 부분--></span> 
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-danger">수락</button>
-                                            <button type="button" class="btn btn-secondary" onclick="popup()">거절</button>
-                                        </div>
-                                    </div>
-                                </div> 
+                            	<c:if test="${waitCall == null}">
+									<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
+										대기중인 긴급 콜이 없습니다
+									</div>
+								</c:if>
+                            	<c:if test="${waitCall == null}">
+									<c:forEach var="call" items="${waitCall}" end="2">
+		                            	<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
+		                                    <div class="card-header bg-transparent">
+		                                        <span class="card-text" style="padding-right: 15px;">${call.pickupTime}</span> 
+		                                        <span class="card-text" style="padding-right: 15px;">고객 : </span>
+		                                        <span class="card-text" style="padding-right: 15px;">애견 : <!-- 애견명 넣을 부분--></span>
+		                                    </div>
+		                                    <div class="card-body">
+		                                        <p class="card-title">도착 예상시간 : <!--도착예상시간 넣을 부분--></p>
+		                                        <span class="card-text">요청사항 : <!--요청사항 넣을 부분--></span> 
+		                                        <div class="text-center">
+		                                            <button type="button" class="btn btn-danger">수락</button>
+		                                            <button type="button" class="btn btn-secondary" onclick="popup()">거절</button>
+		                                        </div>
+		                                    </div>
+		                                </div>
+	                                </c:forEach>
+								</c:if>
                             </div>
                         </div>
                 <!-- 긴급콜 내역확인  -->
