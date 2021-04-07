@@ -236,16 +236,16 @@
 		    C.STATUS,
 		    C.CALL_TYPE,
 		    D.CAR_TYPE,
-		    C.ANIMAL_NO_A,
-		    C.ANIMAL_NO_B,
-		    C.ANIMAL_NO_C,
+		    C.DOG_NO_A,
+		    C.DOG_NO_B,
+		    C.DOG_NO_C,
 		    D.CAR_NO
 		FROM GEN_CALL C,
 		     DRIVER D,
 		     DOG D2,
 		     MEMBER U
 		WHERE C.USER_NO = D.USER_NO
-		    AND D2.ANIMAL_NO = C.ANIMAL_NO_A
+		    AND D2.DOG_NO = C.DOG_NO_A
 		    AND U.USER_ID = D2.USER_ID
 		    AND C.STATUS='확정'
 		    AND D2.USER_ID = #{userId}
@@ -260,9 +260,9 @@
 		    C.TO_WHERE,
 		    C.STATUS,
 		    C.CALL_TYPE,
-		    C.ANIMAL_NO_A,
-		    C.ANIMAL_NO_B,
-		    C.ANIMAL_NO_C,
+		    C.DOG_NO_A,
+		    C.DOG_NO_B,
+		    C.DOG_NO_C,
 		    D.CAR_TYPE,
 		    D.CAR_NO
 		FROM GEN_CALL C,
@@ -270,7 +270,7 @@
 		     DOG D2,
 		     MEMBER U
 		WHERE C.USER_NO = D.USER_NO
-		    AND D2.ANIMAL_NO = C.ANIMAL_NO_A
+		    AND D2.DOG_NO = C.DOG_NO_A
 		    AND U.USER_ID = D2.USER_ID
 		    AND C.STATUS='종료'
 		    AND D2.USER_ID = #{userId}

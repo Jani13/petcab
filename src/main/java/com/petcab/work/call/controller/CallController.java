@@ -9,14 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -218,55 +217,45 @@ public class CallController {
 	}
 	
 	// 애견정보 불러오기
-//	@GetMapping(path = "/book/selectDogs/{userNo}", produces = "application/json") 
-//	@ResponseBody
-//	public List<Dog> getDogs(@PathVariable("userNo") String userNo) {
-//		
-////		int resultD = 
-//		
-//		return null;
-//	}
-	
-	@RequestMapping(value = "/book/selectDogs/{userNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/selectDogs/{userId}", method = RequestMethod.GET)
 	public String selectDogs(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@PathVariable(value = "loginMember.userNo") int userNo,
+			@PathVariable(value = "userId", required = false) String userId,
+			Model model,
 			HttpServletRequest request
-			) { // 예약화면에서 예약자 userNo를 가져와야한다.
+			) { // 예약화면에서 예약자 userId를 가져와야한다.
+						
+		List<Dog> dogs = new ArrayList<>();
+				
+		dogs = dogService.searchUserId(userId);
 		
-		// 애견정보 가져오기
+		log.info(dogs.toString());
 		
+		model.addAttribute("dogs", dogs);
+				
 		return "dog/dogsForCall";
 	}
 	
-	@RequestMapping(value = "/book/selectDogs/{userNo}", method = {RequestMethod.POST})
-	public ModelAndView selectDogs(
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, 
-			@ModelAttribute EmgCall emgCall, 
-			ModelAndView model) {
+//	@RequestMapping(value = "/book/selectDogs/{userId}", method = RequestMethod.GET)
+//	public ModelAndView selectDogs(
+//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//			@PathVariable(value = "userId", required = false) String userId,
+//			ModelAndView model,
+//			HttpServletRequest request
+//			) { // 예약화면에서 예약자 userId를 가져와야한다.
+//						
+//		List<Dog> dogs = new ArrayList<>();
+//				
+//		dogs = dogService.searchUserId(userId);
+//		
+//		log.info(dogs.toString());
+//		
+//		model.addObject("dogs", dogs);
+//		model.setViewName("dog/dogsForCall");
+//		
+//		return model;
+//	}
 		
-		int result = callService.updateCall(emgCall.getCallNo());
-
-		log.info(emgCall.toString());
-
-		emgCall = callService.selectEmgCall(emgCall.getCallNo());
-
-		log.info(emgCall.toString());
-
-		if(result > 0) {
-			// 성공
-		} else {
-			// 실패
-		}
-
-		model.addObject("emgCall", emgCall);
-
-		model.setViewName("call/book_gn_cancel");
-
-		return model;
-	}
-	
 	// JSON으로 데이터 전송 시 AJAX 필요
 	//	@RequestMapping(value = "/book/emg_a", 
 	//			method = {RequestMethod.POST}, 

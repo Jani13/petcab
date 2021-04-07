@@ -555,6 +555,8 @@ ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;
  COMMENT ON COLUMN DOG.DOG_NO IS '애견번호';
  CREATE SEQUENCE SEQ_DOG_NO;
  
+ 
+ 
  ------ 현재 위에까지 DB 맞춰놨음 4/5 아래부터 시작하기 ------------------------------
  
 -- 문의하기 그룹명 NULL 변경
@@ -565,7 +567,7 @@ ALTER TABLE REVIEW MODIFY GROUP_NO NULL;
 --드라이버 status 추가--
 ALTER TABLE DRIVER ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'));
 
-ALTER TABLE DRIVER MODIFY STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N','W'));
+ALTER TABLE DRIVER MODIFY STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N', 'W'));
 
 ------------페이먼트 결제날짜 -----------------------------------------------------
 ALTER TABLE PAYMENT ADD PAYMENT_DATE DATE DEFAULT SYSDATE;
@@ -591,7 +593,6 @@ ALTER TABLE QUES MODIFY QUES_PWD VARCHAR2(30);
 --- 리뷰 서비스 제공자 번호 --------------------------
 ALTER TABLE REVIEW ADD S_USER_NO NUMBER NOT NULL;
 
-
 --------------------------------------------------------------------------------
 
 ALTER TABLE GEN_CALL DROP COLUMN ANIMAL_NO_A; 
@@ -604,25 +605,14 @@ ALTER TABLE GEN_CALL DROP COLUMN ANIMAL_NO_C;
 
 ALTER TABLE GEN_CALL ADD DOG_NO_A NUMBER;
 ALTER TABLE GEN_CALL ADD DOG_NO_B NUMBER;
-ALTER TABLE GEN_CALL ADD DOG_NO_C NUMBER
+ALTER TABLE GEN_CALL ADD DOG_NO_C NUMBER;
 
 --------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-=======
 --4월6일 파트너부터--
 ALTER TABLE PARTNER DROP COLUMN STATUS;
 ALTER TABLE PARTNER ADD STATUS VARCHAR2(3) DEFAULT 'W' CHECK(STATUS IN('Y', 'N','W'));
 ALTER TABLE PARTNER DROP COLUMN LOCATION;
-<<<<<<< HEAD
 
-=======
->>>>>>> 7bf585583b7a17595a49cc5e1e629b82f64bad96
->>>>>>> dc82baf50dadf7d64c42a58c259fbb3021398a76
+--------------------------------------------------------------------------------
+

@@ -98,7 +98,7 @@
 									애견정보 불러오기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
 								<!-- 미로그인 시 로그인 페이지로 이동 -->
-								<input type="hidden" name="dogNo" value="1"> <input
+								<input type="hidden" name="dogNo" value=""> <input
 									type="hidden" name="dogNo" value=""> <input
 									type="hidden" name="dogNo" value="">
 							</div>
@@ -166,12 +166,14 @@ function selectEmg() {
 }
 
 function selectDogs() {
-	let url = '${path}/call/book/selectDogs/${}';
+	let url = '${path}/call/book/selectDogs/${loginMember.userId}';
 	let windowName = 'dogsForCall';
 	// let windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,height=500,width=300";
-	let windowFeatures = "resizable=no,height=800,width=600";
+	let windowFeatures = 'resizable=no,height=800,width=600';
 
 	window.open(url, windowName, windowFeatures);
+	
+	// opener.window.location.href="" 
 }
 
 </script>

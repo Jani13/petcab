@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${ pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,37 +26,64 @@
 </head>
 <body>
 	<section>
-		<!-- 
 		<div class="container my-2">
 			<div class="row">
-				<div class="col-sm text-center py-4 myDogsEvent">
-					<a href="" class="text-decoration-none text-dark">
-						<img src="${path}/resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
-						<p class="h5 my-4 fw-bold">애견이름</p>
-					</a>
-				</div>
-			</div>
-		</div>
-		-->
+				<c:choose>
+					<c:when test="${dogs == null}">
+						<div>애견을 먼저 등록해주세요! -- 등록버튼 추가</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="dog" items="${dogs}">
+							${ dog.dogName }<input type="checkbox" name="dogNo"
+								value="${ dog.dogNo }">
 
-		<div class="container my-2">
-			<div class="row">
-				<c:if test="${dog == null}">
-					<div>조회된 애견이 없습니다</div>
-				</c:if>
-				<c:if test="${dog != null}">
-					<c:forEach var="dog" items="${dog}" end="2">
-						<div class="col-sm text-center py-4 myDogsEvent">
-							<a href="" class="text-decoration-none text-dark"> <img
-								src="${path }/resources/images/mung.png"
-								class="myDogs rounded-pill img-thumbnail" alt="">
-								<p class="h5 my-4 fw-bold">${dog.dogName }</p>
-							</a>
-						</div>
-					</c:forEach>
-				</c:if>
+							<!-- 
+							<div class="col-sm text-center py-4 myDogsEvent" 
+								onclick="selectThisDog(${dog.dogNo});">
+								<a href="" class="text-decoration-none text-dark"> <img
+									src="${ path }/resources/images/mung.png"
+									class="myDogs rounded-pill img-thumbnail" alt="">
+									<p class="h5 my-4 fw-bold">${ dog.dogName }</p>
+								</a>
+							</div>
+							-->
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
+				<button type="button" class="btn-select-dogs">선택</button>
 			</div>
 		</div>
 	</section>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+	});
+
+	let openerInputs = opener.window.document.getElementsByName('dogNo');
+
+    // 체크된 체크박스 input 태그를 모두 선택하는 방법
+    // let checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+	// let openedInputs = document.querySelectorAll('input[type=checkbox]');
+
+    let checked = function() {
+        let inputs = $('input[type=checkbox]:checked');
+
+        console.log(inputs);
+
+        for (let i = 0; i < openerInputs.length; i++) {
+            
+            if(inputs[i] !== undefined) {
+                openerInputs[i].value = inputs[i].value;
+            }
+        }
+
+        window.close();
+    }
+
+     $('.btn-select-dogs').on('click', checked);
+
+</script>
 </html>
