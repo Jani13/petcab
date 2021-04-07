@@ -35,4 +35,6 @@ public class Ques {
 	private int groupSeq;
 	
 	private int depth;
+	
+	private String status;
 }

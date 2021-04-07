@@ -69,24 +69,29 @@ public class QuesController {
 //		int userNo = loginMember.getUserNo();
 		
 		System.out.println(ques);
-
-		if (loginMember.getUserNo() == ques.getUserNo()) {
-			
-			result = service.saveQues(ques);
-			
-			if(result > 0) {
-				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-				model.addObject("location", "/ques/list");
-			} else {
-				model.addObject("msg", "게시글 등록을 실패하였습니다.");
-				model.addObject("location", "/ques/list");
-			}
-			
-		}else {
-			model.addObject("msg", "잘못된 접근입니다.");
-			model.addObject("location", "/");
-		}
 		
+		if(ques.getContent() == "") {
+			model.addObject("msg", "내용을 입력하세요.");
+			model.addObject("location", "/ques/list");
+		}else {
+
+			if (loginMember.getUserNo() == ques.getUserNo()) {
+				
+				result = service.saveQues(ques);
+				
+				if(result > 0) {
+					model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+					model.addObject("location", "/ques/list");
+				} else {
+					model.addObject("msg", "게시글 등록을 실패하였습니다.");
+					model.addObject("location", "/ques/list");
+				}
+				
+			}else {
+				model.addObject("msg", "잘못된 접근입니다.");
+				model.addObject("location", "/");
+			}
+		}
 		model.setViewName("common/msg");
 		
 		return model;
@@ -94,9 +99,10 @@ public class QuesController {
 	}
 	
 
-
 	@RequestMapping(value = "/view", method = {RequestMethod.GET})
-	public ModelAndView view(@RequestParam("quesNo") int quesNo, ModelAndView model) {
+	public ModelAndView view(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@RequestParam("quesNo") int quesNo, ModelAndView model) {
 		
 		service.updateViewNo(quesNo);
 		Ques ques = service.findQuesByNo(quesNo);
@@ -104,8 +110,22 @@ public class QuesController {
 
 		model.addObject("quesReply", quesReply);
 		model.addObject("ques", ques);
-		model.setViewName("ques/quesView");
 		
+		if(ques.getQuesPwd() != null) {
+			
+			if(loginMember != null && (loginMember.getUserNo() == ques.getUserNo()
+					|| loginMember.getUserType().equals("ROLE_ADMIN"))){
+				
+				model.setViewName("ques/quesView");
+				
+			}else {
+				model.addObject("msg", "비공개 문의글입니다.");
+				model.addObject("location", "/ques/list");
+				model.setViewName("common/msg");
+			}
+		}else { 
+			model.setViewName("ques/quesView2");
+		}
 		return model;
 	}
 	
@@ -138,7 +158,7 @@ public class QuesController {
 			
 			if(result > 0) {
 				model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
-				model.addObject("location", "/ques/view");
+				model.addObject("location", "/ques/view?quesNo=" + ques.getQuesNo());
 			}else {
 				model.addObject("msg", "게시글 수정이 실패하였습니다.");
 				model.addObject("location", "/ques/list");
@@ -190,7 +210,7 @@ public class QuesController {
 			
 			if(result > 0) {
 				model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
-				model.addObject("location", "/ques/view");
+				model.addObject("location", "/ques/view?quesNo=" + quesReply.getQuesNo());
 			} else {
 				model.addObject("msg", "답글 등록을 실패하였습니다.");
 				model.addObject("location", "/ques/list");

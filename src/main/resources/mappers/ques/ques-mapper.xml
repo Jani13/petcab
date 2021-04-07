@@ -14,7 +14,8 @@
 		       Q.VIEW_NO,
 		       Q.QUES_TYPE,
 		       Q.QUES_PWD,
-		       Q.USER_NO
+		       Q.USER_NO,
+		       Q.STATUS
 		FROM QUES Q
 		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)			
 	</sql>
@@ -33,6 +34,7 @@
 		<result property="groupNo" column="GROUP_NO"/>
 		<result property="groupSeq" column="GROUP_SEQ"/>
 		<result property="depth" column="DEPTH"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 		<resultMap type="Ques" id="quesDetailResultMap">
@@ -57,6 +59,7 @@
 	
 	<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>
+		WHERE Q.STATUS = 'Y'
 		ORDER BY Q.QUES_NO DESC
 	</select>
 	
@@ -89,10 +92,6 @@
 		WHERE QUES_NO = #{quesNo}
 	</update>
 	
-	
-	
-
-	
 	<insert id="insertQues" parameterType="map"
   		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
   		
@@ -110,12 +109,12 @@
   			DEFAULT,
   			DEFAULT,
   			#{userNo},
-  			#{userId}
-  			
+  			#{userId},
+  			DEFAULT 			
  		)
   	</insert>
   	
-  		<insert id="insertQuesReply" parameterType="map"
+  	<insert id="insertQuesReply" parameterType="map"
   		useGeneratedKeys="true" keyProperty="quesNo" keyColumn="QUES_NO">
   		
   		INSERT INTO QUES_REPLY 
@@ -138,11 +137,13 @@
 			QUES_NO=#{quesNo}
 	</update>	
 	
-	<delete id="delete" parameterType="int">
-		DELETE
-		FROM QUES
+	<update id="delete" parameterType="int">
+		UPDATE QUES 
+		SET 
+			STATUS='N' 
 		WHERE QUES_NO=#{quesNo}
-	</delete>
+	
+	</update>
 	
 	<delete id="deleteReply" parameterType="int">
 		DELETE
@@ -150,23 +151,4 @@
 		WHERE QUES_NO=#{quesNo}
 	</delete>
 	
-		<select id="selectQuesDetail2" parameterType="_int" resultMap="quesDetailResultMap">
-		SELECT Q.QUES_NO,
-	       M.USER_ID,
-	       Q.TITLE,
-	       Q.CONTENT,
-	       Q.VIEW_NO,
-	       Q.POST_DATE,
-	       Q.EDIT_DATE,
-	          R.QUES_NO, 
-	          M2.USER_ID AS M_USER_ID, 
-	          R.CONTENT, 
-	          R.POST_DATE, 
-	          R.EDIT_DATE, 
-	      FROM QUES Q
-	      JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
-	      LEFT OUTER JOIN QUES_REPLY R ON(Q.QUES_NO = R.QUES_NO)
-	      LEFT OUTER JOIN MEMBER M2 ON(R.USER_NO = M2.USER_NO)
-	      WHERE Q.QUES_NO=#{quesNo}
-	</select>
 </mapper>
