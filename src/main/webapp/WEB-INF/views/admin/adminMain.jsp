@@ -30,6 +30,12 @@ if(cookie != null) {
 response.addCookie(cookie);
 %>
 
+<style>
+ .listHover:hover {
+ 	background-color: seashell;
+ }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -224,21 +230,13 @@ response.addCookie(cookie);
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>2021/03/28</td>
-                          <td>노트북안가져와요?</td>
-                          <td>윤정일</td>
-                        </tr>
-                        <tr>
-                          <td>2021/03/28</td>
-                          <td>노트북안가져와요?</td>
-                          <td>윤정일</td>
-                        </tr>
-                        <tr>
-                          <td>2021/03/28</td>
-                          <td>노트북안가져와요?</td>
-                          <td>윤정일</td>
-                        </tr>
+                      	<c:forEach var="list" items="${list}" end="2">
+                        <tr class="listHover" onclick="location.href='${path}/ques/view?quesNo=${list.quesNo}'" style="cursor: pointer;">
+                          <td>${list.postDate}</td>
+                          <td>${list.title}</td>
+                          <td>${list.userId}</td>
+                        </tr>                      	
+                      	</c:forEach>
                       </tbody>
                     </table>
                   </div>

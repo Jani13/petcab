@@ -38,4 +38,8 @@ public class Dog {
 	
 	private String status;
 	
+	public Dog (int dogNo) {
+		this.dogNo = dogNo;
+	}
+	
 }

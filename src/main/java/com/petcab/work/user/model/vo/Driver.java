@@ -11,6 +11,8 @@ public class Driver {
 	
 	private int userNo;
 	
+	private String userName;
+	
 	private String carType;
 	
 	private String carNo;
@@ -22,4 +24,9 @@ public class Driver {
 	private String imageRe;
 	
 	private String status;
+
+	private Member member;
+	
+	private int rowNum;
 }
+

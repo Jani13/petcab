@@ -11,6 +11,7 @@
 				R.POST_DATE,
 				R.CONTENT,
 				R.STATUS,
+				R.CALL_TYPE,
 				R.VIEW_NO
 			FROM REVIEW R
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
@@ -45,15 +46,20 @@
 		<result property="editDate" column="EDIT_DATE"/>
 	 	<collection property="replies" javaType="java.util.ArrayList" resultMap="reviewReplyResultMap"/>	
 	</resultMap>
-	<!-- 
-	<resultMap type="QuesReply" id="quesReplyResultMap">
-		<id property="quesNo" column="QUES_NO"/>
+	
+	<resultMap type="RReply" id="rReplyResultMap">
+		<id property="reolyNo" column="REPLY_NO"/>
+		<result property="groupNo" column="GROUP_NO"/>
+		<result property="groupSeq" column="GROUP_SEQ"/>
+		<result property="depth" column="DEPTH"/>
 		<result property="content" column="CONTENT"/>
 		<result property="postDate" column="POST_DATE"/>
 		<result property="editDate" column="EDIT_DATE"/>
+		<result property="status" column="STATUS"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="reviewNo" column="REVIEW_NO"/>
 	</resultMap>
-	 -->
+	
   	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM REVIEW
@@ -61,13 +67,20 @@
 	
 	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
 		<include refid="ReviewListSql"></include>
+		WHERE R.STATUS = 'Y'
 		ORDER BY R.REVIEW_NO DESC
 	</select>
 	 
 	 <select id="selectReviewDetail" parameterType="_int" resultMap="reviewResultMap">
 	      <include refid="ReviewListSql"></include>
-	      WHERE REVIEW_NO=#{reviewNo}
+	      WHERE R.REVIEW_NO=#{reviewNo}
    	 </select>
+   	 
+   	 <update id="updateViewNo">
+   	 	UPDATE REVIEW SET
+   	 	VIEW_NO = VIEW_NO + 1
+   	 	WHERE REVIEW_NO = #{reviewNo}
+   	 </update>
 	 
   	<insert id="insertReview" parameterType="map"
   		useGeneratedKeys="false" keyProperty="ReviewNo" keyColumn="REVIEW_NO">
@@ -85,7 +98,8 @@
 			VIEW_NO,
 			STATUS,
 			USER_NO,
-			CALL_NO)
+			CALL_NO,
+			S_USER_NO)
   		VALUES(
   			SEQ_REVIEW_NO.NEXTVAL,
   			#{callType},
@@ -100,20 +114,10 @@
   			DEFAULT,
   			DEFAULT,
   			#{userNo},
-  			#{callNo}
+  			#{callNo},
+  			#{userNo}
  			)
   	</insert>
-  	
-  	<update id="updateReview" parameterType="Review">
-  		UPDATE REIVEW
-  		SET
-  			STAR_NO=#{starNo},
-  			TITLE=#{title},
-  			CONTENT=#{content},
-  			EDIT_DATE=SYSDATE
-  		WHERE
-  			REIVEW_NO=#{reviewNo}
-  	</update>
   	
   	<select id="searchUserNo" parameterType="_int" resultMap="reviewResultMap">
 		SELECT  R.REVIEW_NO,
@@ -125,11 +129,59 @@
 				R.STATUS,
 				R.VIEW_NO,
 				R.USER_NO,
-				R.S_USER_NO
+				R.S_USER_NO 
 			FROM REVIEW R
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE M.USER_NO = #{userNo}
 	</select>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE REVIEW 
+		SET 
+			CALL_TYPE=#{callType},
+			STAR_NO=#{starNo},
+			TITLE=#{title},
+			CONTENT=#{content},
+			EDIT_DATE=SYSDATE 
+		WHERE 
+			REVIEW_NO=#{reviewNo}
+	</update>	
+	
+	<update id="delete" parameterType="int">
+		UPDATE REVIEW 
+		SET
+			STATUS = 'N'
+		WHERE REVIEW_NO=#{reviewNo}
+	</update>
+	
+	<insert id="insertRRely" parameterType="map"
+	useGeneratedKeys="true" keyProperty="reviewNo" keyColumn="REVIEW_NO">
+	INSERT INTO REVIEW_REPLY(
+				 REPLY_NO
+				,GROUP_NO
+				,GROUP_SEQ
+				,"DEPTH"
+				,"CONTENT"
+				,POST_DATE
+				,EDIT_DATE
+				,STATUS
+				,USER_NO
+				,REVIEW_NO)
+				  VALUES (
+				  SEQ_REVIEW_NO.NEXTVAL,
+				  #{groupNo},
+				  DEFAULT,
+				  DEFAULT,
+				  #{content},
+				  DEFAULT,
+				  DEFAULT,
+				  DEFAULT,
+				  #{userNo},
+				  #{reviewNo}
+				  );
+	</insert>
+	
+	
 	<select id="searchSUserNo" parameterType="_int" resultMap="reviewResultMap">
 		SELECT  R.REVIEW_NO,
 				R.TITLE,
@@ -145,5 +197,8 @@
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE R.S_USER_NO = #{userNo}
 	</select>
-
 </mapper>
+
+
+
+

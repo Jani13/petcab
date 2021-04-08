@@ -32,4 +32,6 @@ public class Member {
 	
 	private Date modifyDate;
 	
+	private int rowNum;
+	
 }

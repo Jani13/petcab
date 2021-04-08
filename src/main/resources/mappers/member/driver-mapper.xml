@@ -16,13 +16,45 @@
 		FROM DRIVER
 	</sql>
 	
+	<sql id="selectDriverMemberSql">
+		SELECT M.USER_NAME,
+			D.USER_NO,
+			D.CAR_TYPE,
+			D.CAR_NO,
+			D.ABOUT,
+			D.IMAGE_ORI,
+			D.IMAGE_RE,
+			D.STATUS
+		FROM DRIVER D
+		JOIN MEMBER M ON (D.USER_NO=M.USER_NO)
+	</sql>
+	
 	<resultMap type="Driver" id="DriverResultMap">
 		<id property="userNo" column="USER_NO"/>
+		<result property="userName" column="USER_NAME"/>
 		<result property="carType" column="CAR_TYPE"/>
 		<result property="carNo" column="CAR_NO"/>
 		<result property="about" column="ABOUT"/>
 		<result property="imageOri" column="IMAGE_ORI"/>
 		<result property="imageRe" column="IMAGE_RE"/>
+		<result property="status" column="STATUS"/>
+		<result property="rowNum" column="ROWNUM"/>
+		<association property="member" resultMap="MemberResultMap" />
+
+	</resultMap>
+		
+	<resultMap type="Member" id="MemberResultMap">
+		<id property="userNo" column="USER_NO"/>
+		
+		<result property="userName" column="USER_NAME"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="postCode" column="POSTCODE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="phone" column="PHONE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="userType" column="USER_TYPE"/>
 	</resultMap>
 
 	<select id="selectDriverCount" resultType="_int">
@@ -59,5 +91,56 @@
 		     DEFAULT
 		 )
 	</insert>
+	
+	<select id="selectDriverMember" parameterType="_int" 
+		resultMap="DriverResultMap, MemberResultMap">
+		<include refid="selectDriverMemberSql"></include>
+		WHERE D.USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectWaitDrivers" parameterType="_int" 
+		resultMap="DriverResultMap">
+		SELECT ROWNUM, USER_NAME, USER_NO, CAR_TYPE, CAR_NO, ABOUT,ADDRESS,PHONE,
+		IMAGE_ORI, IMAGE_RE, STATUS
+		FROM (
+			SELECT M.USER_NAME,
+				D.USER_NO,
+				D.CAR_TYPE,
+				D.CAR_NO,
+				D.ABOUT,
+				M.ADDRESS,
+				M.PHONE,
+				D.IMAGE_ORI,
+				D.IMAGE_RE,
+				D.STATUS
+			FROM DRIVER D
+			JOIN MEMBER M ON (D.USER_NO=M.USER_NO)
+			WHERE D.STATUS = 'W'
+		)
+        ORDER BY ROWNUM
+	</select>
+	
+	<select id="selectDrivers" parameterType="_int" 
+		resultMap="DriverResultMap">
+		SELECT ROWNUM, USER_NAME, USER_NO, USER_ID, CAR_TYPE, CAR_NO, ABOUT,ADDRESS,PHONE,
+		IMAGE_ORI, IMAGE_RE, STATUS
+		FROM (
+			SELECT M.USER_NAME,
+				D.USER_NO,
+				M.USER_ID,
+				D.CAR_TYPE,
+				D.CAR_NO,
+				D.ABOUT,
+				M.ADDRESS,
+				M.PHONE,
+				D.IMAGE_ORI,
+				D.IMAGE_RE,
+				D.STATUS
+			FROM DRIVER D
+			JOIN MEMBER M ON (D.USER_NO=M.USER_NO)
+			WHERE D.STATUS = 'Y' OR D.STATUS='N'
+		)
+        ORDER BY ROWNUM
+	</select>
 	
 </mapper>

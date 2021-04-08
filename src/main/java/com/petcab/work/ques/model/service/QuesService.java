@@ -9,6 +9,8 @@ import com.petcab.work.ques.model.vo.QuesReply;
 public interface QuesService {
 
 	List<Ques> getQuesList(PageInfo pageInfo);
+	
+	List<Ques> getQuesList2(PageInfo pageInfo, String searchOption, String keyword);
 
 	int getQuesCount();
 
@@ -25,5 +27,7 @@ public interface QuesService {
 	QuesReply findQuesReplyByNo(int quesNo);
 
 	int deleteReply(int quesNo);
+
+	List<Ques> getQuesListForAdmin();
 
 }

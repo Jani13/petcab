@@ -64,7 +64,7 @@
 	</select>
 	
 	<select id="selectTodayPaymentAmount" resultType="_int">
-		SELECT SUM(PAID_AMOUNT)
+		SELECT NVL((SUM(PAID_AMOUNT)),0)
 		FROM PAYMENT
 		WHERE TO_CHAR(PAYMENT_DATE, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd') 
 		AND STATUS = 'Y'

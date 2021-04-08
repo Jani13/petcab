@@ -109,12 +109,12 @@
                   <tr>
                     <th scope="row">* 비밀번호 *</th>
                     <td><input type="password" id="password" class="form-control" 
-                    		name="quesPwd" placeholder="숫자만 입력하세요."></td>
+                    		name="quesPwd" placeholder="비공개 설정입니다."></td>
                   </tr>
                   <tr>
                     <th scope="row">* 제목 *</th>
                     <td>
-                    	<input type="text" id="title" class="form-control" name="title" placeholder="제목을 입력하세요.">
+                    	<input type="text" id="title" class="form-control" name="title" placeholder="제목을 입력하세요." required>
                     	<input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->
                     </td>
   
@@ -125,7 +125,7 @@
                         <!-- ====  스마트 에디터  ===== -->
                         <div class="editor-box">
                           <div class="editor-box__editor">
-                              <textarea name="content" id="ir1" rows="10" cols="100" style="resize: vertical"></textarea>
+                              <textarea name="content" id="ir1" rows="10" cols="100" style="resize: vertical" required></textarea>
                               <script type="text/javascript">
                  						 CKEDITOR.replace('ir1', {height: 300});
                   				</script>
@@ -136,7 +136,7 @@
                               <input type="submit" class="btn btn-primary" id="partnerSubmit" value="작성완료"> 
                           </span>
                           <span>
-                              <input type="button" class="btn btn-secondary" id="partnerCancel" 
+                              <input type="reset" class="btn btn-secondary" id="partnerCancel" 
                               			onclick="location.replace('${path}/ques/list')" value="취소하기">
                           </span>
                       </div>

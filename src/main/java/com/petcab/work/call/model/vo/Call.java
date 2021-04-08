@@ -1,9 +1,11 @@
 package com.petcab.work.call.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Driver;
 
 import lombok.AllArgsConstructor;
@@ -33,11 +35,13 @@ public class Call {
 	
 //	private int dUserNo;
 	
-	private String animalNoA;
+	private List<Dog> dogs;
 	
-	private String animalNoB;
-	
-	private String animalNoC;
+//	private String animalNoA;
+//	
+//	private String animalNoB;
+//	
+//	private String animalNoC;
 	
 	private String merchantUid;
 	

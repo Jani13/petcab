@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.review.model.dao.ReviewDao;
+import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,12 @@ public class ReviewServiceImpl implements ReviewService{
 	@Transactional
 	public int saveReview(Review review) {
 		int result = 0;
-		result = reviewDao.insertReview(review);
-//			result = reviewDao.updateReview(review);
+		
+		if(review.getReviewNo() > 0) {
+			result = reviewDao.updateReview(review);
+		} else{
+			result = reviewDao.insertReview(review);
+		}
 		
 		return result;
 	}
@@ -55,10 +60,26 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
+	public int updateViewNo(int reviewNo) {
+		
+		return reviewDao.updateViewNo(reviewNo);
+	}
+
+	@Override
+	public int delete(int reviewNo) {
+		System.out.println("aaaaaaaaaaaaaaaaaaa" + reviewNo);
+		return reviewDao.delete(reviewNo);
+	}
+
+	@Override
+	public int saveRReply(RReply rReply) {
+		
+		return reviewDao.insertRRely(rReply);
+	}
+	
 	public List<Review> searchSUserNo(int userNo) {
+		
 		return reviewDao.searchSUserNo(userNo);
 	}
 
-	
-	
 }

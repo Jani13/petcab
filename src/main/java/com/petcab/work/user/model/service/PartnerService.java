@@ -8,6 +8,13 @@ public interface PartnerService {
 
 	int savePartner(Partner partner);
 
-	List<Partner> ptListSearchYes();
+	List<Partner> ptSearchHospital();
 
+
+	List<Partner> ptSearchKinderGarten();
+
+	List<Partner> ptSearchShop();
+
+	Partner selectPartner(int userNo);
+	
 }

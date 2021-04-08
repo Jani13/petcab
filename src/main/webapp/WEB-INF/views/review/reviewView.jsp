@@ -73,17 +73,19 @@
                 ${review.content}
             </div>
             
+            <hr>
+            
             <div style="text-align : center; padding: 30px;">
                 <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="수정하기"> 
+                    <input type="submit" class="btn btn-primary" id="partnerSubmit" onclick="updateReview()" value="수정하기"> 
                 </span>
                 <span>
-                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="삭제하기">
+                    <input type="button" class="btn btn-secondary" id="partnerCancel" onclick="deleteReview()" value="삭제하기">
                 </span>
             </div>
 
             <hr>
-
+            
             <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
                 <div class="card-body">
                     <h3>댓글</h3>
@@ -98,12 +100,12 @@
             </div>
             <div class="form-floating">
             
-                <input type="hidden" name="reviewboardNo" value="">
-	    		<input type="hidden" name="writer" value="">
     		 <form action="">
+    		 	<input type="hidden" name="reviewNo" value="${review.reviewNo }">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
                 <label for="floatingTextarea2">Comments</label>
-                <input type="button" class="btn btn-secondary" id="partnerCancel" value="등록">
+                <input type="button" class="btn btn-secondary" id="partnerCancel"
+                			onclick="insertRRely()" value="등록">
              </form>
             </div>
             <br>
@@ -127,7 +129,8 @@
 
               <div style="text-align : center; padding: 30px;">
                 <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="뒤로가기"> 
+                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="뒤로가기"
+                    		onclick="location.replace('${path}/review/list')"> 
                 </span>
                 <span>
                     <input type="button" class="btn btn-secondary" id="partnerCancel" value="확인">
@@ -137,6 +140,16 @@
         </div>
     </section>
     <jsp:include page="../common/footer.jsp" />
+	<script>
+	function updateReview(){
+		location.href= "${path}/review/update?reviewNo=${review.reviewNo}";
+	}
 
+	function deleteReview(){		
+		if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
+			location.replace('${path}/review/delete?reviewNo=${review.reviewNo}');
+		}
+	}
+	</script>
 </body>
 </html>
