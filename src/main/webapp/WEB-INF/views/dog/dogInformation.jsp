@@ -315,8 +315,8 @@
                         <div style="text-align:center;">
                     	<button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
                    			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;" onclick="addForm();">등록추가</button>
-                    	<button type="button" class="btn btn-outline-danger" data-bs-toggle="collapse"
-                   			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 10px" onclick="delForm();">삭제</button>
+<!--                     	<button type="button" class="btn btn-outline-danger" data-bs-toggle="collapse"
+                   			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 10px" onclick="delForm();">삭제</button> -->
                    		  <button type="submit" class="btn btn-outline-info" style="margin-left: 200px;" >확인</button>
                   		 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
          	       		</div>
@@ -342,7 +342,7 @@
                                         "<th style='width: 130px;''>등록번호</th>"+
                                         "<td>"+
                                             "<div class='input-group mb-2'>"+
-                                                "<input type='text' class='form-control' name='animalNo' placeholder='동물등록증 등록번호 입력해주세요.'aria-describedby='button-addon2' required>"+
+                                                "<input type='text' class='form-control' name='animalNo'+count placeholder='동물등록증 등록번호 입력해주세요.'aria-describedby='button-addon2' required>"+
                                             "</div>"+
                                         "</td>"+
                                     "</tr>"+
@@ -350,7 +350,7 @@
                                         "<th>품 종</th>"+
                                         "<td>"+
                                             "<div class='input-group mb-2'>"+
-                                                "<select class='form-select' aria-label='Default select example' name='dogType'>"+
+                                                "<select class='form-select' aria-label='Default select example' name='dogType'+count>"+
                                                    "<option selected> - 선택 - </option>"+
                                                    "<option value='골든 리트리버'>골든 리트리버</option>"+
                                                    "<option value='그레이트 피레니즈'>그레이트 피레니즈</option>"+
@@ -469,7 +469,7 @@
                                     "<th style='width: 130px;'>애 견 명</th>"+
                                     "<td>"+
                                         "<div class='input-group mb-2'>"+
-                                            "<input type='text' class='form-control' name='dogName' placeholder='이름 입력해주세요.'>"+
+                                            "<input type='text' class='form-control' name='dogName'+count placeholder='이름 입력해주세요.'>"+
                                         "</div>"+
                                     "</td>"+
                                     "</tr>"+
@@ -477,7 +477,7 @@
                                         "<th style='width: 130px;'>애견 사진</th>"+
                                         "<td>"+
                                             "<div class='input-group mb-2'>"+
-                                                "<input type='file' class='form-control' name='imageOri' id='inputGroupFile02'>"+
+                                                "<input type='file' class='form-control' name='upfile'+count id='inputGroupFile02'>"+
                                             "</div>"+
                                         "</td>"+
                                     "</tr>"+
@@ -485,7 +485,7 @@
                                         "<th style='width: 130px;'>나이</th>"+
                                         "<td>"+
                                             "<div class='input-group mb-2'>"+
-                                                "<input type='text' class='form-control' name='age' placeholder='숫자만 입력해주세요.'aria-describedby='button-addon2' required>"+
+                                                "<input type='text' class='form-control' name='age'+count placeholder='숫자만 입력해주세요.'aria-describedby='button-addon2' required>"+
                                             "</div>"+
                                         "</td>"+
                                     "</tr>"+
@@ -493,19 +493,19 @@
                                         "<th>예방접종 확인 </th>"+
                                         "<td>"+
                                             "<div class='form-check form-check-inline'>"+
-                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox1' name='vacc' value='DHPPL'>"+
+                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox1' name='vacc'+count value='DHPPL'>"+
                                                 "<label class='form-check-label' for='inlineCheckbox1'>DHPPL</label>"+
                                             "</div>"+
                                             "<div class='form-check form-check-inline'>"+
-                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox2' value='Coronavirus' name='vacc'>"+
+                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox2' value='Coronavirus' name='vacc'+count>"+
                                                 "<label class='form-check-label' for='inlineCheckbox2'>Coronavirus</label>"+
                                             "</div>"+
                                             "<div class='form-check form-check-inline'>"+
-                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox1'value='KennelCough' name='vacc'>"+
+                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox1'value='KennelCough' name='vacc'+count>"+
                                                 "<label class='form-check-label' for='inlineCheckbox1'>Kennel Cough</label>"+
                                             "</div>"+
                                             "<div class='form-check form-check-inline'>"+
-                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox2' value='광견병' name='vacc'>"+
+                                                "<input class='form-check-input' type='checkbox' id='inlineCheckbox2' value='광견병' name='vacc'+count>"+
                                                 "<label class='form-check-label' for='inlineCheckbox2'>광견병</label>"+
                                             "</div>"+
                                         "</td>"+
@@ -517,13 +517,13 @@
                                 "<p style='font-size: 20px;'><br> 애견 질병 작성 </p>"+
                                 "<div class='editor-box'>"+
                                     "<div class='editor-box__editor'>"+
-                                        "<textarea name='disorder' id='' rows='5' cols='80' placeholder='질병이 있을 경우 작성해주세요~'></textarea>"+
+                                        "<textarea name='disorder'+count id='' rows='5' cols='80' placeholder='질병이 있을 경우 작성해주세요~'></textarea>"+
                                     "</div>"+
                                 "</div>"+
                                 "<p style='font-size: 20px;'><br> 기타 사항 </p>"+
                                 "<div class='editor-box'>"+
                                     "<div class='editor-box__editor'>"+
-                                        "<textarea name='other' id='' rows='5' cols='80' placeholder='이용시 반영됩니다.'></textarea>"+
+                                        "<textarea name='other'+count id='' rows='5' cols='80' placeholder='이용시 반영됩니다.'></textarea>"+
                                     "</div>"+
                                 "</div>"+
                                 "<br>"+
@@ -549,7 +549,7 @@
 
 
 
-            function delForm() {
+           /*  function delForm() {
 
                 var addedFormDiv = document.getElementById("addedFormDiv");
 
@@ -569,7 +569,7 @@
 
                 }
 
-            }
+            } */
     </script>
 </body>
 </html>

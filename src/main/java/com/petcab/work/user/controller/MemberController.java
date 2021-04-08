@@ -210,7 +210,8 @@ public class MemberController {
 		List<Dog> dog = dogService.searchUserId(loginMember.getUserId());
 		List<Call> useCall = callService.useCallUserId(loginMember.getUserId());
 		List<Call> endCall = callService.endCallUserId(loginMember.getUserId());
-
+		
+		log.info(dog.toString());
 		log.info(useCall.toString());
 		log.info(endCall.toString());
 

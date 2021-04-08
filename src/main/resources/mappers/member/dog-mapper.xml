@@ -104,12 +104,11 @@
 	</select>
 	
 
-	<update id="updatedog" parameterType="Dog">
+  <update id="dogupdate" parameterType="Dog">
 		UPDATE DOG 
 		SET 
 			DOG_NAME=#{dogName},
 			AGE=#{age},
-			VACC=#{vacc},
 			DISORDER=#{disorder},
 			OTHER=#{other},
 			<if test="imageOri != null">
@@ -121,7 +120,7 @@
 				MODIFY_DATE=SYSDATE 
 		WHERE 
 			DOG_NO=#{dogNo}
-	</update>	
+	</update>	 
 
 	
 </mapper>

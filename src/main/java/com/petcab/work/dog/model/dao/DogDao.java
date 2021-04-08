@@ -9,13 +9,13 @@ import com.petcab.work.user.model.vo.Member;
 
 @Mapper
 public interface DogDao {
-	int insertdog(Dog dog);
+	int insertDog(Dog dog);
 
-	int updatedog(Dog dog);
+//	int updateDog(Dog dog);
 
 	List<Dog> searchUserId(String userId);
 
-//	int updatedog(Dog dog);
+
 
 
 }
