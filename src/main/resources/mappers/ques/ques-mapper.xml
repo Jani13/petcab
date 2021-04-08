@@ -39,7 +39,7 @@
 	
 		<resultMap type="Ques" id="quesDetailResultMap">
 		<id property="quesNo" column="QUES_NO"/>
-		<result property="userId" column="M_USER_ID"/>
+		<result property="userId" column="M.USER_ID"/>
 		<result property="title" column="TITLE"/>
 		<result property="content" column="CONTENT"/>
 		<result property="viewNo" column="VIEW_NO"/>
@@ -59,7 +59,16 @@
 	
 	<select id="selectQuesList" parameterType="map" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>
-		WHERE Q.STATUS = 'Y'
+				
+		WHERE Q.STATUS = 'Y'		
+		ORDER BY Q.QUES_NO DESC
+	</select>
+	
+	<select id="selectQuesList2" parameterType="map" resultMap="quesResultMap">
+		<include refid="quesListSql"></include>
+				
+		WHERE Q.STATUS = 'Y'		
+		AND ${searchOption} like '%'||#{keyword}||'%'
 		ORDER BY Q.QUES_NO DESC
 	</select>
 	

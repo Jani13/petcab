@@ -32,11 +32,11 @@ public class QuesController {
 	public ModelAndView list(
 			ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
-		
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {	
+
 		List<Ques> list = null;
 		int quesCount = service.getQuesCount();
-//		PageInfo pageInfo = new PageInfo(page, 10, 100, listLimit);
+
 		PageInfo pageInfo = new PageInfo(page, 10, quesCount, listLimit);
 		
 		
@@ -52,6 +52,39 @@ public class QuesController {
 		
 		return model;
 	}
+	
+	@RequestMapping(value="/list/search", method={RequestMethod.GET})
+	public ModelAndView list(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit, 
+			@RequestParam(defaultValue="userId") String searchOption, 	
+            @RequestParam(defaultValue="") String keyword, 
+								HttpServletRequest request) {				 
+			
+		
+		System.out.println(request.getParameter("searchOption"));
+		System.out.println(request.getParameter("keyword"));
+		
+		List<Ques> list = null;
+		int quesCount = service.getQuesCount();
+
+		PageInfo pageInfo = new PageInfo(page, 10, quesCount, listLimit);
+		
+		
+		System.out.println(quesCount);
+		
+		list = service.getQuesList2(pageInfo, searchOption, keyword);
+		
+//		log.info(list.toString());
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("ques/quesList");
+		
+		return model;
+	}
+	
 	
 	@RequestMapping(value="/write", method={RequestMethod.GET})
 	public String writeView() {		
