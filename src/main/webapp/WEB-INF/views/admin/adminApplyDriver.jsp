@@ -79,30 +79,35 @@
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
-                  <th scope="col">날짜</th>
+                  <th scope="col">회원번호</th>
                   <th scope="col">이름</th>
-                  <th scope="col">성별</th>
-                  <th scope="col">연령</th>
-                  <th scope="col">주소</th>
-                  <th scope="col">연락처</th>
-                  <th scope="col">차량번호</th>
+                  <th scope="col">차종류</th>
+                  <th scope="col">차번호</th>
                   <th scope="col">승인</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2021/4/26</td>
-                  <td>adminApplyDriver</td>
-                  <td>여</td>
-                  <td>20대</td>
-                  <td>경기도 성남시 분당구 양현로 479 2층</td>
-                  <td>010-1234-5678</td>
-                  <td>18마 7365</td>
-                  <td>&nbsp; Y &nbsp; 
-                    <button type="button" class="btn btn-outline-info">삭제</button>
-                  </td>
-                </tr>    
+                <c:if test="${waitDrivers == null }">
+	                <tr>
+	                	<th></th>
+	                	<td>신청한 회원이 없습니다.
+	                	</td>
+	                </tr>
+                </c:if>
+                <c:if test="${waitDrivers != null }">
+					<c:forEach var="driver" items="${waitDrivers}" end="2">
+		                <tr>
+		                  <th scope="row">${driver.rowNum }</th>
+		                  <td>${driver.userNo }</td>
+		                  <td>${driver.userName }</td>
+		                  <td>${driver.carType }</td>
+		                  <td>${driver.carNo }</td>
+		                  <td>
+		                    <button type="button" class="btn btn-outline-info">승인</button>
+		                  </td>
+		                </tr>
+	                </c:forEach>
+                </c:if>    
               </tbody>
             </table>
             <div
