@@ -39,7 +39,6 @@ public class AdminController {
 		
 		System.out.println("총 회원수 : " + memberCount);
 		
-		
 		model.addObject("memberCount", memberCount);
 		model.addObject("amountAll", amountAll);
 		model.addObject("allCall", allCall);
