@@ -1,5 +1,7 @@
 package com.petcab.work.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.payment.model.service.PaymentService;
+import com.petcab.work.ques.model.service.QuesService;
+import com.petcab.work.ques.model.vo.Ques;
 import com.petcab.work.user.model.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,16 +30,19 @@ public class AdminController {
 	@Autowired
 	private CallService callService;
 	
+	@Autowired
+	private QuesService quesService;
+	
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
 		
-		//  amountAll 은 DB에 오늘날짜로 된 데이터가 없으면 에러가 납니다. 처리해야함.
 		int memberCount = service.getMemberCount();
 		int amountAll = paymentService.selectAmount();
 		int allCall = callService.selectAllCall();
 		int genCall = callService.selectGenCall();
 		int emergCall = callService.selectEmergCall();
 		int cancelledCall = callService.selectCancelledCall();
+		List<Ques> list = quesService.getQuesListForAdmin();
 		
 		System.out.println("총 회원수 : " + memberCount);
 		
@@ -45,6 +52,7 @@ public class AdminController {
 		model.addObject("genCall", genCall);
 		model.addObject("emergCall", emergCall);
 		model.addObject("cancelledCall", cancelledCall);
+		model.addObject("list", list);
 		model.setViewName("admin/adminMain");
 		
 		return model;

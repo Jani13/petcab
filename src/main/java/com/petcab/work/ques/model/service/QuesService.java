@@ -26,4 +26,6 @@ public interface QuesService {
 
 	int deleteReply(int quesNo);
 
+	List<Ques> getQuesListForAdmin();
+
 }

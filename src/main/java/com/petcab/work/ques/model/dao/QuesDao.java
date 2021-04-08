@@ -29,4 +29,6 @@ public interface QuesDao {
 
 	int deleteReply(int quesNo);
 
+	List<Ques> selectQuesList();
+
 }

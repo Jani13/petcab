@@ -88,4 +88,10 @@ public class QuesServiceImpl implements QuesService {
 		return quesDao.deleteReply(quesNo);
 	}
 
+	@Override
+	public List<Ques> getQuesListForAdmin() {
+		
+		return quesDao.selectQuesList();
+	}
+
 }
