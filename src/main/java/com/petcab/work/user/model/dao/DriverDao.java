@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.vo.Driver;
 
 @Mapper
@@ -21,5 +22,9 @@ public interface DriverDao {
 	List<Driver> selectDriverAll();
 
 	List<Driver> selectDrivers();
+
+	int selectDriverCount();
+
+	List<Driver> selectDrivers(PageInfo pageInfo);
 
 }

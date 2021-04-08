@@ -102,19 +102,19 @@ public class AdminController {
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		/*
-		 * List<Driver> driverList = null; int quesCount = service.getDriverCount();
-		 * PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
-		 * 
-		 * driverList = service.rNumSelectAllDriver(pageInfo);
-		 * 
-		 * log.info(driverList.toString());
-		 * 
-		 * model.addObject("driverList", driverList); model.addObject("pageInfo",
-		 * pageInfo); model.setViewName("admin/adminUserInfoMain");
-		 */
 		
-		
+		List<Driver> driverList = null; 
+		int quesCount = driverService.getDriverCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		  
+		driverList = driverService.rNumSelectDrivers(pageInfo);
+		  
+		log.info(driverList.toString());
+		  
+		model.addObject("driverList", driverList);
+		model.addObject("pageInfo",pageInfo); 
+		model.setViewName("admin/adminUserInfoDriver");
+		 	
 		return model;
 	}
 

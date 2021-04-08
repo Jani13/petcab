@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.dao.DriverDao;
 import com.petcab.work.user.model.vo.Driver;
 
@@ -47,6 +48,17 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public List<Driver> selectDrivers() {
 		return driverDao.selectDrivers();
+	}
+
+	@Override
+	public int getDriverCount() {
+		return driverDao.selectDriverCount();
+	}
+
+	@Override
+	public List<Driver> rNumSelectDrivers(PageInfo pageInfo) {
+		
+		return driverDao.selectDrivers(pageInfo);
 	}
 
 }
