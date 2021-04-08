@@ -37,6 +37,7 @@
 		<result property="about" column="ABOUT"/>
 		<result property="imageOri" column="IMAGE_ORI"/>
 		<result property="imageRe" column="IMAGE_RE"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 		
 	<resultMap type="Member" id="MemberResultMap">

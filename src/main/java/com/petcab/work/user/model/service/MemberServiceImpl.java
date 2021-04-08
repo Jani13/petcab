@@ -2,11 +2,13 @@ package com.petcab.work.user.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.dao.MemberDao;
 import com.petcab.work.user.model.vo.Member;
 
@@ -94,6 +96,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> selectMemberAddr() {
 		return memberDao.selectPartnerAddr();
+	}
+
+	// adminPage 모든 멤버 조회 리스트
+	@Override
+	public List<Member> selectAllMember(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return memberDao.rNumSelectMemberAll(rowBounds);
 	}
 
 }

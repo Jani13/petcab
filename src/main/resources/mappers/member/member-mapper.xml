@@ -35,6 +35,7 @@
 		<result property="modifyDate" column="MODIFY_DATE"/>
 		<result property="status" column="STATUS"/>
 		<result property="userType" column="USER_TYPE"/>
+		<result property="rowNum" column="ROWNUM"/>
 	</resultMap>
 
 	<select id="selectCount" resultType="_int">
@@ -128,4 +129,20 @@
 		WHERE P.USER_NO = M.USER_NO AND P.STATUS = 'Y'
 	</select>
 	
+	<select id="rNumSelectMemberAll" resultMap="memberResultMap">
+		SELECT ROWNUM,
+       		   USER_NO,
+               USER_TYPE,
+       	  	   USER_ID,
+       		   USER_NAME,
+       		   PHONE,
+       		   STATUS
+		FROM 
+			(
+			    SELECT
+			    *
+			    FROM MEMBER
+			    ORDER BY ROWNUM
+			)
+	</select>
 </mapper>

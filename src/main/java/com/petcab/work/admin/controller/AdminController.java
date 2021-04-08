@@ -2,17 +2,23 @@ package com.petcab.work.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
 import com.petcab.work.user.model.service.MemberService;
+import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,36 +64,45 @@ public class AdminController {
 		return model;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public String infoMain() {
-
-		return "admin/adminUserInfoMain";
+	public ModelAndView infoMain(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit){
+		
+		List<Member> memberList = null;
+		int quesCount = service.getMemberCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+				
+		memberList = service.selectAllMember(pageInfo);
+		
+		log.info(memberList.toString());
+		
+		model.addObject("memberList", memberList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoMain");
+		
+		return model;
 	}
 	
 	@RequestMapping(value = "/info/driver", method = RequestMethod.GET)
-	public String infoDriver() {
+	public ModelAndView infoDriver(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		return "admin/adminUserInfoDriver";
+		/*
+		 * List<Driver> driverList = null; int quesCount = service.getDriverCount();
+		 * PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		 * 
+		 * driverList = service.rNumSelectAllDriver(pageInfo);
+		 * 
+		 * log.info(driverList.toString());
+		 * 
+		 * model.addObject("driverList", driverList); model.addObject("pageInfo",
+		 * pageInfo); model.setViewName("admin/adminUserInfoMain");
+		 */
+		
+		
+		return model;
 	}
 
 	@RequestMapping(value = "/info/user", method = RequestMethod.GET)
