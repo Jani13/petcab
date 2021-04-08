@@ -45,6 +45,7 @@
 		
 	<resultMap type="Member" id="MemberResultMap">
 		<id property="userNo" column="USER_NO"/>
+		
 		<result property="userName" column="USER_NAME"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="userPwd" column="USER_PWD"/>
@@ -121,11 +122,12 @@
 	
 	<select id="selectDrivers" parameterType="_int" 
 		resultMap="DriverResultMap">
-		SELECT ROWNUM, USER_NAME, USER_NO, CAR_TYPE, CAR_NO, ABOUT,ADDRESS,PHONE,
+		SELECT ROWNUM, USER_NAME, USER_NO, USER_ID, CAR_TYPE, CAR_NO, ABOUT,ADDRESS,PHONE,
 		IMAGE_ORI, IMAGE_RE, STATUS
 		FROM (
 			SELECT M.USER_NAME,
 				D.USER_NO,
+				M.USER_ID,
 				D.CAR_TYPE,
 				D.CAR_NO,
 				D.ABOUT,

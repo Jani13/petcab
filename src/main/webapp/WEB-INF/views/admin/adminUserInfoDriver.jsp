@@ -71,23 +71,35 @@
                         <thead>
                           <tr>
                             <th scope="col">No</th>
-                            <th scope="col">타입</th>
                             <th scope="col">아이디</th>
                             <th scope="col">이름</th>
                             <th scope="col">연락처</th>
-                            <th scope="col">가입상태</th>
+                            <th scope="col">주소</th>
+                            <th scope="col">차량번호</th>
+                            <th scope="col">승인</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>드라이버</td>
-                            <td>user1</td>
-                            <td>고구마</td>
-                            <td>010-0000-0000</td>
-                            <td>Y</td>
-                          </tr>
-                          
+                        	<c:if test="${driverList == null}">                       	
+	                        	<tr>
+	                        		<td colspan="6">
+	                        			회원이 존재하지 않습니다.
+	                        		</td>
+	                        	</tr>
+                        	</c:if>
+                        	<c:if test="${driverList != null }">
+                        		<c:forEach var="driver" items="${driverList}">
+		                          <tr>
+				                      <td>${driver.rowNum}</td>
+				                      <td>${driver.member.userId}</td>
+				                      <td>${driver.userName}</td>
+				                      <td>${driver.member.phone}</td>
+				                      <td>${driver.member.address}</td>
+				                      <td>${driver.carNo}</td>
+				                      <td>${driver.status}</td>
+		                          </tr>
+                        		</c:forEach>
+                        	</c:if> 
                         </tbody>
                       </table>
                       <!-- 페이징 부분 -->

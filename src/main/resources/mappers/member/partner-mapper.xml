@@ -33,7 +33,15 @@
 	<resultMap type="member" id="MemberResultMap">
 		<id property="userNo" column="USER_NO"/>
 		
+		<result property="userName" column="USER_NAME"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="postCode" column="POSTCODE"/>
 		<result property="address" column="ADDRESS"/>
+		<result property="phone" column="PHONE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="userType" column="USER_TYPE"/>
 	</resultMap>
 	
 	<insert id="insertPartner" parameterType="Partner"
@@ -110,6 +118,13 @@
 		<include refid="selectPartnerSql"></include>
 		WHERE USER_NO = #{userNo}
 	</select>
+	
+	<select id="selectPartnerCount" resultType="_int">
+		SELECT COUNT(*) FROM PARTNER
+	</select>
 
-
+	<select id="selectPartners" parameterType="_int" resultMap="PartnerResultMap">
+		SELECT ROWNUM, 
+		<!-- 2021/04/08 이슬 어드민에 숫자붙이기 하는중 -->
+	</select>
 </mapper>
