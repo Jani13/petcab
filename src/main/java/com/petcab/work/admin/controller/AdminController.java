@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
+import com.petcab.work.user.model.service.DriverService;
 import com.petcab.work.user.model.service.MemberService;
+import com.petcab.work.user.model.service.PartnerService;
+import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,12 +31,20 @@ public class AdminController {
 	
 	@Autowired
 	private PaymentService paymentService;
-	
+
 	@Autowired
 	private CallService callService;
 	
 	@Autowired
 	private QuesService quesService;
+
+	@Autowired
+	private DriverService driverService;
+	
+
+	@Autowired
+	private PartnerService partnerService;
+	
 	
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
@@ -122,14 +135,53 @@ public class AdminController {
 	public String apply() {
 
 		return "admin/adminApply";
-	}@RequestMapping(value = "/apply/driver", method = RequestMethod.GET)
-	public String applyDriver() {
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/apply/driver", method = RequestMethod.GET)
+	public ModelAndView applyDriver(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model){
+		List<Driver> waitDrivers = driverService.selectWaitDrivers();
+		List<Driver> drivers =  driverService.selectDrivers();
+		
+		log.info(waitDrivers.toString());
+		log.info(drivers.toString());
 
-		return "admin/adminApplyDriver";
-	}@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
-	public String applyPartner() {
+		model.addObject("waitDrivers",waitDrivers);
+		model.addObject("drivers",drivers);
+		model.setViewName("admin/adminApplyDriver");
 
-		return "admin/adminApplyPartner";
+		return model;
+	}
+
+	@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
+	public ModelAndView applyPartner(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model) {
+		List<Driver> waitDrivers = driverService.selectWaitDrivers();
+		List<Driver> drivers = driverService.selectDrivers();
+
+		log.info(waitDrivers.toString());
+		log.info(drivers.toString());
+
+		model.addObject(waitDrivers);
+		model.addObject(drivers);
+		model.setViewName("admin/adminApplyDriver");
+
+		return model;
 	}
 
 }

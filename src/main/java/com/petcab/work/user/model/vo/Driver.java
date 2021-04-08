@@ -24,4 +24,8 @@ public class Driver {
 	private String imageRe;
 	
 	private String status;
+	
+	private int rowNum;
+	
+	private Member member;
 }
