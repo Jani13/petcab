@@ -93,8 +93,8 @@
         </c:if>
 	</div>
 
-    <!-- 페이징 파트 -->
-    <div style="display: flex; align-items: center; justify-content: center;">
+    <!-- 페이징 파트 일단 안하는걸로 -->
+    <!-- <div style="display: flex; align-items: center; justify-content: center;">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
@@ -102,7 +102,7 @@
           <li class="page-item">
             <a class="page-link" href="채워야하는 부분">&lt;</a></li>
          
-              <li class="page-item">    <!-- aria-disabled="true" 맞는지 코딩할 때 확인해봐야함 -->
+              <li class="page-item">    aria-disabled="true" 맞는지 코딩할 때 확인해봐야함
                 <a class="page-link" aria-disabled="true" href=""></a></li>
            
           <li class="page-item">
@@ -113,7 +113,7 @@
             <a class="page-link" href="채워야하는부분">&gt;&gt;</a></li>
         </ul>
       </nav>
-    </div>
+    </div> -->
     
   </div>
 </section>

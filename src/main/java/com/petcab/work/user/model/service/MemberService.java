@@ -4,6 +4,7 @@ package com.petcab.work.user.model.service;
 
 import java.util.List;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.vo.Member;
 
 public interface MemberService {
@@ -26,4 +27,6 @@ public interface MemberService {
 	int getMemberCount();
 
 	List<Member> selectMemberAddr();
+
+	List<Member> selectAllMember(PageInfo pageInfo);
 }

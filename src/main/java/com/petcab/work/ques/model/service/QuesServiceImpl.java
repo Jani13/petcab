@@ -101,5 +101,11 @@ public class QuesServiceImpl implements QuesService {
 	}
 
 
+	@Override
+	public List<Ques> getQuesListForAdmin() {
+		
+		return quesDao.selectQuesList();
+	}
+
 
 }
