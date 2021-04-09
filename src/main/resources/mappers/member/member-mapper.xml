@@ -142,7 +142,31 @@
 			    SELECT
 			    *
 			    FROM MEMBER
-			    ORDER BY ROWNUM
 			)
+		ORDER BY ROWNUM
+	</select>
+	
+	<select id="selectAllUsers" resultMap="memberResultMap">
+		SELECT ROWNUM,
+       		   USER_NO,
+               USER_TYPE,
+       	  	   USER_ID,
+       		   USER_NAME,
+       		   PHONE,
+       		   STATUS
+		FROM 
+			(
+			    SELECT
+			    *
+			    FROM MEMBER
+			    WHERE USER_TYPE = 'ROLE_MEMBER'
+			)
+		ORDER BY ROWNUM
+	</select>
+	
+	<select id="selectUserCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM MEMBER
+		WHERE USER_TYPE = 'ROLE_MEMBER'
 	</select>
 </mapper>

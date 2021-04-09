@@ -29,4 +29,8 @@ public interface MemberService {
 	List<Member> selectMemberAddr();
 
 	List<Member> selectAllMember(PageInfo pageInfo);
+
+	List<Member> selectAllUsers(PageInfo pageInfo);
+
+	int getUserCount();
 }

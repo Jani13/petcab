@@ -2,6 +2,7 @@ package com.petcab.work.user.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +58,10 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public List<Driver> rNumSelectDrivers(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
-		return driverDao.selectDrivers(pageInfo);
+		return driverDao.selectAllDrivers(rowBounds);
 	}
 
 }

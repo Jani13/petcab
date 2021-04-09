@@ -34,4 +34,8 @@ public interface MemberDao {
 	 */
 	List<Member> rNumSelectMemberAll(RowBounds rowBounds);
 
+	List<Member> selectAllUsers(RowBounds rowBounds);
+
+	int selectUserCount();
+
 }

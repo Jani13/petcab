@@ -24,6 +24,7 @@ import com.petcab.work.user.model.service.MemberService;
 import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
+import com.petcab.work.user.model.vo.Partner;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -119,15 +120,42 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/info/user", method = RequestMethod.GET)
-	public String infoUser() {
-
-		return "admin/adminUserInfoUser";
+	public ModelAndView infoUser(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+		
+		List<Member> memberList = null;
+		int quesCount = service.getUserCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		memberList = service.selectAllUsers(pageInfo);
+		
+		model.addObject("memberList", memberList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoUser");
+		
+		return model;
 	}
 	@RequestMapping(value = "/info/partner", method = RequestMethod.GET)
-	public String infoCompany() {
-
-		return "admin/adminUserInfoPartner";
+	public ModelAndView infoCompany(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+		
+		List<Partner> partnerList = null;
+		int quesCount = service.getUserCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		partnerList = partnerService.selectPartners(pageInfo);
+		
+		log.info(partnerList.toString());
+		
+		model.addObject("partnerList", partnerList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoPartner");
+		
+		return model;
 	}
+	
 	@RequestMapping(value = "/call/normal", method = RequestMethod.GET)
 	public String callNormal() {
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.user.model.vo.Partner;
 
@@ -22,4 +23,5 @@ public interface PartnerDao {
 
 	List<Partner> selectPtYesList();
 
+	List<Partner> selectAllPartners(RowBounds rowBounds);
 }
