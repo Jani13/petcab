@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 //	adminPage에서 사용
-	// member count
+	// 모든 멤버 카운터
 	@Override
 	public int getMemberCount() {
 		
@@ -117,5 +117,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.applyPartner(userNo);
 	}
 
+	@Override
+	public List<Member> selectAllUsers(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return memberDao.selectAllUsers(rowBounds);
+	}
+	
+	// ROLE_MEMBER만 카운터
+	@Override
+	public int getUserCount() {
+		return memberDao.selectUserCount();
+	}
 
 }

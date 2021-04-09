@@ -24,7 +24,7 @@ public interface DriverDao {
 
 	int selectDriverCount();
 
-	List<Driver> selectDrivers(PageInfo pageInfo);
+	List<Driver> selectAllDrivers(RowBounds rowBounds);
 
 	int getRejectDriverCount();
 

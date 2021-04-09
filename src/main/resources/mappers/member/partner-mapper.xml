@@ -28,6 +28,7 @@
 		<result property="about" column="ABOUT"/>
 		<result property="rowNum" column="ROWNUM"/>
 		<result property="status" column="STATUS"/>
+		<result property="rowNum" column="ROWNUM"/>
 		<association property="member" resultMap="MemberResultMap"/>
 	</resultMap>
 	
@@ -124,9 +125,33 @@
 		SELECT COUNT(*) FROM PARTNER
 	</select>
 
-	<select id="selectPartners" parameterType="_int" resultMap="PartnerResultMap">
+	<select id="selectAllPartners" parameterType="_int" resultMap="PartnerResultMap">
 		SELECT ROWNUM, 
-		<!-- 2021/04/08 이슬 어드민에 숫자붙이기 하는중 -->
+			   USER_NO,
+			   USER_ID,
+			   PARTNER_NAME,
+			   PHONE,
+			   ADDRESS,
+		   	   OPEN_TIME,
+		       IMAGE_ORI,
+		       IMAGE_RE,
+		       ABOUT,
+		       STATUS
+		FROM (
+				SELECT P.USER_NO,
+					   M.USER_ID,
+					   P.PARTNER_NAME,
+					   P.PHONE,
+					   M.ADDRESS,
+					   P.OPEN_TIME,
+					   P.IMAGE_ORI,
+					   P.IMAGE_RE,
+					   P.ABOUT,
+					   P.STATUS
+				FROM PARTNER P
+				JOIN MEMBER M ON (P.USER_NO = M.USER_NO)
+		)
+		ORDER BY ROWNUM
 	</select>
 	
 

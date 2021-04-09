@@ -34,5 +34,7 @@ public interface MemberService {
 
 	int applyPartner(int userNo);
 
-	
+	List<Member> selectAllUsers(PageInfo pageInfo);
+
+	int getUserCount();
 }

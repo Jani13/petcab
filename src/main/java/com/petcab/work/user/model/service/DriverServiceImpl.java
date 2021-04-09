@@ -54,8 +54,10 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public List<Driver> rNumSelectDrivers(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
-		return driverDao.selectDrivers(pageInfo);
+		return driverDao.selectAllDrivers(rowBounds);
 	}
 
 	@Override

@@ -26,4 +26,6 @@ public interface PartnerService {
 
 	int applyPartner(int userNo);
 	
+	List<Partner> selectPartners(PageInfo pageInfo);
+	
 }

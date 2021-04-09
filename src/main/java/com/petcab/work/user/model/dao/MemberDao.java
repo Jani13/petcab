@@ -37,5 +37,9 @@ public interface MemberDao {
 	int applyDriver(int userNo);
 
 	int applyPartner(int userNo);
+	
+	List<Member> selectAllUsers(RowBounds rowBounds);
+
+	int selectUserCount();
 
 }

@@ -31,5 +31,5 @@ public interface PartnerDao {
 
 	int applyPartner(int userNo);
 
-
+	List<Partner> selectAllPartners(RowBounds rowBounds);
 }

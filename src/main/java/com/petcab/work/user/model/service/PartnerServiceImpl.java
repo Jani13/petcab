@@ -70,5 +70,13 @@ public class PartnerServiceImpl implements PartnerService {
 	public int applyPartner(int userNo) {
 		return partnerDao.applyPartner(userNo);
 	}
+	
+	@Override
+	public List<Partner> selectPartners(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return partnerDao.selectAllPartners(rowBounds);
+	}
 
 }
