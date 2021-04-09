@@ -24,4 +24,6 @@ public interface PartnerDao {
 	List<Partner> selectPtYesList();
 
 	List<Partner> selectAllPartners(RowBounds rowBounds);
+
+	int selectPartnerCount();
 }

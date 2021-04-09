@@ -19,5 +19,7 @@ public interface PartnerService {
 	Partner selectPartner(int userNo);
 
 	List<Partner> selectPartners(PageInfo pageInfo);
+
+	int getPartnerCount();
 	
 }

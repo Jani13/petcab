@@ -87,7 +87,7 @@
 	                        		</td>
 	                        	</tr>
                         	</c:if>
-                        	<c:if test="${driverList != null }">
+                        	<c:if test="${driverList != null}">
                         		<c:forEach var="driver" items="${driverList}">
 		                          <tr>
 				                      <td>${driver.rowNum}</td>

@@ -33,4 +33,5 @@ public interface MemberService {
 	List<Member> selectAllUsers(PageInfo pageInfo);
 
 	int getUserCount();
+
 }

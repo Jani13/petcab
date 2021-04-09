@@ -130,6 +130,7 @@
 
 	<resultMap type="Driver" id="DriverResultMap">
 		<id property="userNo" column="USER_NO" />
+		<result property="userName" column="USER_NAME"/>
 		<result property="carNo" column="CAR_NO" />
 		<result property="carType" column="CAR_TYPE" />
 	</resultMap>
@@ -414,6 +415,20 @@
 			AND C.USER_NO = D.USER_NO
 			AND D2.USER_ID = M.USER_ID
 			AND E.USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectGenCallList" resultMap="callResultMap">
+		SELECT G.CALL_NO,
+		       G.TIME,
+		       G.FROM_WHERE,
+		       G.TO_WHERE,
+		       G.STATUS,
+		       G.CALL_TYPE,
+		       M.USER_NAME,
+		       DR.CAR_NO
+		FROM GEN_CALL G
+		JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+		JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) WHERE G.CALL_TYPE = '일반';		
 	</select>
 	
 </mapper>	

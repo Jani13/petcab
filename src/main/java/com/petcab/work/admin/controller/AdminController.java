@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
@@ -86,9 +87,9 @@ public class AdminController {
 		List<Member> memberList = null;
 		int quesCount = service.getMemberCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
-				
+			
 		memberList = service.selectAllMember(pageInfo);
-		
+
 		log.info(memberList.toString());
 		
 		model.addObject("memberList", memberList);
@@ -103,13 +104,12 @@ public class AdminController {
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		
 		List<Driver> driverList = null; 
 		int quesCount = driverService.getDriverCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
 		  
 		driverList = driverService.rNumSelectDrivers(pageInfo);
-		  
+		
 		log.info(driverList.toString());
 		  
 		model.addObject("driverList", driverList);
@@ -124,25 +124,26 @@ public class AdminController {
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 		
-		List<Member> memberList = null;
+		List<Member> onlyUserList = null;
 		int quesCount = service.getUserCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
 		
-		memberList = service.selectAllUsers(pageInfo);
+		onlyUserList = service.selectAllUsers(pageInfo);
 		
-		model.addObject("memberList", memberList);
+		model.addObject("onlyUserList", onlyUserList);
 		model.addObject("pageInfo",pageInfo);
 		model.setViewName("admin/adminUserInfoUser");
 		
 		return model;
 	}
+	
 	@RequestMapping(value = "/info/partner", method = RequestMethod.GET)
 	public ModelAndView infoCompany(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 		
 		List<Partner> partnerList = null;
-		int quesCount = service.getUserCount();
+		int quesCount = partnerService.getPartnerCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
 		
 		partnerList = partnerService.selectPartners(pageInfo);
@@ -157,14 +158,31 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/call/normal", method = RequestMethod.GET)
-	public String callNormal() {
+	public ModelAndView callNormal(ModelAndView model, 
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		return "admin/adminCallinfo";
-	}@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
+		List<Call> callList = null;
+		int quesCount = callService.getGenCallCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		callList = callService.selectGenCallList(pageInfo);
+		
+		log.info(callList.toString());
+		model.addObject("callList", callList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminCallinfo");
+		
+		return model;	
+	}
+	
+	@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
 	public String callEmergency() {
 
 		return "admin/adminCallEminfo";
-	}@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
+	}
+	
+	@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
 	public String callCancel() {
 
 		return "admin/adminCallCancel";
@@ -174,7 +192,9 @@ public class AdminController {
 	public String payReview() {
 
 		return "admin/adminPayReview";
-	}@RequestMapping(value = "/apply", method = RequestMethod.GET)
+	}
+	
+	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public String apply() {
 
 		return "admin/adminApply";

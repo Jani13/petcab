@@ -82,24 +82,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                        	<c:if test="${memberList == null}">
+                        	<c:if test="${onlyUserList == null}">
                         		<tr>
-	                        		<td colspan="7">
+	                        		<td class="text-center" colspan="7">
 	                        			회원이 존재하지 않습니다.
 	                        		</td>
 	                        	</tr>
                         	</c:if>
                         	
-                        	<c:if test="${memberList != null }">
-                        		<c:forEach var="member" items="${memberList}">
+                        	<c:if test="${onlyUserList != null }">
+                        		<c:forEach var="user" items="${onlyUserList}">
 	 	                            <tr>
-				                        <td>${member.rowNum}</td>
-				                        <td>${member.userNo}</td>
-				                        <td>${member.userId}</td>
-				                        <td>${member.userName}</td>
-				                        <td>${member.phone}</td>
+				                        <td>${user.rowNum}</td>
+				                        <td>${user.userNo}</td>
+				                        <td>${user.userId}</td>
+				                        <td>${user.userName}</td>
+				                        <td>${user.phone}</td>
 				                        <td>(+)</td>
-				                        <td>${member.status}</td>
+				                        <td>${user.status}</td>
 		                            </tr>
                         		</c:forEach>
                         	</c:if>

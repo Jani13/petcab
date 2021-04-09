@@ -77,7 +77,7 @@
 		     SYSDATE,
 		     SYSDATE,		      	
 		     DEFAULT,
-		     #{userType}
+		     DEFAULT
 		 )
 	</insert>
 	

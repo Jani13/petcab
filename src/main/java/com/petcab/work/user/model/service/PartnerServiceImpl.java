@@ -57,4 +57,12 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.selectAllPartners(rowBounds);
 	}
 
+	@Override
+	public int getPartnerCount() {
+		
+		return partnerDao.selectPartnerCount();
+	}
+
+	
+
 }
