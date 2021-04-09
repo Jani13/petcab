@@ -3,15 +3,16 @@ package com.petcab.work.call.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
-import com.petcab.work.user.model.service.DriverService;
+import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
@@ -33,12 +34,15 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @ControllerAdvice // Model에 글로벌 값을 넣을 수 있다.
 @RequestMapping("/call")
-public class CallController {
+public class CallController {	
 	@Autowired
-	private DriverService dService;
+	private CallService callService;
+	
+//	@Autowired
+//	private DriverService driverService;
 
 	@Autowired
-	private CallService cService;
+	private DogService dogService;
 
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
@@ -48,26 +52,28 @@ public class CallController {
 	}
 
 	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book/done", method = {RequestMethod.POST})
+	@RequestMapping(value = "/book", method = {RequestMethod.POST})
 	public ModelAndView book(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@ModelAttribute Call call,
 			ModelAndView model) {
-		// 애견정보 추가 필요
 		
 		Stream<String> stream = Arrays.stream(dogNos);
 		
-		log.info(dogNos.toString()); // dogNo는 잘 가져오는데...
+		log.info(dogNos.toString());
 		
 		List<Dog> dogs = new ArrayList<>();
 		
+		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
 		stream.forEach(dogNo -> {
-			if(!dogNo.equals("")) { // 값이 있으면
-				dogs.add(new Dog(Integer.parseInt(dogNo)));				
-			} else { // 값이 없으면 parent key not found
-				dogs.add(new Dog(0));				
+			
+			if(!dogNo.equals("")) { // 값이 있으면	
+				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+				dogs.add(dog);
+			} else { // 값이 없으면
+				// 
 			}
 		});
 		
@@ -75,7 +81,7 @@ public class CallController {
 		
 		call.setDogs(dogs);
 
-		int result = cService.insertCall(call); // 서비스등록
+		int result = callService.insertCall(call); // 서비스등록
 
 		log.info(call.toString());
 
@@ -92,25 +98,25 @@ public class CallController {
 		return model;
 	}	
 
-	@RequestMapping(value = "/book/", method = RequestMethod.GET)
-	public String bookDone() {
-
-		return "call/book_gn";
-	}
+//	@RequestMapping(value = "/book", method = RequestMethod.GET)
+//	public String bookDone() {
+//
+//		return "call/book_gn";
+//	}
 
 	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, 
-			@ModelAttribute Call call, 
+			@ModelAttribute Call call,
 			ModelAndView model) {
 
-		int result = cService.updateCall(call.getCallNo()); // DB 상태 업데이트
+		int result = callService.updateCall(call.getCallNo()); // DB 상태 업데이트
 
 		log.info(call.toString()); // call 객체에 callNo만 존재
 
-		call = cService.selectCall(call.getCallNo());
+		call = callService.selectCall(call.getCallNo());
 
 		log.info(call.toString());
 
@@ -141,21 +147,21 @@ public class CallController {
 			@ModelAttribute Partner partner,
 			@ModelAttribute EmgCall emgCall,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
-//			@RequestParam(value="dogNo", required=true) int[] dogNos,
-			Driver driver,
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
 		
-		log.info(dogNos.toString()); // dogNo는 잘 가져오는데...
-		
+		log.info(dogNos.toString());
 		List<Dog> dogs = new ArrayList<>();
 		
+		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
 		stream.forEach(dogNo -> {
-			if(!dogNo.equals("")) { // 값이 있으면
-				dogs.add(new Dog(Integer.parseInt(dogNo)));				
-			} else { // 값이 없으면 parent key not found
-				dogs.add(new Dog(0));				
+			
+			if(!dogNo.equals("")) { // 값이 있으면	
+				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+				dogs.add(dog);
+			} else { // 값이 없으면
+				// 
 			}
 		});
 		
@@ -163,10 +169,11 @@ public class CallController {
 		
 		emgCall.setDogs(dogs);
 		
-		emgCall.setDriver(driver);
+		// **********파트너 조회해서 emgCall에 set 하기
+		
 		emgCall.setPartner(partner);
 
-		int resultE = cService.insertEmgCall(emgCall);
+		int resultE = callService.insertEmgCall(emgCall);
 
 		if(resultE > 0) {
 			// 성공
@@ -191,11 +198,11 @@ public class CallController {
 			@ModelAttribute EmgCall emgCall, 
 			ModelAndView model) {
 		
-		int result = cService.updateCall(emgCall.getCallNo());
+		int result = callService.updateCall(emgCall.getCallNo());
 
 		log.info(emgCall.toString());
 
-		emgCall = cService.selectEmgCall(emgCall.getCallNo());
+		emgCall = callService.selectEmgCall(emgCall.getCallNo());
 
 		log.info(emgCall.toString());
 
@@ -212,8 +219,46 @@ public class CallController {
 		return model;
 	}
 	
+	// 애견정보 불러오기
+	@RequestMapping(value = "/book/selectDogs/{userId}", method = RequestMethod.GET)
+	public String selectDogs(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@PathVariable(value = "userId", required = false) String userId,
+			Model model,
+			HttpServletRequest request
+			) { // 예약화면에서 예약자 userId를 가져와야한다.
+						
+		List<Dog> dogs = new ArrayList<>();
+				
+		dogs = dogService.searchUserId(userId);
+		
+		log.info(dogs.toString());
+		
+		model.addAttribute("dogs", dogs);
+				
+		return "dog/dogsForCall";
+	}
 	
-
+//	@RequestMapping(value = "/book/selectDogs/{userId}", method = RequestMethod.GET)
+//	public ModelAndView selectDogs(
+//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//			@PathVariable(value = "userId", required = false) String userId,
+//			ModelAndView model,
+//			HttpServletRequest request
+//			) { // 예약화면에서 예약자 userId를 가져와야한다.
+//						
+//		List<Dog> dogs = new ArrayList<>();
+//				
+//		dogs = dogService.searchUserId(userId);
+//		
+//		log.info(dogs.toString());
+//		
+//		model.addObject("dogs", dogs);
+//		model.setViewName("dog/dogsForCall");
+//		
+//		return model;
+//	}
+		
 	// JSON으로 데이터 전송 시 AJAX 필요
 	//	@RequestMapping(value = "/book/emg_a", 
 	//			method = {RequestMethod.POST}, 

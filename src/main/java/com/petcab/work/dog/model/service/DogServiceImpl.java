@@ -10,33 +10,46 @@ import com.petcab.work.dog.model.dao.DogDao;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 
-
 @Service
 public class DogServiceImpl implements DogService {
 	@Autowired
 	private DogDao dogDao;
-	
+
 	@Override
 	@Transactional
 	public int saveDog(Dog dog) {
 		
 		int result =0;
-		if(dog.getDogNo() != 0) {
-			result = dogDao.updatedog(dog);
-		} else {
-			result = dogDao.insertdog(dog);
-		}	
+		
+		result=dogDao.insertDog(dog);
 		
 		return result;
 	}
-
+	
+//	@Override
+//	@Transactional
+//	public int saveDog(Dog dog) {
+//		
+//		int result =0;
+//		if(dog.getDogNo() != 0) {
+//			result = dogDao.updateDog(dog);
+//		} else {
+//			result = dogDao.insertdog(dog);
+//		}	
+//		
+//		return result;
+//	}
 
 	@Override
 	public List<Dog> searchUserId(String userId) {
 		return dogDao.searchUserId(userId);
 	}
 
-
+	@Override
+	public Dog searchByDogNo(int dogNo) {
+		
+		return dogDao.searchByDogNo(dogNo);
+	}
 	
 //	@Service
 //	public class DogServiceImpl implements DogService {
@@ -53,6 +66,5 @@ public class DogServiceImpl implements DogService {
 //			
 //			return result;
 //		}
-
 
 }

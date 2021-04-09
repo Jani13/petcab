@@ -27,4 +27,6 @@ public class Partner {
 	private String status;
 	
 	private Member member;
+	
+	private int rowNum;
 }

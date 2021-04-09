@@ -169,7 +169,12 @@
 										<c:forEach var="dog" items="${dog}" end="2">
 		                                    <div class="col-sm text-center py-4 myDogsEvent">
 		                                        <a href="" class="text-decoration-none text-dark">
+		                                        <c:if test="${dog.imageRe==null}">
 		                                            <img src="${path }/resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
+		                                        </c:if>
+		                                        <c:if test="${dog.imageRe!=null}">
+		                                            <img src="${path }/resources/upload/dog/${dog.imageRe}" class="myDogs rounded-pill img-thumbnail" alt="">
+		                                        </c:if>
 		                                            <p class="h5 my-4 fw-bold">${dog.dogName }</p>
 		                                        </a>
 		                                    </div>

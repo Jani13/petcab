@@ -37,13 +37,25 @@ public class QuesServiceImpl implements QuesService {
 
 	@Override
 	public List<Ques> getQuesList(PageInfo pageInfo) {
+		
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
 		return quesDao.selectQuesList(rowBounds);
-		
 	}
 
+	@Override
+	public List<Ques> getQuesList2(PageInfo pageInfo, String searchOption, String keyword) {
+		
+		System.out.println(searchOption);
+		System.out.println(keyword);
+		
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return quesDao.selectQuesList2(rowBounds, searchOption, keyword);
+	}
+	
 	@Override
 	public int getQuesCount() {
 		
@@ -87,5 +99,13 @@ public class QuesServiceImpl implements QuesService {
 		
 		return quesDao.deleteReply(quesNo);
 	}
+
+
+	@Override
+	public List<Ques> getQuesListForAdmin() {
+		
+		return quesDao.selectQuesList();
+	}
+
 
 }

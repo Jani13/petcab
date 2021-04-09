@@ -555,6 +555,8 @@ ALTER TABLE DOG DROP CONSTRAINT FK_MEMBER_TO_DOG_1;
  COMMENT ON COLUMN DOG.DOG_NO IS '애견번호';
  CREATE SEQUENCE SEQ_DOG_NO;
  
+ 
+ 
  ------ 현재 위에까지 DB 맞춰놨음 4/5 아래부터 시작하기 ------------------------------
  
 -- 문의하기 그룹명 NULL 변경
@@ -565,7 +567,7 @@ ALTER TABLE REVIEW MODIFY GROUP_NO NULL;
 --드라이버 status 추가--
 ALTER TABLE DRIVER ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'));
 
-ALTER TABLE DRIVER MODIFY STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N','W'));
+ALTER TABLE DRIVER MODIFY STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N', 'W'));
 
 ------------페이먼트 결제날짜 -----------------------------------------------------
 ALTER TABLE PAYMENT ADD PAYMENT_DATE DATE DEFAULT SYSDATE;
@@ -616,6 +618,19 @@ ALTER TABLE QUES ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N')); 
 
 ALTER TABLE REVIEW MODIFY VIEW_NO NUMBER DEFAULT 0;  -- 리뷰하기 VIEW_NO 디폴트 값 0으로 수정
 
+--------------------------------------------------------------------------------
 
+-- 04/08 CAL과 DOG 테이블을 연결하는 CALL_DOG 테이블 생성
 
+CREATE TABLE CALL_DOG (
+	CALL_NO	NUMBER REFERENCES GEN_CALL (CALL_NO),
+	DOG_NO NUMBER NULL,
+    CONSTRAINT PK_CDM PRIMARY KEY (CALL_NO, DOG_NO)
+);
+
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_A; 
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_B; 
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_C; 
+
+--------------------------------------------------------------------------------
 

@@ -64,8 +64,21 @@
             <br><br><br>
 
             <div class="input" align="right">
-               	
-                    <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
+               	<form name="form1" action="${path}/ques/list/search" method="GET">
+			        <select name="searchOption">
+			            <option value="M.USER_ID"
+			    			<c:if test="${searchOption == ques.userId}">selected</c:if>
+			       		>작성자</option>
+			    
+			            <option value="Q.TITLE" 
+			    			<c:if test="${searchOption == ques.title}">selected</c:if>
+			            >제목</option>
+			        </select>
+			        <input type="search" name="keyword" size="25px" placeholder="검색어를 입력하세요.">
+			        <input type="submit" value="조회">
+			    </form> 
+			    
+               <br>
                 <c:if test="${loginMember != null}">     
                     <button type="button" id="btn-add"
                     onclick="location.href ='${path}/ques/write'">글쓰기</button>
@@ -110,8 +123,8 @@
 									</a>
 		                        </td>
 		                        <td><c:out value="${ques.userId }"/></td>	                       
-		                        <td><fmt:formatDate value="${ques.editDate}" type="date"/></td>	                       
 		                        <td><fmt:formatDate value="${ques.postDate}" type="date"/></td>
+		                        <td><fmt:formatDate value="${ques.editDate}" type="date"/></td>	                       
 		                        <td><c:out value="${ques.quesType}"/></td>
 		                        <td><c:out value="${ques.viewNo}"/></td>
 		                    </tr>                  

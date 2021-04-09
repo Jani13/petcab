@@ -15,40 +15,37 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
+//@Component
 public class EmgCall extends Call {
-	private int callNo;
+//	private int callNo;
 
 	private String toPartner;
 
 	private String toReject;
 
-	//	private int pUserNo;
-
 	private Partner partner;
 
 	// 이하 상속받는 필드
 //	private int callNo;
+//
+//	private String pickupTime;
+//
+//	private String fromWhere;
+//
+//	private String toWhere;
+//
+//	private String withOwner;
+//
+//	private String toDriver;
+//
+//	private String status;
+//
+//	private String callType;
+//
+//	private List<Dog> dogs;
+//	
+//	private String merchantUid;
+//
+//	private Driver driver;
 
-	private String pickupTime;
-
-	private String fromWhere;
-
-	private String toWhere;
-
-	private String withOwner;
-
-	private String toDriver;
-
-	private String status;
-
-	private String callType;
-
-//	private int dUserNo;
-
-	private List<Dog> dogs;
-	
-	private String merchantUid;
-
-	private Driver driver;
 }

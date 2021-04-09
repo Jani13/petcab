@@ -102,30 +102,27 @@
 					</div>
 				</div>
 
-				<!--  -->
-
 				<div class="col-md">
-					<div class="pt-5 pb-3 pickup-heading">
-						<h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
-						<h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
-					</div>
+					<c:choose>
+						<c:when test="${ emgCall != null }">
+							<!-- 
+							<input type="hidden" name="callNo" value="${ emgCall.callNo }" />
+							<input type="hidden" name="callType" value="긴급" />
+							<input type="hidden" name="pUserNo" value="3" />
+							-->
+									
+							<div class="pt-5 pb-3 pickup-heading">
+								<h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
+								<h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
+							</div>
 
-					<table class="table call-sum text-center tb-call-done">
-						<thead>
-							<tr>
-								<th colspan="4" class="text-center">예약내역</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:choose>
-								<c:when test="${ emgCall != null }">
-									<!--  -->
-									<input type="hidden" name="callNo" value="${ emgCall.callNo }">
-									<input type="hidden" name="callType" value="긴급">
-									<input type="hidden" name="pUserNo" value="3">
-									<!--  -->
-
-									<!-- 긴급콜 -->
+							<table class="table call-sum text-center tb-call-done">
+								<thead>
+									<tr>
+										<th colspan="4" class="text-center">예약내역</th>
+									</tr>
+								</thead>
+								<tbody>
 									<tr>
 										<th scope="row">제휴업체</th>
 										<td>${ emgCall.getPartner().getPartnerName() }</td>
@@ -178,17 +175,54 @@
 									</tr>
 									<tr>
 										<th scope="row">애견</th>
-										<td>애견등록작업완료 후 추가</td>
+										<c:forEach var="dog" items="${ emgCall.getDogs() }">
+											<td>${ dog.dogName }</td>
+											<br>
+										</c:forEach>
 									</tr>
-								</c:when>
+								</tbody>
+							</table>
 
-								<c:when test="${ call != null }">
-									<!--  -->
-									<input type="hidden" name="callNo" value="${ call.callNo }">
-									<input type="hidden" name="callType" value="일반">
-									<!--  -->
+							<div class="pt-5 pb-3 book-time-cost row row-cols"
+								style="margin-left: 0; margin-right: 0;">
+								<div class="col-8">
+									<table class="table">
+										<tbody>
+											<tr>
+												<th scope="row">예상 시간</th>
+												<td>40분</td>
+											</tr>
+											<tr>
+												<th scope="row">예상 금액</th>
+												<td>30,000원</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 
-									<!-- 일반콜 -->
+								<button class="btn btn-lg btn-outline-info btn-cancel col"
+									type="button" onclick="window.location='${path}/call/book'">다시예약</button>
+							</div>
+						</c:when>
+
+						<c:when test="${ call != null }">
+							<!-- 
+							<input type="hidden" name="callNo" value="${ call.callNo }">
+							<input type="hidden" name="callType" value="일반">
+							-->
+						
+							<div class="pt-5 pb-3 pickup-heading">
+								<h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
+								<h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
+							</div>
+
+							<table class="table call-sum text-center tb-call-done">
+								<thead>
+									<tr>
+										<th colspan="4" class="text-center">예약내역</th>
+									</tr>
+								</thead>
+								<tbody>
 									<tr>
 										<th scope="row">예약시간</th>
 										<td>${ call.getPickupTime() }</td>
@@ -215,7 +249,6 @@
 												<td>${ call.getDriver().getUserName() }</td>
 											</c:otherwise>
 										</c:choose>
-										<td>매칭중</td>
 									</tr>
 									<tr>
 										<th scope="row">차량번호판</th>
@@ -234,35 +267,38 @@
 									</tr>
 									<tr>
 										<th scope="row">애견</th>
-										<td>애견등록작업완료 후 추가</td>
-									</tr>
-								</c:when>
-							</c:choose>
-						</tbody>
-					</table>
-
-					<div class="pt-5 pb-3 book-time-cost row row-cols"
-						style="margin-left: 0; margin-right: 0;">
-						<div class="col-8">
-							<table class="table">
-								<tbody>
-									<tr>
-										<th scope="row">예상 시간</th>
-										<td>40분</td>
-									</tr>
-									<tr>
-										<th scope="row">예상 금액</th>
-										<td>30,000원</td>
+										<c:forEach var="dog" items="${ call.getDogs() }">
+											<td>${ dog.dogName }</td>
+											<br>
+										</c:forEach>
 									</tr>
 								</tbody>
 							</table>
-						</div>
 
-						<button class="btn btn-lg btn-outline-info btn-cancel col"
-							type="button" onclick="window.location='${path}/call/book'">다시예약</button>
-					</div>
+							<div class="pt-5 pb-3 book-time-cost row row-cols"
+								style="margin-left: 0; margin-right: 0;">
+								<div class="col-8">
+									<table class="table">
+										<tbody>
+											<tr>
+												<th scope="row">예상 시간</th>
+												<td>40분</td>
+											</tr>
+											<tr>
+												<th scope="row">예상 금액</th>
+												<td>30,000원</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<button class="btn btn-lg btn-outline-info btn-cancel col"
+									type="button" onclick="window.location='${path}/call/book'">다시예약</button>
+
+							</div>
+						</c:when>
+					</c:choose>
 				</div>
-			</div>
 	</section>
 
 	<jsp:include page="../common/footer.jsp" />
@@ -280,5 +316,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+<script>
+	$(document).ready(function() {
+
+	});
+
+	function selectGen() {
+		$('input[name=callType]').val('일반');
+		window.location = "${path}/call/book";
+	}
+
+	function selectEmg() {
+		$('input[name=callType]').val('긴급');
+		window.location = "${path}/call/book/emg_a";
+	}
+</script>
 
 </html>

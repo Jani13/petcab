@@ -42,29 +42,18 @@
             <h1>반려 동물</h1>
             <br />
             <div>
-                <form name=mydog action="${path}/dog/mdogInformation" method="POST">
+                <form name=mydog action="${path}/dog/mdogInformation" method="POST">  
                     <div>
                         <div class="row">
                             <div class="col-md-3">
+                     
                              <tr>
                                     <th>나의 애견</th>
                                     <div class="input-group mb-2">
-                                        <select class="form-select" aria-label="Default select example">
-                                        	<option type="button"><c:out value="${dog.dogName}"/></option>
-                                        	<option type="button"><c:out value="${dog.dogName}"/></option>
-                                        	
-                                        	<%-- <c:out value="${dog.dogNo}"/> --%>
-                                            <!-- <option selected> - 선택 - </option>
-                                            <option value="1"></option>
-                                            <option value="2"></option>
-                                            <option value="3"></option>
-                                            <option value="4"></option>
-                                            <option value="5"></option>
-                                            <option value="6"></option>
-                                            <option value="7"></option>
-                                            <option value="8"></option>
-                                            <option value="9"></option>
-                                            <option value="10"></option> -->
+                                        <select class="form-select" aria-label="Default select example" id=dogno>
+                                        <c:forEach var="dog" items="${dogs}" end="10">
+                                        	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
+                                        </c:forEach>
                                         </select>                           
                                     </div>
                                 </tr>
@@ -76,8 +65,8 @@
                                         <th style="width: 130px;">등록번호</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" name="animalNo" value="${dog.animalNo}"
-                                                    aria-describedby="button-addon2" required>
+                                                <input type="text" class="form-control" name="animalNo" id="" value="${dog.animalNo}"
+                                                    aria-describedby="button-addon2" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -85,7 +74,7 @@
                                         <th>품 종</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                               <select class="form-select" aria-label="Default select example" name="dogType">
+                                               <select class="form-select" aria-label="Default select example" id="" name="dogType">
                                                 <option selected> - 선택 - </option>
                                                <option value="골든 리트리버">골든 리트리버</option>
                                                <option value="그레이트 피레니즈">그레이트 피레니즈</option>
@@ -204,7 +193,7 @@
                                     <th style="width: 130px;">애 견 명</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="text" class="form-control" value="${dog.dogName}">
+                                            <input type="text" class="form-control" id="" value="${dog.dogName}">
                                         </div>
                                     </td>
                                     </tr>
@@ -213,7 +202,7 @@
                                         <td>
                                             <div class="input-group mb-2">
                                                 <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
-                                            <c:if test="${ !empty dog.imageOri }">
+                                            	<c:if test="${ !empty dog.imageOri }">
 												<br>현재 업로드한 파일 : 
 												<a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }">
 													${ dog.imageOri }
@@ -226,7 +215,7 @@
                                         <th style="width: 130px;">나이</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" name="age" value="${dog.age}"
+                                                <input type="text" class="form-control" name="age" id="" value="${dog.age}"
                                                     aria-describedby="button-addon2" required>
                                             </div>
                                         </td>
@@ -278,7 +267,7 @@
                                     <div class="editor-box__editor">
                                         <textarea  id="" rows="5" cols="80" name="other" ><c:out value="${dog.other}"/></textarea>
                                     </div>
-                                </div>
+                                </div> 
                                  <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
                                  <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
                                 <br>
@@ -294,6 +283,45 @@
         <br>
     </section>
   <jsp:include page="../common/footer.jsp" />
+  
+<!--    <script >
+   
+   
+/*    $("#dogno").change(function(){
+	  var dog = $("dog.dogNo").val(data);
+   }); */
+   
+   
+   
+   
+ 	/* $(function(){
+ 		$("dogNo").on("click", function(){
+ 			$.ajax({
+ 				type: "post",
+ 				url: "${path}/dog/mdogInformation ",
+ 				data: {
+ 					dogNo,
+ 				success: function(data){
+ 					console.log("success");
+ 					$("dog.dogNo").val(data);
+ 					$("dog.animalNo").val(data);
+ 					$("dog.dogName").val(data);
+ 					$("dog.dogType").val(data);
+ 					$("dog.age").val(data);
+ 					$("dog.vacc").val(data);
+ 					$("dog.disorder").val(data);
+ 					$("dog.other").val(data);
+ 					$("dog.imageRe").val(data);
+ 				},
+ 				  error: function(e) {
+	        		  console.log(e);
+	        	  }
+ 				
+ 			});
+ 		});
+ 	});	 */
+  
+  
+  </script>  -->
 </body>
-
 </html>
