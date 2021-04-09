@@ -145,4 +145,17 @@
 			    ORDER BY ROWNUM
 			)
 	</select>
+	
+	<update id="applyDriver" parameterType="Member">
+		UPDATE MEMBER
+		SET USER_TYPE = 'ROLE_DRIVER'
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<update id="applyPartner" parameterType="Member">
+		UPDATE MEMBER
+		SET USER_TYPE = 'ROLE_PARTNER'
+		WHERE USER_NO = #{userNo}
+	</update>
+	
 </mapper>

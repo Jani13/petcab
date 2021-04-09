@@ -2,6 +2,7 @@ package com.petcab.work.user.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,10 +46,6 @@ public class DriverServiceImpl implements DriverService {
 		return driverDao.selectWaitDrivers();
 	}
 
-	@Override
-	public List<Driver> selectDrivers() {
-		return driverDao.selectDrivers();
-	}
 
 	@Override
 	public int getDriverCount() {
@@ -59,6 +56,23 @@ public class DriverServiceImpl implements DriverService {
 	public List<Driver> rNumSelectDrivers(PageInfo pageInfo) {
 		
 		return driverDao.selectDrivers(pageInfo);
+	}
+
+	@Override
+	public int getRejectDriverCount() {
+		return driverDao.getRejectDriverCount();
+	}
+
+	@Override
+	public List<Driver> selectRejectDrivers(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return driverDao.selectRejectDrivers(rowBounds);
+	}
+
+	@Override
+	public int applyDriver(int userNo) {
+		return driverDao.applyDriver(userNo);
 	}
 
 }

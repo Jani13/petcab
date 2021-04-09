@@ -107,4 +107,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.rNumSelectMemberAll(rowBounds);
 	}
 
+	@Override
+	public int applyDriver(int userNo) {
+		return memberDao.applyDriver(userNo);
+	}
+
+	@Override
+	public int applyPartner(int userNo) {
+		return memberDao.applyPartner(userNo);
+	}
+
+
 }

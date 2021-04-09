@@ -2,9 +2,11 @@ package com.petcab.work.user.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.dao.PartnerDao;
 import com.petcab.work.user.model.vo.Partner;
 
@@ -45,6 +47,28 @@ public class PartnerServiceImpl implements PartnerService {
 	public Partner selectPartner(int userNo) {
 		
 		return partnerDao.selectPartner(userNo);
+	}
+
+	@Override
+	public List<Partner> selectWaitPartners() {
+		return partnerDao.selectWaitPartners();
+	}
+
+	@Override
+	public int getRejectPartnerCount() {
+		return partnerDao.getRejectPartnerCount();
+	}
+
+	@Override
+	public List<Partner> selectRejectPartners(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return partnerDao.selectRejectPartners(rowBounds);
+	}
+
+	@Override
+	public int applyPartner(int userNo) {
+		return partnerDao.applyPartner(userNo);
 	}
 
 }
