@@ -620,7 +620,7 @@ ALTER TABLE REVIEW MODIFY VIEW_NO NUMBER DEFAULT 0;  -- 리뷰하기 VIEW_NO 디
 
 --------------------------------------------------------------------------------
 
--- 04/08 CAL과 DOG 테이블을 연결하는 CALL_DOG 테이블 생성
++-- 04/08 CAL과 DOG 테이블을 연결하는 CALL_DOG 테이블 생성
 
 CREATE TABLE CALL_DOG (
 	CALL_NO	NUMBER REFERENCES GEN_CALL (CALL_NO),
