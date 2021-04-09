@@ -26,4 +26,8 @@ public class RReply {
 	
 	private String status;
 	
+	private int userNo;
+	
+	private int reviewNo;
+	
 }
