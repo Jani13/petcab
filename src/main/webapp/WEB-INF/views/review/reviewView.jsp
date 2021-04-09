@@ -94,46 +94,56 @@
             </div>
             <br>
             <!-- 댓글 -->
-            <div class="form-floating mb-3" style="width: 400px;">
-                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디" readonly>
-                <label for="floatingInput">${review.userId}</label>
-            </div>
-            <div class="form-floating">
+    		 <form action="${ path }/review/reply" method="POST">
+	            <div class="form-floating mb-3" style="width: 400px;">
+	                <input type="id" class="form-control form-control-sm" id="floatingInput" placeholder="아이디" readonly>
+	                <label for="floatingInput">${review.userId}</label>
+	            </div>
             
-    		 <form action="">
-    		 	<input type="hidden" name="reviewNo" value="${review.reviewNo }">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: vertical;"></textarea>
-                <label for="floatingTextarea2">Comments</label>
-                <input type="button" class="btn btn-secondary" id="partnerCancel"
-                			onclick="insertRRely()" value="등록">
+    		 	<input type="hidden" name="reviewNo" value="${review.reviewNo}">
+    		 	<input type="hidden" name="reviewNo" value="${rRpely.replyNo}">
+                <textarea class="form-control" placeholder="Leave a comment here" name="content" id="floatingTextarea2" style="resize: vertical;"></textarea>
+                <input type="submit" class="btn btn-secondary" onclick="insertRRely()" value="등록">
              </form>
             </div>
             <br>
-            <table class="table">
-            	<c:forEach var="reply" items="${list}">
-                     <tr class="level1">
-                        <td>
-                            <sub class="comment-writer">${member.userId}</sub>
-                            <sub class="comment-date">${reviewReply.postDate}</sub>
-                            <br>
-                          ${reviewReply.content}
-                        </td>
-                        <td>
-                      		<c:if test="${!empty loginMember && (loginMember.userNo == review.userNo
-                     		 || loginMember.userType == 'ROLE_ADMIN')}">
-                     		 </c:if>
-                        </td>
-                    </tr>
-              </c:forEach>
-              </table>
+             
+           	<c:forEach var="reply" items="${replyList}">
+            	<table class="table">
+            	
+                  <tr class="level1">
+                     <td>
+                         <sub class="comment-writer">${member.userId}</sub>
+                         <sub class="comment-date">${rReply.postDate}</sub>
+                         <br>
+                       ${rReply.content}
+                     </td>
+                     <td>
+                   		<c:if test="${!empty loginMember && (loginMember.userNo == review.userNo)}">
+                   			<div style="text-align : center; padding: 30px;">
+				                <span style="padding-right : 3rem;">
+				                    <input type="button" class="btn btn-secondary" onclick="updateReply()" value="수정하기">
+				                    <input type="button" class="btn btn-secondary" onclick="deleteReply()" value="삭제하기">
+				                </span>
+				                <span>
+				                    <input type="button" class="btn btn-secondary" 
+				                    				onclick="location.replace('${path}/rreview/list')" value="목록으로">
+				                </span>             	
+			  
+			            	</div>
+                  		</c:if>
+                     </td>
+                  </tr>
+              	</table>
+           	  </c:forEach>
 
               <div style="text-align : center; padding: 30px;">
                 <span style="padding-right : 3rem;">
-                    <input type="submit" class="btn btn-primary" id="partnerSubmit" value="뒤로가기"
+                    <input type="submit" class="btn btn-primary" value="뒤로가기"
                     		onclick="location.replace('${path}/review/list')"> 
                 </span>
                 <span>
-                    <input type="button" class="btn btn-secondary" id="partnerCancel" value="확인">
+                    <input type="button" class="btn btn-secondary" value="확인">
                 </span>
             </div>
 
