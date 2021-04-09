@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.ques.model.vo.QuesReply;
+import com.petcab.work.review.model.service.RReplyService;
 import com.petcab.work.review.model.service.ReviewService;
 import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
@@ -27,6 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewController {
 	@Autowired
 	private ReviewService service;
+	
+	@Autowired
+	private RReplyService reservice;
 	
 	// 리뷰 목록
 	@RequestMapping(value = "/list", method = {RequestMethod.GET})
@@ -162,9 +166,9 @@ public class ReviewController {
 			int result = 0;
 			
 			result = service.delete(reviewNo);
-			System.out.println("dddddddddddddddd" + reviewNo);
+//			System.out.println("dddddddddddddddd" + reviewNo);
 			if(result > 0) {
-				System.out.println("xxxxxxxxxxxxxxxxxxx" + reviewNo);
+//				System.out.println("xxxxxxxxxxxxxxxxxxx" + reviewNo);
 				model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
 //				model.addObject("location", "/review/reviewView?reviewNo="+reviewNo);
 				model.addObject("location", "/review/list");
@@ -178,7 +182,7 @@ public class ReviewController {
 			return model;
 		}
 	
-		// 댓글 만들기
+		// 댓글 작성
 		@RequestMapping(value = "/reply", method = {RequestMethod.POST})
 		public ModelAndView replyWrite(
 				@SessionAttribute(name="loginMember", required=false) Member loginMember,
@@ -187,7 +191,7 @@ public class ReviewController {
 			
 			int result = 0;
 			
-			result = service.saveRReply(rReply);
+			result = reservice.saveRReply(rReply);
 			
 			if(result > 0) {
 				model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
@@ -200,6 +204,17 @@ public class ReviewController {
 			model.setViewName("common/msg");
 			
 			return model;
+		}
+		
+		// 댓글 리스트
+		@RequestMapping(value = "/replyList", method = {RequestMethod.GET})
+		public ModelAndView replyList(@RequestParam("replyNo") int replyNo,
+				ModelAndView model) {
+			
+			List<RReply> replyList = reservice.replyList(replyNo);
+			
+			return model;
+			
 		}
 		
 }

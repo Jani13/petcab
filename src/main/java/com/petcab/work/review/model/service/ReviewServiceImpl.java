@@ -67,7 +67,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public int delete(int reviewNo) {
-		System.out.println("aaaaaaaaaaaaaaaaaaa" + reviewNo);
+		
 		return reviewDao.delete(reviewNo);
 	}
 
@@ -81,5 +81,4 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return reviewDao.searchSUserNo(userNo);
 	}
-
 }
