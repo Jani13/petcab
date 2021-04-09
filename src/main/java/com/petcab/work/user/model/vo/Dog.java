@@ -37,9 +37,5 @@ public class Dog {
 	private Date modifyDate;
 	
 	private String status;
-	
-	public Dog (int dogNo) {
-		this.dogNo = dogNo;
-	}
-	
+
 }

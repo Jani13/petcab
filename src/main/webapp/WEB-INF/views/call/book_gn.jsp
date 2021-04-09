@@ -53,7 +53,7 @@
 					</div>
 
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book/done" method="POST">
+						<form action="${ path }/call/book" method="POST">
 							<div class="form-group mb-3">
 								<label for="pickupTime">예약 시간</label> <input
 									type="datetime-local" id="pickupTime" name="pickupTime" />
@@ -95,12 +95,12 @@
 							<div class="d-grid gap-1 mb-3">
 								<button class="btn btn-sm btn-outline-info" type="button"
 									onclick="selectDogs();">
-									애견정보 불러오기</button>
+									애견 선택하기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
 								<!-- 미로그인 시 로그인 페이지로 이동 -->
 								<input type="hidden" name="dogNo" value=""> <input
 									type="hidden" name="dogNo" value=""> <input
-									type="hidden" name="dogNo" value="">
+									type="hidden" name="dogNo" value="">                                
 							</div>
 
 							<div class="form-floating mb-3">
@@ -141,34 +141,23 @@
 
 <!-- <script type="text/javascript" src="${ path }/resources/js/call.js" ></script> -->
 <script>
-    $(document).ready(function(){
-    // var btnCallGen = document.getElementsByClassName('btn-call-gen');
+$(document).ready(function(){
 
-    // for (var i = 0; i < btnCallGen.length; i++) {
-    //     btnCallGen.style.backgroundColor="black";
-    // }
 });
 	
 function selectGen() {
 	$('input[name=callType]').val('일반');
-
-    // hover, border change
-
     window.location = "${path}/call/book";
 }
 
 function selectEmg() {
 	$('input[name=callType]').val('긴급');
-
-    // hover, border change
-
     window.location = "${path}/call/book/emg_a";
 }
 
 function selectDogs() {
 	let url = '${path}/call/book/selectDogs/${loginMember.userId}';
 	let windowName = 'dogsForCall';
-	// let windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,height=500,width=300";
 	let windowFeatures = 'resizable=no,height=800,width=600';
 
 	window.open(url, windowName, windowFeatures);

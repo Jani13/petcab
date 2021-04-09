@@ -125,6 +125,10 @@
 		WHERE
 		DOG_NO=#{dogNo}
 	</update>
-
-
+	
+	<select id="searchByDogNo" resultMap="DogResultMap">
+		SELECT *
+		FROM DOG
+		WHERE DOG_NO = #{dogNo}
+	</select>
 </mapper>

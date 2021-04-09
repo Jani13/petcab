@@ -1,9 +1,6 @@
 package com.petcab.work.call.model.vo;
 
-import java.sql.Date;
 import java.util.List;
-
-import org.springframework.stereotype.Component;
 
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Driver;
@@ -32,21 +29,10 @@ public class Call {
 	private String status;
 	
 	private String callType;
-	
-//	private int dUserNo;
-	
+		
 	private List<Dog> dogs;
-	
-//	private String animalNoA;
-//	
-//	private String animalNoB;
-//	
-//	private String animalNoC;
 	
 	private String merchantUid;
 	
 	private Driver driver;
-	
-//	private EmgCall emgCall;
-	
 }

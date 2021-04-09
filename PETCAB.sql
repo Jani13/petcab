@@ -616,3 +616,27 @@ ALTER TABLE PARTNER DROP COLUMN LOCATION;
 
 --------------------------------------------------------------------------------
 
+-- 04/08 CAL과 DOG 테이블을 연결하는 CALL_DOG 테이블 생성
+
+CREATE TABLE CALL_DOG (
+	CALL_NO	NUMBER REFERENCES GEN_CALL (CALL_NO),
+	DOG_NO NUMBER NULL,
+    CONSTRAINT PK_CDM PRIMARY KEY (CALL_NO, DOG_NO)
+);
+
+--CREATE TABLE CALL_DOG (
+--	CALL_NO	NUMBER NOT NULL,
+--	DOG_NO NUMBER NULL
+--);
+
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_A; 
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_B; 
+ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_C; 
+
+DROP TABLE CALL_DOG;
+
+--------------------------------------------------------------------------------
+
+
+
+

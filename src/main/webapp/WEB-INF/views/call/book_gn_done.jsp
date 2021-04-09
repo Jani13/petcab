@@ -105,32 +105,26 @@
 				<!--  -->
 
 				<div class="col-md">
-					<form action="${ path }/call/book/emg/cancel" method="POST">
-						<!--  -->
-						<input type="hidden" name="dUserNo" value="1">
-						<!--  -->
+					<c:choose>
+						<c:when test="${ emgCall != null }">
+							<form action="${ path }/call/book/emg/cancel" method="POST">
+								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
+								<input type="hidden" name="callType" value="긴급">
+								<input type="hidden" name="pUserNo" value="3">
+								<!-- <input type="hidden" name="dUserNo" value="1">-->
 
-						<div class="pt-5 pb-3 pickup-heading">
-							<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
-							<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
-						</div>
+								<div class="pt-5 pb-3 pickup-heading">
+									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
+									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+								</div>
 
-						<table class="table call-sum text-center tb-call-done">
-							<thead>
-								<tr>
-									<th colspan="4" class="text-center">예약내역</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${ emgCall != null }">
-										<!--  -->
-										<input type="hidden" name="callNo" value="${ emgCall.callNo }">
-										<input type="hidden" name="callType" value="긴급">
-										<input type="hidden" name="pUserNo" value="3">
-										<!--  -->
-
-										<!-- 긴급콜 -->
+								<table class="table call-sum text-center tb-call-done">
+									<thead>
+										<tr>
+											<th colspan="4" class="text-center">예약내역</th>
+										</tr>
+									</thead>
+									<tbody>
 										<tr>
 											<th scope="row">제휴업체</th>
 											<td>${ emgCall.getPartner().getPartnerName() }</td>
@@ -183,23 +177,57 @@
 										</tr>
 										<tr>
 											<th scope="row">애견</th>
-											<td>
-												<c:forEach var="dog" items="${ emgCall.getDogs() }">
+											<td><c:forEach var="dog" items="${ emgCall.getDogs() }">
 													<c:if test="${ dog.dogNo > 0}">
-														<c:out value="${ dog.dogNo }" /><br>
+														<c:out value="${ dog.dogName }" />
+														<br>
 													</c:if>
-												</c:forEach>
-											</td>	
+												</c:forEach></td>
 										</tr>
-									</c:when>
+									</tbody>
+								</table>
 
-									<c:when test="${ call != null }">
-										<!--  -->
-										<input type="hidden" name="callNo" value="${ call.callNo }">
-										<input type="hidden" name="callType" value="일반">
-										<!--  -->
+								<div class="pt-5 pb-3 book-time-cost row row-cols"
+									style="margin-left: 0; margin-right: 0;">
+									<div class="col-8">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th scope="row">예상 시간</th>
+													<td>40분</td>
+												</tr>
+												<tr>
+													<th scope="row">예상 금액</th>
+													<td>30,000원</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 
-										<!-- 일반콜 -->
+									<input class="btn btn-lg btn-outline-info btn-cancel col"
+										type="submit" value="예약취소">
+								</div>
+							</form>
+						</c:when>
+
+						<c:otherwise>
+							<form action="${ path }/call/book/cancel" method="POST">
+								<input type="hidden" name="callNo" value="${ call.callNo }" />
+								<input type="hidden" name="callType" value="일반" />
+								<!-- <input type="hidden" name="dUserNo" value="1"> -->
+
+								<div class="pt-5 pb-3 pickup-heading">
+									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
+									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+								</div>
+
+								<table class="table call-sum text-center tb-call-done">
+									<thead>
+										<tr>
+											<th colspan="4" class="text-center">예약내역</th>
+										</tr>
+									</thead>
+									<tbody>
 										<tr>
 											<th scope="row">예약시간</th>
 											<td>${ call.getPickupTime() }</td>
@@ -244,45 +272,39 @@
 										</tr>
 										<tr>
 											<th scope="row">애견</th>
-											<td>
-												<c:forEach var="dog" items="${ call.getDogs() }">
+											<td><c:forEach var="dog" items="${ call.getDogs() }">
 													<c:if test="${ dog.dogNo > 0}">
-														<c:out value="${ dog.dogNo }" /><br>
+														<c:out value="${ dog.dogName }" />
+														<br>
 													</c:if>
-												</c:forEach>
-											</td>											
-										</tr>
-									</c:when>
-								</c:choose>
-							</tbody>
-						</table>
-
-						<div class="pt-5 pb-3 book-time-cost row row-cols"
-							style="margin-left: 0; margin-right: 0;">
-							<div class="col-8">
-								<table class="table">
-									<tbody>
-										<tr>
-											<th scope="row">예상 시간</th>
-											<td>40분</td>
-										</tr>
-										<tr>
-											<th scope="row">예상 금액</th>
-											<td>30,000원</td>
+												</c:forEach></td>
 										</tr>
 									</tbody>
 								</table>
-							</div>
 
-							<!-- 
-                            <button class="btn btn-lg btn-outline-info btn-cancel col" 
-                            	type="button">예약취소</button>
-                            -->
+								<div class="pt-5 pb-3 book-time-cost row row-cols"
+									style="margin-left: 0; margin-right: 0;">
+									<div class="col-8">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th scope="row">예상 시간</th>
+													<td>40분</td>
+												</tr>
+												<tr>
+													<th scope="row">예상 금액</th>
+													<td>30,000원</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 
-							<input class="btn btn-lg btn-outline-info btn-cancel col"
-								type="submit" value="예약취소">
-						</div>
-					</form>
+									<input class="btn btn-lg btn-outline-info btn-cancel col"
+										type="submit" value="예약취소">
+								</div>
+							</form>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -308,29 +330,17 @@
 <!-- <script type="text/javascript" src="${ path }/resources/js/call.js" ></script> -->
 <script>
 	$(document).ready(function() {
-		// var btnCallGen = document.getElementsByClassName('btn-call-gen');
 
-		// for (var i = 0; i < btnCallGen.length; i++) {
-		//     btnCallGen.style.backgroundColor="black";
-		// }
 	});
 
 	function selectGen() {
 		$('input[name=callType]').val('일반');
-
-		// hover, border change
-
 		window.location = "${path}/call/book";
 	}
 
 	function selectEmg() {
 		$('input[name=callType]').val('긴급');
-
-		// hover, border change
-
 		window.location = "${path}/call/book/emg_a";
 	}
-	
-	
 </script>
 </html>

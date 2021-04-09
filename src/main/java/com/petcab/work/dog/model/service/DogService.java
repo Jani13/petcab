@@ -14,4 +14,6 @@ public interface DogService {
 	List<Dog> searchUserId(String userId);
 
 //	int getdogCount();
+	
+	Dog searchByDogNo(int dogNo);
 }

@@ -52,26 +52,28 @@ public class CallController {
 	}
 
 	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book/done", method = {RequestMethod.POST})
+	@RequestMapping(value = "/book", method = {RequestMethod.POST})
 	public ModelAndView book(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@ModelAttribute Call call,
 			ModelAndView model) {
-		// 애견정보 추가 필요
 		
 		Stream<String> stream = Arrays.stream(dogNos);
 		
-		log.info(dogNos.toString()); // dogNo는 잘 가져오는데...
+		log.info(dogNos.toString());
 		
 		List<Dog> dogs = new ArrayList<>();
 		
+		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
 		stream.forEach(dogNo -> {
-			if(!dogNo.equals("")) { // 값이 있으면
-				dogs.add(new Dog(Integer.parseInt(dogNo)));				
-			} else { // 값이 없으면 parent key not found
-				dogs.add(new Dog(0));				
+			
+			if(!dogNo.equals("")) { // 값이 있으면	
+				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+				dogs.add(dog);
+			} else { // 값이 없으면
+				// 
 			}
 		});
 		
@@ -96,18 +98,18 @@ public class CallController {
 		return model;
 	}	
 
-	@RequestMapping(value = "/book/", method = RequestMethod.GET)
-	public String bookDone() {
-
-		return "call/book_gn";
-	}
+//	@RequestMapping(value = "/book", method = RequestMethod.GET)
+//	public String bookDone() {
+//
+//		return "call/book_gn";
+//	}
 
 	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, 
-			@ModelAttribute Call call, 
+			@ModelAttribute Call call,
 			ModelAndView model) {
 
 		int result = callService.updateCall(call.getCallNo()); // DB 상태 업데이트
@@ -145,21 +147,21 @@ public class CallController {
 			@ModelAttribute Partner partner,
 			@ModelAttribute EmgCall emgCall,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
-//			@RequestParam(value="dogNo", required=true) int[] dogNos,
-			Driver driver,
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
 		
-		log.info(dogNos.toString()); // dogNo는 잘 가져오는데...
-		
+		log.info(dogNos.toString());
 		List<Dog> dogs = new ArrayList<>();
 		
+		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
 		stream.forEach(dogNo -> {
-			if(!dogNo.equals("")) { // 값이 있으면
-				dogs.add(new Dog(Integer.parseInt(dogNo)));				
-			} else { // 값이 없으면 parent key not found
-				dogs.add(new Dog(0));				
+			
+			if(!dogNo.equals("")) { // 값이 있으면	
+				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+				dogs.add(dog);
+			} else { // 값이 없으면
+				// 
 			}
 		});
 		
@@ -167,7 +169,8 @@ public class CallController {
 		
 		emgCall.setDogs(dogs);
 		
-		emgCall.setDriver(driver);
+		// **********파트너 조회해서 emgCall에 set 하기
+		
 		emgCall.setPartner(partner);
 
 		int resultE = callService.insertEmgCall(emgCall);
