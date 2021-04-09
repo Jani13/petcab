@@ -50,8 +50,7 @@
 					style="padding-left: 12px; padding-right: 12px">
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form id="bookEmg" action="${ path }/call/book/emg_a" method="POST">
-						
-							<input type="hidden" name="pUserNo">
+							<!-- <input type="hidden" name="pUserNo" value="3" /> -->
 						
 							<div id="bookEmgA">
 								<div class="pt-5 pb-3 pickup-heading">
@@ -198,43 +197,39 @@
 
 <!-- <script type="text/javascript" src="${ path }/resources/js/call.js" ></script> -->
 <script>
-	$(document).ready(function() {
-		$('#bookEmgA').show();
-		$('#bookEmgB').hide();
-	});
+$(document).ready(function() {
+    $('#bookEmgA').show();
+    $('#bookEmgB').hide();
+});
 
-	function selectGen() {
-		$('input[name=callType]').val('일반');
+function selectGen() {
+    $('input[name=callType]').val('일반');
+    window.location = "${path}/call/book";
+}
 
-		// hover, border change
+function selectEmg() {
+    $('input[name=callType]').val('긴급');
+    window.location = "${path}/call/book/emg_a";
+}
 
-		window.location = "${path}/call/book";
-	}
+function goNext() {
+    $('#bookEmgA').hide();
+    $('#bookEmgB').show();
+}
 
-	function selectEmg() {
-		$('input[name=callType]').val('긴급');
-
-		// hover, border change
-
-		window.location = "${path}/call/book/emg_a";
-	}
-
-	function goNext() {
-		$('#bookEmgA').hide();
-		$('#bookEmgB').show();
-	}
-
-	function goBack() {
-		$('#bookEmgB').hide();
-		$('#bookEmgA').show();
-	}
+function goBack() {
+    $('#bookEmgB').hide();
+    $('#bookEmgA').show();
+}
 	
-	function selectDogs() {
-		let url = '${path}/book/selectDogs';
-		let windowName = 'selectDogs';
-		let windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-		
-		window.open(url, windowName, windowFeatures);
-	}
+function selectDogs() {
+	let url = '${path}/call/book/selectDogs/${loginMember.userId}';
+	let windowName = 'dogsForCall';
+	let windowFeatures = 'resizable=no,height=800,width=600';
+
+	window.open(url, windowName, windowFeatures);
+	
+	// opener.window.location.href="" 
+}
 </script>
 </html>

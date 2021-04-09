@@ -15,7 +15,6 @@ public interface DogDao {
 
 	List<Dog> searchUserId(String userId);
 
-
-
+	Dog searchByDogNo(int dogNo);
 
 }

@@ -15,5 +15,5 @@ public interface DogService {
 
 //	int getdogCount();
 	
-
+	Dog searchByDogNo(int dogNo);
 }

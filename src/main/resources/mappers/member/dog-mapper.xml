@@ -3,121 +3,132 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.petcab.work.dog.model.dao.DogDao">
-	
+
 	<sql id="selectDogSql">
-		SELECT 	DOG_NO,
-				ANIMAL_NO,
-				DOG_NAME,
-				DOG_TYPE,
-				AGE,
-				VACC,
-				DISORDER,
-				OTHER,
-				IMAGE_ORI,
-				IMAGE_RE,
-				USER_ID,
-				ENROLL_DATE,
-				MODIFY_DATE,
-				STATUS
+		SELECT DOG_NO,
+		ANIMAL_NO,
+		DOG_NAME,
+		DOG_TYPE,
+		AGE,
+		VACC,
+		DISORDER,
+		OTHER,
+		IMAGE_ORI,
+		IMAGE_RE,
+		USER_ID,
+		ENROLL_DATE,
+		MODIFY_DATE,
+		STATUS
 		FROM DOG
 		WHERE STATUS = 'Y'
 	</sql>
-	 
-	 <resultMap type="Dog" id="DogResultMap">
-			 <!-- 기본키 -->
-			 <id property="dogNo" column="DOG_NO"/>
-			 <!-- 일반컬럼  -->
-			 <result property="animalNo" column="ANIMAL_NO"/>
-			 <result property="dogName" column="DOG_NAME"/>
-			 <result property="dogType" column="DOG_TYPE"/>
-			 <result property="age" column="AGE"/>
-			 <result property="vacc" column="VACC"/>
-			 <result property="disorder" column="DISORDER"/>
-			 <result property="other" column="OTHER"/>
-			 <result property="imageOri" column="IMAGE_ORI"/>
-			 <result property="imageRe" column="IMAGE_RE"/>
-			 <result property="userId" column="USER_ID"/>
-			 <result property="enrollDate" column="ENROLL_DATE"/>
-			 <result property="modifyDate" column="MODIFY_DATE"/>
-			 <result property="status" column="STATUS"/>
-	 </resultMap>
-	 
-	 	<select id="selectDogCount" resultType="_int">
+
+	<resultMap type="Dog" id="DogResultMap">
+		<!-- 기본키 -->
+		<id property="dogNo" column="DOG_NO" />
+		<!-- 일반컬럼 -->
+		<result property="animalNo" column="ANIMAL_NO" />
+		<result property="dogName" column="DOG_NAME" />
+		<result property="dogType" column="DOG_TYPE" />
+		<result property="age" column="AGE" />
+		<result property="vacc" column="VACC" />
+		<result property="disorder" column="DISORDER" />
+		<result property="other" column="OTHER" />
+		<result property="imageOri" column="IMAGE_ORI" />
+		<result property="imageRe" column="IMAGE_RE" />
+		<result property="userId" column="USER_ID" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+
+	<select id="selectDogCount" resultType="_int">
 		SELECT COUNT(*) FROM DOG
-		</select>
-	 	
-	 <select id="selectDogAll" resultMap="DogResultMap">
-		 <include refid="selectDogSql"></include>
-	 </select>
-	 	
-	 	<select id="selectDog" parameterType="string" resultMap="DogResultMap">	
-			<include refid="selectDogSql"></include>		
-			AND USER_Id = #{userId}	
-		</select>
-		
-		<insert id="insertDog" parameterType="Dog"
-		useGeneratedKeys="true" keyProperty="dogNo" keyColumn="DOG_NO">	
+	</select>
+
+	<select id="selectDogAll" resultMap="DogResultMap">
+		<include refid="selectDogSql"></include>
+	</select>
+
+	<select id="selectDog" parameterType="string"
+		resultMap="DogResultMap">
+		<include refid="selectDogSql"></include>
+		AND USER_Id = #{userId}
+	</select>
+
+	<insert id="insertDog" parameterType="Dog"
+		useGeneratedKeys="true" keyProperty="dogNo" keyColumn="DOG_NO">
 		INSERT INTO DOG (
-				DOG_NO,
-				ANIMAL_NO,
-				DOG_NAME,
-				DOG_TYPE,
-				AGE,
-				VACC,
-				DISORDER,
-				OTHER,
-				IMAGE_ORI,
-				IMAGE_RE,
-				USER_ID,
-				ENROLL_DATE,
-				MODIFY_DATE,
-				STATUS
-			)
-			VALUES(
-				SEQ_DOG_NO.NEXTVAL,
-			    #{animalNo},
-				#{dogName}, 
-				#{dogType}, 
-				#{age}, 				 
-				#{vacc}, 
-				#{disorder}, 
-				#{other}, 
-				#{imageOri}, 
-				#{imageRe},
-				#{userId},		  
-				SYSDATE, 
-				SYSDATE,
-				DEFAULT  
-			)
+		DOG_NO,
+		ANIMAL_NO,
+		DOG_NAME,
+		DOG_TYPE,
+		AGE,
+		VACC,
+		DISORDER,
+		OTHER,
+		IMAGE_ORI,
+		IMAGE_RE,
+		USER_ID,
+		ENROLL_DATE,
+		MODIFY_DATE,
+		STATUS
+		)
+		VALUES(
+		SEQ_DOG_NO.NEXTVAL,
+		#{animalNo},
+		#{dogName},
+		#{dogType},
+		#{age},
+		#{vacc},
+		#{disorder},
+		#{other},
+		#{imageOri},
+		#{imageRe},
+		#{userId},
+		SYSDATE,
+		SYSDATE,
+		DEFAULT
+		)
 	</insert>
 	<select id="save" resultType="string">
-			SELECT M.USER_ID,D.USER_ID,D.ANIMAL_NO
-			FROM MEMBER M , DOG D
-			WHERE M.USER_ID = D.USER_ID;
+		SELECT M.USER_ID,D.USER_ID,D.ANIMAL_NO
+		FROM MEMBER M , DOG D
+		WHERE M.USER_ID = D.USER_ID;
 	</select>
-	
+
 	<select id="searchUserId" resultMap="DogResultMap">
-		 <include refid="selectDogSql"></include>
-		 AND USER_ID = #{userId}
+		<include refid="selectDogSql"></include>
+		AND USER_ID = #{userId}
 	</select>
 
-  <update id="dogupdate" parameterType="Dog">
-		UPDATE DOG 
-		SET 
-			DOG_NAME=#{dogName},
-			AGE=#{age},
-			DISORDER=#{disorder},
-			OTHER=#{other},
-			<if test="imageOri != null">
-				IMAGE_ORI=#{imageOri},
-			</if>
-			<if test="imageRe != null">
-				IMAGE_RE=#{imageRe},
-			</if>
-				MODIFY_DATE=SYSDATE 
-		WHERE 
-			DOG_NO=#{dogNo}
-	</update>	 
+	<select id="searchByUserNo" resultMap="DogResultMap">
+		<include refid="selectDogSql"></include>
+		AND USER_ID = #{userNo}
+	</select>
 
+	<update id="updatedog" parameterType="Dog">
+		UPDATE DOG
+		SET
+		DOG_NAME=#{dogName},
+		AGE=#{age},
+		VACC=#{vacc},
+		DISORDER=#{disorder},
+		OTHER=#{other},
+		<if test="imageOri != null">
+			IMAGE_ORI=#{imageOri},
+		</if>
+		<if test="imageRe != null">
+			IMAGE_RE=#{imageRe},
+		</if>
+		MODIFY_DATE=SYSDATE
+		WHERE
+		DOG_NO=#{dogNo}
+	</update>
 	
+	<select id="searchByDogNo" resultMap="DogResultMap">
+		SELECT *
+		FROM DOG
+		WHERE DOG_NO = #{dogNo}
+	</select>
 </mapper>
