@@ -22,10 +22,15 @@ public interface DriverDao {
 
 	List<Driver> selectDriverAll();
 
-	List<Driver> selectDrivers();
-
 	int selectDriverCount();
 
 	List<Driver> selectAllDrivers(RowBounds rowBounds);
+
+	int getRejectDriverCount();
+
+	List<Driver> selectRejectDrivers(RowBounds rowBounds);
+
+	int applyDriver(int userNo);
+
 
 }

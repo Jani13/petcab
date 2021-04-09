@@ -23,6 +23,14 @@ public interface PartnerDao {
 
 	List<Partner> selectPtYesList();
 
+	List<Partner> selectWaitPartners();
+
+	int getRejectPartnerCount();
+
+	List<Partner> selectRejectPartners(RowBounds rowBounds);
+
+	int applyPartner(int userNo);
+
 	List<Partner> selectAllPartners(RowBounds rowBounds);
 
 	int selectPartnerCount();

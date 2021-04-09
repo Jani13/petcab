@@ -80,30 +80,40 @@
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
-                  <th scope="col">날짜</th>
-                  <th scope="col">이름</th>
+                  <th scope="col">회원번호</th>
+                  <th scope="col">회원명</th>
                   <th scope="col">업체명</th>
-                  <th scope="col">업종</th>
-                  <th scope="col">주소</th>
+                  <th scope="col">업체종류</th>
                   <th scope="col">연락처</th>
-                  <th scope="col">운영시간</th>
+                  <th scope="col">주소</th>
                   <th scope="col">승인</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2021/4/26</td>
-                  <td>이커피</td>
-                  <td>KH유치원</td>
-                  <td>유치원</td>
-                  <td>경기도 성남시 분당구 양현로 479 2층</td>
-                  <td>010-1234-5678</td>
-                  <td>평일 10:00~20:00</td>
-                  <td>&nbsp; Y &nbsp; 
-                    <button type="button" class="btn btn-outline-info">삭제</button>
-                  </td>
-                </tr>    
+                <c:if test="${waitPartners == null }">
+	                <tr>
+	                	<th></th>
+	                	<td>신청한 회원이 없습니다.
+	                	</td>
+	                </tr>
+                </c:if>
+                <c:if test="${waitPartners != null }">
+					<c:forEach var="partner" items="${waitPartners}">
+		                <tr>
+		                  <th scope="row">${partner.rowNum }</th>
+		                  <td>${partner.userNo }</td>
+		                  <td>${partner.member.userName }</td>
+		                  <td>${partner.partnerName }</td>
+		                  <td>${partner.partnerType }</td>
+		                  <td>${partner.member.phone }</td>
+		                  <td>${partner.openTime }</td>
+		                  <td>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/partner/grant?userNo=${partner.userNo}'">승인</button>
+		                  </td>
+		                </tr>
+	                </c:forEach>
+                </c:if> 
               </tbody>
             </table>
             <div
@@ -148,28 +158,42 @@
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
-                  <th scope="col">날짜</th>
-                  <th scope="col">이름</th>
+                  <th scope="col">회원번호</th>
+                  <th scope="col">회원명</th>
                   <th scope="col">업체명</th>
-                  <th scope="col">업종</th>
-                  <th scope="col">주소</th>
+                  <th scope="col">업체종류</th>
                   <th scope="col">연락처</th>
-                  <th scope="col">운영시간</th>
+                  <th scope="col">주소</th>
+                  <th scope="col">상태</th>
                   <th scope="col">승인</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2021/4/26</td>
-                  <td>adminApplyPartner</td>
-                  <td>KH유치원</td>
-                  <td>유치원</td>
-                  <td>경기도 성남시 분당구 양현로 479 2층</td>
-                  <td>010-1234-5678</td>
-                  <td>평일 10:00~20:00</td>
-                  <td>N</td>
-                </tr>    
+                <c:if test="${rejectPartners == null }">
+	                <tr>
+	                	<th></th>
+	                	<td>신청한 회원이 없습니다.
+	                	</td>
+	                </tr>
+                </c:if>
+                <c:if test="${rejectPartners != null }">
+					<c:forEach var="partner" items="${rejectPartners}">
+		                <tr>
+		                  <th scope="row">${partner.rowNum }</th>
+		                  <td>${partner.userNo }</td>
+		                  <td>${partner.member.userName }</td>
+		                  <td>${partner.partnerName }</td>
+		                  <td>${partner.partnerType }</td>
+		                  <td>${partner.member.phone }</td>
+		                  <td>${partner.openTime }</td>
+		                  <td>${partner.status }</td>
+		                  <td>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/partner/grant?userNo=${driver.userNo}'">승인</button>
+		                  </td>
+		                </tr>
+	                </c:forEach>
+                </c:if>  
               </tbody>
             </table>
             <div

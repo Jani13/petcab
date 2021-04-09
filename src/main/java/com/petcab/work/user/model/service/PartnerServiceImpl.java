@@ -50,6 +50,28 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
+	public List<Partner> selectWaitPartners() {
+		return partnerDao.selectWaitPartners();
+	}
+
+	@Override
+	public int getRejectPartnerCount() {
+		return partnerDao.getRejectPartnerCount();
+	}
+
+	@Override
+	public List<Partner> selectRejectPartners(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return partnerDao.selectRejectPartners(rowBounds);
+	}
+
+	@Override
+	public int applyPartner(int userNo) {
+		return partnerDao.applyPartner(userNo);
+	}
+	
+	@Override
 	public List<Partner> selectPartners(PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());

@@ -1,5 +1,6 @@
 package com.petcab.work.admin.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -209,40 +210,90 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value = "/apply/driver", method = RequestMethod.GET)
-	public ModelAndView applyDriver(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model){
-		List<Driver> waitDrivers = driverService.selectWaitDrivers();
-		List<Driver> drivers =  driverService.selectDrivers();
+	public ModelAndView applyDriver(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit){
 		
+		List<Driver> waitDrivers = driverService.selectWaitDrivers();
+		List<Driver> rejectDrivers = null;
+		
+		int driversCount = driverService.getRejectDriverCount();
+		PageInfo pageInfo = new PageInfo(page, 5, driversCount, listLimit);
+		
+		rejectDrivers = driverService.selectRejectDrivers(pageInfo);
+
 		log.info(waitDrivers.toString());
-		log.info(drivers.toString());
+		log.info(rejectDrivers.toString());
 
 		model.addObject("waitDrivers",waitDrivers);
-		model.addObject("drivers",drivers);
+		model.addObject("pageInfo",pageInfo); 
+		model.addObject("rejectDrivers",rejectDrivers);
 		model.setViewName("admin/adminApplyDriver");
 
 		return model;
 	}
 
+	@RequestMapping(value = "/driver/grant", method = RequestMethod.GET)
+	public ModelAndView driverGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		
+		int result = driverService.applyDriver(userNo);
+		int result2 = service.applyDriver(userNo);
+					
+		if (result > 0 && result2 > 0) {
+			model.addObject("msg", "승인하였습니다");
+			model.addObject("location", "/admin/apply/driver");
+		}else {
+			model.addObject("msg", "승인하지못했습니다.");
+			model.addObject("location", "/admin/apply/driver");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
 	@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
 	public ModelAndView applyPartner(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			ModelAndView model) {
-		List<Driver> waitDrivers = driverService.selectWaitDrivers();
-		List<Driver> drivers = driverService.selectDrivers();
+			ModelAndView model, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit) {
 
-		log.info(waitDrivers.toString());
-		log.info(drivers.toString());
+		List<Partner> waitPartners = partnerService.selectWaitPartners();
+		List<Partner> rejectPartners = null;
+		
+		int partnersCount = partnerService.getRejectPartnerCount();
+		PageInfo pageInfo = new PageInfo(page, 5, partnersCount, listLimit);
+		
+		rejectPartners = partnerService.selectRejectPartners(pageInfo);
 
-		model.addObject(waitDrivers);
-		model.addObject(drivers);
-		model.setViewName("admin/adminApplyDriver");
+		log.info(waitPartners.toString());
+		log.info(rejectPartners.toString());
+
+		model.addObject("waitPartners",waitPartners);
+		model.addObject("pageInfo",pageInfo); 
+		model.addObject("rejectPartners",rejectPartners);
+		model.setViewName("admin/adminApplyPartner");
+
+		return model;
+	}
+	@RequestMapping(value = "/partner/grant", method = RequestMethod.GET)
+	public ModelAndView partnerGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		
+		int result = partnerService.applyPartner(userNo);
+		int result2 = service.applyPartner(userNo);
+		
+		if (result > 0 && result2 > 0) {
+			model.addObject("msg", "승인하였습니다");
+			model.addObject("location", "/admin/apply/partner");
+		}else {
+			model.addObject("msg", "승인하지못했습니다.");
+			model.addObject("location", "/admin/apply/partner");
+		}
+		model.setViewName("common/msg");
 
 		return model;
 	}

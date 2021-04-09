@@ -46,10 +46,6 @@ public class DriverServiceImpl implements DriverService {
 		return driverDao.selectWaitDrivers();
 	}
 
-	@Override
-	public List<Driver> selectDrivers() {
-		return driverDao.selectDrivers();
-	}
 
 	@Override
 	public int getDriverCount() {
@@ -62,6 +58,23 @@ public class DriverServiceImpl implements DriverService {
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
 		return driverDao.selectAllDrivers(rowBounds);
+	}
+
+	@Override
+	public int getRejectDriverCount() {
+		return driverDao.getRejectDriverCount();
+	}
+
+	@Override
+	public List<Driver> selectRejectDrivers(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return driverDao.selectRejectDrivers(rowBounds);
+	}
+
+	@Override
+	public int applyDriver(int userNo) {
+		return driverDao.applyDriver(userNo);
 	}
 
 }

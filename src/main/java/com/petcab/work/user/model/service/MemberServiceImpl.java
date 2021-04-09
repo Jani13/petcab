@@ -108,6 +108,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int applyDriver(int userNo) {
+		return memberDao.applyDriver(userNo);
+	}
+
+	@Override
+	public int applyPartner(int userNo) {
+		return memberDao.applyPartner(userNo);
+	}
+
+	@Override
 	public List<Member> selectAllUsers(PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());

@@ -633,4 +633,6 @@ ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_B;
 ALTER TABLE GEN_CALL DROP COLUMN DOG_NO_C; 
 
 --------------------------------------------------------------------------------
+-- 04/09
 
+ALTER TABLE DRIVER MODIFY STATUS VARCHAR2(3) DEFAULT 'W' CHECK(STATUS IN('Y', 'N', 'W'));

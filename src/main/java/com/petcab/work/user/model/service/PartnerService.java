@@ -18,6 +18,14 @@ public interface PartnerService {
 
 	Partner selectPartner(int userNo);
 
+	List<Partner> selectWaitPartners();
+
+	int getRejectPartnerCount();
+
+	List<Partner> selectRejectPartners(PageInfo pageInfo);
+
+	int applyPartner(int userNo);
+	
 	List<Partner> selectPartners(PageInfo pageInfo);
 
 	int getPartnerCount();
