@@ -584,13 +584,12 @@ COMMENT ON COLUMN DOG.USER_ID IS '회원아이디';
 -- 문의하기 ---------------------
 ALTER TABLE QUES ADD (USER_ID VARCHAR2(30));
 
-ALTER TABLE QUES MODIFY VIEW_NO   NUMBER DEFAULT 0;
+ALTER TABLE QUES MODIFY VIEW_NO NUMBER DEFAULT 0;
 
 ALTER TABLE QUES MODIFY QUES_PWD VARCHAR2(30);
 
 --- 리뷰 서비스 제공자 번호 --------------------------
 ALTER TABLE REVIEW ADD S_USER_NO NUMBER NOT NULL;
-
 
 --------------------------------------------------------------------------------
 
@@ -604,25 +603,17 @@ ALTER TABLE GEN_CALL DROP COLUMN ANIMAL_NO_C;
 
 ALTER TABLE GEN_CALL ADD DOG_NO_A NUMBER;
 ALTER TABLE GEN_CALL ADD DOG_NO_B NUMBER;
-ALTER TABLE GEN_CALL ADD DOG_NO_C NUMBER
+ALTER TABLE GEN_CALL ADD DOG_NO_C NUMBER;
 
 --------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-=======
 --4월6일 파트너부터--
 ALTER TABLE PARTNER DROP COLUMN STATUS;
 ALTER TABLE PARTNER ADD STATUS VARCHAR2(3) DEFAULT 'W' CHECK(STATUS IN('Y', 'N','W'));
 ALTER TABLE PARTNER DROP COLUMN LOCATION;
-<<<<<<< HEAD
 
-=======
->>>>>>> 7bf585583b7a17595a49cc5e1e629b82f64bad96
->>>>>>> dc82baf50dadf7d64c42a58c259fbb3021398a76
+-------------- 4월 7일 수요일 취합해야할 부분 -------------------------------------
+ALTER TABLE QUES ADD STATUS VARCHAR2(3) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N'));    -- 문의하기 status 만들기
+
+ALTER TABLE REVIEW MODIFY VIEW_NO NUMBER DEFAULT 0;  -- 리뷰하기 VIEW_NO 디폴트 값 0으로 수정
+
+

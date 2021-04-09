@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.ques.model.vo.QuesReply;
 import com.petcab.work.review.model.service.ReviewService;
+import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 import com.petcab.work.user.model.vo.Member;
 
@@ -59,12 +61,13 @@ public class ReviewController {
 		return "/review/reviewWrite";
 	}
 	
-	
 	// 게시글 작성처리
 	@RequestMapping(value = "/reviewWriteResult", method = {RequestMethod.POST})
 	public ModelAndView reviewWriteResult(
 		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 		HttpServletRequest request, ModelAndView model) {
+		
+		// 예약과 연동하여 나중에 예약한 리스트로 리뷰 작성 내역을 선택하여 작성할 수 있도록 만들기
 		
 		int result = 0;
 		Review review = new Review();
@@ -101,7 +104,7 @@ public class ReviewController {
 	@RequestMapping(value = "/reviewView", method = {RequestMethod.GET})
 	public ModelAndView view (@RequestParam("reviewNo") int reviewNo, ModelAndView model) {
 		
-//		service.updateViewNo(reviewNo);
+		service.updateViewNo(reviewNo);
 		Review review = service.findreviewNo(reviewNo);
 		
 		model.addObject("review", review);
@@ -157,13 +160,11 @@ public class ReviewController {
 		public ModelAndView reviewDelete(@RequestParam("reviewNo") int reviewNo,
 				 ModelAndView model) {
 			int result = 0;
-			System.out.println("22222222222222" + reviewNo);
 			
 			result = service.delete(reviewNo);
-			
-			System.out.println("3333333333" + result);
+			System.out.println("dddddddddddddddd" + reviewNo);
 			if(result > 0) {
-				System.out.println("444444444444" + result);
+				System.out.println("xxxxxxxxxxxxxxxxxxx" + reviewNo);
 				model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
 //				model.addObject("location", "/review/reviewView?reviewNo="+reviewNo);
 				model.addObject("location", "/review/list");
@@ -177,6 +178,30 @@ public class ReviewController {
 			return model;
 		}
 	
+		// 댓글 만들기
+		@RequestMapping(value = "/reply", method = {RequestMethod.POST})
+		public ModelAndView replyWrite(
+				@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			HttpServletRequest request, RReply rReply,
+			 ModelAndView model) {
+			
+			int result = 0;
+			
+			result = service.saveRReply(rReply);
+			
+			if(result > 0) {
+				model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
+				model.addObject("location", "/review/reviewView");
+			} else {
+				model.addObject("msg", "답글 등록을 실패하였습니다.");
+				model.addObject("location", "/review/list");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
 }
 
 

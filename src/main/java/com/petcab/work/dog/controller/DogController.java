@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +37,6 @@ public class DogController {
 	@Autowired
 	private DogService service;
 
-
 	@RequestMapping("/signup/Information")
 	public String InfromationView() {
 		log.info("정보요청");
@@ -48,16 +49,16 @@ public class DogController {
 		return "/dog/dogInformation";
 	}
 
-	//		@RequestMapping("/dog/mdogInformation")
-	//		public String mdogInformationView() {
-	//			log.info("수정요청");
-	//			return "/dog/mdogInformation";
+	//		@RequestMapping(value = "/dog/mdogInformation", method = {RequestMethod.GET})
+	//		public String mydogpage() {
+	//			
+	//			return "dog/mdogInformation";
 	//		}
-	//		
 
 	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
+	@ResponseBody
 	public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model) {
+			,ModelAndView model,HttpServletRequest request) {
 		List<Dog> dogs = service.searchUserId(loginMember.getUserId());
 		log.info(dogs.toString());
 
@@ -67,59 +68,114 @@ public class DogController {
 		return model;
 	}
 
-	//		public ModelAndView dogupdate(
-	//				@SessionAttribute(name="loginMember", required = false) Member loginMember,
-	//				@RequestParam("reloadFile") MultipartFile reloadFile, HttpServletRequest request, 
-	//				@ModelAttribute Dog dog, ModelAndView model) {
+
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
+	 * public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required
+	 * = false) Member loginMember, ModelAndView model,@RequestParam("reloadFile")
+	 * MultipartFile reloadFile, HttpServletRequest request,
+	 * 
+	 * @ModelAttribute Dog dog) {
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return model; }
+	 */
+
+	//		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
+	//		public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember,
+	//			   ModelAndView model,@RequestParam("reloadFile") MultipartFile reloadFile, HttpServletRequest request,
+	//			   @ModelAttribute Dog dog) {
+	//			
 	//			int result = 0;
 	//			
-	//			System.out.println(dog);
+	//			List<Dog> dogs = service.searchUserId(loginMember.getUserId());
+	//			log.info(dogs.toString());
+	//			
+	//			model.addObject("dogs", dogs);
+	//			model.setViewName("dog/mdogInformation");
 	//			
 	//			if(loginMember.getUserId().equals(dog.getUserId())) {
-	//				if(reloadFile != null && !reloadFile.isEmpty()) {
-	//					if(dog.getImageRe() != null) {
-	//						deleteFile(dog.getImageRe(), request);
-	//					}
-	//					
-	//					String renameFileName = saveFile(reloadFile, request);
-	//					
-	//					if(renameFileName != null) {
-	//						dog.setImageOri(reloadFile.getOriginalFilename());
-	//						dog.setImageRe(renameFileName);
-	//					}
+	//			if(reloadFile != null && !reloadFile.isEmpty()) {
+	//				if(dog.getImageRe() != null) {
+	//					deleteFile(dog.getImageRe(), request);
 	//				}
 	//				
-	//				result = service.saveDog(dog);
+	//				String renameFileName = saveFile(reloadFile, request);
 	//				
-	//				if(result > 0) {
-	//					model.addObject("msg", "정상적으로 수정되었습니다.");
-	//					model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
-	//				} else {
-	//					model.addObject("msg", "수정을 실패하였습니다.");
-	//					model.addObject("location", "/dog/list");
+	//				if(renameFileName != null) {
+	//					dog.setImageOri(reloadFile.getOriginalFilename());
+	//					dog.setImageRe(renameFileName);
 	//				}
-	//			} else {
-	//				model.addObject("msg", "잘못된 접근입니다.");
-	//				model.addObject("location", "/");
-	//			}		
+	//			}
 	//			
-	//			model.setViewName("common/msg");
+	//			result = service.saveDog(dog);
+	//			
+	//			if(result > 0) {
+	//				model.addObject("msg", "정상적으로 수정되었습니다.");
+	//				model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
+	//			} else {
+	//				model.addObject("msg", "수정을 실패하였습니다.");
+	//				model.addObject("location", "/user/mypage");
+	//			}
+	//		} else {
+	//			model.addObject("msg", "잘못된 접근입니다.");
+	//			model.addObject("location", "/");
+	//		}		
+	//		
+	//		model.setViewName("common/msg");	
+	//			
 	//			return model;
 	//		}
+	//		
+	//
+	//		
+	//		private void deleteFile(String fileName, HttpServletRequest request) {
+	//		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+	//		String savePath = rootPath + "/upload/dog";				
+	//		
+	//		log.debug("Root Path : " + rootPath);
+	//		log.debug("Save Path : " + savePath);
+	//		
+	//		File file =  new File(savePath + "/" + fileName);
+	//		
+	//		if(file.exists()) {
+	//			file.delete();
+	//		}	
+	//	}
 
-	private void deleteFile(String fileName, HttpServletRequest request) {
-		String rootPath = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = rootPath + "/upload/dog";				
+	@RequestMapping(value = "/dog/dogInformation/enroll", method = {RequestMethod.GET})
+	public String enroll() {
 
-		log.debug("Root Path : " + rootPath);
-		log.debug("Save Path : " + savePath);
-
-		File file =  new File(savePath + "/" + fileName);
-
-		if(file.exists()) {
-			file.delete();
-		}	
+		return "dog/dogInformation";
 	}
+
+	//		// 테스트용 dog리스트 사용해서 자바스크립트 객체 따로 보내주기 작업... 다시 해보기. 4/7
+	//		@RequestMapping(value = "/dog/dogInformation/enroll", method = {RequestMethod.POST})
+	//		public ModelAndView enroll(
+	//				@SessionAttribute(name="loginMember", required = false) Member loginMember,
+	//				ModelAndView model,HttpServletRequest request, @ModelAttribute List<Dog>dogList,@RequestParam("upfile") MultipartFile upfile) {
+	//
+	//			System.out.println(dogList);
+	//				
+	//			int result=0;
+	//				if(result > 0) {
+	//					model.addObject("msg", "등록되었습니다.");
+	//					model.addObject("location", "/user/mypage");
+	//				} else {
+	//					model.addObject("msg", "등록을 실패하였습니다.");
+	//					model.addObject("location", "/dog/dogInformation/enroll");
+	//				}			
+	//				
+	//			
+	//			model.setViewName("common/msg");
+	//			
+	//			return model;
+	//			
+	//		}
 
 	@RequestMapping(value = "/dog/dogInformation/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(
@@ -168,6 +224,22 @@ public class DogController {
 
 	}
 
+	//	private String saveFile(MultipartFile file, HttpServletRequest request) {
+	//		String renamePath = null; 
+	//		String originalFileName = null;
+	//		String renameFileName = null;
+	//		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+	//		String savePath = rootPath + "/upload/dog";				
+	//
+	//		log.info("Root Path : " + rootPath);
+	//		log.info("Save Path : " + savePath);
+	//
+	//		// Save Path가 실제로 존재하지 않으면 폴더를 생성하는 로직
+	//		File folder = new File(savePath);
+	//
+	//		if(!folder.exists()) {
+	//			folder.mkdirs();
+
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String renamePath = null; 
 		String originalFileName = null;
@@ -175,8 +247,8 @@ public class DogController {
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/dog";				
 
-		log.info("Root Path : " + rootPath);
-		log.info("Save Path : " + savePath);
+		log.debug("Root Path : " + rootPath);
+		log.debug("Save Path : " + savePath);
 
 		// Save Path가 실제로 존재하지 않으면 폴더를 생성하는 로직
 		File folder = new File(savePath);
@@ -201,5 +273,5 @@ public class DogController {
 
 		return renameFileName;
 	}	
-	
+
 }

@@ -169,7 +169,12 @@
 										<c:forEach var="dog" items="${dog}" end="2">
 		                                    <div class="col-sm text-center py-4 myDogsEvent">
 		                                        <a href="" class="text-decoration-none text-dark">
+		                                        <c:if test="${dog.imageRe==null}">
 		                                            <img src="${path }/resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
+		                                        </c:if>
+		                                        <c:if test="${dog.imageRe!=null}">
+		                                            <img src="${path }/resources/upload/dog/${dog.imageRe}" class="myDogs rounded-pill img-thumbnail" alt="">
+		                                        </c:if>
 		                                            <p class="h5 my-4 fw-bold">${dog.dogName }</p>
 		                                        </a>
 		                                    </div>
@@ -210,7 +215,7 @@
 		                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
 		                            </h5>
 		                            <p class="card-text">
-		                                애견 이름 : ${call.animalNoA}<br>
+		                                애견 이름 : ${call.dogs.dogNo}<br>
 		                                예상 소요 시간 : 미정<br>
 		                                예상 결제 금액 : 미정<br>
 		                                드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
@@ -249,7 +254,7 @@
 		                                    </h5>
 		                                    <p class="fs-5">${call.pickupTime}</p>
 		                                    <p class="card-text m-0">
-		                                        애견 이름 : ${call.animalNoA}<br>
+		                                        애견 이름 : ${call.dogs.dogNo}<br>
 		                                        예상 소요 시간 : 아직미정<br>
 		                                        예상 결제 금액 : 아직미정<br>
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>

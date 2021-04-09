@@ -59,7 +59,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
 	                <li class="list-group-item">${ ques.userId }</li>             
-	                <li class="list-group-item">비밀 문의글입니다.</li>
+	               
 	                <li class="list-group-item">${ques.postDate}</li>
 	                <li class="list-group-item">${ques.viewNo}</li>
                 </ul>
@@ -70,8 +70,11 @@
                 ${ques.content}
             </div>
             <hr>      
-             					
-            	<div style="text-align : center; padding: 30px;">
+             
+	    					
+            <div style="text-align : center; padding: 30px;">
+           		<c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
+	    					|| loginMember.userType == 'ROLE_ADMIN')}">
  
 	                <span style="padding-right : 3rem;">
 	                    <input type="submit" class="btn btn-primary" onclick="updateQues()" value="수정하기"> 
@@ -79,13 +82,13 @@
 	                <span style="padding-right : 3rem;">
 	                    <input type="button" class="btn btn-secondary" onclick="deleteQues()" value="삭제하기">
 	                </span>
+            	</c:if>
 	                <span>
 	                    <input type="button" class="btn btn-secondary" 
 	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
 	                </span>             	
-  
-            	</div>
-           
+            </div>
+
             <hr>
 
             <div class="card" style="width: 85%; align-items: center; margin-left: 90px;">

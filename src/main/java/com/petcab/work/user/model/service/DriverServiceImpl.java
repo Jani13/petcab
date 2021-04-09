@@ -1,9 +1,12 @@
 package com.petcab.work.user.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.dao.DriverDao;
 import com.petcab.work.user.model.vo.Driver;
 
@@ -35,6 +38,27 @@ public class DriverServiceImpl implements DriverService {
 	public Driver selectDriverMember(int userNo) {
 		
 		return driverDao.selectDriverMember(userNo);
+	}
+
+	@Override
+	public List<Driver> selectWaitDrivers() {
+		return driverDao.selectWaitDrivers();
+	}
+
+	@Override
+	public List<Driver> selectDrivers() {
+		return driverDao.selectDrivers();
+	}
+
+	@Override
+	public int getDriverCount() {
+		return driverDao.selectDriverCount();
+	}
+
+	@Override
+	public List<Driver> rNumSelectDrivers(PageInfo pageInfo) {
+		
+		return driverDao.selectDrivers(pageInfo);
 	}
 
 }

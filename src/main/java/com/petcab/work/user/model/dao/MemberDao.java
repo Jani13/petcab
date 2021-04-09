@@ -1,7 +1,10 @@
 package com.petcab.work.user.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.user.model.vo.Member;
 
@@ -23,5 +26,12 @@ public interface MemberDao {
 	int updatePwd(Member member);
 
 	int selectCount();
+
+	List<Member> selectPartnerAddr();
+
+	/*
+	 * List<Member> selectMemberAll(RowBounds rowBounds);
+	 */
+	List<Member> rNumSelectMemberAll(RowBounds rowBounds);
 
 }

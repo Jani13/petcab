@@ -191,13 +191,13 @@
             </div>
             <div class="row">
               <div class="col-md-4 col-sm-12 text-center my-3">
-                <a href="">
+                <a href="${path}/partner/partHospital">
                   <img class="img-fluid" src="${path }/images/hos1.png" alt="" />
                 </a>
                 <div class="h4 fw-bold my-3">병원</div>
               </div>
               <div class="col-md-4 col-sm-12 text-center">
-                <a href="">
+                <a href="${path}/partner/partKindergarten">
                   <img
                     class="img-fluid"
                     src="${path }/images/school1.png"
@@ -207,7 +207,7 @@
                 <div class="h4 fw-bold my-3">유치원</div>
               </div>
               <div class="col-md-4 col-sm-12 text-center">
-                <a href="">
+                <a href="${path}/partner/partShop">
                   <img class="img-fluid" src="${path }/images/shop1.png" alt="" />
                 </a>
                 <div class="h4 fw-bold my-2">샵</div>
@@ -227,7 +227,7 @@
               반려동물 택시 드라이버가 되어 보세요. <br />
               운전자가 원하는 운행 경로 시간대의 예약을 선택하여 반려동물을
               목적지에 이동 시켜주며 수입을 창출할 수 있습니다.<br />
-              지금 '<a class="text-white" href="">드라이버지원</a>' 을 확인해
+              지금 '<a class="text-white" href="${path}/driver/">드라이버지원</a>' 을 확인해
               보세요
             </p>
           </div>
