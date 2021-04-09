@@ -17,4 +17,6 @@ public interface DogDao {
 
 	Dog searchByDogNo(int dogNo);
 
+	List<Dog> searchByCallNo(int callNo);
+
 }

@@ -50,6 +50,12 @@ public class DogServiceImpl implements DogService {
 		
 		return dogDao.searchByDogNo(dogNo);
 	}
+
+	@Override
+	public List<Dog> searchByCallNo(int callNo) {
+				
+		return dogDao.searchByCallNo(callNo);
+	}
 	
 //	@Service
 //	public class DogServiceImpl implements DogService {
