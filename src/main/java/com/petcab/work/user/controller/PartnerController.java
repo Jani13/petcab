@@ -135,7 +135,7 @@ public class PartnerController {
 	public ModelAndView partnerMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model) {
 		Partner partner = partnerService.selectPartner(loginMember.getUserNo());
-		List<Call> waitCall = callService.waitECallList(loginMember.getUserNo());
+		List<Call> waitCall = callService.waitECallList();
 		List<Call> eCallList = callService.eCallList(loginMember.getUserNo());
 		
 		log.info(waitCall.toString());

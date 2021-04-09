@@ -32,7 +32,7 @@ public interface CallService {
 
 	List<Call> endCallUserId(String userId);
 
-	List<Call> waitECallList(int userNo);
+	List<Call> waitECallList();
 
 	List<Call> eCallList(int userNo);
 

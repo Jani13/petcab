@@ -89,8 +89,8 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> waitECallList(int userNo) {
-		return callDao.waitECallList(userNo);
+	public List<Call> waitECallList() {
+		return callDao.waitECallList();
 	}
 
 	@Override
