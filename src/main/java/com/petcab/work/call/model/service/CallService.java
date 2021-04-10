@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
+import com.petcab.work.common.util.PageInfo;
 
 public interface CallService {
 	int insertCall(Call call);
@@ -32,8 +33,12 @@ public interface CallService {
 
 	List<Call> endCallUserId(String userId);
 
-	List<Call> waitECallList(int userNo);
+	List<Call> waitECallList();
 
 	List<Call> eCallList(int userNo);
+
+	List<Call> selectGenCallList(PageInfo pageInfo);
+
+	int getGenCallCount();
 
 }

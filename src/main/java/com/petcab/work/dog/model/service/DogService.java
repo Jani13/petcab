@@ -9,11 +9,11 @@ public interface DogService {
 
 	int saveDog(Dog dog);
 
-//	int saveDog(Dog dog, Member member);
-
 	List<Dog> searchUserId(String userId);
 
 //	int getdogCount();
 	
 	Dog searchByDogNo(int dogNo);
+
+	int updateDog(Dog dog);
 }

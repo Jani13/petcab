@@ -16,16 +16,21 @@ public class RReplyServiceImpl implements RReplyService {
 	@Autowired
 	private RReplyDao rReplyDao;
 
-	@Override
-	public List<RReply> replyList(int replyNo) {
-		
-		return null;
-//				rRelyDao.ReplyList(replyNo);
-	}
+//	@Override
+//	public List<RReply> replyList(int replyNo) {
+//		
+//		return rReplyDao.replyList(replyNo);
+//	}
 
 	@Override
 	public int saveRReply(RReply rReply) {
 		
 		return rReplyDao.insertRRely(rReply);
+	}
+
+	@Override
+	public List<RReply> getReplyList(int listLimit) {
+		
+		return rReplyDao.replyList(listLimit);
 	}
 }

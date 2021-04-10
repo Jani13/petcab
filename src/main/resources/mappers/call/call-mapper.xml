@@ -130,6 +130,7 @@
 
 	<resultMap type="Driver" id="DriverResultMap">
 		<id property="userNo" column="USER_NO" />
+		<result property="userName" column="USER_NAME"/>
 		<result property="carNo" column="CAR_NO" />
 		<result property="carType" column="CAR_TYPE" />
 	</resultMap>
@@ -242,48 +243,50 @@
 	<!-- 원석작업 -->
 	<select id="driverWaitCallList" resultMap="callResultMap">
 		SELECT
-		C.CALL_NO,
-		C.TIME,
-		C.FROM_WHERE,
-		C.TO_WHERE,
-		C.WITH_OWNER,
-		C.TO_DRIVER,
-		C.STATUS,
-		C.CALL_TYPE,
-		D.USER_NO,
-		D.CAR_NO,
-		D.CAR_TYPE,
-		C.MERCHANT_UID
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			C.MERCHANT_UID
 		FROM
-		GEN_CALL
-		C, DRIVER D
-		WHERE C.USER_NO =
-		D.USER_NO
-		AND C.STATUS = '신청'
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND C.STATUS = '신청'
 	</select>
 
 	<select id="driverEndCallList" parameterType="_int"
 		resultMap="callResultMap">
 		SELECT
-		C.CALL_NO,
-		C.TIME,
-		C.FROM_WHERE,
-		C.TO_WHERE,
-		C.WITH_OWNER,
-		C.TO_DRIVER,
-		C.STATUS,
-		C.CALL_TYPE,
-		D.USER_NO,
-		D.CAR_NO,
-		D.CAR_TYPE,
-		C.MERCHANT_UID
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			C.MERCHANT_UID
 		FROM
-		GEN_CALL C, DRIVER D
-		WHERE C.USER_NO =
-		D.USER_NO
-		AND C.STATUS = '종료'
-		AND
-		C.USER_NO = #{userNo}
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND C.STATUS = '종료'
+            AND C.USER_NO = #{userNo}
 	</select>
 
 	<!-- 이슬 작업 -->
@@ -316,95 +319,116 @@
 	<select id="useCallUserId" parameterType="string"
 		resultMap="callResultMap">
 		SELECT
-		C.CALL_NO,
-		C.TIME,
-		C.FROM_WHERE,
-		C.TO_WHERE,
-		C.STATUS,
-		C.CALL_TYPE,
-		D.CAR_TYPE,
-		D.CAR_NO
-		FROM GEN_CALL C,
-		DRIVER D,
-		DOG D2,
-		MEMBER U
-		WHERE
-		C.USER_NO = D.USER_NO
-		AND U.USER_ID = D2.USER_ID
-		AND C.STATUS='확정'
-		AND D2.USER_ID = #{userId}
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			C.MERCHANT_UID
+		FROM
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND C.STATUS = '확정'
+            AND D2.USER_ID = #{userId}
 	</select>
 
 	<select id="endCallUserId" parameterType="string"
 		resultMap="callResultMap">
 		SELECT
-		C.CALL_NO,
-		C.TIME,
-		C.FROM_WHERE,
-		C.TO_WHERE,
-		C.STATUS,
-		C.CALL_TYPE,
-		D.CAR_TYPE,
-		D.CAR_NO
-		FROM GEN_CALL C,
-		DRIVER D,
-		DOG D2,
-		MEMBER U
-		WHERE
-		C.USER_NO = D.USER_NO
-		<!-- AND D2.DOG_NO = C.DOG_NO_A -->
-		AND U.USER_ID = D2.USER_ID
-		AND C.STATUS='종료'
-		AND D2.USER_ID = #{userId}
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			C.MERCHANT_UID
+		FROM
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND C.STATUS = '종료'
+            AND D2.USER_ID = #{userId}
 	</select>
 	
-	<select id="waitECallList" parameterType="_int" resultMap="callResultMap">
+	<select id="waitECallList" resultMap="callResultMap">
 		SELECT
-		    C.CALL_NO,
-		    C.TIME,
-		    C.FROM_WHERE,
-		    C.TO_WHERE,
-		    C.WITH_OWNER,
-		    C.STATUS,
-		    C.CALL_TYPE,
-			D2.CAR_NO,
-			D2.CAR_TYPE,
-		    E.USER_NO,
-		    E.TO_PARTNER,
-		    E.TO_REJECT,           
-		    M.USER_NAME,
-		    D.DOG_NAME
-		FROM GEN_CALL C, EMERG_CALL E, MEMBER M, DOG D, DRIVER D2
-		WHERE C.CALL_NO=E.CALL_NO
-		AND C.USER_NO = D2.USER_NO
-		AND C.DOG_NO_A = D.DOG_NO
-		AND M.USER_ID = D.USER_ID
-		AND C.STATUS='업체'
-		AND E.USER_NO = #{userNo}
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			M.USER_NAME,
+			C.MERCHANT_UID
+		FROM
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD, MEMBER M
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND D2.USER_ID = M.USER_ID
+			AND C.STATUS = '업체'
 	</select>
-	
+	<!--  긴급콜 요청,긴급콜내역 -->
 	<select id="eCallList" parameterType="_int" resultMap="callResultMap">
 		SELECT
-		    C.CALL_NO,
-		    C.TIME,
-		    C.FROM_WHERE,
-		    C.TO_WHERE,
-		    C.WITH_OWNER,
-		    C.STATUS,
-		    C.CALL_TYPE,
-			D2.CAR_NO,
-			D2.CAR_TYPE,
-		    E.USER_NO,
-		    E.TO_PARTNER,
-		    E.TO_REJECT,           
-		    M.USER_NAME,
-		    D.DOG_NAME
-		FROM GEN_CALL C, EMERG_CALL E, MEMBER M, DOG D, DRIVER D2
-		WHERE C.CALL_NO=E.CALL_NO
-		AND C.USER_NO = D2.USER_NO
-		AND C.DOG_NO_A = D.DOG_NO
-		AND M.USER_ID = D.USER_ID
-		AND E.USER_NO = #{userNo}
+			C.CALL_NO,
+			C.TIME,
+			C.FROM_WHERE,
+			C.TO_WHERE,
+			C.WITH_OWNER,
+			C.TO_DRIVER,
+			C.STATUS,
+			C.CALL_TYPE,
+			D.USER_NO,
+			D.CAR_NO,
+			D.CAR_TYPE,
+			D2.DOG_NAME,
+			M.USER_NAME,
+			C.MERCHANT_UID
+		FROM
+			GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD, MEMBER M, EMERG_CALL E
+		WHERE C.CALL_NO = CD.CALL_NO
+			AND C.CALL_NO = E.CALL_NO
+			AND CD.DOG_NO = D2.DOG_NO
+			AND C.USER_NO = D.USER_NO
+			AND D2.USER_ID = M.USER_ID
+			AND E.USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectGenCallList" resultMap="callResultMap">
+		SELECT G.CALL_NO,
+		       G.TIME,
+		       G.FROM_WHERE,
+		       G.TO_WHERE,
+		       G.STATUS,
+		       G.CALL_TYPE,
+		       M.USER_NAME,
+		       DR.CAR_NO
+		FROM GEN_CALL G
+		JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+		JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) WHERE G.CALL_TYPE = '일반'	
 	</select>
 	
 </mapper>	

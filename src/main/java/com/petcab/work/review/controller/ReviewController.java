@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.ques.model.vo.QuesReply;
 import com.petcab.work.review.model.service.RReplyService;
@@ -31,6 +32,9 @@ public class ReviewController {
 	
 	@Autowired
 	private RReplyService reservice;
+	
+	@Autowired
+	private CallService callservice;
 	
 	// 리뷰 목록
 	@RequestMapping(value = "/list", method = {RequestMethod.GET})
@@ -207,15 +211,39 @@ public class ReviewController {
 		}
 		
 		// 댓글 리스트
+		/**
+		 * @param currentPage 현재 클릭한 페이지
+		 * @param pagelimit 한 페이지에 보여질 페이지의 수 (밑에 나타나는 숫자 현재 10개씩)
+		 * @param listCount 전체 리스트 수
+		 * @param listLimit 한 페이지에 표시될 게시글 수(현재 게시글 목록 5개) : 
+		 */
 		@RequestMapping(value = "/replyList", method = {RequestMethod.GET})
-		public ModelAndView replyList(@RequestParam("replyNo") int replyNo,
+		public ModelAndView replyList(@RequestParam(value = "listLimit", 
+										required = false, defaultValue = "100") int listLimit,
 				ModelAndView model) {
 			
-			List<RReply> replyList = reservice.replyList(replyNo);
+//			List<RReply> replyList = reservice.replyList(replyNo);
+			List<RReply> replyList = null;
+			
+			replyList = reservice.getReplyList(listLimit);
+			
+			model.addObject("replyList", replyList);
+			model.setViewName("review/reviewView");
 			
 			return model;
-			
 		}
+
+//			System.out.println(reviewCount);
+//			
+//			list = service.getReviewList(pageInfo);
+//			
+//			log.info(list.toString());
+//			model.addObject("list", list);
+//			model.addObject("pageInfo", pageInfo);
+//			model.setViewName("review/reviewList");
+//			
+//			return model;
+//		}
 		
 }
 

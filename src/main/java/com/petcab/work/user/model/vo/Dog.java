@@ -1,6 +1,7 @@
 package com.petcab.work.user.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,5 +38,7 @@ public class Dog {
 	private Date modifyDate;
 	
 	private String status;
+	
+//	private List<Dog> dogs;
 
 }

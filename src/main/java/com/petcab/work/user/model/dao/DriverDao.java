@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.vo.Driver;
@@ -21,10 +22,15 @@ public interface DriverDao {
 
 	List<Driver> selectDriverAll();
 
-	List<Driver> selectDrivers();
-
 	int selectDriverCount();
 
-	List<Driver> selectDrivers(PageInfo pageInfo);
+	List<Driver> selectAllDrivers(RowBounds rowBounds);
+
+	int getRejectDriverCount();
+
+	List<Driver> selectRejectDrivers(RowBounds rowBounds);
+
+	int applyDriver(int userNo);
+
 
 }

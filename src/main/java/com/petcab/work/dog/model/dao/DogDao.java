@@ -11,10 +11,13 @@ import com.petcab.work.user.model.vo.Member;
 public interface DogDao {
 	int insertDog(Dog dog);
 
-//	int updateDog(Dog dog);
-
 	List<Dog> searchUserId(String userId);
 
 	Dog searchByDogNo(int dogNo);
+
+	int updateDog(Dog dog);
+
+
+
 
 }

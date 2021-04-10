@@ -160,7 +160,11 @@
 		                                    <div class="card-header bg-transparent">
 		                                        <span class="card-text" style="padding-right: 15px;">${call.pickupTime}</span> 
 		                                        <span class="card-text" style="padding-right: 15px;">고객 : </span>
-		                                        <span class="card-text" style="padding-right: 15px;">애견 : <!-- 애견명 넣을 부분--></span>
+		                                        <span class="card-text" style="padding-right: 15px;">애견 : 
+			                                        <c:forEach var="dog" items="${call.dogs}" end="2">
+				                                		${dog.dogName} 
+				                                	</c:forEach>
+				                                </span>
 		                                    </div>
 		                                    <div class="card-body">
 		                                        <p class="card-title">도착 예상시간 : <!--도착예상시간 넣을 부분--></p>
@@ -194,17 +198,20 @@
 		                                <div class="card-body p-4">
 		                                    <i class="fas fa-meteor text-danger">긴급</i>
 		                                    <h5 class="card-title fw-bold">
-		                                        ${call.fromWhere} <!-- 출발지 주소 연결해야할 부분 -->
+		                                        ${call.fromWhere} 
 		                                        <i class="fas fa-arrow-right"></i> 
-		                                        ${call.toWhere} <!-- 도착지 주소 연결해야할 부분 -->
-		                                        <p>${call.pickupTime} <!-- 날짜가연결해야할 부분 --></p>
+		                                        ${call.toWhere} 
+		                                        <p>${call.pickupTime} </p>
 		                                    </h5>
 		                                    <p class="card-text">
-		                                        고객명 :  <!-- 고객명이 들어가야할 부분 --><br>
-		                                        애견명 :  <!-- 애견명이 연결해야할 부분 --> <br>
-		                                        예상 결제 금액 : 3만원 <!-- 연결해야할 부분 --> <br>
-		                                        드라이버 : ${call.driver.carType } /${call.driver.carNo } <!--연결해야할 부분--><br>
-		                                        비고 : ${call.status } <!--연결해야할 부분--><br>
+		                                        고객명 :  <br>
+		                                        애견명 :  
+		                                        <c:forEach var="dog" items="${call.dogs}" end="2">
+			                                		${dog.dogName} 
+			                                	</c:forEach> <br>
+		                                        예상 결제 금액 : <!-- 연결해야할 부분 --> <br>
+		                                        드라이버 : ${call.driver.carType } /${call.driver.carNo } <br>
+		                                        비고 : ${call.status } <br>
 		                                    </p>
 		                                </div>
 		                            </div>

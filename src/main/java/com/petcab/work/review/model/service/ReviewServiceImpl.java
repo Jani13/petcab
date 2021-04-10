@@ -71,12 +71,6 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.delete(reviewNo);
 	}
 
-	@Override
-	public int saveRReply(RReply rReply) {
-		
-		return reviewDao.insertRRely(rReply);
-	}
-	
 	public List<Review> searchSUserNo(int userNo) {
 		
 		return reviewDao.searchSUserNo(userNo);
