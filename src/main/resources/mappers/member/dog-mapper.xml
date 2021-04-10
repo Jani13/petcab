@@ -107,7 +107,7 @@
 		AND USER_ID = #{userNo}
 	</select>
 
-	<update id="updatedog" parameterType="Dog">
+	<update id="updateDog" parameterType="Dog">
 		UPDATE DOG
 		SET
 		DOG_NAME=#{dogName},

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.dog.model.dao.DogDao;
 import com.petcab.work.user.model.vo.Dog;
-import com.petcab.work.user.model.vo.Member;
+
 
 @Service
 public class DogServiceImpl implements DogService {
@@ -50,21 +50,18 @@ public class DogServiceImpl implements DogService {
 		
 		return dogDao.searchByDogNo(dogNo);
 	}
-	
-//	@Service
-//	public class DogServiceImpl implements DogService {
-//		@Autowired
-//		private DogDao dogDao;
-//		
-//		@Override
-//		@Transactional
-//		public int saveDog(Dog dog) {
-//			
-//			int result =0;
-//			
-//			result=dogDao.insertDog(dog);
-//			
-//			return result;
-//		}
+
+	@Override
+	public int updateDog(Dog dog) {
+		int result =0;
+		
+		result=dogDao.updateDog(dog);
+		
+		return result;
+	}
+
+
+
+
 
 }

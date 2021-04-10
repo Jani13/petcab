@@ -42,15 +42,16 @@
             <h1>반려 동물</h1>
             <br />
             <div>
-                <form name=mydog action="${path}/dog/mdogInformation" method="POST">  
+                <form name=mydog action="${path}/dog/mdogInformation" method="POST" enctype="multipart/form-data">  
                     <div>
                         <div class="row">
                             <div class="col-md-3">
-                     
+                             <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+                             <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
                              <tr>
                                     <th>나의 애견</th>
                                     <div class="input-group mb-2">
-                                        <select class="form-select" aria-label="Default select example" id=dogno>
+                                        <select class="form-select" aria-label="Default select example" id="noDog">
                                         <c:forEach var="dog" items="${dogs}" end="10">
                                         	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
                                         </c:forEach>
@@ -65,8 +66,10 @@
                                         <th style="width: 130px;">등록번호</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" name="animalNo" id="" value="${dog.animalNo}"
+                                            <c:forEach var="dog" items="${dogs}" end="0">
+                                                <input type="text" class="form-control" name="animalNo" id=""  value="${dog.animalNo}"
                                                     aria-describedby="button-addon2" readonly>
+                                                    
                                             </div>
                                         </td>
                                     </tr>
@@ -75,7 +78,8 @@
                                         <td>
                                             <div class="input-group mb-2">
                                                <select class="form-select" aria-label="Default select example" id="" name="dogType">
-                                                <option selected> - 선택 - </option>
+                                               <option dogNo="${dog.dogNo}"><c:out value="${dog.dogType}"/></option>
+                                               <!-- <option selected> - 선택 - </option> -->
                                                <option value="골든 리트리버">골든 리트리버</option>
                                                <option value="그레이트 피레니즈">그레이트 피레니즈</option>
                                                <option value="그레이 하운드">그레이 하운드</option>
@@ -185,7 +189,7 @@
                                                <option value="플랫 코티드 리트리버">플랫 코티드 리트리버</option>
                                                <option value="파라오 하운드">파라오 하운드</option>                                            
                                                <option value="해리어">해리어</option>
-                                               <option value="휘핏">휘핏</option>
+                                               <option value="휘핏">휘핏</option> 
                                             </select>
                                             </div>
                                         </td>
@@ -198,16 +202,24 @@
                                     </td>
                                     </tr>
                                     <tr>
-                                        <th style="width: 130px;">애견 사진</th>
+                                        <th style="width: 130px;">현재 사진</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                                <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
-                                            	<c:if test="${ !empty dog.imageOri }">
-												<br>현재 업로드한 파일 : 
+                                                <c:if test="${ !empty dog.imageOri }">
 												<a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }">
 													${ dog.imageOri }
 												</a>
 											</c:if>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 130px;">변경할 사진</th>
+                                        <td>
+                                            <div class="input-group mb-2">
+                                            <input type="hidden" name="imageOri" value = "${dog.imageOri}">
+											<input type="hidden" name="imageRe" value = "${dog.imageRe}">
+                                               <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
                                             </div>
                                         </td>
                                     </tr>
@@ -268,12 +280,11 @@
                                         <textarea  id="" rows="5" cols="80" name="other" ><c:out value="${dog.other}"/></textarea>
                                     </div>
                                 </div> 
-                                 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
-                                 <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
+                               </c:forEach>   
                                 <br>
                                 <div style="text-align:center;">
-                                    <button type="submit" class="btn btn-outline-info" style="margin-right: 50px;">정보 수정</button>
-                                    <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;">확인</button>
+                                    <button type="submit" class="btn btn-outline-danger" style="margin-right: 50px;">삭제하기</button>
+                                    <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;">정보 수정</button>
                                 </div>
                             </div>
                         </div>
@@ -284,18 +295,36 @@
     </section>
   <jsp:include page="../common/footer.jsp" />
   
-<!--    <script >
+   <script >
    
-   
-/*    $("#dogno").change(function(){
-	  var dog = $("dog.dogNo").val(data);
+  /*  $(function(){
+	   $("#noDog").onchange(dogNo=function(){
+		   $.ajax({
+				type: "post",
+ 				url: "${path}/dog/mdogInformation ",
+ 				dataType:'json',
+ 				data: {
+ 					dogNo,
+ 					success: function(data){
+ 						if(!data.data || data.data=='' || data.data.length<1) return false;
+ 						$("dog.dogNo").val(data);
+ 	 					$("dog.animalNo").val(data);
+ 	 					$("dog.dogName").val(data);
+ 	 					$("dog.dogType").val(data);
+ 	 					$("dog.age").val(data);
+ 	 					$("dog.vacc").val(data);
+ 	 					$("dog.disorder").val(data);
+ 	 					$("dog.other").val(data);
+ 	 					$("dog.imageOri").val(data);
+ 	 					$("dog.imageRe").val(data);
+ 					}
+ 				}
+		   })
+	   });
    }); */
-   
-   
-   
-   
- 	/* $(function(){
- 		$("dogNo").on("click", function(){
+        
+/*   $(function(){
+ 		$("dogNo").on(cham function(){
  			$.ajax({
  				type: "post",
  				url: "${path}/dog/mdogInformation ",
@@ -319,9 +348,9 @@
  				
  			});
  		});
- 	});	 */
+ 	});	 */ 
   
   
-  </script>  -->
+  </script> 
 </body>
 </html>
