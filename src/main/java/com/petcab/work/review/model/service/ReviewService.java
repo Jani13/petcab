@@ -19,10 +19,8 @@ public interface ReviewService {
 	int delete(int reviewNo);
 
 	int updateViewNo(int reviewNo);
-
+	
 	List<Review> searchUserNo(int userNo);
-
-	int saveRReply(RReply rReply);
 
 	List<Review> searchSUserNo(int userNo);
 

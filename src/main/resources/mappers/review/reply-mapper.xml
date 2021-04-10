@@ -28,6 +28,14 @@
 		<result property="reviewNo" column="REVIEW_NO"/>
 	</resultMap>
 	
+	<!-- 
+	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
+		<include refid="ReviewListSql"></include>
+		WHERE R.STATUS = 'Y'
+		ORDER BY R.REVIEW_NO DESC
+	</select>
+	 -->
+	 
 	<insert id="insertRRely" parameterType="map"
 	useGeneratedKeys="true" keyProperty="reviewNo" keyColumn="REVIEW_NO">
 	INSERT INTO REVIEW_REPLY(
