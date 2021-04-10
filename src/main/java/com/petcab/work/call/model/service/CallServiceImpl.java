@@ -2,12 +2,14 @@ package com.petcab.work.call.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
+import com.petcab.work.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -89,13 +91,26 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> waitECallList(int userNo) {
-		return callDao.waitECallList(userNo);
+	public List<Call> waitECallList() {
+		return callDao.waitECallList();
 	}
 
 	@Override
 	public List<Call> eCallList(int userNo) {
 		return callDao.eCallList(userNo);
+	}
+
+	@Override
+	public List<Call> selectGenCallList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return callDao.selectGenCallList(rowBounds);
+	}
+
+	@Override
+	public int getGenCallCount() {
+		return callDao.selectGenCall();
 	}
 
 }

@@ -73,7 +73,7 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>드라이버 승인</h4></span>
+            <span><h4>드라이버 승인요청</h4></span>
             <br>
             <table class="table">
               <thead>
@@ -97,7 +97,7 @@
 	                </tr>
                 </c:if>
                 <c:if test="${waitDrivers != null }">
-					<c:forEach var="driver" items="${waitDrivers}" end="2">
+					<c:forEach var="driver" items="${waitDrivers}">
 		                <tr>
 		                  <th scope="row">${driver.rowNum }</th>
 		                  <td>${driver.userNo }</td>
@@ -107,39 +107,14 @@
 		                  <td>${driver.carType }</td>
 		                  <td>${driver.carNo }</td>
 		                  <td>
-		                    <button type="button" class="btn btn-outline-info">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>
                 </c:if>    
               </tbody>
             </table>
-            <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>
@@ -149,7 +124,7 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>드라이버 거부</h4></span>
+            <span><h4>승인 거부된 드라이버</h4></span>
             <br>
             <table class="table">
               <thead>
@@ -162,18 +137,19 @@
                   <th scope="col">차종류</th>
                   <th scope="col">차번호</th>
                   <th scope="col">상태</th>
+                  <th scope="col">승인</th>
                 </tr>
               </thead>
              <tbody>
-                <c:if test="${drivers == null }">
+                <c:if test="${rejectDrivers == null }">
 	                <tr>
 	                	<th></th>
 	                	<td>신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>
-                <c:if test="${drivers != null }">
-					<c:forEach var="driver" items="${drivers}" end="2">
+                <c:if test="${rejectDrivers != null }">
+					<c:forEach var="driver" items="${rejectDrivers}">
 		                <tr>
 		                  <th scope="row">${driver.rowNum }</th>
 		                  <td>${driver.userNo }</td>
@@ -182,9 +158,10 @@
 		                  <td>${driver.member.address }</td>
 		                  <td>${driver.carType }</td>
 		                  <td>${driver.carNo }</td>
+		                  <td>${driver.status }</td>
 		                  <td>
-		                  <c:if test="${driver.status == 'Y' }">활동</c:if>
-		                  <c:if test="${driver.status == 'N' }">탈퇴</c:if> 
+		                 	<button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>

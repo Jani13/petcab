@@ -29,4 +29,13 @@ public interface MemberService {
 	List<Member> selectMemberAddr();
 
 	List<Member> selectAllMember(PageInfo pageInfo);
+
+	int applyDriver(int userNo);
+
+	int applyPartner(int userNo);
+
+	List<Member> selectAllUsers(PageInfo pageInfo);
+
+	int getUserCount();
+
 }

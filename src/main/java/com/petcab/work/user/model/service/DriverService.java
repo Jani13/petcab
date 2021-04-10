@@ -16,10 +16,14 @@ public interface DriverService {
 
 	List<Driver> selectWaitDrivers();
 
-	List<Driver> selectDrivers();
-
 	int getDriverCount();
 
 	List<Driver> rNumSelectDrivers(PageInfo pageInfo);
+
+	int getRejectDriverCount();
+
+	List<Driver> selectRejectDrivers(PageInfo pageInfo);
+
+	int applyDriver(int userNo);
 
 }

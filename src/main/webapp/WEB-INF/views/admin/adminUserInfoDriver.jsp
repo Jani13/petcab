@@ -82,12 +82,12 @@
                         <tbody>
                         	<c:if test="${driverList == null}">                       	
 	                        	<tr>
-	                        		<td colspan="6">
+	                        		<td class="text-center" colspan="7">
 	                        			회원이 존재하지 않습니다.
 	                        		</td>
 	                        	</tr>
                         	</c:if>
-                        	<c:if test="${driverList != null }">
+                        	<c:if test="${driverList != null}">
                         		<c:forEach var="driver" items="${driverList}">
 		                          <tr>
 				                      <td>${driver.rowNum}</td>
