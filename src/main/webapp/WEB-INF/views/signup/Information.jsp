@@ -261,10 +261,24 @@
 							</table>
 						</div>
 						<div class="input-group mb-1 row flex-column">
+							<%if(userType.equals("ROLE_MEMBER")){%>
 							<p class="col-md-12 text-center my-5" style="font-size: 20px;">
-									<br> * 애완견이 있을 경우 로그인 후 등록을 해주세요. <br> * 제휴업체(파트너) 또는 드라이버
-									지원 인 경우 가입 후 유형보기를 눌러주세요.
+									<br> * 애완견이 있을 경우 로그인 후 등록을 해주세요. 
 							</p>
+							<%}%>
+							
+							<%if(userType.equals("ROLE_PARTNER")){%>
+							<p class="col-md-12 text-center my-5" style="font-size: 20px;">
+									<br> * 제휴업체(파트너)인 경우 가입 후 제휴업체 등록을 진행해주세요.
+							</p>
+							<%}%>
+							
+							<%if(userType.equals("ROLE_DRIVER")){%>
+							<p class="col-md-12 text-center my-5" style="font-size: 20px;">
+									<br> * 드라이버인 경우 가입 후 드라이버 지원을 진행해주세요.
+							</p>
+							<%}%>
+							
 							<div class="col-12 row d-flex justify-content-center p-3">
 								<button type="submit" id="enrollSubmit" class="col-2 btn btn-outline-info">
 					                확인
@@ -374,7 +388,7 @@
 		        	 return false;
 		         }
 		         if(addr.length == 0) {
-		        	 alert("전화번호를 입력해주세요");
+		        	 alert("주소를 입력해주세요");
 		        	 $("#addr2").focus();
 		        	 return false;
 		         }
