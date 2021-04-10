@@ -42,6 +42,7 @@ public class DogServiceImpl implements DogService {
 
 	@Override
 	public List<Dog> searchUserId(String userId) {
+		
 		return dogDao.searchUserId(userId);
 	}
 

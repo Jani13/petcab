@@ -53,10 +53,10 @@
 					</div>
 
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book" method="POST">
+						<form action="${ path }/call/book" method="POST" id="callForm">
 							<div class="form-group mb-3">
 								<label for="pickupTime">예약 시간</label> <input
-									type="datetime-local" id="pickupTime" name="pickupTime" />
+									type="datetime-local" id="pickupTime" name="pickupTime" required />
 							</div>
 
 							<div class="form-group mb-3">
@@ -66,9 +66,9 @@
 									style="margin-left: 0; margin-right: 0">
 									<div class="col-9" style="padding-left: 0; padding-right: 0">
 										<input type="text" class="form-control where-from"
-											name="fromWhere" placeholder="출발지" /> <input type="text"
+											name="fromWhere" placeholder="출발지" required /> <input type="text"
 											class="form-control where-to" name="toWhere"
-											placeholder="도착지" />
+											placeholder="도착지" required />
 									</div>
 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
@@ -79,7 +79,7 @@
 
 								<div class="row" style="margin-left: 0; margin-right: 0">
 									<input type="text" class="form-control" id="estCost"
-										name="estCost" placeholder="예상금액 (원)" />
+										name="estCost" placeholder="예상금액 (원)" required />
 								</div>
 							</div>
 
@@ -98,15 +98,15 @@
 									애견 선택하기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
 								<!-- 미로그인 시 로그인 페이지로 이동 -->
-								<input type="hidden" name="dogNo" value=""> <input
-									type="hidden" name="dogNo" value=""> <input
-									type="hidden" name="dogNo" value="">                                
+								<input type="hidden" name="dogNo" value="" /> 
+								<input type="hidden" name="dogNo" value="" /> 
+								<input type="hidden" name="dogNo" value="" />                                
 							</div>
 
 							<div class="form-floating mb-3">
 								<textarea class="form-control"
 									placeholder="Leave a comment here" id="floatingTextarea"
-									name="toDriver"></textarea>
+									name="toDriver" required></textarea>
 								<label for="floatingTextarea">Comments</label>
 							</div>
 
@@ -163,6 +163,23 @@ function selectDogs() {
 	window.open(url, windowName, windowFeatures);
 	
 	// opener.window.location.href="" 
+}
+
+document.getElementById('callForm').onsubmit = function () {
+	let inputs = document.getElementsByName('dogNo'); // 3개
+    let dogs = 0;
+
+    inputs.forEach(input => {
+        if (input.value !== "") {
+            dogs++;
+        }
+    });
+
+    if (dogs == 0) {
+        alert('애견을 선택해주세요.');
+
+        return false;
+    }
 }
 
 </script>
