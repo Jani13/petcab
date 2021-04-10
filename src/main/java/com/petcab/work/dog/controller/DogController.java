@@ -5,16 +5,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.petcab.work.common.util.PageInfo;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
@@ -49,9 +47,8 @@ public class DogController {
 		return "/dog/dogInformation";
 	}
 
-
 	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
-	@ResponseBody
+//	@ResponseBody
 	public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model,HttpServletRequest request) {
 		List<Dog> dogs = service.searchUserId(loginMember.getUserId());
@@ -62,39 +59,60 @@ public class DogController {
 		return model;
 	}
 
+	// 소요 작업
+	@RequestMapping(value="/dog/mdogInformation", method={RequestMethod.POST})
+	@ResponseBody
+	public Dog dogUpdate(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam(name="dogNo", required=true) int dogNo,
+			HttpServletRequest request,
+			ModelMap model) {
+	
+		Dog dog = service.searchByDogNo(dogNo);
+		
+		System.out.println(dog);
+		
+		return dog;
+	}
 
 	// 4/9일 작업...
-	  @ResponseBody	  
-	  @RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
-	  public ModelAndView updatedog(@SessionAttribute(name="loginMember", required
-	  = false) Member loginMember,@RequestParam("dogNo") ModelAndView model,@RequestParam("reloadFile")
-	  MultipartFile reloadFile, HttpServletRequest request,  @ModelAttribute Dog dog) {
+	@ResponseBody	  
+	@RequestMapping(value="/dog/mdogInformation/{dogNo}", method = {RequestMethod.POST} )
+	public ModelAndView updateDog(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@PathVariable int dogNo,
+			@RequestParam("dogNo") ModelAndView model,
+//			@RequestParam(name="dogNo", required=false) int dogNo,
+			@RequestParam("reloadFile") MultipartFile reloadFile,
+			HttpServletRequest request,
+			@ModelAttribute Dog dog
+			) {
 		
-		  int result = 0;
-			
-//			List<Dog> dogs = service.updateDog(loginMember.getUserId());
-//			log.info(dogs.toString());
-//			log.info("상세조회");
-//			
-//			model.addObject("dogs", dogs);
-//			model.setViewName("dog/mdogInformation");
-			
-								if(loginMember.getUserId().equals(dog.getUserId())) {
-								if(reloadFile != null && !reloadFile.isEmpty()) {
-									if(dog.getImageRe() != null) {
-										deleteFile(dog.getImageRe(), request);
-									}
-									
-									String renameFileName = saveFile(reloadFile, request);
-									
-									if(renameFileName != null) {
-										dog.setImageOri(reloadFile.getOriginalFilename());
-										dog.setImageRe(renameFileName);
-									}
-								}
-								
-								result = service.updateDog(dog);
-			
+		int result = 0;
+
+//		List<Dog> dogs = service.updateDog(loginMember.getUserId());
+//		log.info(dogs.toString());
+//		log.info("상세조회");
+//
+//		model.addObject("dogs", dogs);
+//		model.setViewName("dog/mdogInformation");
+
+		if(loginMember.getUserId().equals(dog.getUserId())) {
+			if(reloadFile != null && !reloadFile.isEmpty()) {
+				if(dog.getImageRe() != null) {
+					deleteFile(dog.getImageRe(), request);
+				}
+
+				String renameFileName = saveFile(reloadFile, request);
+
+				if(renameFileName != null) {
+					dog.setImageOri(reloadFile.getOriginalFilename());
+					dog.setImageRe(renameFileName);
+				}
+			}
+
+			result = service.updateDog(dog);
+
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 수정되었습니다.");
 				model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
@@ -102,16 +120,15 @@ public class DogController {
 				model.addObject("msg", "수정을 실패하였습니다.");
 				model.addObject("location", "/user/mypage");
 			}
-								} else {
-									model.addObject("msg", "잘못된 접근입니다.");
-									model.addObject("location", "/");
-								}		
-		
+		} else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
+		}		
+
 		model.setViewName("common/msg");	
-		  
-	 return model;
-	 }
-	 
+
+		return model;
+	}
 
 	//		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
 	//		public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember,
@@ -161,19 +178,19 @@ public class DogController {
 	//		
 	//
 	//		
-			private void deleteFile(String fileName, HttpServletRequest request) {
-			String rootPath = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = rootPath + "/upload/dog";				
-			
-			log.debug("Root Path : " + rootPath);
-			log.debug("Save Path : " + savePath);
-			
-			File file =  new File(savePath + "/" + fileName);
-			
-			if(file.exists()) {
-				file.delete();
-			}	
-		}
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = rootPath + "/upload/dog";				
+
+		log.debug("Root Path : " + rootPath);
+		log.debug("Save Path : " + savePath);
+
+		File file =  new File(savePath + "/" + fileName);
+
+		if(file.exists()) {
+			file.delete();
+		}	
+	}
 
 	@RequestMapping(value = "/dog/dogInformation/enroll", method = {RequestMethod.GET})
 	public String enroll() {
