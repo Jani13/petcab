@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
@@ -37,7 +38,9 @@ public interface CallDao {
 
 	List<Call> endCallUserId(String userId);
 
-	List<Call> waitECallList(int userNo);
+	List<Call> waitECallList();
 
 	List<Call> eCallList(int userNo);
+
+	List<Call> selectGenCallList(RowBounds rowBounds);
 }

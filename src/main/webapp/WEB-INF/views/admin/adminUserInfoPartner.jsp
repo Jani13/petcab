@@ -71,89 +71,89 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">타입</th>
+                            <th scope="col">No</th> 
                             <th scope="col">아이디</th>
-                            <th scope="col">이름</th>
+                            <th scope="col">업체명</th>
                             <th scope="col">연락처</th>
-                            <th scope="col">애견정보</th>
-                            <th scope="col">가입상태</th>
+                            <th scope="col">주소</th>
+                            <th scope="col">영업시간</th>
+                            <th scope="col">승인</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>제휴업체</td>
-                            <td>user1</td>
-                            <td>고구마</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>제휴업체</td>
-                            <td>user1</td>
-                            <td>미나리</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>제휴업체</td>
-                            <td>user1</td>
-                            <td>변기통</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>제휴업체</td>
-                            <td>user1</td>
-                            <td>물티슈</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>제휴업체</td>
-                            <td>user1</td>
-                            <td>노트북</td>
-                            <td>010-0000-0000</td>
-                            <td>(+)</td>
-                            <td>Y</td>
-                          </tr>
+                        	<c:if test="${partnerList == null}">
+                        		<tr>
+	                        		<td class="text-center" colspan="7">
+	                        			회원이 존재하지 않습니다.
+	                        		</td>
+	                        	</tr>
+                        	</c:if>
+                        	<c:if test="${partnerList != null}">
+								<c:forEach var="partner" items="${partnerList}">
+		                          <tr>
+			                          <td>${partner.rowNum}</td>
+			                          <td>${partner.member.userId}</td>
+			                          <td>${partner.partnerName}</td>
+			                          <td>${partner.phone}</td>
+			                          <td>${partner.member.address}</td>
+			                          <td>${partner.openTime}</td>
+			                          <td>${partner.status}</td>
+		                          </tr>
+								</c:forEach>                        		
+                        	</c:if>
                         </tbody>
                       </table>
+                      
+                      <!-- 페이징 부분 -->
                       <div
                         aria-label="Page navigation example"
                         class="d-flex justify-content-center"
                       >
                         <ul class="pagination">
+                          
+                          <!-- 맨 처음으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
+                            <a class="page-link" href="${path}/admin/info/partner?page=1" aria-label="Previous">
+                              <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                           </li>
+                          <!-- 이전 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">1</a>
+                            <a class="page-link" href="${path}/admin/info/partner?page=${pageInfo.prvePage}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;</span>
+                            </a>
                           </li>
+                          
+                          <!-- 5개 페이지 목록 -->
+                          <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                          	<c:if test="${status.current == pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link disabled"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          	<c:if test="${status.current != pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link" href="${path}/admin/info/partner?page=${status.current}"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          </c:forEach>
+                          
+                          <!-- 다음 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">2</a>
+                            <a class="page-link" href="${path}/admin/info/partner?page=${pageInfo.nextPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;</span>
+                            </a>
                           </li>
+                          
+                          <!-- 맨 끝으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
+                            <a class="page-link" href="${path}/admin/info/partner?page=${pageInfo.maxPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                           </li>
                         </ul>
                       </div>
+                      
                     </div>
                   </div>
                 </div>

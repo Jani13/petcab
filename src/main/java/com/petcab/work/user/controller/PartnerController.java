@@ -43,10 +43,12 @@ public class PartnerController {
 		
 		if(partner != null) {
 			if(partner.getStatus().equals("W")) {
-				model.setViewName("partner/partner");
+				model.addObject("msg", "승인이 대기중인 업체입니다.");
+				model.addObject("location", "/");
+				model.setViewName("common/msg");
 				
 			} else if (partner.getStatus().equals("N")) {
-				model.addObject("msg", "업체승인이 거절된 업체입니다.");
+				model.addObject("msg", "승인이 거절된 업체입니다.");
 				model.addObject("location", "/");
 				model.setViewName("common/msg");
 				
@@ -55,7 +57,9 @@ public class PartnerController {
 				model.addObject("location", "/");
 				model.setViewName("common/msg");
 			}
-		} 
+		} else {
+			model.setViewName("partner/partner");
+		}
 		
 		return model;
 	}
@@ -135,7 +139,7 @@ public class PartnerController {
 	public ModelAndView partnerMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model) {
 		Partner partner = partnerService.selectPartner(loginMember.getUserNo());
-		List<Call> waitCall = callService.waitECallList(loginMember.getUserNo());
+		List<Call> waitCall = callService.waitECallList();
 		List<Call> eCallList = callService.eCallList(loginMember.getUserNo());
 		
 		log.info(waitCall.toString());

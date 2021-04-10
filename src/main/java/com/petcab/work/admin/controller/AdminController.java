@@ -1,5 +1,6 @@
 package com.petcab.work.admin.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
@@ -24,6 +26,7 @@ import com.petcab.work.user.model.service.MemberService;
 import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
+import com.petcab.work.user.model.vo.Partner;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -85,9 +88,9 @@ public class AdminController {
 		List<Member> memberList = null;
 		int quesCount = service.getMemberCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
-				
+			
 		memberList = service.selectAllMember(pageInfo);
-		
+
 		log.info(memberList.toString());
 		
 		model.addObject("memberList", memberList);
@@ -102,13 +105,12 @@ public class AdminController {
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		
 		List<Driver> driverList = null; 
 		int quesCount = driverService.getDriverCount();
 		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
 		  
 		driverList = driverService.rNumSelectDrivers(pageInfo);
-		  
+		
 		log.info(driverList.toString());
 		  
 		model.addObject("driverList", driverList);
@@ -119,24 +121,69 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/info/user", method = RequestMethod.GET)
-	public String infoUser() {
-
-		return "admin/adminUserInfoUser";
+	public ModelAndView infoUser(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+		
+		List<Member> onlyUserList = null;
+		int quesCount = service.getUserCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		onlyUserList = service.selectAllUsers(pageInfo);
+		
+		model.addObject("onlyUserList", onlyUserList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoUser");
+		
+		return model;
 	}
+	
 	@RequestMapping(value = "/info/partner", method = RequestMethod.GET)
-	public String infoCompany() {
-
-		return "admin/adminUserInfoPartner";
+	public ModelAndView infoCompany(ModelAndView model,
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+		
+		List<Partner> partnerList = null;
+		int quesCount = partnerService.getPartnerCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		partnerList = partnerService.selectPartners(pageInfo);
+		
+		log.info(partnerList.toString());
+		
+		model.addObject("partnerList", partnerList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoPartner");
+		
+		return model;
 	}
+	
 	@RequestMapping(value = "/call/normal", method = RequestMethod.GET)
-	public String callNormal() {
+	public ModelAndView callNormal(ModelAndView model, 
+			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		return "admin/adminCallinfo";
-	}@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
+		List<Call> callList = null;
+		int quesCount = callService.getGenCallCount();
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		
+		callList = callService.selectGenCallList(pageInfo);
+		
+		log.info(callList.toString());
+		model.addObject("callList", callList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminCallinfo");
+		
+		return model;	
+	}
+	
+	@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
 	public String callEmergency() {
 
 		return "admin/adminCallEminfo";
-	}@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
+	}
+	
+	@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
 	public String callCancel() {
 
 		return "admin/adminCallCancel";
@@ -146,7 +193,9 @@ public class AdminController {
 	public String payReview() {
 
 		return "admin/adminPayReview";
-	}@RequestMapping(value = "/apply", method = RequestMethod.GET)
+	}
+	
+	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public String apply() {
 
 		return "admin/adminApply";
@@ -161,40 +210,90 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value = "/apply/driver", method = RequestMethod.GET)
-	public ModelAndView applyDriver(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model){
-		List<Driver> waitDrivers = driverService.selectWaitDrivers();
-		List<Driver> drivers =  driverService.selectDrivers();
+	public ModelAndView applyDriver(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit){
 		
+		List<Driver> waitDrivers = driverService.selectWaitDrivers();
+		List<Driver> rejectDrivers = null;
+		
+		int driversCount = driverService.getRejectDriverCount();
+		PageInfo pageInfo = new PageInfo(page, 5, driversCount, listLimit);
+		
+		rejectDrivers = driverService.selectRejectDrivers(pageInfo);
+
 		log.info(waitDrivers.toString());
-		log.info(drivers.toString());
+		log.info(rejectDrivers.toString());
 
 		model.addObject("waitDrivers",waitDrivers);
-		model.addObject("drivers",drivers);
+		model.addObject("pageInfo",pageInfo); 
+		model.addObject("rejectDrivers",rejectDrivers);
 		model.setViewName("admin/adminApplyDriver");
 
 		return model;
 	}
 
+	@RequestMapping(value = "/driver/grant", method = RequestMethod.GET)
+	public ModelAndView driverGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		
+		int result = driverService.applyDriver(userNo);
+		int result2 = service.applyDriver(userNo);
+					
+		if (result > 0 && result2 > 0) {
+			model.addObject("msg", "승인하였습니다");
+			model.addObject("location", "/admin/apply/driver");
+		}else {
+			model.addObject("msg", "승인하지못했습니다.");
+			model.addObject("location", "/admin/apply/driver");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
 	@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
 	public ModelAndView applyPartner(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			ModelAndView model) {
-		List<Driver> waitDrivers = driverService.selectWaitDrivers();
-		List<Driver> drivers = driverService.selectDrivers();
+			ModelAndView model, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit) {
 
-		log.info(waitDrivers.toString());
-		log.info(drivers.toString());
+		List<Partner> waitPartners = partnerService.selectWaitPartners();
+		List<Partner> rejectPartners = null;
+		
+		int partnersCount = partnerService.getRejectPartnerCount();
+		PageInfo pageInfo = new PageInfo(page, 5, partnersCount, listLimit);
+		
+		rejectPartners = partnerService.selectRejectPartners(pageInfo);
 
-		model.addObject(waitDrivers);
-		model.addObject(drivers);
-		model.setViewName("admin/adminApplyDriver");
+		log.info(waitPartners.toString());
+		log.info(rejectPartners.toString());
+
+		model.addObject("waitPartners",waitPartners);
+		model.addObject("pageInfo",pageInfo); 
+		model.addObject("rejectPartners",rejectPartners);
+		model.setViewName("admin/adminApplyPartner");
+
+		return model;
+	}
+	@RequestMapping(value = "/partner/grant", method = RequestMethod.GET)
+	public ModelAndView partnerGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		
+		int result = partnerService.applyPartner(userNo);
+		int result2 = service.applyPartner(userNo);
+		
+		if (result > 0 && result2 > 0) {
+			model.addObject("msg", "승인하였습니다");
+			model.addObject("location", "/admin/apply/partner");
+		}else {
+			model.addObject("msg", "승인하지못했습니다.");
+			model.addObject("location", "/admin/apply/partner");
+		}
+		model.setViewName("common/msg");
 
 		return model;
 	}

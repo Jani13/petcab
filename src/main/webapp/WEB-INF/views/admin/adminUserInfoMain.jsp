@@ -110,7 +110,7 @@
                         <tbody>
                         	<c:if test="${memberList == null}">                       	
 	                        	<tr>
-	                        		<td colspan="7">
+	                        		<td class="text-center" colspan="7">
 	                        			회원이 존재하지 않습니다.
 	                        		</td>
 	                        	</tr>
