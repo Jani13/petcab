@@ -6,67 +6,144 @@
 
 	<sql id="selectCallSql">
 		SELECT G.CALL_NO,
-		    G.TIME,
-		    G.FROM_WHERE,
-		    G.TO_WHERE,
-		    G.WITH_OWNER,
-		    G.TO_DRIVER,
-		    G.STATUS,
-		    G.CALL_TYPE,
-		    G.USER_NO,
-		    G.MERCHANT_UID,
-		    CD.DOG_NO,
-		    D.ANIMAL_NO,
-		    D.DOG_NAME,
-		    D.DOG_TYPE,
-		    D.AGE,
-		    D.VACC,
-		    D.DISORDER,
-		    D.OTHER,
-		    D.IMAGE_ORI,
-		    D.IMAGE_RE,
-		    D.ENROLL_DATE,
-		    D.MODIFY_DATE,
-		    D.STATUS,
-		    D.USER_ID
+		G.TIME,
+		G.FROM_WHERE,
+		G.TO_WHERE,
+		G.WITH_OWNER,
+		G.TO_DRIVER,
+		G.STATUS,
+		G.CALL_TYPE,
+		G.USER_NO,
+		G.MERCHANT_UID,
+		CD.DOG_NO,
+		D.ANIMAL_NO,
+		D.DOG_NAME,
+		D.DOG_TYPE,
+		D.AGE,
+		D.VACC,
+		D.DISORDER,
+		D.OTHER,
+		D.IMAGE_ORI,
+		D.IMAGE_RE,
+		D.ENROLL_DATE,
+		D.MODIFY_DATE,
+		D.STATUS,
+		D.USER_ID
 		FROM GEN_CALL G
-		JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-		JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+		JOIN CALL_DOG CD ON
+		(G.CALL_NO = CD.CALL_NO)
+		JOIN DOG D
+		ON (CD.DOG_NO = D.DOG_NO)
 	</sql>
 
 	<sql id="selectEmgCallSql">
 		SELECT G.CALL_NO,
-		    G.TIME,
-		    G.FROM_WHERE,
-		    G.TO_WHERE,
-		    G.WITH_OWNER,
-		    G.TO_DRIVER,
-		    G.STATUS,
-		    G.CALL_TYPE,
-		    G.USER_NO,
-		    G.MERCHANT_UID,
-		    D.DOG_NO,
-		    E.TO_PARTNER,
-		    E.TO_REJECT,
-		    E.USER_NO,
-		    D.ANIMAL_NO,
-		    D.DOG_NAME,
-		    D.DOG_TYPE,
-		    D.AGE,
-		    D.VACC,
-		    D.DISORDER,
-		    D.OTHER,
-		    D.IMAGE_ORI,
-		    D.IMAGE_RE,
-		    D.ENROLL_DATE,
-		    D.MODIFY_DATE,
-		    D.STATUS,
-		    D.USER_ID
+		G.TIME,
+		G.FROM_WHERE,
+		G.TO_WHERE,
+		G.WITH_OWNER,
+		G.TO_DRIVER,
+		G.STATUS,
+		G.CALL_TYPE,
+		G.USER_NO,
+		G.MERCHANT_UID,
+		D.DOG_NO,
+		E.TO_PARTNER,
+		E.TO_REJECT,
+		E.USER_NO,
+		D.ANIMAL_NO,
+		D.DOG_NAME,
+		D.DOG_TYPE,
+		D.AGE,
+		D.VACC,
+		D.DISORDER,
+		D.OTHER,
+		D.IMAGE_ORI,
+		D.IMAGE_RE,
+		D.ENROLL_DATE,
+		D.MODIFY_DATE,
+		D.STATUS,
+		D.USER_ID
 		FROM GEN_CALL G
 		JOIN EMERG_CALL E ON (G.CALL_NO = E.CALL_NO)
-		JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-		JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+		JOIN
+		CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+		JOIN DOG D ON (CD.DOG_NO =
+		D.DOG_NO)
 	</sql>
+
+	<sql id="selectEmgCallWithNoDogsSql">
+		SELECT G.CALL_NO,
+		G.TIME,
+		G.FROM_WHERE,
+		G.TO_WHERE,
+		G.WITH_OWNER,
+		G.TO_DRIVER,
+		G.STATUS,
+		G.CALL_TYPE,
+		G.USER_NO,
+		G.MERCHANT_UID,
+		E.TO_PARTNER,
+		E.TO_REJECT,
+		E.USER_NO
+		FROM GEN_CALL G
+		JOIN
+		EMERG_CALL E ON (G.CALL_NO = E.CALL_NO)
+	</sql>
+
+	<resultMap type="Dog" id="dogResultMap">
+		<id property="dogNo" column="DOG_NO" />
+		<result property="animalNo" column="ANIMAL_NO" />
+		<result property="dogName" column="DOG_NAME" />
+		<result property="dogType" column="DOG_TYPE" />
+		<result property="age" column="AGE" />
+		<result property="vacc" column="VACC" />
+		<result property="disorder" column="DISORDER" />
+		<result property="other" column="OTHER" />
+		<result property="imageOri" column="IMAGE_ORI" />
+		<result property="imageRe" column="IMAGE_RE" />
+		<result property="userId" column="USER_ID" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+	
+	<resultMap type="Partner" id="partnerResultMap">
+		<id property="userNo" column="USER_NO" />
+		<result property="partnerName" column="PARTNER_NAME" />
+		<result property="partnerType" column="PARTNER_TYPE" />
+		<result property="phone" column="PHONE" />
+		<result property="openTime" column="OPEN_TIME" />
+		<result property="imageOri" column="IMAGE_ORI" />
+		<result property="imageRe" column="IMAGE_RE" />
+		<result property="about" column="ABOUT" />
+		<result property="status" column="STATUS" />
+		<!-- 
+		<result property="member" column="PARTNER_NAME" />
+		<result property="rowNum" column="PARTNER_NAME" />
+		-->
+	</resultMap>
+
+	<resultMap type="Driver" id="DriverResultMap">
+		<id property="userNo" column="USER_NO" />
+		<result property="carNo" column="CAR_NO" />
+		<result property="carType" column="CAR_TYPE" />
+	</resultMap>
+	
+	<resultMap type="EmgCall" id="emgCallWithNoDogsResultMap">
+		<id property="callNo" column="CALL_NO" />
+		<result property="pickupTime" column="TIME" />
+		<result property="fromWhere" column="FROM_WHERE" />
+		<result property="toWhere" column="TO_WHERE" />
+		<result property="withOwner" column="WITH_OWNER" />
+		<result property="toDriver" column="TO_DRIVER" />
+		<result property="status" column="STATUS" />
+		<result property="callType" column="CALL_TYPE" />
+		<result property="merchantUid" column="MERCHANT_UID" />
+		<association property="driver" resultMap="DriverResultMap" />
+		<association property="partner"
+			resultMap="partnerResultMap" />
+	</resultMap>
 
 	<resultMap type="Call" id="callResultMap">
 		<id property="callNo" column="CALL_NO" />
@@ -79,7 +156,53 @@
 		<result property="callType" column="CALL_TYPE" />
 		<result property="merchantUid" column="MERCHANT_UID" />
 		<association property="driver" resultMap="DriverResultMap" />
-		<collection property="dogs" javaType="java.util.List" ofType="Dog">
+		<collection property="dogs" javaType="java.util.List"
+			ofType="Dog">
+			<id property="dogNo" column="DOG_NO" />
+			<result property="animalNo" column="ANIMAL_NO" />
+			<result property="userId" column="USER_ID" />
+			<result property="dogName" column="DOG_NAME" />
+			<result property="dogType" column="DOG_TYPE" />
+			<result property="age" column="AGE" />
+			<result property="vacc" column="VACC" />
+			<result property="disorder" column="DISORDER" />
+			<result property="other" column="OTHER" />
+			<result property="imageOri" column="IMAGE_ORI" />
+			<result property="imageRe" column="IMAGE_RE" />
+			<result property="enrollDate" column="ENROLL_DATE" />
+			<result property="modifyDate" column="MODIFY_DATE" />
+			<result property="status" column="STATUS" />
+		</collection>
+	</resultMap>
+
+	<select id="selectDogsForCall">
+		SELECT *
+		FROM DOG
+		WHERE DOG_NO = #{dogNo}
+	</select>
+
+	<select id="selectCall" parameterType="_int"
+		resultMap="callResultMap">
+		<include refid="selectCallSql"></include>
+		WHERE G.CALL_NO = #{callNo}
+	</select>
+
+	<resultMap type="EmgCall" id="emgCallResultMap">			
+		<id property="callNo" column="CALL_NO" />
+		<result property="pickupTime" column="TIME" />
+		<result property="fromWhere" column="FROM_WHERE" />
+		<result property="toWhere" column="TO_WHERE" />
+		<result property="withOwner" column="WITH_OWNER" />
+		<result property="toDriver" column="TO_DRIVER" />
+		<result property="status" column="STATUS" />
+		<result property="callType" column="CALL_TYPE" />
+		<result property="merchantUid" column="MERCHANT_UID" />
+		<result property="toPartner" column="TO_PARTNER" />
+		<result property="toReject" column="TO_REJECT" />
+		<association property="partner" javaType="Partner" resultMap="partnerResultMap" />
+		<association property="driver" javaType="Driver" resultMap="DriverResultMap" />
+		<collection property="dogs" javaType="java.util.List"
+			ofType="Dog">
 			<id property="dogNo" column="DOG_NO" />
 			<result property="animalNo" column="ANIMAL_NO" />
 			<result property="userId" column="USER_ID" />
@@ -97,59 +220,48 @@
 		</collection>
 	</resultMap>
 	
-	<resultMap type="Dog" id="dogResultMap">
-		<!-- 기본키 -->
-		<id property="dogNo" column="DOG_NO" />
-		<!-- 일반컬럼 -->
-		<result property="animalNo" column="ANIMAL_NO" />
-		<result property="dogName" column="DOG_NAME" />
-		<result property="dogType" column="DOG_TYPE" />
-		<result property="age" column="AGE" />
-		<result property="vacc" column="VACC" />
-		<result property="disorder" column="DISORDER" />
-		<result property="other" column="OTHER" />
-		<result property="imageOri" column="IMAGE_ORI" />
-		<result property="imageRe" column="IMAGE_RE" />
-		<result property="userId" column="USER_ID" />
-		<result property="enrollDate" column="ENROLL_DATE" />
-		<result property="modifyDate" column="MODIFY_DATE" />
-		<result property="status" column="STATUS" />
-	</resultMap>
-
-	<resultMap type="EmgCall" id="emgCallResultMap">
-		<id property="callNo" column="CALL_NO" />
-		<result property="toPartner" column="TO_PARTNER" />
-		<result property="toReject" column="TO_REJECT" />
-		<association property="partner"
-			resultMap="partnerResultMap" />
-	</resultMap>
-
-	<resultMap type="Partner" id="partnerResultMap">
-		<result property="partnerName" column="PARTNER_NAME" />
-	</resultMap>
-
-	<resultMap type="Driver" id="DriverResultMap">
-		<id property="userNo" column="USER_NO" />
-		<result property="userName" column="USER_NAME"/>
-		<result property="carNo" column="CAR_NO" />
-		<result property="carType" column="CAR_TYPE" />
-	</resultMap>
-
-	<select id="selectDogsForCall">
-		SELECT *
-		FROM DOG
-		WHERE DOG_NO = #{dogNo}
-	</select>
-
-	<select id="selectCall" parameterType="_int"
-		resultMap="callResultMap">
-		<include refid="selectCallSql"></include>
-		WHERE G.CALL_NO = #{callNo}
-	</select>
-
 	<select id="selectEmgCall" parameterType="_int"
 		resultMap="emgCallResultMap">
-		<include refid="selectEmgCallSql"></include>
+		SELECT G.CALL_NO,
+			G.TIME,
+			G.FROM_WHERE,
+			G.TO_WHERE,
+			G.WITH_OWNER,
+			G.TO_DRIVER,
+			G.STATUS,
+			G.CALL_TYPE,
+			G.USER_NO,
+			G.MERCHANT_UID,
+			D.DOG_NO,
+			E.TO_PARTNER,
+			E.TO_REJECT,
+			E.USER_NO,
+			P.PARTNER_NAME,
+			P.PARTNER_TYPE,
+			P.PHONE,
+			P.OPEN_TIME,
+			P.IMAGE_ORI,
+			P.IMAGE_RE,
+			P.ABOUT,
+			P.STATUS,
+			D.ANIMAL_NO,
+			D.DOG_NAME,
+			D.DOG_TYPE,
+			D.AGE,
+			D.VACC,
+			D.DISORDER,
+			D.OTHER,
+			D.IMAGE_ORI,
+			D.IMAGE_RE,
+			D.ENROLL_DATE,
+			D.MODIFY_DATE,
+			D.STATUS,
+			D.USER_ID
+		FROM GEN_CALL G
+		JOIN EMERG_CALL E ON (G.CALL_NO = E.CALL_NO)
+		JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+		JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+		JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
 		WHERE E.CALL_NO = #{callNo}
 	</select>
 
@@ -158,30 +270,31 @@
 		<selectKey resultType="_int" keyProperty="callNo"
 			order="BEFORE">
 			SELECT SEQ_CALL_NO.NEXTVAL FROM DUAL
-		</selectKey>	
+		</selectKey>
 		INSERT ALL
 		INTO GEN_CALL (
-			CALL_NO, TIME, 
-			TO_WHERE, FROM_WHERE,
-			WITH_OWNER, TO_DRIVER,
-			STATUS, CALL_TYPE, 
-			USER_NO,
-			MERCHANT_UID
+		CALL_NO, TIME,
+		TO_WHERE, FROM_WHERE,
+		WITH_OWNER, TO_DRIVER,
+		STATUS, CALL_TYPE,
+		USER_NO,
+		MERCHANT_UID
 		) VALUES (
-			#{callNo}, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'), 
-			#{toWhere}, #{fromWhere},
-			#{withOwner}, #{toDriver}, 
-			#{status}, #{callType}, 
-			NULL,
-			#{merchantUid}
+		#{callNo}, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'),
+		#{toWhere},
+		#{fromWhere},
+		#{withOwner}, #{toDriver},
+		#{status}, #{callType},
+		NULL,
+		#{merchantUid}
 		)
 		<foreach collection="dogs" index="index" item="dog">
 			INTO CALL_DOG (
-				CALL_NO,
-				DOG_NO
+			CALL_NO,
+			DOG_NO
 			) VALUES (
-				#{callNo},
-				#{dog.dogNo}
+			#{callNo},
+			#{dog.dogNo}
 			)
 		</foreach>
 		SELECT * FROM DUAL
@@ -203,38 +316,40 @@
 		</selectKey>
 		INSERT ALL
 		INTO GEN_CALL (
-			CALL_NO, TIME, 
-			TO_WHERE, FROM_WHERE,
-			WITH_OWNER, TO_DRIVER, 
-			STATUS, CALL_TYPE, 
-			USER_NO,
-			MERCHANT_UID
+		CALL_NO, TIME,
+		TO_WHERE, FROM_WHERE,
+		WITH_OWNER, TO_DRIVER,
+		STATUS, CALL_TYPE,
+		USER_NO,
+		MERCHANT_UID
 		) VALUES (
-			#{callNo}, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'),
-			#{toWhere}, #{fromWhere}, 
-			#{withOwner}, #{toDriver}, 
-			#{status}, #{callType}, 
-			NULL,
-			#{merchantUid}
+		#{callNo}, TO_DATE(#{pickupTime}, 'YYYY-MM-DD"T"HH24:MI'),
+		#{toWhere},
+		#{fromWhere},
+		#{withOwner}, #{toDriver},
+		#{status}, #{callType},
+		NULL,
+		#{merchantUid}
 		)
 		INTO EMERG_CALL (
-			CALL_NO, 
-			TO_PARTNER, 
-			TO_REJECT, 
-			USER_NO
-		) VALUES (
-			#{callNo},
-			#{toPartner}, 
-			NULL, 
-			3
+		CALL_NO,
+		TO_PARTNER,
+		TO_REJECT,
+		USER_NO
+		)
+		VALUES (
+		#{callNo},
+		#{toPartner},
+		NULL,
+		3
 		)
 		<foreach collection="dogs" index="index" item="dog">
 			INTO CALL_DOG (
-				CALL_NO,
-				DOG_NO
+			CALL_NO,
+			DOG_NO
 			) VALUES (
-				#{callNo},
-				#{dog.dogNo}
+			#{callNo},
+			#{dog.dogNo}
 			)
 		</foreach>
 		SELECT * FROM DUAL
@@ -430,5 +545,5 @@
 		JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
 		JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) WHERE G.CALL_TYPE = '일반'	
 	</select>
-	
+
 </mapper>	

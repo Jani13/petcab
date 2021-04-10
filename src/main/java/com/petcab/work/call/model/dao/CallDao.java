@@ -32,7 +32,7 @@ public interface CallDao {
 
 	int selectCancelledCall();
 
-	EmgCall selectEmgCall(int callNo);
+	List<EmgCall> selectEmgCall(@Param("callNo") int callNo);
 	
 	List<Call> useCallUserId(String userId);
 
@@ -43,4 +43,6 @@ public interface CallDao {
 	List<Call> eCallList(int userNo);
 
 	List<Call> selectGenCallList(RowBounds rowBounds);
+	
+	EmgCall selectEmgCallWithNoDogs(int callNo);
 }

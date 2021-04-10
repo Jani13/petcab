@@ -175,10 +175,11 @@
 									</tr>
 									<tr>
 										<th scope="row">애견</th>
+										<td>
 										<c:forEach var="dog" items="${ emgCall.getDogs() }">
-											<td>${ dog.dogName }</td>
-											<br>
+											${ dog.dogName } <br>
 										</c:forEach>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -267,10 +268,11 @@
 									</tr>
 									<tr>
 										<th scope="row">애견</th>
+										<td>
 										<c:forEach var="dog" items="${ call.getDogs() }">
-											<td>${ dog.dogName }</td>
-											<br>
+											${ dog.dogName } <br>
 										</c:forEach>
+										</td>
 									</tr>
 								</tbody>
 							</table>

@@ -57,46 +57,55 @@ public class CallServiceImpl implements CallService {
 
 	@Override
 	public int selectAllCall() {
+		
 		return callDao.selectAllCall();
 	}
 
 	@Override
 	public int selectGenCall() {
+		
 		return callDao.selectGenCall();
 	}
 
 	@Override
 	public int selectEmergCall() {
+		
 		return callDao.selectEmergCall();
 	}
 
 	@Override
 	public int selectCancelledCall() {
+		
 		return callDao.selectCancelledCall();
 	}
 
 	@Override
-	public EmgCall selectEmgCall(int callNo) {
+	public List<EmgCall> selectEmgCall(int callNo) {
 		
 		return callDao.selectEmgCall(callNo);
 	}
 	
+	@Override
 	public List<Call> useCallUserId(String userId) {
+		
 		return callDao.useCallUserId(userId);
 	}
 
 	@Override
 	public List<Call> endCallUserId(String userId) {
+	
 		return callDao.endCallUserId(userId);
 	}
 
 	@Override
 	public List<Call> waitECallList() {
+		
 		return callDao.waitECallList();
 	}
 
 	@Override
 	public List<Call> eCallList(int userNo) {
+		
 		return callDao.eCallList(userNo);
 	}
 
@@ -110,7 +119,14 @@ public class CallServiceImpl implements CallService {
 
 	@Override
 	public int getGenCallCount() {
+		
 		return callDao.selectGenCall();
+	}
+	
+	@Override
+	public EmgCall selectEmgCallWithNoDogs(int callNo) {
+		
+		return callDao.selectEmgCallWithNoDogs(callNo);
 	}
 
 }

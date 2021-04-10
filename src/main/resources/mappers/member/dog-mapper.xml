@@ -91,6 +91,7 @@
 		DEFAULT
 		)
 	</insert>
+	
 	<select id="save" resultType="string">
 		SELECT M.USER_ID,D.USER_ID,D.ANIMAL_NO
 		FROM MEMBER M , DOG D
@@ -130,5 +131,26 @@
 		SELECT *
 		FROM DOG
 		WHERE DOG_NO = #{dogNo}
+	</select>
+	
+	<select id="searchByCallNo" parameterType="_int" 
+		resultMap="DogResultMap">
+	SELECT D.DOG_NO,
+	    D.ANIMAL_NO,
+	    D.DOG_NAME,
+	    D.DOG_TYPE,
+	    D.AGE,
+	    D.VACC,
+	    D.DISORDER,
+	    D.OTHER,
+	    D.IMAGE_ORI,
+	    D.IMAGE_RE,
+	    D.USER_ID,
+	    D.ENROLL_DATE,
+	    D.MODIFY_DATE,
+	    D.STATUS
+	FROM DOG D
+	LEFT OUTER JOIN CALL_DOG CD ON (D.DOG_NO=CD.DOG_NO)
+	WHERE CD.CALL_NO=#{callNo}
 	</select>
 </mapper>

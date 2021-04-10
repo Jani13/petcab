@@ -15,7 +15,9 @@ public interface CallService {
 	
 	Call selectCall(int callNo);
 	
-	EmgCall selectEmgCall(int callNo);
+	List<EmgCall> selectEmgCall(int callNo); // many
+	
+	EmgCall selectEmgCallWithNoDogs(int callNo); // one
 
 	List<Call> driverWaitCallList();
 

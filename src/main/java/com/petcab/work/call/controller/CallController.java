@@ -24,7 +24,6 @@ import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.user.model.vo.Dog;
-import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
 
@@ -98,12 +97,6 @@ public class CallController {
 		return model;
 	}	
 
-//	@RequestMapping(value = "/book", method = RequestMethod.GET)
-//	public String bookDone() {
-//
-//		return "call/book_gn";
-//	}
-
 	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
@@ -112,9 +105,11 @@ public class CallController {
 			@ModelAttribute Call call,
 			ModelAndView model) {
 
-		int result = callService.updateCall(call.getCallNo()); // DB 상태 업데이트
+		int result = callService.updateCall(call.getCallNo());
 
-		log.info(call.toString()); // call 객체에 callNo만 존재
+		System.out.println(call.getCallNo());
+		
+		log.info(call.toString());
 
 		call = callService.selectCall(call.getCallNo());
 
@@ -197,23 +192,27 @@ public class CallController {
 			HttpServletRequest request, 
 			@ModelAttribute EmgCall emgCall, 
 			ModelAndView model) {
+								
+		int result = callService.updateCall(emgCall.getCallNo()); // GEN_CALL
+				
+		System.out.println("emgCallNo : " + emgCall.getCallNo());
+
+		// -----------------------------------------------------------------------
 		
-		int result = callService.updateCall(emgCall.getCallNo());
-
-		log.info(emgCall.toString());
-
-		emgCall = callService.selectEmgCall(emgCall.getCallNo());
-
-		log.info(emgCall.toString());
-
+		List<EmgCall> emgCalls = callService.selectEmgCall(emgCall.getCallNo());
+		
+		log.info(emgCalls.get(0).toString());
+			
 		if(result > 0) {
 			// 성공
 		} else {
 			// 실패
 		}
-
-		model.addObject("emgCall", emgCall);
-
+				
+		model.addObject("emgCall", emgCalls.get(0));
+		
+		// -----------------------------------------------------------------------
+		
 		model.setViewName("call/book_gn_cancel");
 
 		return model;

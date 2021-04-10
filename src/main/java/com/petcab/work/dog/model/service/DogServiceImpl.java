@@ -60,8 +60,26 @@ public class DogServiceImpl implements DogService {
 		return result;
 	}
 
-
-
-
+	@Override
+	public List<Dog> searchByCallNo(int callNo) {
+				
+		return dogDao.searchByCallNo(callNo);
+	}
+	
+//	@Service
+//	public class DogServiceImpl implements DogService {
+//		@Autowired
+//		private DogDao dogDao;
+//		
+//		@Override
+//		@Transactional
+//		public int saveDog(Dog dog) {
+//			
+//			int result =0;
+//			
+//			result=dogDao.insertDog(dog);
+//			
+//			return result;
+//		}
 
 }
