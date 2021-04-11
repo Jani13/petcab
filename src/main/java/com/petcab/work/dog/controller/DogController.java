@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
@@ -38,64 +37,80 @@ public class DogController {
 	@RequestMapping("/signup/Information")
 	public String InfromationView() {
 		log.info("정보요청");
+
 		return "/signup/Information";
 	}
 
 	@RequestMapping("/dog/dogInformation")
 	public String dogInfromationView() {
 		log.info("등록요청");
+
 		return "/dog/dogInformation";
 	}
 
-	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
-//	@ResponseBody
-	public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model,HttpServletRequest request) {
-		List<Dog> dogs = service.searchUserId(loginMember.getUserId());
+	@RequestMapping(value={"/dog/mdogInformation"}, method = {RequestMethod.GET})
+	public ModelAndView dogUpdate(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam(name="dogNo", required=false) Integer dogNo,
+			ModelAndView model,			
+			HttpServletRequest request) {
+
+		List<Dog> dogs = null;
+		Dog dog = null;
+
+		dogs = service.searchUserId(loginMember.getUserId());
+
 		log.info(dogs.toString());
 
 		model.addObject("dogs", dogs);
-		model.setViewName("dog/mdogInformation");
+
+		if(dogNo != null) {
+			dog = service.searchByDogNo(dogNo);
+
+			model.addObject("dog", dog);
+
+			log.info(dog.toString());
+
+			return model;
+		}
+
+		model.setViewName("dog/mdogInformation"); // html로 넘긴다.
+
 		return model;
 	}
 
-	// 소요 작업
-	@RequestMapping(value="/dog/mdogInformation", method={RequestMethod.POST})
+	@RequestMapping(value="/dog/select", method = {RequestMethod.GET})
 	@ResponseBody
-	public Dog dogUpdate(
+	public Dog findDog(
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
-			@RequestParam(name="dogNo", required=true) int dogNo,
-			HttpServletRequest request,
-			ModelMap model) {
-	
+			@RequestParam(name="dogNo") Integer dogNo,
+			HttpServletRequest request) {
+
+		System.out.println(dogNo);
+
 		Dog dog = service.searchByDogNo(dogNo);
-		
-		System.out.println(dog);
-		
+
 		return dog;
 	}
 
 	// 4/9일 작업...
-	@ResponseBody	  
-	@RequestMapping(value="/dog/mdogInformation/{dogNo}", method = {RequestMethod.POST} )
+//	@ResponseBody	  
+	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
 	public ModelAndView updateDog(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
-			@PathVariable int dogNo,
-			@RequestParam("dogNo") ModelAndView model,
-//			@RequestParam(name="dogNo", required=false) int dogNo,
+//			@RequestParam("dogNo") ModelAndView model,
+			@RequestParam(name="dogNo") int dogNo,
+			ModelAndView model,
 			@RequestParam("reloadFile") MultipartFile reloadFile,
 			HttpServletRequest request,
 			@ModelAttribute Dog dog
 			) {
+
+		System.out.println(dogNo);
+		
+		System.out.println(dog);
 		
 		int result = 0;
-
-//		List<Dog> dogs = service.updateDog(loginMember.getUserId());
-//		log.info(dogs.toString());
-//		log.info("상세조회");
-//
-//		model.addObject("dogs", dogs);
-//		model.setViewName("dog/mdogInformation");
 
 		if(loginMember.getUserId().equals(dog.getUserId())) {
 			if(reloadFile != null && !reloadFile.isEmpty()) {
@@ -178,6 +193,7 @@ public class DogController {
 	//		
 	//
 	//		
+	
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/dog";				

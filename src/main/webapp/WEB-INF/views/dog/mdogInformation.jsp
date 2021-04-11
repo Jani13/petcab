@@ -49,13 +49,13 @@
 			<h1>반려 동물</h1>
 			<br />
 			<div>
-				<form name=mydog action="${path}/dog/mdogInformation/${ dog.dogNo }" method="POST"
+				<form name=mydog action="${path}/dog/mdogInformation" method="POST"
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-md-3">
 							<input type="hidden" name="userId" value="${loginMember.userId}"
-								readonly> <!-- <input type="hidden" name="dogNo"
-								value="${dog.dogNo}" readonly> -->
+								readonly> <input type="hidden" name="dogNo"
+								value="${dog.dogNo}" readonly>
 							<div class="input-group mb-2">
 								<select class="form-select" aria-label="Default select example"
 									id="noDog">
@@ -207,7 +207,7 @@
 										<th style="width: 130px;">애 견 명</th>
 										<td>
 											<div class="input-group mb-2">
-												<input type="text" class="form-control" id=""
+												<input type="text" class="form-control" name="dogName"
 													value="${dog.dogName}">
 											</div>
 										</td>
@@ -218,7 +218,7 @@
 											<div class="input-group mb-2">
 												<c:if test="${ !empty dog.imageOri }">
 													<a href="${ path }/resources/upload/dog/${ dog.imageRe }"
-														download="${ dog.imageOri }"> ${ dog.imageOri } </a>
+														download="${ dog.imageOri }" id="dogPhoto"> ${ dog.imageOri } </a>
 												</c:if>
 											</div>
 										</td>
@@ -381,18 +381,36 @@ $('#noDog').change(function() {
    console.log('dogNo selected : ' + dogNo);
    
     $.ajax({
-    	url: '/dog/mdogInformation',
+    	async: true,
+    	url: 'select',
         dataType: 'json',
         contentType: "application/json; charset=UTF-8",
-        type: 'post',
-        data: {'dogNo': dogNo},     
-        success: function(dog) {
-            // form의 input에 dogNo에 해당하는 애견 정보 뿌리기
+        type: 'get',
+        data: {'dogNo': dogNo},
+        success: function(dog) {            
             
-            // console.log(dog);
+        	console.log(dog);
+            
+            $('input[name=animalNo]').val(dog.animalNo);
+                        
+            $('select[name=dogType]').val(dog.dogType);
+            
+            $('input[name=dogName]').val(dog.dogName);
+       
+            let url = '${ path }/resources/upload/dog/dog.imageRe';
+                        
+            $('#dogPhoto').attr('href', url);
+            $('#dogPhoto').attr('download', dog.imageOri);
+            $('#dogPhoto').text(dog.imageOri);
+       
+            $('input[name=age]').val(dog.age);
+            
+            // 이어서 form에 값 넣기
         },
-        error: function() {
-            alert('애견을 다시 선택해주세요.');
+        error: function(e) {
+            console.log(e);
+        	
+        	alert('애견을 다시 선택해주세요.');
         }
     });
 });

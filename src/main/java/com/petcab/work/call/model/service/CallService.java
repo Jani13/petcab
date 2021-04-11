@@ -7,6 +7,7 @@ import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.common.util.PageInfo;
 
 public interface CallService {
+	
 	int insertCall(Call call);
 	
 	int insertEmgCall(EmgCall emgCall);
