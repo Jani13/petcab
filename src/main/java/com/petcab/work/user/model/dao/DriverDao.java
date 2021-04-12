@@ -33,8 +33,6 @@ public interface DriverDao {
 
 	int applyDriver(int userNo);
 
-	int updateDInfo(Driver driver);
-
-
+	int updateDriver(Driver driver);
 
 }

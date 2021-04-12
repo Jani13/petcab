@@ -255,46 +255,54 @@ public class MemberController {
 	public ModelAndView updateInfo(ModelAndView model, 
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
 			@ModelAttribute Member member,
-			HttpServletRequest request,
-			@ModelAttribute Driver driver,
-			@ModelAttribute Partner partner) {
+			HttpServletRequest request) {
 		String address = request.getParameter("addr1") + "," + request.getParameter("addr2");
 		int postCode = Integer.parseInt(request.getParameter("postalAddr"));
 		
 		member.setAddress(address);
 		member.setPostCode(postCode);
-		
+
 		int result = 0;
+
+		System.out.println("ㅋㅋ"+member.toString());
+		result = service.updateMInfo(member);
 		
-		if (loginMember.getUserType().equals("ROLE_MEMBER")) {
-			result = service.updateMInfo(member);
-			loginMember = service.findMemberByUserId(member.getUserId());
-		} else if (loginMember.getUserType().equals("ROLE_DRIVER")) {
-			member.setUserId(loginMember.getUserId());
-			result = driverService.updateDInfo(member, driver);
-			loginMember = service.findMemberByUserId(member.getUserId());
-			driver = driverService.selectDriver(loginMember.getUserNo());
-			model.addObject("driver", driver);
-		}else {
-			member.setUserId(loginMember.getUserId());
-			result = partnerService.updatePInfo(member, partner);
-			loginMember = service.findMemberByUserId(member.getUserId());
-			partner = partnerService.selectPartner(loginMember.getUserNo());
-			model.addObject("partner", partner);
-			
-		}
-		
-		if(result > 0) {
+		loginMember = service.findMemberByUserId(member.getUserId());
+
+		if (result > 0) {
 			model.addObject("msg", "정보가 변경되었습니다.");
 			model.addObject("loginMember", loginMember);
 			model.addObject("location", "/");
-		
+
 		} else {
 			model.addObject("msg", "문제가 발생했습니다. 관리자에게 문의해주세요.");
 			model.addObject("location", "/");
 		}
 		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	@RequestMapping("/user/delete")
+	public ModelAndView delete(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
 		
+		log.info(loginMember.toString());
+
+		int result = service.deleteMember(loginMember.getUserId());		
+
+		
+		if (result > 0) {
+			model.addObject("msg", "탈퇴 되었습니다.");
+			model.addObject("location", "/logout");
+			model.addObject("loginMember");
+
+		} else {
+			model.addObject("msg", "탈퇴하지 못했습니다. 관리자에게 문의해주세요");
+			model.addObject("location", "/");
+		}
+		model.setViewName("common/msg");
+
 		return model;
 	}
 }

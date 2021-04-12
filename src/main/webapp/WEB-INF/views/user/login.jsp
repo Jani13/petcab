@@ -105,29 +105,25 @@
 
             <br><br>
 
+			<!-- SNS 로그인 부분 -->
             <div class="row" >
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4" style="display: flex; justify-content: center;">
                     <table class="table table-success table-striped" style="width: 300px; ">
                         <tr>
-                            <th><a href="https://www.naver.com" target="_blank">
-                                <img src="${path}/images/naver.png" width="30px" height="30px"></th>
-                            <th>네이버로 로그인</th>
+                            <th><a href="${naver_url}" target="_blank">
+                                <img src="${path}/images/naver.png" width="30px" height="30px"></a></th>
+                            <th>네이버 로그인</th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="${path}/images/kakao.png" width="30px" height="30px"></th>
-                            <th>카카오로 로그인</th>
+                                <img src="${path}/images/kakao.png" width="30px" height="30px"></a></th>
+                            <th>카카오 로그인</th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="${path}/images/facebook.png" width="30px" height="30px"></th>
-                            <th>페이스북으로 로그인</th>
-                        </tr>
-                        <tr>
-                            <th><a href="" target="_blank">
-                                <img src="${path}/images/twitter.png" width="30px" height="30px"></th>
-                            <th>트위터로 로그인</th>
+                                <img src="${path}/images/facebook.png" width="30px" height="30px"></a></th>
+                            <th>구글 로그인</th>
                         </tr>
                     </table>
                 </div>
