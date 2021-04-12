@@ -373,9 +373,9 @@
 
 				// dog.vacc 에 체크박스 value 가 있으면 checked
 
-				let dogVacc = dog.vacc.split(','); // array
+				let dogVacc = (dog.vacc).split(','); // array
 
-				// let checkboxes = $('input[name=vacc]').val().join(','); // str
+				let checkboxes = $('input[name=vacc]').val().join(','); // str
 
 				// let checkboxes = 'DHPPL,Coronavirus,KennelCough,광견병';
 
