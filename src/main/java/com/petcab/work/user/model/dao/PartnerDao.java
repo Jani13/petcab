@@ -34,4 +34,6 @@ public interface PartnerDao {
 	List<Partner> selectAllPartners(RowBounds rowBounds);
 
 	int selectPartnerCount();
+
+	int updatePInfo(Partner partner);
 }

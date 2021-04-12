@@ -30,4 +30,7 @@ public class RReply {
 	
 	private int reviewNo;
 	
+	private String userId;
+	
+	
 }

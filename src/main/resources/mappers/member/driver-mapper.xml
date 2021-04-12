@@ -192,9 +192,10 @@
         ORDER BY ROWNUM
 	</select>
 	
-	<update id="applyDriver" parameterType="Driver">
+	<update id="updateDInfo" parameterType="Driver">
 		UPDATE DRIVER
-		SET STATUS = 'Y'
+		SET CAR_TYPE = #{carType},
+			CAR_NO = #{carNo}
 		WHERE USER_NO = #{userNo}
 	</update>
 	

@@ -128,5 +128,12 @@ public class CallServiceImpl implements CallService {
 		
 		return callDao.selectEmgCallWithNoDogs(callNo);
 	}
+	
+	// 리뷰에서 종료된 예약 띄우기
+	@Override
+	public List<Call> callEndList(String userId) {
+		
+		return callDao.selectcallEndList(userId);
+	}
 
 }

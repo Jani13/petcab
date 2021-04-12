@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Member;
 
 @Mapper
 public interface DriverDao {
@@ -31,6 +32,9 @@ public interface DriverDao {
 	List<Driver> selectRejectDrivers(RowBounds rowBounds);
 
 	int applyDriver(int userNo);
+
+	int updateDInfo(Driver driver);
+
 
 
 }

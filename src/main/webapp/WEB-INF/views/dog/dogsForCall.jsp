@@ -22,14 +22,21 @@
 <link rel="stylesheet" href="${path}/css/call.css" />
 <script src="${path}/js/jquery-3.5.1.js"></script>
 
+<style>
+.myDogs {
+	width: 200px;
+	height: 200px;
+}
+</style>
+
 <title>애견 선택하기</title>
 </head>
 <body>
 	<section>
 		<div class="container my-2 bg-light">
-            <div class="row">
-                <h1 class="text-center">애견 선택하기</h1>
-            </div>
+			<div class="row">
+				<h1 class="text-center">애견 선택하기</h1>
+			</div>
 			<div class="row row-cols-1 row-cols-md-3 g-4 dog-list"
 				style="margin-left: 0; margin-right: 0; margin-top: 0;">
 				<c:choose>
@@ -38,13 +45,18 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="dog" items="${dogs}">
-							<div class="col d-flex justify-content-center" style="padding: 0; margin-bottom: 24px;">
-								<div class="card border-info d-flex align-items-center" style="width: 18rem; padding: 0;">
+							<div class="col d-flex justify-content-center"
+								style="padding: 0; margin-bottom: 24px;">
+								<div class="card border-info d-flex align-items-center"
+									style="width: 18rem; padding: 0;">
 									<img class="card-img-top"
-										src="${ path }/resources/images/mung.png" alt="Card image cap">
+										src="${ path }/resources/upload/dog/${ dog.imageRe }"
+										class="myDogs rounded-pill img-thumbnail img-fluid" 
+										style="height: 230px;" alt="">
 									<div class="card-body">
-										<p class="card-text">
-											${ dog.dogName } <input type="checkbox" name="dogNo"
+										<p class="card-text h5 my-4 fw-bold">
+											${ dog.dogName } 
+											<input type="checkbox" name="dogNo"
 												value="${ dog.dogNo }">
 										</p>
 									</div>
@@ -54,12 +66,11 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-            
-            <div class="row d-flex justify-content-center" style="margin: 0;">
-                <button type="button" class="btn btn-outline-info btn-select-dogs" 
-                    style="width: 18rem; margin: 0;">선택</button>
-            </div>
-		</div>
+
+			<div class="row d-flex justify-content-center" style="margin: 0;">
+				<button type="button" class="btn btn-outline-info btn-select-dogs"
+					style="width: 18rem; margin: 0;">선택</button>
+			</div>
 		</div>
 	</section>
 </body>
@@ -78,6 +89,13 @@
 	let checked = function() {
 		let inputs = $('input[type=checkbox]:checked');
 
+        // 애견을 선택하지 않았거나 선택한 애견이 3마리 초과 시
+		if (inputs.length == 0) {
+            alert('애견을 선택히주세요.');
+		} else if (inputs.length > 3) {
+            alert('예약 건당 선택 가능한 애견 마리 수는 최대 3마리예요.');
+        }
+		
 		console.log(inputs);
 
 		for (let i = 0; i < openerInputs.length; i++) {

@@ -40,7 +40,7 @@
           특징 :<br />
         </div>
         <div class="driver-document__information">
-          <form action="${path}/driver/apply/enroll" method="post" class="information">
+          <form action="${path}/driver/apply/enroll" method="post" class="information" enctype="multipart/form-data">
             <div>
               <h5 class="information__title">이름</h5>
               <input
@@ -85,7 +85,7 @@
             </div>
             <div>
               <h5 class="information__title">프로필사진</h5>
-              <input type="file" name="photo" class="information__input file" />
+              <input type="file" name="upfile" class="information__input file" />
             </div>
             <button type="submit" class="information_btn">제출하기</button>
        		<input type="hidden" name="userNo"
