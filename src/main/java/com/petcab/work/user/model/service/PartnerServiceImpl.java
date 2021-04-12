@@ -105,6 +105,12 @@ public class PartnerServiceImpl implements PartnerService {
 		}
 	}
 
+	@Override
+	public Partner getPartnerDetail(int userNo) {
+		
+		return partnerDao.selectPartnerDetail(userNo);
+	}
+
 	
 
 }
