@@ -73,8 +73,7 @@
 
 			<hr>
 
-			<div class="form-floating text-center" style="height: auto;">
-				${review.content}</div>
+			<div class="form-floating text-center" style="height: auto;">${review.content}</div>
 
 			<hr>
 

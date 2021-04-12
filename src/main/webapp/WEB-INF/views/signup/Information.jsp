@@ -219,12 +219,13 @@
 										<div class="input-group mb-2">
 											<input type="tel" class="form-control"
 												placeholder="'-' 빼고 입력해주세요." id="newPhone" name="phone">
-											<!-- <button class="btn btn-outline-secondary" type="button"
-												id="button-addon2">인증번호 받기</button> -->
+											<button class="btn btn-outline-secondary" type="button"
+												id="send">인증번호 받기</button>
+											<input type="text" class="form-control" id="userNum" placeholder="인증번호 입력">
+											<button class="btn btn-outline-secondary" type="button"
+												id="enterBtn">확인</button>
+											<input type="hidden" name="text" id="text"> 		<!-- 인증번호를 히든으로 저장해서 보낸다 -->																				
 										</div>
-										<!-- <div class="input-group mb-1">
-											<input type="text" class="form-control" placeholder="인증번호 입력">
-										</div> -->
 									</td>
 								</tr>
 								<tr>
