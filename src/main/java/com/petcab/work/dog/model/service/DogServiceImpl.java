@@ -25,23 +25,10 @@ public class DogServiceImpl implements DogService {
 		
 		return result;
 	}
-	
-//	@Override
-//	@Transactional
-//	public int saveDog(Dog dog) {
-//		
-//		int result =0;
-//		if(dog.getDogNo() != 0) {
-//			result = dogDao.updateDog(dog);
-//		} else {
-//			result = dogDao.insertdog(dog);
-//		}	
-//		
-//		return result;
-//	}
 
 	@Override
 	public List<Dog> searchUserId(String userId) {
+		
 		return dogDao.searchUserId(userId);
 	}
 
@@ -65,21 +52,11 @@ public class DogServiceImpl implements DogService {
 				
 		return dogDao.searchByCallNo(callNo);
 	}
-	
-//	@Service
-//	public class DogServiceImpl implements DogService {
-//		@Autowired
-//		private DogDao dogDao;
-//		
-//		@Override
-//		@Transactional
-//		public int saveDog(Dog dog) {
-//			
-//			int result =0;
-//			
-//			result=dogDao.insertDog(dog);
-//			
-//			return result;
-//		}
 
+   @Override
+   public int deleteDog(int dogNo) {
+      
+      return dogDao.deleteDog(dogNo);
+   }
+   
 }

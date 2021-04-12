@@ -98,7 +98,7 @@
 				                        <td>${user.userId}</td>
 				                        <td>${user.userName}</td>
 				                        <td>${user.phone}</td>
-				                        <td>(+)</td>
+				                        <td>${user.dog.dogName}</td>
 				                        <td>${user.status}</td>
 		                            </tr>
                         		</c:forEach>

@@ -7,6 +7,7 @@ import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.common.util.PageInfo;
 
 public interface CallService {
+	
 	int insertCall(Call call);
 	
 	int insertEmgCall(EmgCall emgCall);
@@ -42,5 +43,8 @@ public interface CallService {
 	List<Call> selectGenCallList(PageInfo pageInfo);
 
 	int getGenCallCount();
+	
+	// 리뷰에서 종료된 예약 띄우기
+	List<Call> callEndList(String userId);
 
 }

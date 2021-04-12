@@ -1,5 +1,6 @@
 package com.petcab.work.review.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,21 @@ public class RReplyServiceImpl implements RReplyService {
 	}
 
 	@Override
-	public List<RReply> getReplyList(int listLimit) {
-		
-		return rReplyDao.replyList(listLimit);
+	public ArrayList<RReply> getReplyList(int listLimit) {
+		System.out.println("ㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅㅅ" + rReplyDao.replyList(listLimit));
+		return  rReplyDao.replyList(listLimit);
+	}
+	
+	@Override
+	public int updateReply(RReply rReply) {
+		// TODO Auto-generated method stub
+		System.out.println("서비스 쪽 : "+rReply.getContent());
+		return rReplyDao.updateReply(rReply);
+	}
+	
+	@Override
+	public int deleteReply(RReply rReply) {
+		// TODO Auto-generated method stub
+		return rReplyDao.deleteReply(rReply);
 	}
 }

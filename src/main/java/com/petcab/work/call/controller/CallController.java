@@ -196,8 +196,6 @@ public class CallController {
 		int result = callService.updateCall(emgCall.getCallNo()); // GEN_CALL
 				
 		System.out.println("emgCallNo : " + emgCall.getCallNo());
-
-		// -----------------------------------------------------------------------
 		
 		List<EmgCall> emgCalls = callService.selectEmgCall(emgCall.getCallNo());
 		
@@ -210,9 +208,7 @@ public class CallController {
 		}
 				
 		model.addObject("emgCall", emgCalls.get(0));
-		
-		// -----------------------------------------------------------------------
-		
+				
 		model.setViewName("call/book_gn_cancel");
 
 		return model;
@@ -237,26 +233,6 @@ public class CallController {
 				
 		return "dog/dogsForCall";
 	}
-	
-//	@RequestMapping(value = "/book/selectDogs/{userId}", method = RequestMethod.GET)
-//	public ModelAndView selectDogs(
-//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-//			@PathVariable(value = "userId", required = false) String userId,
-//			ModelAndView model,
-//			HttpServletRequest request
-//			) { // 예약화면에서 예약자 userId를 가져와야한다.
-//						
-//		List<Dog> dogs = new ArrayList<>();
-//				
-//		dogs = dogService.searchUserId(userId);
-//		
-//		log.info(dogs.toString());
-//		
-//		model.addObject("dogs", dogs);
-//		model.setViewName("dog/dogsForCall");
-//		
-//		return model;
-//	}
 		
 	// JSON으로 데이터 전송 시 AJAX 필요
 	//	@RequestMapping(value = "/book/emg_a", 

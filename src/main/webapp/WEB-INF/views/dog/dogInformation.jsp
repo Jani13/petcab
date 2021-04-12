@@ -38,60 +38,6 @@
 
     <section>
         <div class="container">
-<%--             <br>
-            <div class="row text-center">
-                <div class="col-sm-3" style="display: flex; align-items: center;
-                    justify-content: center;
-                    flex-direction: column;">
-                    <img src="${path }/images/one.png">
-                    <div class="card border-info mb-3" style="max-width: 8rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 20px;">약관동의</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="display: flex; align-items: center;
-                    justify-content: center;
-                    flex-direction: column;">
-                    <img src="${path }/images/two.png">
-                    <div class="card border-info mb-3" style="max-width: 8rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 20px;">가입유형</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="display: flex; align-items: center;
-                    justify-content: center;
-                    flex-direction: column;">
-                    <img src="${path }/images/three.png">
-                    <div class="card border-info mb-3" style="max-width: 8rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 20px;">정보입력</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="display: flex; align-items: center;
-                    justify-content: center;
-                    flex-direction: column;">
-                    <img src="${path }/images/for.png">
-                    <div class="card border-dark mb-3" style="max-width: 8rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-size: 20px;">가입완료</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --%>
-            <!-- <hr /> -->
-           
-           <!-- 위에는 필요 없는 부분.4/6일 은주  -->
             <br />
             <h1 onload="addForm();">반려 동물 등록</h1>
             <br />
@@ -232,6 +178,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
                                 <th style="width: 130px;">애 견 명</th>
                                 <td>
                                     <div class="input-group mb-2">
@@ -313,11 +260,9 @@
                     	 <input type="hidden" name="count" value="0">
                          <div id="addedFormDiv"></div><BR> <!-- 폼을 삽입할 DIV -->
                         <div style="text-align:center;">
-                    	<button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
-                   			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;" onclick="addForm();">등록추가</button>
-<!--                     	<button type="button" class="btn btn-outline-danger" data-bs-toggle="collapse"
-                   			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 10px" onclick="delForm();">삭제</button> -->
-                   		  <button type="submit" class="btn btn-outline-info" style="margin-left: 200px;" >확인</button>
+                    	<!-- <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
+                   			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;" onclick="addForm();">등록추가</button> -->
+                   		  <button type="submit" class="btn btn-outline-info">확인</button>
                   		 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
          	       		</div>
                   </form>
@@ -327,7 +272,7 @@
         <br>
     </section>
   <jsp:include page="../common/footer.jsp" />
-      <script>
+      <!-- <script>
             var count = 0;
             function addForm() {
 
@@ -570,6 +515,6 @@
                 }
 
             } */
-    </script>
+    </script> -->
 </body>
 </html>

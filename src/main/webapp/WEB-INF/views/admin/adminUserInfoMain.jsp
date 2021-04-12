@@ -124,7 +124,7 @@
 					                    <td>${member.userId}</td>
 					                    <td>${member.userName}</td>
 					                    <td>${member.phone}</td>
-					                    <td>(+)</td>
+					                    <td>${member.dog.dogName}</td>
 					                    <td>${member.status}</td>
 				                    </tr>                        		
                         		</c:forEach>
