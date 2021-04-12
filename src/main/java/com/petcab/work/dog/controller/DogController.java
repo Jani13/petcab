@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,34 +52,96 @@ public class DogController {
       return "/dog/dogInformation";
    }
 
-   // 에이작스 확인 하는부분 아직 주석 처리.. 안됨.
-//   @RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
-//   @ResponseBody
-//   public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
-//         ,ModelAndView model,HttpServletRequest request) {
-//      List<Dog> dogs = service.searchUserId(loginMember.getUserId());
-//      log.info(dogs.toString());
+	@RequestMapping(value={"/dog/mdogInformation"}, method = {RequestMethod.GET})
+	public ModelAndView dogUpdate(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam(name="dogNo", required=false) Integer dogNo,
+			ModelAndView model,			
+			HttpServletRequest request) {
+
+		List<Dog> dogs = null;
+		Dog dog = null;
+		
+		dogs = service.searchUserId(loginMember.getUserId());
+
+		log.info(dogs.toString());
+
+		model.addObject("dogs", dogs);
+
+		if(dogNo != null) {
+			dog = service.searchByDogNo(dogNo);
+
+			model.addObject("dog", dog);
+
+			log.info(dog.toString());
+
+			return model;
+		}
+
+		model.setViewName("dog/mdogInformation"); // html로 넘긴다.
+
+		return model;
+	}
+	
+	@RequestMapping(value="/dog/select", method = {RequestMethod.GET})
+	@ResponseBody
+	public Dog findDog(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam(name="dogNo") Integer dogNo,
+			HttpServletRequest request) {
+
+		System.out.println(dogNo);
+
+		Dog dog = service.searchByDogNo(dogNo);
+
+		return dog;
+	}
+
+
+	@RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
+	public ModelAndView view(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@RequestParam("dogNo") int dogNo, ModelAndView model) {
+
+		List<Dog> dogs = new ArrayList<>();
+		List<Dog> dogsReordered = new ArrayList<>();
+		
+		Dog dogClicked = null;
+		
+		dogs = service.searchUserId(loginMember.getUserId());
+		
+		dogClicked = service.searchByDogNo(dogNo);
+		
+		dogsReordered.add(dogClicked); // 선택한 dog index 0에 add
+		
+		// dogs의 item 중에서 dogNo에 해당하는 녀석 우선 제외
+		for (Dog dog : dogs) {
+			if(dog.getDogNo() != dogClicked.getDogNo()) {
+				dogsReordered.add(dog);
+			}
+		}
+				
+		System.out.println(dogsReordered);
+
+		model.addObject("dogs", dogsReordered);
+
+		model.setViewName("dog/mdogInformation");
+
+		return model;
+	}
+//   @RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
+//   public ModelAndView view(
+//         @SessionAttribute(name="loginMember", required=false) Member loginMember,
+//         @RequestParam("dogNo") int dogNo, ModelAndView model) {
+//            
+//      Dog dog = service.searchByDogNo(dogNo);
 //
-//      model.addObject("dogs", dogs);
-//      model.setViewName("dog/mdogInformation");
+//      model.addObject("dog", dog);
 //      
+//      model.setViewName("dog/mdogInformation");
+//   
 //      return model;
 //   }
-
-   
-   @RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
-   public ModelAndView view(
-         @SessionAttribute(name="loginMember", required=false) Member loginMember,
-         @RequestParam("dogNo") int dogNo, ModelAndView model) {
-            
-      Dog dog = service.searchByDogNo(dogNo);
-
-      model.addObject("dog", dog);
-      
-      model.setViewName("dog/mdogInformation");
-   
-      return model;
-   }
    
    // 애견정보 수정
      @ResponseBody     
