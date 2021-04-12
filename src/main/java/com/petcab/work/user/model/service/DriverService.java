@@ -26,4 +26,6 @@ public interface DriverService {
 
 	int applyDriver(int userNo);
 
+	int updateDInfo(Member member, Driver driver);
+
 }

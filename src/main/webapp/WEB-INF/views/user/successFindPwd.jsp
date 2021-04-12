@@ -52,7 +52,11 @@
   	
 	<section>
 		<form action="${path}/user/successFindPwd" method="POST">
+		<%if(userId != null){ %>
 		  <input type="hidden" name="userId" value="<%= userId %>"/>
+		  <%}else{%>
+		  <input type="hidden" name="userId" value="${loginMember.userId}"/>
+		  <%} %>
           <div class="container d-flex justify-content-center p-5" style="width: 1200px;">
             <div class="input-group mb-3 flex-column my-5" style="width: 300px;">
               <div class="fw-bolder">
