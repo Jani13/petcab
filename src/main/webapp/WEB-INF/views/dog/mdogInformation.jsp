@@ -33,32 +33,34 @@
 
 </head>
 <body>
-  <jsp:include page="../common/header.jsp" />
-  <jsp:include page="../common/nav.jsp" />
-    <section>
-        <div class="container">
-            <br>
-            <h1>반려 동물</h1>
-            <br />
-            <div>
-                <form name=mydog action="${path}/dog/mdogInformation" method="POST" enctype="multipart/form-data">  
-                    <div>
-						<div class="row">
-							<div class="col-md-3" >
-								<input type="hidden" name="userId" value="${loginMember.userId}"readonly> 
-								<input type="hidden" name="dogNo" value="${dogs[0].dogNo}" readonly>
-								<div class="input-group mb-2">
-									<select class="form-select" aria-label="Default select example"
-										id="noDog">
-										<c:forEach var="dog" items="${dogs}" end="10">
-											<option value="${dog.dogNo}"><c:out
-													value="${dog.dogName}" /></option>
-										</c:forEach>
-									</select>
-								</div>
+	<jsp:include page="../common/header.jsp" />
+	<jsp:include page="../common/nav.jsp" />
+	<section>
+		<div class="container">
+			<br>
+			<h1>반려 동물</h1>
+			<br />
+			<div>
+				<form name=mydog action="${path}/dog/mdogInformation" method="POST"
+					enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-md-3">
+							<input type="hidden" name="userId" value="${loginMember.userId}"
+								readonly> 
+							<div class="input-group mb-2">
+								<select class="form-select" aria-label="Default select example"
+									id="noDog">
+									<c:forEach var="dog" items="${dogs}" end="10">
+										<option value="${dog.dogNo}"><c:out
+												value="${dog.dogName}" /></option>
+									</c:forEach>
+								</select>
 							</div>
                             <div class="col-md-6">
 							<c:forEach var="dog" items="${dogs}" end="0">
+							<input type="hidden" name="dogNo"
+								value="${dog.dogNo}" readonly>
+								
 							<table class="table table-borderless"
 								style="text-align: left; margin: auto; border-spacing: 30px;">
 								<tr>
@@ -122,24 +124,24 @@
 								</tr>
 								<tr>
 									<th>예방접종 확인</th>
-									<td>
-										<div class="form-check form-check-inline">
-											<label><input class="form-check-input" type="checkbox"
-												id="0" name="vacc" value="DHPPL" ${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
-										</div>
-										<div class="form-check form-check-inline">
-										<label><input class="form-check-input" type="checkbox"
-												id="1" name="vacc" value="Coronavirus" ${ fn:contains(dog.vacc, 'Coronavirus') ? 'checked' : ''}>Coronavirus</label>	
-										</div>
-										<div class="form-check form-check-inline">
-											<label><input class="form-check-input" type="checkbox"
-												id="2" name="vacc" value="KennelCough" ${ fn:contains(dog.vacc, 'KennelCough') ? 'checked' : ''}>KennelCough</label>											
-										</div>
-										<div class="form-check form-check-inline">
-											<label><input class="form-check-input" type="checkbox"
-												id="3" name="vacc" value="광견병" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>										
-										</div>
-									</td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="0" name="vacc" value="DHPPL" ${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                            <label><input class="form-check-input" type="checkbox"
+                                                  id="1" name="vacc" value="Coronavirus" ${ fn:contains(dog.vacc, 'Coronavirus') ? 'checked' : ''}>Coronavirus</label>   
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="2" name="vacc" value="KennelCough" ${ fn:contains(dog.vacc, 'KennelCough') ? 'checked' : ''}>KennelCough</label>                                 
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="3" name="vacc" value="광견병" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>                              
+                                            </div>
+                                         </td>
 								</tr>
 							</table>
 						
@@ -225,35 +227,46 @@
 
 				$('input[name=age]').val(dog.age);
 
-				// dog.vacc 에 체크박스 value 가 있으면 checked
+                console.log("dog.vacc : " + dog.vacc);
 
-				let dogVacc = (dog.vacc).split(','); // array
+                let dogVaccStr = (dog.vacc); //str
 
-				let checkboxes = $('input[name=vacc]').val().join(','); // str
+				let dogVaccArr = dogVaccStr.split(',');
 
-				// let checkboxes = 'DHPPL,Coronavirus,KennelCough,광견병';
+                console.log("dogVaccArr : " + dogVaccArr); // arr
 
-				// dogVacc.array.forEach(vacc => {
-				//     if (checkboxes.has(vacc)) {
-				//         $('input[name=vacc]').val(vacc).prop('checked', 'true');
-				//     }
-				// });
+				$('input[name=vacc]').each((index, elem) => {
 
-				// if (dog.disorder !== null) {
-				//     $('input[name=disorder]').text(dog.disorder);
-				// }
+                    console.log(elem);
 
-				// if (dog.other !== null) {
-				//     $('input[name=disorder]').text(dog.other);
-				// }
+                    let value = elem.getAttribute("value");
+
+                    console.log(value);
+
+                    if (dogVaccArr.indexOf(value) > -1) {
+                        $(elem).prop('checked', true);
+                    } else {
+                        $(elem).prop('checked', false);
+                    }
+                });
+                
+				if (dog.disorder !== null) {
+				    $('textarea[name=disorder]').text(dog.disorder);
+				} else {
+                    $('textarea[name=disorder]').text('');
+                }
+
+				if (dog.other !== null) {
+				    $('textarea[name=other]').text(dog.other);
+				} else {
+                    $('textarea[name=other]').text('');
+                }
 			},
 			error : function(e) {
 				console.log(e);
 
 				alert('애견을 다시 선택해주세요.');
 			}
-			
-			
 		});
 	});
   </script> 
