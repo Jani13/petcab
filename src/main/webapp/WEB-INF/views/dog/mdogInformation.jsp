@@ -314,61 +314,6 @@
 		<br>
 	</section>
 	<jsp:include page="../common/footer.jsp" />
-
-	<script>
-		/*  $(function(){
-		   $("#noDog").onchange(dogNo=function(){
-			   $.ajax({
-					type: "post",
-					url: "${path}/dog/mdogInformation ",
-					dataType:'json',
-					data: {
-						dogNo,
-						success: function(data){
-							if(!data.data || data.data=='' || data.data.length<1) return false;
-							$("dog.dogNo").val(data);
-		 					$("dog.animalNo").val(data);
-		 					$("dog.dogName").val(data);
-		 					$("dog.dogType").val(data);
-		 					$("dog.age").val(data);
-		 					$("dog.vacc").val(data);
-		 					$("dog.disorder").val(data);
-		 					$("dog.other").val(data);
-		 					$("dog.imageOri").val(data);
-		 					$("dog.imageRe").val(data);
-						}
-					}
-			   })
-		   });
-		 }); */
-
-		/*   $(function(){
-		 $("dogNo").on(cham function(){
-		 $.ajax({
-		 type: "post",
-		 url: "${path}/dog/mdogInformation ",
-		 data: {
-		 dogNo,
-		 success: function(data){
-		 console.log("success");
-		 $("dog.dogNo").val(data);
-		 $("dog.animalNo").val(data);
-		 $("dog.dogName").val(data);
-		 $("dog.dogType").val(data);
-		 $("dog.age").val(data);
-		 $("dog.vacc").val(data);
-		 $("dog.disorder").val(data);
-		 $("dog.other").val(data);
-		 $("dog.imageRe").val(data);
-		 },
-		 error: function(e) {
-		 console.log(e);
-		 }
-		
-		 });
-		 });
-		 });	 */
-	</script>
 </body>
 
 <script type="text/javascript">
@@ -405,7 +350,27 @@ $('#noDog').change(function() {
        
             $('input[name=age]').val(dog.age);
             
-            // 이어서 form에 값 넣기
+            // dog.vacc 에 체크박스 value 가 있으면 checked
+
+            let dogVacc = dog.vacc.split(','); // array
+            
+            // let checkboxes = $('input[name=vacc]').val().join(','); // str
+
+            // let checkboxes = 'DHPPL,Coronavirus,KennelCough,광견병';
+
+            // dogVacc.array.forEach(vacc => {
+            //     if (checkboxes.has(vacc)) {
+            //         $('input[name=vacc]').val(vacc).prop('checked', 'true');
+            //     }
+            // });
+
+            // if (dog.disorder !== null) {
+            //     $('input[name=disorder]').text(dog.disorder);
+            // }
+            
+            // if (dog.other !== null) {
+            //     $('input[name=disorder]').text(dog.other);
+            // }
         },
         error: function(e) {
             console.log(e);
