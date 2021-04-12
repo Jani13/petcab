@@ -42,7 +42,6 @@
 
 
 <body>
-	<!-- <<<<<<< HEAD -->
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../common/nav.jsp" />
 	<section>
@@ -278,7 +277,6 @@
 									</td>
 								</tr>
 							</table>
-
 							<div class="input-group mb-1"
 								style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
 								<p style="font-size: 20px;">
@@ -336,6 +334,29 @@
 		}
 	}
 
+/* <<<<<<< HEAD
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                </form>
+                <div style="text-align:center;">
+                     <button type="submit" class="btn btn-outline-danger" style="margin-right: 250px;" onclick="deleteDog()">삭제하기</button>                                   
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+  <jsp:include page="../common/footer.jsp" />
+  
+   <script >
+   function deleteDog(){      
+      if(confirm("애견정보를 삭제 하시겠습니까?")){
+         location.replace('${path}/dog/deleteDog?dogNo=${dog.dogNo}');
+      }
+   }
+     
+======= */
 	$('#noDog').change(function() {
 
 		let dogNo = $('#noDog').find(":selected").val(); //dogNo를 담는 변수
