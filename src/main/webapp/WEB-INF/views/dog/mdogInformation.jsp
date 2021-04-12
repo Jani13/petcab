@@ -33,6 +33,7 @@
 
 </head>
 
+
 <body>
   <jsp:include page="../common/header.jsp" />
   <jsp:include page="../common/nav.jsp" />
@@ -46,18 +47,24 @@
                     <div>
                         <div class="row">
                             <div class="col-md-3">
-                             <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
-                             <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
-                             <tr>
-                                    <th>나의 애견</th>
-                                    <div class="input-group mb-2">
-                                        <select class="form-select" aria-label="Default select example" id="noDog">
-                                        <c:forEach var="dog" items="${dogs}" end="10">
-                                        	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
-                                        </c:forEach>
-                                        </select>                           
-                                    </div>
-                                </tr>
+                                <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+                                <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
+                                <table>
+                                  <tr>
+                                          <th>나의 애견</th>
+                                          <!--  
+                                          <td>
+                                             <div class="input-group mb-2">
+                                                 <select class="form-select" aria-label="Default select example" id="noDog">
+                                                 <c:forEach var="dog" items="${dogs}" end="10">
+                                                    <option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
+                                                 </c:forEach>
+                                                 </select>                           
+                                             </div>
+                                         </td>
+                                         -->
+                                   </tr>
+                                </table>
                             </div>
                             <div class="col-md-6">
                                 <table class="table table-borderless"
@@ -66,10 +73,10 @@
                                         <th style="width: 130px;">등록번호</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                            <c:forEach var="dog" items="${dogs}" end="0">
-                                                <input type="text" class="form-control" name="animalNo" id=""  value="${dog.animalNo}"
+                                            <%-- <c:forEach var="dog" items="${dogs}" end="0"> --%>
+                                                <input type="text" class="form-control" name="animalNo" id="" value="${dog.animalNo}"
                                                     aria-describedby="button-addon2" readonly>
-                                                    
+                                            <%-- </c:forEach> --%>         
                                             </div>
                                         </td>
                                     </tr>
@@ -77,7 +84,7 @@
                                         <th>품 종</th>
                                         <td>
                                             <div class="input-group mb-2">
-                                               <select class="form-select" aria-label="Default select example" id="" name="dogType">
+                                               <select class="form-select" aria-label="Default select example" id="" name="dogType" readonly >
                                                <option dogNo="${dog.dogNo}"><c:out value="${dog.dogType}"/></option>
                                                <!-- <option selected> - 선택 - </option> -->
                                                <option value="골든 리트리버">골든 리트리버</option>
@@ -194,22 +201,23 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <th style="width: 130px;">애 견 명</th>
-                                    <td>
-                                        <div class="input-group mb-2">
-                                            <input type="text" class="form-control" id="" value="${dog.dogName}">
-                                        </div>
-                                    </td>
-                                    </tr>
+                                    <tr>
+                                       <th style="width: 130px;">애 견 명</th>
+                                       <td>
+                                           <div class="input-group mb-2">
+                                               <input type="text" class="form-control" name="dogName" value="${dog.dogName}">
+                                           </div>
+                                       </td>
+                                   </tr>
                                     <tr>
                                         <th style="width: 130px;">현재 사진</th>
                                         <td>
                                             <div class="input-group mb-2">
                                                 <c:if test="${ !empty dog.imageOri }">
-												<a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }">
-													${ dog.imageOri }
-												</a>
-											</c:if>
+                                    <a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }">
+                                       ${ dog.imageOri }
+                                    </a>
+                                 </c:if>
                                             </div>
                                         </td>
                                     </tr>
@@ -218,7 +226,7 @@
                                         <td>
                                             <div class="input-group mb-2">
                                             <input type="hidden" name="imageOri" value = "${dog.imageOri}">
-											<input type="hidden" name="imageRe" value = "${dog.imageRe}">
+                                 <input type="hidden" name="imageRe" value = "${dog.imageRe}">
                                                <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
                                             </div>
                                         </td>
@@ -234,29 +242,29 @@
                                     </tr>
                                     <tr>
                                        <th>예방접종 확인 </th>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="vacc"
-                                                value="DHPPL">
-                                            <label class="form-check-label" for="inlineCheckbox1" ${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                                value="Coronavirus" name="vacc">
-                                            <label class="form-check-label" for="inlineCheckbox2" ${ fn:contains(dog.vacc, 'DHPPL') ? 'Coronavirus' : ''}>Coronavirus
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                                value="KennelCough" name="vacc">
-                                            <label class="form-check-label" for="inlineCheckbox1" ${ fn:contains(dog.vacc, 'Kennel Cough') ? 'checked' : ''}>Kennel Cough</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                                value="광견병" name="vacc">
-                                            <label class="form-check-label" for="inlineCheckbox2" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>
-                                        </div>
-                                    </td>
+                                       <td>
+                                           <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="vacc"
+                                                   value="DHPPL">
+                                               <label class="form-check-label" for="inlineCheckbox1" ${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
+                                           </div>
+                                           <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                   value="Coronavirus" name="vacc">
+                                               <label class="form-check-label" for="inlineCheckbox2" ${ fn:contains(dog.vacc, 'DHPPL') ? 'Coronavirus' : ''}>Coronavirus
+                                               </label>
+                                           </div>
+                                           <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                   value="KennelCough" name="vacc">
+                                               <label class="form-check-label" for="inlineCheckbox1" ${ fn:contains(dog.vacc, 'Kennel Cough') ? 'checked' : ''}>Kennel Cough</label>
+                                           </div>
+                                           <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                   value="광견병" name="vacc">
+                                               <label class="form-check-label" for="inlineCheckbox2" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>
+                                           </div>
+                                       </td>
                                     </tr>
                                 </table>
                             </div>
@@ -280,15 +288,18 @@
                                         <textarea  id="" rows="5" cols="80" name="other" ><c:out value="${dog.other}"/></textarea>
                                     </div>
                                 </div> 
-                               </c:forEach>   
+                                 
                                 <br>
                                 <div style="text-align:center;">
-                                    <button type="submit" class="btn btn-outline-danger" style="margin-right: 50px;">삭제하기</button>
-                                    <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;">정보 수정</button>
+                                    <button type="submit" class="btn btn-outline-info" style="margin-left: 150px;">정보 수정</button>                                                                    
                                 </div>
                             </div>
                         </div>
+                   </div>
                 </form>
+                <div style="text-align:center;">
+                     <button type="submit" class="btn btn-outline-danger" style="margin-right: 250px;" onclick="deleteDog()">삭제하기</button>                                   
+                </div>
             </div>
         </div>
         <br>
@@ -297,60 +308,12 @@
   
    <script >
    
-  /*  $(function(){
-	   $("#noDog").onchange(dogNo=function(){
-		   $.ajax({
-				type: "post",
- 				url: "${path}/dog/mdogInformation ",
- 				dataType:'json',
- 				data: {
- 					dogNo,
- 					success: function(data){
- 						if(!data.data || data.data=='' || data.data.length<1) return false;
- 						$("dog.dogNo").val(data);
- 	 					$("dog.animalNo").val(data);
- 	 					$("dog.dogName").val(data);
- 	 					$("dog.dogType").val(data);
- 	 					$("dog.age").val(data);
- 	 					$("dog.vacc").val(data);
- 	 					$("dog.disorder").val(data);
- 	 					$("dog.other").val(data);
- 	 					$("dog.imageOri").val(data);
- 	 					$("dog.imageRe").val(data);
- 					}
- 				}
-		   })
-	   });
-   }); */
-        
-/*   $(function(){
- 		$("dogNo").on(cham function(){
- 			$.ajax({
- 				type: "post",
- 				url: "${path}/dog/mdogInformation ",
- 				data: {
- 					dogNo,
- 				success: function(data){
- 					console.log("success");
- 					$("dog.dogNo").val(data);
- 					$("dog.animalNo").val(data);
- 					$("dog.dogName").val(data);
- 					$("dog.dogType").val(data);
- 					$("dog.age").val(data);
- 					$("dog.vacc").val(data);
- 					$("dog.disorder").val(data);
- 					$("dog.other").val(data);
- 					$("dog.imageRe").val(data);
- 				},
- 				  error: function(e) {
-	        		  console.log(e);
-	        	  }
- 				
- 			});
- 		});
- 	});	 */ 
-  
-  
+   function deleteDog(){      
+      if(confirm("애견정보를 삭제 하시겠습니까?")){
+         location.replace('${path}/dog/deleteDog?dogNo=${dog.dogNo}');
+      }
+   }
+     
   </script> 
 </body>
 </html>
