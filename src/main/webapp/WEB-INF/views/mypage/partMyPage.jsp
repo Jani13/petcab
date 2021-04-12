@@ -96,7 +96,7 @@
                                 <input type="hidden" name="userNo" value="${loginMember.userNo}">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
-                                    <input type="text" class="form-control" id="Id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    <input type="text" class="form-control" name="userId" id="Id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
                                     value="${loginMember.userId }">
                                 </div>
                                 <div class="col-sm-10 my-2">
@@ -107,7 +107,7 @@
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
                                     <input type="text" class="form-control" name="phone" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                    value="${partner.phone }">
+                                    value="${loginMember.phone }">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                     <div for="postalAddr">주소</div>

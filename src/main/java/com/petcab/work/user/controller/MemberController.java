@@ -255,9 +255,7 @@ public class MemberController {
 	public ModelAndView updateInfo(ModelAndView model, 
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
 			@ModelAttribute Member member,
-			HttpServletRequest request,
-			@ModelAttribute Driver driver,
-			@ModelAttribute Partner partner) {
+			HttpServletRequest request) {
 		String address = request.getParameter("addr1") + "," + request.getParameter("addr2");
 		int postCode = Integer.parseInt(request.getParameter("postalAddr"));
 		
@@ -266,7 +264,9 @@ public class MemberController {
 
 		int result = 0;
 
+		System.out.println("ㅋㅋ"+member.toString());
 		result = service.updateMInfo(member);
+		
 		loginMember = service.findMemberByUserId(member.getUserId());
 
 		if (result > 0) {
