@@ -52,7 +52,7 @@ public class DogController {
       return "/dog/dogInformation";
    }
 
-	@RequestMapping(value={"/dog/mdogInformation"}, method = {RequestMethod.GET})
+   @RequestMapping(value={"/dog/mdogInformation"}, method = {RequestMethod.GET})
 	public ModelAndView dogUpdate(
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
 			@RequestParam(name="dogNo", required=false) Integer dogNo,
@@ -82,7 +82,7 @@ public class DogController {
 
 		return model;
 	}
-	
+
 	@RequestMapping(value="/dog/select", method = {RequestMethod.GET})
 	@ResponseBody
 	public Dog findDog(
