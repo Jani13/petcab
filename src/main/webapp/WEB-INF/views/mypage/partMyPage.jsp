@@ -96,7 +96,7 @@
                                 <input type="hidden" name="userNo" value="${loginMember.userNo}">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
-                                    <input type="text" class="form-control" id="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    <input type="text" class="form-control" name="userId" id="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
                                     value="${loginMember.userId }">
                                 </div>
                                 <div class="col-sm-10 my-2">
