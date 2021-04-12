@@ -135,9 +135,10 @@
         </form>
     </div>
     </c:if>
+    
     <c:if test="${partner.userNo != null }">
     <div id="partner-container" style="margin: 0 auto; text-align:center">
-        <form name="partnerFrm" action="${path}/partner/update" method="POST">
+        <form name="partnerFrm" action="${path}/partner/update" method="POST" enctype="multipart/form-data">
         	<input type="hidden" name="userNo" value="${loginMember.getUserNo()}">
             <div class="container show-grid text-center">
                 <div class="row d-flex justify-content-center">
@@ -155,7 +156,7 @@
                         </tr>
                         <tr>
                             <th>업체사진</th>
-                            <td><input type="file" class="form-control" name="imageOri" id="image" required></td>
+                            <td><input type="file" class="form-control" name="upfile" id="image" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
