@@ -107,7 +107,7 @@
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
                                     <input type="text" class="form-control" name="phone" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                    value="${partner.phone }">
+                                    value="${loginMember.phone}">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                     <div for="postalAddr">주소</div>
@@ -149,7 +149,7 @@
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
                             <div class="container-fluid">
-                            	<c:if test="${waitCall == null}">
+                            	<c:if test="${empty waitCall}">
 									<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
 										대기중인 긴급 콜이 없습니다
 									</div>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-	                    <c:if test="${eCallList == null}">
+	                    <c:if test="${empty eCallList}">
 	                        <div class="col-sm-4">
 								요청이 없습니다
 							</div>
