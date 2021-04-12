@@ -7,15 +7,18 @@ import com.petcab.work.user.model.vo.Member;
 
 public interface DogService {
 
-	int saveDog(Dog dog);
+   int saveDog(Dog dog);
 
-	List<Dog> searchUserId(String userId);
+   List<Dog> searchUserId(String userId);
 
-//	int getdogCount();
-	
-	Dog searchByDogNo(int dogNo);
+//   int getdogCount();
+   
+   Dog searchByDogNo(int dogNo);
+   
+   int updateDog(Dog dog);
+   
+   List<Dog> searchByCallNo(int callNo);
 
-	int updateDog(Dog dog);
-	
-	List<Dog> searchByCallNo(int callNo);
+   int deleteDog(int dogNo);
 }
+
