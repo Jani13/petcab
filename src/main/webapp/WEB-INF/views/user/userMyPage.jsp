@@ -166,9 +166,9 @@
 										<div>조회된 애견이 없습니다</div>
 									</c:if>
 									<c:if test="${dog != null}">
-										<c:forEach var="dog" items="${dog}" end="2">
+										<c:forEach var="dog" items="${dog}" end="9">
 		                                    <div class="col-sm text-center py-4 myDogsEvent">
-		                                        <a href="" class="text-decoration-none text-dark">
+		                                        <a href="${path}/dog/view?dogNo=${dog.dogNo}" class="text-decoration-none text-dark">
 		                                        <c:if test="${dog.imageRe==null}">
 		                                            <img src="${path }/resources/images/mung.png" class="myDogs rounded-pill img-thumbnail" alt="">
 		                                        </c:if>

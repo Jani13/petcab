@@ -127,6 +127,13 @@
 		DOG_NO=#{dogNo}
 	</update>
 	
+	<update id="deleteDog" parameterType="int">
+		UPDATE DOG 
+		SET 
+			STATUS='N' 
+		WHERE DOG_NO=#{dogNo}	
+	</update>
+	
 	<select id="searchByDogNo" resultMap="DogResultMap">
 		SELECT *
 		FROM DOG

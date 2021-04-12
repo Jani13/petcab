@@ -65,6 +65,12 @@ public class DogServiceImpl implements DogService {
 				
 		return dogDao.searchByCallNo(callNo);
 	}
+
+	@Override
+	public int deleteDog(int dogNo) {
+		
+		return dogDao.deleteDog(dogNo);
+	}
 	
 //	@Service
 //	public class DogServiceImpl implements DogService {

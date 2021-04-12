@@ -25,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.dog.model.service.DogService;
+import com.petcab.work.ques.model.vo.Ques;
+import com.petcab.work.ques.model.vo.QuesReply;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 
@@ -50,19 +52,35 @@ public class DogController {
 	}
 
 
-	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
-	@ResponseBody
-	public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
-			,ModelAndView model,HttpServletRequest request) {
-		List<Dog> dogs = service.searchUserId(loginMember.getUserId());
-		log.info(dogs.toString());
+//	@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.GET} )
+//	@ResponseBody
+//	public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember
+//			,ModelAndView model,HttpServletRequest request) {
+//		List<Dog> dogs = service.searchUserId(loginMember.getUserId());
+//		log.info(dogs.toString());
+//
+//		model.addObject("dogs", dogs);
+//		model.setViewName("dog/mdogInformation");
+//		
+//		return model;
+//	}
 
-		model.addObject("dogs", dogs);
+	
+	@RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
+	public ModelAndView view(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@RequestParam("dogNo") int dogNo, ModelAndView model) {
+				
+		Dog dog = service.searchByDogNo(dogNo);
+
+		model.addObject("dog", dog);
+		
 		model.setViewName("dog/mdogInformation");
+	
 		return model;
 	}
-
-
+	
+	
 	// 4/9일 작업...
 	  @ResponseBody	  
 	  @RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
@@ -97,7 +115,7 @@ public class DogController {
 			
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 수정되었습니다.");
-				model.addObject("location", "/dog/update?dogNo=" + dog.getDogNo());
+				model.addObject("location", "/user/mypage");
 			} else {
 				model.addObject("msg", "수정을 실패하였습니다.");
 				model.addObject("location", "/user/mypage");
@@ -112,6 +130,25 @@ public class DogController {
 	 return model;
 	 }
 	 
+	@RequestMapping(value = "/dog/deleteDog", method = {RequestMethod.GET})
+	public ModelAndView QuesDelete(@RequestParam("dogNo") int dogNo, ModelAndView model) {
+		int result = 0;
+		
+		result = service.deleteDog(dogNo);
+		
+		if(result > 0) {
+			model.addObject("msg", "애견정보가 정상적으로 삭제되었습니다.");
+			model.addObject("location", "/user/mypage");
+		}else {
+			model.addObject("msg", "애견정보 삭제에 실패하였습니다.");
+			model.addObject("location", "/user/mypage");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
 
 	//		@RequestMapping(value="/dog/mdogInformation", method = {RequestMethod.POST} )
 	//		public ModelAndView dogUpdate(@SessionAttribute(name="loginMember", required = false) Member loginMember,
@@ -251,6 +288,8 @@ public class DogController {
 		return model;
 
 	}
+	
+	
 
 	//	private String saveFile(MultipartFile file, HttpServletRequest request) {
 	//		String renamePath = null; 
