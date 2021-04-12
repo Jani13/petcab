@@ -90,10 +90,10 @@
                 </tr>
               </thead>
               <tbody>
-                <c:if test="${waitPartners == null }">
+                <c:if test="${empty waitPartners}">
 	                <tr>
-	                	<th></th>
-	                	<td>신청한 회원이 없습니다.
+	                	<td class="text-center" colspan="8">
+	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>
@@ -169,10 +169,10 @@
                 </tr>
               </thead>
               <tbody>
-                <c:if test="${rejectPartners == null }">
+                <c:if test="${empty rejectPartners}">
 	                <tr>
-	                	<th></th>
-	                	<td>신청한 회원이 없습니다.
+	                	<td class="text-center" colspan="9">
+	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>

@@ -1,9 +1,6 @@
 package com.petcab.work.admin.controller;
 
-import java.net.http.HttpRequest;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,8 +83,8 @@ public class AdminController {
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit){
 		
 		List<Member> memberList = null;
-		int quesCount = service.getMemberCount();
-		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		int memberCount = service.getMemberCount();
+		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
 			
 		memberList = service.selectAllMember(pageInfo);
 
@@ -106,8 +103,8 @@ public class AdminController {
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
 		List<Driver> driverList = null; 
-		int quesCount = driverService.getDriverCount();
-		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		int driverCount = driverService.getDriverCount();
+		PageInfo pageInfo = new PageInfo(page, 5, driverCount, listLimit);
 		  
 		driverList = driverService.rNumSelectDrivers(pageInfo);
 		
@@ -126,8 +123,8 @@ public class AdminController {
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 		
 		List<Member> onlyUserList = null;
-		int quesCount = service.getUserCount();
-		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		int onlyUserCount = service.getUserCount();
+		PageInfo pageInfo = new PageInfo(page, 5, onlyUserCount, listLimit);
 		
 		onlyUserList = service.selectAllUsers(pageInfo);
 		
@@ -144,8 +141,8 @@ public class AdminController {
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 		
 		List<Partner> partnerList = null;
-		int quesCount = partnerService.getPartnerCount();
-		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		int partnerCount = partnerService.getPartnerCount();
+		PageInfo pageInfo = new PageInfo(page, 5, partnerCount, listLimit);
 		
 		partnerList = partnerService.selectPartners(pageInfo);
 		
@@ -164,8 +161,8 @@ public class AdminController {
 			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
 		List<Call> callList = null;
-		int quesCount = callService.getGenCallCount();
-		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
+		int callCount = callService.selectGenCall();
+		PageInfo pageInfo = new PageInfo(page, 5, callCount, listLimit);
 		
 		callList = callService.selectGenCallList(pageInfo);
 		
@@ -178,16 +175,48 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
-	public String callEmergency() {
+	public ModelAndView callEmergency(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1")int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
 
-		return "admin/adminCallEminfo";
+		List<Call> emgCallList = null;
+		int emgCallCount = callService.selectEmergCall();
+		PageInfo pageInfo = new PageInfo(page, 5, emgCallCount, listLimit);
+		
+		emgCallList = callService.selectEmgCallList(pageInfo);
+		
+		log.info(emgCallList.toString());
+		model.addObject("emgCallList", emgCallList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminCallEminfo");
+		
+		return model;
 	}
 	
 	@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
-	public String callCancel() {
-
-		return "admin/adminCallCancel";
+	public ModelAndView callCancel(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1")int page,
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+		
+		List<Call> cancelCallList = null;
+		int cancelCallCount = callService.selectCancelledCall();
+		PageInfo pageInfo = new PageInfo(page, 5, cancelCallCount, listLimit);
+		
+		cancelCallList = callService.getCancelCallList(pageInfo);
+		
+		log.info(cancelCallList.toString());
+		model.addObject("cancelCallList",cancelCallList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminCallCancel");
+		
+		return model;
 	}
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String payReview() {

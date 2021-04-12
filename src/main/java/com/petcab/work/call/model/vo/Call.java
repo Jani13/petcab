@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Partner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,12 @@ public class Call {
 	private String merchantUid;
 	
 	private Driver driver;
+	
+	private int rowNum;
+	
+	private Dog dog;
+	
+	private Partner partner;
 	
 //	protected int callNo;
 //	
