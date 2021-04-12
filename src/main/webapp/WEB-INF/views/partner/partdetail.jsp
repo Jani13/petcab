@@ -31,24 +31,24 @@
 <section>
     <div class="container">
         <div class="row align-items-start py-5">
-            <div class="col-2"></div>
-            <div class="col-8 text-center">
-                <!-- 로고로 바꿔야함 -->
-                <img src="${path}/images/dog.jpg" alt="" width="50px">
-                <span>의 제휴업체 <!-- 제휴업체 명을 연결--> 을 소개합니다! </span>
-            </div>
-            <div class="col-2"></div>
+            <div class="" style="border-bottom: 1px ridge;">
+              <p class="h2 fw-bold p-4 mx-3">
+                ${partner.partnerName}
+              </p>
+            </div> 
         </div>
         <div class="row align-items-center pb-5">
             <div class="col-2"></div>
             <div class="col-8 text-center">
-                <!-- 여기에 스마트 에디터 내용 작성한 내용을 연결 -->스마트디터 내용이 들어갈 부분
+                ${partner.about}
             </div>
             <div class="col-2"></div>
         </div>
         <div style="text-align : center; padding: 30px;">
             <span>
-                <input type="button" class="btn btn-secondary" id="partnerCancel" value="뒤로가기">
+            	<a href="javascript:history.back();">
+	                <input type="button" class="btn btn-secondary" id="partnerCancel" value="뒤로가기">
+            	</a>
             </span>
         </div>
     </div>

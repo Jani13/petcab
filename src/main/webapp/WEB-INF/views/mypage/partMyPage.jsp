@@ -96,7 +96,7 @@
                                 <input type="hidden" name="userNo" value="${loginMember.userNo}">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
-                                    <input type="text" class="form-control" id="Id" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
+                                    <input type="text" class="form-control" name="userId" id="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
                                     value="${loginMember.userId }">
                                 </div>
                                 <div class="col-sm-10 my-2">
@@ -105,14 +105,9 @@
                                     value="${loginMember.userName }">
                                 </div>
                                 <div class="col-sm-10 my-2">
-                                    <label for="callNum">제휴업체명</label>
-                                    <input type="text" class="form-control" name="partnerName" id="partName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                    value="${partner.partnerName }">
-                                </div>
-                                <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
                                     <input type="text" class="form-control" name="phone" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                    value="${partner.phone }">
+                                    value="${loginMember.phone}">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
                                     <div for="postalAddr">주소</div>
@@ -139,8 +134,11 @@
                                 <div class="row d-flex justify-content-center my-3">    
                                     <input type="button" class="col-3 btn btn-outline-info mx-auto"
                                      onclick="location.href='${path}/changePwd/'" value="비밀번호 변경">
-                                    <input type="submit" class="col-3 btn btn-outline-info " value="정보 수정">
-                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴하기">
+                                    <input type="submit" class="col-2 btn btn-outline-info " value="정보 수정">
+                                    <input type="button" class="col-3 btn btn-outline-info mx-auto" 
+                                    onclick="location.href='${path}/partner/'" value="제휴 정보 수정">
+                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴"
+                                    onclick="location.href='${path}/user/delete/'">
                                 </div>
                             </form> 
                         </div> 
@@ -151,7 +149,7 @@
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
                             <div class="container-fluid">
-                            	<c:if test="${waitCall == null}">
+                            	<c:if test="${empty waitCall}">
 									<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
 										대기중인 긴급 콜이 없습니다
 									</div>
@@ -188,8 +186,8 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-	                    <c:if test="${eCallList == null}">
-	                        <div class="col-sm-4">
+	                    <c:if test="${empty eCallList}">
+	                        <div class="col-sm-4 ">
 								요청이 없습니다
 							</div>
 						</c:if>

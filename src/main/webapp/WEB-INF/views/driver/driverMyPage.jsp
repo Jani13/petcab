@@ -88,16 +88,6 @@
                                     <input type="text" class="form-control" id="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
                                     value="${loginMember.userName}">
                                 </div>
-                                <div class="col-sm-5 my-2">
-                                    <label for="Name">차종</label>
-                                    <input type="text" class="form-control" name="carType" id="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
-                                    value="${driver.carType}">
-                                </div>
-                                <div class="col-sm-5 my-2">
-                                    <label for="Name">차번호</label>
-                                    <input type="text" class="form-control" name="carNo" id="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
-                                    value="${driver.carNo}">
-                                </div>
                                 <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
                                     <input type="text" class="form-control" name="phone" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
@@ -128,8 +118,11 @@
                                 <div class="row d-flex justify-content-center my-3">    
                                     <input type="button" class="col-3 btn btn-outline-info mx-auto" 
                                     onclick="location.href='${path}/changePwd/'" value="비밀번호 변경">
-                                    <input type="submit" class="col-3 btn btn-outline-info " value="정보 수정">
-                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴하기">
+                                    <input type="submit" class="col-2 btn btn-outline-info " value="정보 수정">
+                                    <input type="button" class="col-4 btn btn-outline-info mx-auto" 
+                                    onclick="location.href='${path}/driver/apply'" value="드라이버 정보 수정">
+                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴"
+                                    onclick="location.href='${path}/user/delete/'">
                                 </div>
                             </form> 
                         </div> 

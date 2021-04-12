@@ -207,10 +207,23 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
-	<update id="updatePInfo" parameterType="Partner">
+	<update id="updatePartner" parameterType="Partner">
 		UPDATE PARTNER
 		SET PARTNER_NAME = #{partnerName},
-			PHONE = #{phone}
+		    PARTNER_TYPE = #{partnerType},
+			PHONE = #{phone},
+		    OPEN_TIME = #{openTime},
+		    IMAGE_ORI = #{imageOri},
+		    IMAGE_RE = #{imageRe},
+		    ABOUT = #{about}
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="selectPartnerDetail" parameterType="_int" resultMap="PartnerResultMap">
+		SELECT USER_NO,
+			   PARTNER_NAME, 
+			   ABOUT
+		FROM PARTNER 
+		WHERE USER_NO = #{userNo}
+	</select>
 </mapper>

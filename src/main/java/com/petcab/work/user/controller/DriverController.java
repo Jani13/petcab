@@ -65,9 +65,8 @@ public class DriverController {
 				model.addObject("location", "/");
 				model.setViewName("common/msg");
 			}else {	
-				model.addObject("msg", "이미 드라이버 회원입니다.");
-				model.addObject("location", "/");
-				model.setViewName("common/msg");
+				model.addObject("driver", driver);
+				model.setViewName("driver/driverDocument");
 			}
 		} else { 
 			model.setViewName("driver/driverDocument");
@@ -102,6 +101,41 @@ public class DriverController {
 			model.addObject("location", "/");
 		} else {
 			model.addObject("msg", "드라이버 지원에 실패했습니다.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");		
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/update", method = {RequestMethod.POST})
+	public ModelAndView update(ModelAndView model, @ModelAttribute Driver driver
+			,HttpServletRequest request,@RequestParam("upfile") MultipartFile upfile) {
+		
+		log.info(driver.toString());
+
+		int result = 0;
+		if (upfile != null && !upfile.isEmpty()) {
+			if (driver.getImageRe() != null) {
+				deleteFile(driver.getImageRe(), request);
+			}
+			String renameFileName = saveFile(upfile, request);
+			System.out.println(renameFileName);
+			if (renameFileName != null) {
+				driver.setImageOri(upfile.getOriginalFilename());
+				driver.setImageRe(renameFileName);
+			}
+		}
+		result = service.updateDriver(driver);
+		
+		log.info(driver.toString());		
+		
+		if(result > 0) {
+			model.addObject("msg", "수정 되었습니다.");
+			model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "수정에 실패했습니다.");
 			model.addObject("location", "/");
 		}
 		
@@ -163,5 +197,19 @@ public class DriverController {
 		}
 
 		return renameFileName;
-	}	
+	}
+	
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		
+		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = rootPath + "/upload/images";				
+		
+		log.debug("Root Path : " + rootPath);
+		log.debug("Save Path : " + savePath);
+		
+		File file = new File(savePath+"/"+fileName);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
 }
