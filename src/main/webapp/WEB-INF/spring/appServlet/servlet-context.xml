@@ -38,6 +38,7 @@
 	 		<mapping path="/dog/**"/>
 	 		<mapping path="/driver/apply"/>
 	 		<mapping path="/driver/mypage"/>
+	 		<mapping path="/partner/"/>
 	 		<beans:bean id="LoginCheckInterceptor" class="com.petcab.work.common.interceptor.LoginCheckInterceptor"/>
 	 	</interceptor>
 	 </interceptors>

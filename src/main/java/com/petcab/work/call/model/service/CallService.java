@@ -41,6 +41,8 @@ public interface CallService {
 
 	List<Call> selectGenCallList(PageInfo pageInfo);
 
-	int getGenCallCount();
+	List<Call> selectEmgCallList(PageInfo pageInfo);
+
+	List<Call> getCancelCallList(PageInfo pageInfo);
 
 }

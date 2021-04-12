@@ -45,4 +45,8 @@ public interface CallDao {
 	List<Call> selectGenCallList(RowBounds rowBounds);
 	
 	EmgCall selectEmgCallWithNoDogs(int callNo);
+
+	List<Call> selectEmgCallList(RowBounds rowBounds);
+
+	List<Call> selectCancelCallList(RowBounds rowBounds);
 }
