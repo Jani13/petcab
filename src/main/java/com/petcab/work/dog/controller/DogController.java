@@ -36,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class DogController {
 
+
    @Autowired
    private DogService service;
 
@@ -255,3 +256,5 @@ public class DogController {
    }   
 
 }
+
+

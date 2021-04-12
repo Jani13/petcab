@@ -21,3 +21,4 @@ public interface DogDao {
    int deleteDog(int dogNo);
 
 }
+

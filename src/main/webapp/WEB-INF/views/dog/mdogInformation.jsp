@@ -209,6 +209,7 @@
                                            </div>
                                        </td>
                                    </tr>
+
                                     <tr>
                                         <th style="width: 130px;">현재 사진</th>
                                         <td>
@@ -265,6 +266,7 @@
                                                <label class="form-check-label" for="inlineCheckbox2" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>
                                            </div>
                                        </td>
+
                                     </tr>
                                 </table>
                             </div>
@@ -292,6 +294,7 @@
                                 <br>
                                 <div style="text-align:center;">
                                     <button type="submit" class="btn btn-outline-info" style="margin-left: 150px;">정보 수정</button>                                                                    
+
                                 </div>
                             </div>
                         </div>
@@ -314,6 +317,7 @@
       }
    }
      
+
   </script> 
 </body>
 </html>

@@ -108,6 +108,7 @@
       AND USER_ID = #{userNo}
    </select>
 
+
    <update id="updateDog" parameterType="Dog">
       UPDATE DOG
       SET
@@ -161,3 +162,4 @@
    WHERE CD.CALL_NO=#{callNo}
    </select>
 </mapper>
+
