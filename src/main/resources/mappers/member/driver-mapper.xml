@@ -192,11 +192,13 @@
         ORDER BY ROWNUM
 	</select>
 	
-	<update id="updateDInfo" parameterType="Driver">
+	<update id="updateDriver" parameterType="Driver">
 		UPDATE DRIVER
 		SET CAR_TYPE = #{carType},
-			CAR_NO = #{carNo}
+			CAR_NO = #{carNo},
+			ABOUT = #{about},
+			IMAGE_ORI = #{imageOri},
+			IMAGE_RE = #{imageRe}
 		WHERE USER_NO = #{userNo}
 	</update>
-	
 </mapper>

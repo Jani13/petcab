@@ -49,8 +49,9 @@
  	<jsp:include page="../common/nav.jsp" />
  	
 <section id="content">
+	<c:if test="${partner.userNo == null }">
     <div id="partner-container" style="margin: 0 auto; text-align:center">
-        <form name="partnerFrm" action="${path}/partner/partApply" method="POST">
+        <form name="partnerFrm" action="${path}/partner/partApply" method="POST" enctype="multipart/form-data">
         	<input type="hidden" name="userNo" value="${loginMember.getUserNo()}">
             <div class="container show-grid text-center">
                 <div class="row d-flex justify-content-center">
@@ -68,7 +69,8 @@
                         </tr>
                         <tr>
                             <th>업체사진</th>
-                            <td><input type="file" class="form-control" name="imageOri" id="image" required></td>
+                            
+                            <td><input type="file" class="form-control" name="upfile" id="image" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
@@ -132,6 +134,112 @@
             </div>
         </form>
     </div>
+    </c:if>
+    
+    <c:if test="${partner.userNo != null }">
+    <div id="partner-container" style="margin: 0 auto; text-align:center">
+        <form name="partnerFrm" action="${path}/partner/update" method="POST" enctype="multipart/form-data">
+        	<input type="hidden" name="userNo" value="${loginMember.getUserNo()}">
+            <div class="container show-grid text-center">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-6">
+                    <table class="table table-borderless my-5" style="text-align:left; margin:auto; border-spacing: 30px;">
+                        <tr>
+                            <th colspan="2">
+                                <h2 style="line-height: 3.0; text-align: center;">제휴업체 상세내용 작성</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width: 130px;">제휴업체명</th>
+                            <td><input type="text" class="form-control" name="partnerName" id="partnerName" required value="${partner.partnerName}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체사진</th>
+                            <td><input type="file" class="form-control" name="upfile" id="image" required></td>
+                        </tr>
+                        <tr>
+                            <th>업종</th>
+                            <td>
+                            	<label style="margin-right: 20px;">
+                            		<c:if test="${partner.partnerType != '병원' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="병원" required>
+	                                	병원
+                                	</c:if>
+                                	<c:if test="${partner.partnerType == '병원' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="병원" required checked>
+	                                	병원
+                                	</c:if>
+                                </label>
+                                <label style="margin-right: 20px;">
+                            		<c:if test="${partner.partnerType != '유치원' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="유치원" required>
+	                                	유치원
+                                	</c:if>
+                                	<c:if test="${partner.partnerType == '유치원' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="유치원" required checked>
+	                                	유치원
+                                	</c:if>
+                                </label>
+                                <label>
+                            		<c:if test="${partner.partnerType != '샵' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="샵" required>
+	                                	샵
+                                	</c:if>
+                                	<c:if test="${partner.partnerType == '샵' }">
+	                                	<input type="radio" class="form-check-input" name="partnerType" value="샵" required checked>
+	                                	샵
+                                	</c:if>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td><input type="tel" class="form-control" name="phone" id="phone" 
+                                placeholder="'-'빼고 입력해주세요" maxlength="11" value="${partner.phone}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>운영시간</th>
+                            <td>
+                                <input type="text" class="form-control" name="openTime" placeholder="평일" required value="${partner.openTime}">
+                                <span class="mx-3" style="font-size: 13px">* 시간은 00:00 ~ 24:00 표기해주세요.(상세시간은 소개에 작성해주세요.)</span>
+                            </td>
+                        </tr>
+                    </table>
+                  </div>
+                 
+                </div>
+            <!-- ====  스마트 에디터  ===== -->
+            	<div class="editor-box">
+                	<div style="padding-top: 50px;">
+                    	<h3>제휴업체 소개</h3>
+                	</div>
+	            	<div class="editor-box">
+	                	<div class="editor-box__editor">
+	                              <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
+	                    	<textarea name="about" id="ir1" rows="10" cols="100">
+	                    	${partner.about }</textarea>
+	                    	<script type="text/javascript">
+	                 			CKEDITOR.replace('ir1', {height: 400});
+	                  	 	</script>
+	                    </div>
+	                </div>
+            	</div>
+                <div style="text-align : center; padding: 30px;">
+                	<span style="padding-right : 3rem;">
+                    	<input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
+                    </span>
+                    <span>
+                    	<a href="${path}/">
+                    		<input type="button" class="btn btn-secondary" id="reviewCancel" value="취소하기">                    	
+                    	</a>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    </c:if>
 </section>
 
   <jsp:include page="../common/footer.jsp" />

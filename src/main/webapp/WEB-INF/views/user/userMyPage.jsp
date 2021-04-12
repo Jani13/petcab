@@ -125,7 +125,8 @@
                                     <input type="button" class="col-3 btn btn-outline-info mx-auto"
                                     onclick="location.href='${path}/changePwd/'" value="비밀번호 변경">
                                     <input type="submit" class="col-3 btn btn-outline-info " value="정보 수정">
-                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴하기">
+                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴"
+                                    onclick="location.href='${path}/user/delete/'">
                                 </div>
                             </form> 
                         </div> 
@@ -167,7 +168,7 @@
 										<div>조회된 애견이 없습니다</div>
 									</c:if>
 									<c:if test="${dog != null}">
-                              <c:forEach var="dog" items="${dog}" end="9">
+                              <c:forEach var="dog" items="${dog}" end="2">
                                           <div class="col-sm text-center py-4 myDogsEvent">
                                               <a href="${path}/dog/view?dogNo=${dog.dogNo}" class="text-decoration-none text-dark">
                                               <c:if test="${dog.imageRe==null}">
