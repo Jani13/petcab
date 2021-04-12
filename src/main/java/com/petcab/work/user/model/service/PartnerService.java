@@ -32,6 +32,6 @@ public interface PartnerService {
 
 	int getPartnerCount();
 
-	int updatePInfo(Member member, Partner partner);
+	int updatePartner(Partner partner);
 	
 }

@@ -105,11 +105,6 @@
                                     value="${loginMember.userName }">
                                 </div>
                                 <div class="col-sm-10 my-2">
-                                    <label for="callNum">제휴업체명</label>
-                                    <input type="text" class="form-control" name="partnerName" id="partName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                    value="${partner.partnerName }">
-                                </div>
-                                <div class="col-sm-10 my-2">
                                     <label for="callNum">전화번호</label>
                                     <input type="text" class="form-control" name="phone" id="callNum" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                                     value="${partner.phone }">
@@ -139,8 +134,10 @@
                                 <div class="row d-flex justify-content-center my-3">    
                                     <input type="button" class="col-3 btn btn-outline-info mx-auto"
                                      onclick="location.href='${path}/changePwd/'" value="비밀번호 변경">
-                                    <input type="submit" class="col-3 btn btn-outline-info " value="정보 수정">
-                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴하기">
+                                    <input type="submit" class="col-2 btn btn-outline-info " value="정보 수정">
+                                    <input type="button" class="col-3 btn btn-outline-info mx-auto" 
+                                    onclick="location.href='${path}/partner/'" value="제휴 정보 수정">
+                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴">
                                 </div>
                             </form> 
                         </div> 

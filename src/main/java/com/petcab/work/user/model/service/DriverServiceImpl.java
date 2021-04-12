@@ -83,16 +83,8 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	@Transactional
-	public int updateDInfo(Member member, Driver driver) {
-		int result = 0;
-		result = memberDao.updateMInfo(member);
-		member = memberDao.selectMember(member.getUserId());
-		if (result > 0) {
-			return driverDao.updateDInfo(driver);
-		} else {
-			return 0;
-		}
+	public int updateDriver(Driver driver) {
+		return driverDao.updateDriver(driver);
 	}
 
 }

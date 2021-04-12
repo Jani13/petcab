@@ -35,5 +35,6 @@ public interface PartnerDao {
 
 	int selectPartnerCount();
 
-	int updatePInfo(Partner partner);
+	int updatePartner(Partner partner);
+	
 }

@@ -263,38 +263,23 @@ public class MemberController {
 		
 		member.setAddress(address);
 		member.setPostCode(postCode);
-		
+
 		int result = 0;
-		
-		if (loginMember.getUserType().equals("ROLE_MEMBER")) {
-			result = service.updateMInfo(member);
-			loginMember = service.findMemberByUserId(member.getUserId());
-		} else if (loginMember.getUserType().equals("ROLE_DRIVER")) {
-			member.setUserId(loginMember.getUserId());
-			result = driverService.updateDInfo(member, driver);
-			loginMember = service.findMemberByUserId(member.getUserId());
-			driver = driverService.selectDriver(loginMember.getUserNo());
-			model.addObject("driver", driver);
-		}else {
-			member.setUserId(loginMember.getUserId());
-			result = partnerService.updatePInfo(member, partner);
-			loginMember = service.findMemberByUserId(member.getUserId());
-			partner = partnerService.selectPartner(loginMember.getUserNo());
-			model.addObject("partner", partner);
-			
-		}
-		
-		if(result > 0) {
+
+		result = service.updateMInfo(member);
+		loginMember = service.findMemberByUserId(member.getUserId());
+
+		if (result > 0) {
 			model.addObject("msg", "정보가 변경되었습니다.");
 			model.addObject("loginMember", loginMember);
 			model.addObject("location", "/");
-		
+
 		} else {
 			model.addObject("msg", "문제가 발생했습니다. 관리자에게 문의해주세요.");
 			model.addObject("location", "/");
 		}
 		model.setViewName("common/msg");
-		
+
 		return model;
 	}
 }
