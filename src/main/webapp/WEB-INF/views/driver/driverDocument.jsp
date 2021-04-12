@@ -32,6 +32,7 @@
   <jsp:include page="../common/nav.jsp" />
     <section>
       <div class="dirver-document__intro">
+        <c:if test="${driver.userNo == null}">
         <span class="driver-document__title">드라이버 지원서</span>
         <div class="diver-documnet__textbox">
           모집부문 및 담당업무 : <br />
@@ -39,59 +40,120 @@
           근무조건 : <br />
           특징 :<br />
         </div>
-        <div class="driver-document__information">
-          <form action="${path}/driver/apply/enroll" method="post" class="information" enctype="multipart/form-data">
-            <div>
-              <h5 class="information__title">이름</h5>
-              <input
-                type="text"
-                name="userName"
-                class="information__input"
-                value="${loginMember.userName}"
-                readonly
-              />
-            </div>
-            <div>
-              <h5 class="information__title">전화번호</h5>
-              <input
-                type="text"
-                name="phone"
-                class="information__input"
-                value="${loginMember.phone}"
-                readonly
-              />
-            </div>
-            <div>
-              <h5 class="information__title">보유차종</h5>
-              <input
-                type="text"
-                name="carType"
-                class="information__input"
-                placeholder="차종을 입력해주세요(K3,아반떼,소나타)"
-              />
-            </div>
-            <div>
-              <h5 class="information__title">차량번호</h5>
-              <input
-                type="text"
-                name="carNo"
-                class="information__input"
-                placeholder="OOO가 OOOO형태로 입력해주세요."
-              />
-            </div>
-            <div>
-              <h5 class="information__title">자기<br>소개</h5>
-              <textarea name="about" id="" cols="28" rows="10"></textarea>
-            </div>
-            <div>
-              <h5 class="information__title">프로필사진</h5>
-              <input type="file" name="upfile" class="information__input file" />
-            </div>
-            <button type="submit" class="information_btn">제출하기</button>
-       		<input type="hidden" name="userNo"
-        	value="${loginMember.userNo}" readonly>
-          </form>
-        </div>
+        </c:if>
+        <c:if test="${driver.userNo != null}">
+        <span class="driver-document__title" style="margin-bottom : 40px">드라이버 정보 수정</span>
+        </c:if>
+        <c:if test="${driver.userNo == null}">
+	        <div class="driver-document__information">
+	          <form action="${path}/driver/apply/enroll" method="post" class="information" enctype="multipart/form-data">
+	            <div>
+	              <h5 class="information__title">이름</h5>
+	              <input
+	                type="text"
+	                name="userName"
+	                class="information__input"
+	                value="${loginMember.userName}"
+	                readonly
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">전화번호</h5>
+	              <input
+	                type="text"
+	                name="phone"
+	                class="information__input"
+	                value="${loginMember.phone}"
+	                readonly
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">보유차종</h5>
+	              <input
+	                type="text"
+	                name="carType"
+	                class="information__input"
+	                placeholder="차종을 입력해주세요(K3,아반떼,소나타)"
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">차량번호</h5>
+	              <input
+	                type="text"
+	                name="carNo"
+	                class="information__input"
+	                placeholder="OOO가 OOOO형태로 입력해주세요."
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">자기<br>소개</h5>
+	              <textarea name="about" id="" cols="28" rows="10"></textarea>
+	            </div>
+	            <div>
+	              <h5 class="information__title">프로필사진</h5>
+	              <input type="file" name="upfile" class="information__input file" />
+	            </div>
+	            <button type="submit" class="information_btn">제출하기</button>
+	       		<input type="hidden" name="userNo"
+	        	value="${loginMember.userNo}" readonly>
+	          </form>
+	        </div>
+        </c:if>
+        <c:if test="${driver.userNo != null}">
+	        <div class="driver-document__information">
+	          <form action="${path}/driver/update" method="post" class="information" enctype="multipart/form-data">
+	            <div>
+	              <h5 class="information__title">이름</h5>
+	              <input
+	                type="text"
+	                name="userName"
+	                class="information__input"
+	                value="${loginMember.userName}"
+	                readonly
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">전화번호</h5>
+	              <input
+	                type="text"
+	                name="phone"
+	                class="information__input"
+	                value="${loginMember.phone}"
+	                readonly
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">보유차종</h5>
+	              <input
+	                type="text"
+	                name="carType"
+	                class="information__input"
+	                placeholder="${driver.carType }"
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">차량번호</h5>
+	              <input
+	                type="text"
+	                name="carNo"
+	                class="information__input"
+	                placeholder="${driver.carNo }"
+	              />
+	            </div>
+	            <div>
+	              <h5 class="information__title">자기<br>소개</h5>
+	              <textarea name="about" id="" cols="28" rows="10"> <c:out value="${driver.about}"/></textarea>
+	            </div>
+	            <div>
+	              <h5 class="information__title">프로필사진</h5>
+	              <input type="file" name="upfile" class="information__input file"/>
+	            </div>
+	            <button type="submit" class="information_btn">제출하기</button>
+	       		<input type="hidden" name="userNo"
+	        	value="${loginMember.userNo}" readonly>
+	          </form>
+	        </div>
+        </c:if>
       </div>
     </section>
   <jsp:include page="../common/footer.jsp" />

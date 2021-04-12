@@ -93,16 +93,14 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	@Transactional
-	public int updatePInfo(Member member, Partner partner) {
-		int result = 0;
-		result = memberDao.updateMInfo(member);
-		member = memberDao.selectMember(member.getUserId());
-		if (result > 0) {
-			return partnerDao.updatePInfo(partner);
-		} else {
-			return 0;
-		}
+	public int updatePartner(Partner partner) {
+		return partnerDao.updatePartner(partner);
+	}
+
+	@Override
+	public Partner getPartnerDetail(int userNo) {
+		
+		return partnerDao.selectPartnerDetail(userNo);
 	}
 
 	
