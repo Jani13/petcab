@@ -131,4 +131,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectUserCount();
 	}
 
+	@Override
+	public int updateMInfo(Member member) {
+		return memberDao.updateMInfo(member);
+	}
+
 }

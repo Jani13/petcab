@@ -1,8 +1,14 @@
 package com.petcab.work.user.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.call.model.service.CallService;
@@ -69,11 +76,24 @@ public class DriverController {
 	}
 	
 	@RequestMapping(value = "/apply/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Driver driver) {
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Driver driver
+			,HttpServletRequest request,@RequestParam("upfile") MultipartFile upfile) {
 		
 		log.info(driver.toString());
-		
-		int result = service.saveDriver(driver);
+
+		int result = 0;
+		if (upfile != null && !upfile.isEmpty()) {
+			// 파일을 저장하는 로직 작성
+			String renameFileName = saveFile(upfile, request);
+
+			System.out.println(renameFileName);
+
+			if (renameFileName != null) {
+				driver.setImageOri(upfile.getOriginalFilename());
+				driver.setImageRe(renameFileName);
+			}
+		}
+		result = service.saveDriver(driver);
 		
 		log.info(driver.toString());		
 		
@@ -89,6 +109,7 @@ public class DriverController {
 		
 		return model;
 	}
+	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView driverMypage(@SessionAttribute(name="loginMember", required = false) Member loginMember
 			,ModelAndView model) {
@@ -110,4 +131,37 @@ public class DriverController {
 		
 		return model;
 	}
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		String renamePath = null; 
+		String originalFileName = null;
+		String renameFileName = null;
+		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = rootPath + "/upload/images";
+		
+		log.debug("Root Path : " + rootPath);
+		log.debug("Save Path : " + savePath);
+
+		// Save Path가 실제로 존재하지 않으면 폴더를 생성하는 로직
+		File folder = new File(savePath);
+
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		originalFileName = file.getOriginalFilename();
+		renameFileName = 
+				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
+				originalFileName.substring(originalFileName.lastIndexOf("."));
+		renamePath = savePath + "/" + renameFileName;
+
+		try {
+			// 업로드 한 파일 데이터를 지정한 파일에 저장.
+			file.transferTo(new File(renamePath));
+		}catch (IOException e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return renameFileName;
+	}	
 }

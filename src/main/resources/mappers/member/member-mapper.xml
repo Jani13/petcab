@@ -204,4 +204,12 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
+	<update id="updateMInfo" parameterType="Member">
+		UPDATE MEMBER
+		SET PHONE = #{phone},
+			ADDRESS = #{address},
+			POSTCODE = #{postCode},
+			MODIFY_DATE = SYSDATE
+		WHERE USER_ID = #{userId}
+	</update>
 </mapper>

@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.user.model.dao.DriverDao;
+import com.petcab.work.user.model.dao.MemberDao;
 import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 public class DriverServiceImpl implements DriverService {
 	@Autowired
 	private DriverDao driverDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Override
 	@Transactional
@@ -75,6 +80,19 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public int applyDriver(int userNo) {
 		return driverDao.applyDriver(userNo);
+	}
+
+	@Override
+	@Transactional
+	public int updateDInfo(Member member, Driver driver) {
+		int result = 0;
+		result = memberDao.updateMInfo(member);
+		member = memberDao.selectMember(member.getUserId());
+		if (result > 0) {
+			return driverDao.updateDInfo(driver);
+		} else {
+			return 0;
+		}
 	}
 
 }

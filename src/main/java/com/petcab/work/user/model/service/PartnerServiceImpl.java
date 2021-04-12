@@ -5,15 +5,22 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.user.model.dao.MemberDao;
 import com.petcab.work.user.model.dao.PartnerDao;
+import com.petcab.work.user.model.vo.Driver;
+import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
 	@Autowired
 	private PartnerDao partnerDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Override
 	public int savePartner(Partner partner) {
@@ -83,6 +90,19 @@ public class PartnerServiceImpl implements PartnerService {
 	public int getPartnerCount() {
 		
 		return partnerDao.selectPartnerCount();
+	}
+
+	@Override
+	@Transactional
+	public int updatePInfo(Member member, Partner partner) {
+		int result = 0;
+		result = memberDao.updateMInfo(member);
+		member = memberDao.selectMember(member.getUserId());
+		if (result > 0) {
+			return partnerDao.updatePInfo(partner);
+		} else {
+			return 0;
+		}
 	}
 
 	

@@ -38,4 +38,6 @@ public interface MemberService {
 
 	int getUserCount();
 
+	int updateMInfo(Member member);
+
 }

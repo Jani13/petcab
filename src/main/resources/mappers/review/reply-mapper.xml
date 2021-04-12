@@ -5,64 +5,86 @@
 <mapper namespace="com.petcab.work.review.model.dao.RReplyDao">
 	<sql id="ReplyListSql">
 		SELECT R2.REPLY_NO,
-				R2.GROUP_NO,
-				R2.CONTENT,
-				R2.POST_DATE,
-				R2.STATUS,
-				M.USER_ID,
-				REVIEW_NO
-		 FROM MEMBER M, REVIEW_REPLY R2
-		 WHERE M.USER_NO= R2.USER_NO
+		R2.GROUP_NO,
+		R2.CONTENT,
+		R2.POST_DATE,
+		R2.STATUS,
+		M.USER_ID,
+		REVIEW_NO,
+		R2.USER_ID
+		FROM MEMBER M, REVIEW_REPLY R2
+		WHERE M.USER_NO= R2.USER_NO
 	</sql>
-	
+
 	<resultMap type="RReply" id="rReplyResultMap">
-		<id property="replyNo" column="REPLY_NO"/>
-		<result property="groupNo" column="GROUP_NO"/>
-		<result property="groupSeq" column="GROUP_SEQ"/>
-		<result property="depth" column="DEPTH"/>
-		<result property="content" column="CONTENT"/>
-		<result property="postDate" column="POST_DATE"/>
-		<result property="editDate" column="EDIT_DATE"/>
-		<result property="status" column="STATUS"/>
-		<result property="userNo" column="USER_NO"/>
-		<result property="reviewNo" column="REVIEW_NO"/>
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="groupNo" column="GROUP_NO" />
+		<result property="groupSeq" column="GROUP_SEQ" />
+		<result property="depth" column="DEPTH" />
+		<result property="content" column="CONTENT" />
+		<result property="postDate" column="POST_DATE" />
+		<result property="editDate" column="EDIT_DATE" />
+		<result property="status" column="STATUS" />
+		<result property="userNo" column="USER_NO" />
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="userId" column="USER_ID" />
 	</resultMap>
-	
-	<!-- 
-	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
-		<include refid="ReviewListSql"></include>
-		WHERE R.STATUS = 'Y'
-		ORDER BY R.REVIEW_NO DESC
+
+	<select id="replyList" parameterType="map"
+		resultMap="rReplyResultMap">
+		SELECT *
+		FROM REVIEW_REPLY
+		WHERE REVIEW_NO = #{listLimit} AND
+		STATUS = 'Y'
 	</select>
-	 -->
-	 
+
 	<insert id="insertRRely" parameterType="map"
-	useGeneratedKeys="true" keyProperty="reviewNo" keyColumn="REVIEW_NO">
-	INSERT INTO REVIEW_REPLY(
-				 REPLY_NO
-				,GROUP_NO
-				,GROUP_SEQ
-				,"DEPTH"
-				,"CONTENT"
-				,POST_DATE
-				,EDIT_DATE
-				,STATUS
-				,USER_NO
-				,REVIEW_NO)
-				  VALUES (
-				  SEQ_REVIEW_NO.NEXTVAL,
-				  #{groupNo},
-				  DEFAULT,
-				  DEFAULT,
-				  #{content},
-				  DEFAULT,
-				  DEFAULT,
-				  DEFAULT,
-				  #{userNo},
-				  #{reviewNo}
-				  );
+		useGeneratedKeys="true" keyProperty="reviewNo" keyColumn="REVIEW_NO">
+		INSERT INTO
+		REVIEW_REPLY(
+		REPLY_NO
+		,GROUP_NO
+		,GROUP_SEQ
+		,"DEPTH"
+		,"CONTENT"
+		,POST_DATE
+		,EDIT_DATE
+		,STATUS
+		,USER_NO
+		,REVIEW_NO,
+		USER_ID)
+		VALUES (
+		SEQ_REVIEW_NO.NEXTVAL,
+		#{groupNo},
+		DEFAULT,
+		DEFAULT,
+		#{content},
+		TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
+		TO_DATE(SYSDATE, 'YYYY-MM-DD
+		HH24:MI:SS'),
+		DEFAULT,
+		#{userNo},
+		#{reviewNo},
+		#{userId}
+		)
 	</insert>
-	
+
+
+	<update id="updateReply" parameterType="map">
+		UPDATE REVIEW_REPLY
+		SET
+		CONTENT = #{content}
+		WHERE
+		REPLY_NO = #{replyNo}
+	</update>
+
+
+	<update id="deleteReply" parameterType="map">
+		UPDATE REVIEW_REPLY
+		SET
+		STATUS = 'N'
+		WHERE REPLY_NO=#{replyNo}
+	</update>
 </mapper>
 
 
