@@ -43,4 +43,8 @@
 	 		<beans:bean id="LoginCheckInterceptor" class="com.petcab.work.common.interceptor.LoginCheckInterceptor"/>
 	 	</interceptor>
 	 </interceptors>
+	 
+	 <!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	 <beans:bean id="naverLoginBO" class="com.petcab.work.user.model.vo.NaverLoginBO" />
+
 </beans:beans>
