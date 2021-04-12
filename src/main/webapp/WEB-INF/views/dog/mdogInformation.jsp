@@ -47,23 +47,23 @@
                     <div>
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
-                                <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
-                                <table>
-                                  <tr>
-                                          <th>나의 애견</th>
-                                          <!--  
-                                          <td>
-                                             <div class="input-group mb-2">
-                                                 <select class="form-select" aria-label="Default select example" id="noDog">
-                                                 <c:forEach var="dog" items="${dogs}" end="10">
-                                                    <option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
-                                                 </c:forEach>
-                                                 </select>                           
-                                             </div>
-                                         </td>
-                                         -->
-                                   </tr>
+	                             <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+	                             <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
+	                             <table>
+		                            <tr>
+		                                    <th>나의 애견</th>
+		                                    <!--  
+		                                    <td>
+			                                    <div class="input-group mb-2">
+			                                        <select class="form-select" aria-label="Default select example" id="noDog">
+			                                        <c:forEach var="dog" items="${dogs}" end="10">
+			                                        	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
+			                                        </c:forEach>
+			                                        </select>                           
+			                                    </div>
+			                                </td>
+			                                -->
+	                                </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
@@ -202,6 +202,7 @@
                                         </td>
                                     </tr>
                                     <tr>
+
                                        <th style="width: 130px;">애 견 명</th>
                                        <td>
                                            <div class="input-group mb-2">
@@ -310,7 +311,6 @@
   <jsp:include page="../common/footer.jsp" />
   
    <script >
-   
    function deleteDog(){      
       if(confirm("애견정보를 삭제 하시겠습니까?")){
          location.replace('${path}/dog/deleteDog?dogNo=${dog.dogNo}');
