@@ -56,8 +56,7 @@
 					<div class="row">
 						<div class="col-md-3">
 							<input type="hidden" name="userId" value="${loginMember.userId}"
-								readonly> <input type="hidden" name="dogNo"
-								value="${dog.dogNo}" readonly>
+								readonly> 
 							<div class="input-group mb-2">
 								<select class="form-select" aria-label="Default select example"
 									id="noDog">
@@ -70,6 +69,9 @@
 						</div>
 						<div class="col-md-6">
 							<c:forEach var="dog" items="${dogs}" end="0">
+							<input type="hidden" name="dogNo"
+								value="${dog.dogNo}" readonly>
+								
 							<table class="table table-borderless"
 								style="text-align: left; margin: auto; border-spacing: 30px;">
 								<tr>
@@ -248,34 +250,24 @@
 								</tr>
 								<tr>
 									<th>예방접종 확인</th>
-									<td>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="inlineCheckbox1" name="vacc" value="DHPPL"> <label
-												class="form-check-label" for="inlineCheckbox1"
-												${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="inlineCheckbox2" value="Coronavirus" name="vacc">
-											<label class="form-check-label" for="inlineCheckbox2"
-												${ fn:contains(dog.vacc, 'DHPPL') ? 'Coronavirus' : ''}>Coronavirus
-											</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="inlineCheckbox1" value="KennelCough" name="vacc">
-											<label class="form-check-label" for="inlineCheckbox1"
-												${ fn:contains(dog.vacc, 'Kennel Cough') ? 'checked' : ''}>Kennel
-												Cough</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="inlineCheckbox2" value="광견병" name="vacc"> <label
-												class="form-check-label" for="inlineCheckbox2"
-												${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>
-										</div>
-									</td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="0" name="vacc" value="DHPPL" ${ fn:contains(dog.vacc, 'DHPPL') ? 'checked' : ''}>DHPPL</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                            <label><input class="form-check-input" type="checkbox"
+                                                  id="1" name="vacc" value="Coronavirus" ${ fn:contains(dog.vacc, 'Coronavirus') ? 'checked' : ''}>Coronavirus</label>   
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="2" name="vacc" value="KennelCough" ${ fn:contains(dog.vacc, 'KennelCough') ? 'checked' : ''}>KennelCough</label>                                 
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                               <label><input class="form-check-input" type="checkbox"
+                                                  id="3" name="vacc" value="광견병" ${ fn:contains(dog.vacc, '광견병') ? 'checked' : ''}>광견병</label>                              
+                                            </div>
+                                         </td>
 								</tr>
 							</table>
 
@@ -373,25 +365,45 @@
 
 				// dog.vacc 에 체크박스 value 가 있으면 checked
 
-				let dogVacc = (dog.vacc).split(','); // array
+                console.log("dog.vacc : " + dog.vacc); // str
 
-				let checkboxes = $('input[name=vacc]').val().join(','); // str
+                let dogVaccStr = (dog.vacc); //str
 
-				// let checkboxes = 'DHPPL,Coronavirus,KennelCough,광견병';
+				let dogVaccArr = dogVaccStr.split(','); // 가져온 dog vacc 정보를 array로 담는다.
 
-				// dogVacc.array.forEach(vacc => {
-				//     if (checkboxes.has(vacc)) {
-				//         $('input[name=vacc]').val(vacc).prop('checked', 'true');
-				//     }
-				// });
+                console.log("dogVaccArr : " + dogVaccArr); // arr
 
-				// if (dog.disorder !== null) {
-				//     $('input[name=disorder]').text(dog.disorder);
-				// }
+				$('input[name=vacc]').each((index, elem) => {
+                    // 모든 체크박스에 dogVaccArr 아이템이 있으면 checked, 없으면 UNchecked
 
-				// if (dog.other !== null) {
-				//     $('input[name=disorder]').text(dog.other);
-				// }
+                    console.log(elem);
+
+                    let value = elem.getAttribute("value");
+
+                    console.log(value);
+
+                    if (dogVaccArr.indexOf(value) > -1) { // dogVaccArr에 있으면
+                        $(elem).prop('checked', true);
+
+                        // this.setAttribute('checked', 'checked');
+                    } else {
+                        $(elem).prop('checked', false);
+
+                        // elem.setAttribute('checked', '');
+                    }
+                });
+                
+				if (dog.disorder !== null) {
+				    $('textarea[name=disorder]').text(dog.disorder);
+				} else {
+                    $('textarea[name=disorder]').text('');
+                }
+
+				if (dog.other !== null) {
+				    $('textarea[name=other]').text(dog.other);
+				} else {
+                    $('textarea[name=other]').text('');
+                }
 			},
 			error : function(e) {
 				console.log(e);
