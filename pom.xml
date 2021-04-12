@@ -242,6 +242,14 @@
 		  <version>3.11.1</version>
 		  <scope>test</scope>
 		</dependency>        
+		
+			<!--  SMS API -->
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>javaSDK</artifactId>
+		    <version>2.2</version>
+		</dependency>
+
 	</dependencies>
     <build>
         <plugins>
