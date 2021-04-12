@@ -42,5 +42,8 @@ public interface CallService {
 	List<Call> selectGenCallList(PageInfo pageInfo);
 
 	int getGenCallCount();
+	
+	// 리뷰에서 종료된 예약 띄우기
+	List<Call> callEndList(String userId);
 
 }

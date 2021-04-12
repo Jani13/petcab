@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리뷰작성</title>
     
-    <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>
+   <!-- <script src="${ path }/se2/js/service/HuskyEZCreator.js"></script>  -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" 
        rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" 
@@ -88,13 +88,15 @@
                     <th scope="col" style="width: 300px;">
                         <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
                             <option selected>내가 사용한 내역</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <c:if test="${endCall==null}"><option selected>데이터 없음 </option></c:if>
+                            <c:forEach var="call" items="${endCall}">
+                            <!-- callNO이 데이터에서 넘겨올 수 있게 mapper에서 맞게끔 변경해줘야한다. -->
+                            <option value="${call.callNo}">${call.callNo}</option>
+                            </c:forEach>
                           </select>
                     </th>
                     <th scope="col">
-                    <input type="text" id="useInfo" name="useInfo" class="form-control" ></th>
+                    <input type="hidden" id="useInfo" name="useInfo" class="form-control" ></th>
                   </tr>
                 </thead>
                 <tbody>
