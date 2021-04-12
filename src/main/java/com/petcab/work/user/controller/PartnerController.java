@@ -266,7 +266,7 @@ public class PartnerController {
 	private void deleteFile(String fileName, HttpServletRequest request) {
 
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = rootPath + "/upload/images";
+		String savePath = rootPath + "/upload/partner";
 
 		log.debug("Root Path : " + rootPath);
 		log.debug("Save Path : " + savePath);

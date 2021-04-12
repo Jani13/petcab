@@ -282,4 +282,27 @@ public class MemberController {
 
 		return model;
 	}
+	
+	@RequestMapping("/user/delete")
+	public ModelAndView delete(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
+		
+		log.info(loginMember.toString());
+
+		int result = service.deleteMember(loginMember.getUserId());		
+
+		
+		if (result > 0) {
+			model.addObject("msg", "탈퇴 되었습니다.");
+			model.addObject("location", "/logout");
+			model.addObject("loginMember");
+
+		} else {
+			model.addObject("msg", "탈퇴하지 못했습니다. 관리자에게 문의해주세요");
+			model.addObject("location", "/");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
 }

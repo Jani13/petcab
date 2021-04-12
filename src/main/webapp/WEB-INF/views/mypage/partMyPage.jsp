@@ -137,7 +137,8 @@
                                     <input type="submit" class="col-2 btn btn-outline-info " value="정보 수정">
                                     <input type="button" class="col-3 btn btn-outline-info mx-auto" 
                                     onclick="location.href='${path}/partner/'" value="제휴 정보 수정">
-                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴">
+                                    <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴"
+                                    onclick="location.href='${path}/user/delete/'">
                                 </div>
                             </form> 
                         </div> 
