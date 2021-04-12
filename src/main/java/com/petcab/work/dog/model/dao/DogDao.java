@@ -5,18 +5,20 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.petcab.work.user.model.vo.Dog;
-import com.petcab.work.user.model.vo.Member;
 
 @Mapper
 public interface DogDao {
-	int insertDog(Dog dog);
+   int insertDog(Dog dog);
 
-	List<Dog> searchUserId(String userId);
+   List<Dog> searchUserId(String userId);
 
-	Dog searchByDogNo(int dogNo);
+   Dog searchByDogNo(int dogNo);
 
-	int updateDog(Dog dog);
+   int updateDog(Dog dog);
 
-	List<Dog> searchByCallNo(int callNo);
+   List<Dog> searchByCallNo(int callNo);
+
+   int deleteDog(int dogNo);
 
 }
+

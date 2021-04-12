@@ -49,7 +49,7 @@
 				<div class="col-md-4 pickup-details"
 					style="padding-left: 12px; padding-right: 12px">
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form id="bookEmg" action="${ path }/call/book/emg_a" method="POST">
+						<form id="emgCallForm" action="${ path }/call/book/emg_a" method="POST">
 							<!-- <input type="hidden" name="pUserNo" value="3" /> -->
 						
 							<div id="bookEmgA">
@@ -74,7 +74,7 @@
 
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" name="partnerName"
-										style="margin-left: 20px;" placeholder="업체명" />
+										style="margin-left: 20px;" placeholder="업체명" required />
 									<button class="btn btn-outline-secondary" type="button"
 										id="button-addon2">검색</button>
 								</div>
@@ -84,16 +84,16 @@
 								</div>
 
 								<div class="form-group mb-3" style="margin-left: 30px;">
-									<input type="datetime-local" id="pickupTime" name="pickupTime" />
+									<input type="datetime-local" id="pickupTime" name="pickupTime" required />
 								</div>
 
 								<div class="pt-5 pb-3 pickup-heading">
-									<h2 class="mb-3" style="margin-left: 10px;">3. 기타사항(선택)</h2>
+									<h2 class="mb-3" style="margin-left: 10px;">3. 기타사항</h2>
 								</div>
 
 								<div class="form-floating mb-3" style="margin-left: 20px;">
 									<textarea class="form-control" name="toPartner"
-										placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+										placeholder="Leave a comment here" id="floatingTextarea" required></textarea>
 									<label for="floatingTextarea">Comments</label>
 								</div>
 
@@ -115,9 +115,9 @@
 										style="margin-left: 0; margin-right: 0">
 										<div class="col-9" style="padding-left: 0; padding-right: 0">
 											<input type="text" class="form-control where-from"
-												name="fromWhere" placeholder="출발지" /> <input type="text"
+												name="fromWhere" placeholder="출발지" required /> <input type="text"
 												class="form-control where-to" name="toWhere"
-												placeholder="도착지" />
+												placeholder="도착지" required />
 										</div>
 
 										<div class="col-3" style="padding-left: 0; padding-right: 0">
@@ -128,7 +128,7 @@
 
 									<div class="row" style="margin-left: 0; margin-right: 0">
 										<input type="text" class="form-control" id="estCost"
-											name="estCost" placeholder="예상금액 (원)" />
+											name="estCost" placeholder="예상금액 (원)" required />
 									</div>
 								</div>
 
@@ -146,7 +146,7 @@
 										onclick="selectDogs();">
 										애견정보 불러오기</button>
 									<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
-									<input type="hidden" name="dogNo" value="1">
+									<input type="hidden" name="dogNo" value="" required>
 									<input type="hidden" name="dogNo" value="">
 									<input type="hidden" name="dogNo" value="">
 								</div>
@@ -154,7 +154,7 @@
 								<div class="form-floating mb-3">
 									<textarea class="form-control"
 										placeholder="Leave a comment here" id="floatingTextarea"
-										name="toDriver"></textarea>
+										name="toDriver" required></textarea>
 									<label for="floatingTextarea">Comments</label>
 								</div>
 
@@ -231,5 +231,23 @@ function selectDogs() {
 	
 	// opener.window.location.href="" 
 }
+
+document.getElementById('emgCallForm').onsubmit = function () {
+	let inputs = document.getElementsByName('dogNo'); // 3개
+    let dogs = 0;
+
+    inputs.forEach(input => {
+        if (input.value !== "") {
+            dogs++;
+        }
+    });
+
+    if (dogs == 0) {
+        alert('애견을 선택해주세요.');
+
+        return false;
+    }
+}
+
 </script>
 </html>
