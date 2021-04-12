@@ -37,9 +37,11 @@
           <li>
             <a class="dropdown-item text-black" href="${path}/partner/partnerMain">제휴업체보기</a>
           </li>
+          <c:if test="${loginMember != null}">
           <li>
             <a class="dropdown-item text-black" href="${path}/partner/">제휴업체등록</a>
           </li>
+          </c:if>
         </ul>
       </li>
       <li class="nav-item">

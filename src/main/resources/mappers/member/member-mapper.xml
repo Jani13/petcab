@@ -36,6 +36,14 @@
 		<result property="status" column="STATUS"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="rowNum" column="ROWNUM"/>
+		<association property="dog" resultMap="DogResultMap"/>	
+	</resultMap>
+	
+	<resultMap type="Dog" id="DogResultMap">
+		<id property="dogNo" column="DOG_NO"/>
+		
+		<result property="dogName" column="DOG_NAME"/>
+		<result property="userId" column="USER_ID"/>
 	</resultMap>
 
 	<select id="selectCount" resultType="_int">
@@ -131,18 +139,25 @@
 	
 	<select id="rNumSelectMemberAll" resultMap="memberResultMap">
 		SELECT ROWNUM,
-       		   USER_NO,
-               USER_TYPE,
-       	  	   USER_ID,
-       		   USER_NAME,
-       		   PHONE,
-       		   STATUS
+		       USER_NO,
+		       USER_TYPE,
+		       USER_ID,
+		       USER_NAME,
+		       PHONE,
+		       DOG_NAME,
+		       STATUS
 		FROM 
-			(
-			    SELECT
-			    *
-			    FROM MEMBER
-			)
+		     (
+		        SELECT M.USER_NO,
+		               M.USER_TYPE,
+		               M.USER_ID,
+		               M.USER_NAME,
+		               M.PHONE,
+		               D.DOG_NAME,
+		               M.STATUS
+				FROM MEMBER M
+		        JOIN DOG D ON (M.USER_ID = D.USER_ID)
+		      )
 		ORDER BY ROWNUM
 	</select>
 	
@@ -153,12 +168,19 @@
        	  	   USER_ID,
        		   USER_NAME,
        		   PHONE,
+       		   DOG_NAME,
        		   STATUS
 		FROM 
 			(
-			    SELECT
-			    *
-			    FROM MEMBER
+			    SELECT M.USER_NO,
+		               M.USER_TYPE,
+		               M.USER_ID,
+		               M.USER_NAME,
+		               M.PHONE,
+		               D.DOG_NAME,
+		               M.STATUS
+			    FROM MEMBER M
+			    JOIN DOG D ON (M.USER_ID = D.USER_ID)
 			    WHERE USER_TYPE = 'ROLE_MEMBER'
 			)
 		ORDER BY ROWNUM
