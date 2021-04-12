@@ -83,7 +83,7 @@
                         <!-- 첫 번째 컨텐츠 내 정보 박스 -->
                         <div class="col-md-6 py-5" style="border-right: 1px ridge; border-top: 1px ridge;">
                             <p class="h3 fw-bold mt-3 mx-4">내 정보</p>
-                            <form class="row my-5 d-flex justify-content-center">
+                            <form class="row my-5 d-flex justify-content-center" method="post" action="${path}/updateinfo">
                                 <div class="col-sm-10 my-2">
                                     <label for="Id">아이디</label>
                                     <input type="text" class="form-control" id="Id" name="userId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly
@@ -122,8 +122,9 @@
                                     </div>
                                 </div>
                                 <div class="row d-flex justify-content-center my-3">    
-                                    <input type="button" class="col-3 btn btn-outline-info mx-auto" value="비밀번호 변경">
-                                    <input type="button" class="col-3 btn btn-outline-info " value="정보 수정">
+                                    <input type="button" class="col-3 btn btn-outline-info mx-auto"
+                                    onclick="location.href='${path}/changePwd/'" value="비밀번호 변경">
+                                    <input type="submit" class="col-3 btn btn-outline-info " value="정보 수정">
                                     <input type="button" class="col-2 btn btn-outline-danger mx-auto" value="탈퇴하기">
                                 </div>
                             </form> 

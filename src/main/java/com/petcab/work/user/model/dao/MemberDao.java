@@ -42,4 +42,6 @@ public interface MemberDao {
 
 	int selectUserCount();
 
+	int updateMInfo(Member member);
+
 }

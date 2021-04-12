@@ -116,17 +116,34 @@ public class CallServiceImpl implements CallService {
 		
 		return callDao.selectGenCallList(rowBounds);
 	}
-
-	@Override
-	public int getGenCallCount() {
-		
-		return callDao.selectGenCall();
-	}
 	
 	@Override
 	public EmgCall selectEmgCallWithNoDogs(int callNo) {
 		
 		return callDao.selectEmgCallWithNoDogs(callNo);
+	}
+
+	@Override
+	public List<Call> selectEmgCallList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return callDao.selectEmgCallList(rowBounds);
+	}
+
+	@Override
+	public List<Call> getCancelCallList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return callDao.selectCancelCallList(rowBounds);
+	}
+	
+	// 리뷰에서 종료된 예약 띄우기
+	@Override
+	public List<Call> callEndList(String userId) {
+		
+		return callDao.selectcallEndList(userId);
 	}
 
 }

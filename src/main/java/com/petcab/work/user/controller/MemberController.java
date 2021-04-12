@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,9 +23,13 @@ import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.review.model.service.ReviewService;
 import com.petcab.work.review.model.vo.Review;
+import com.petcab.work.user.model.service.DriverService;
 import com.petcab.work.user.model.service.MemberService;
+import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Dog;
+import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
+import com.petcab.work.user.model.vo.Partner;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +49,13 @@ public class MemberController {
 	
 	@Autowired
 	private CallService callService;
+
+	@Autowired
+	private DriverService driverService;
+	
+	@Autowired
+	private PartnerService partnerService;
+	
 	//login
 	@RequestMapping("/login")
 	public String loginView() {
@@ -224,4 +237,64 @@ public class MemberController {
 		return model;
 	}
 	
+	@RequestMapping("/changePwd")
+	public ModelAndView myPageChangePwd(@SessionAttribute(name="loginMember", required = false) Member loginMember
+			,ModelAndView model) {
+		
+		log.info(loginMember.toString());
+
+		Member member = service.findMemberByUserId(loginMember.getUserId());
+		
+		model.addObject("member", member);
+		model.setViewName("user/successFindPwd");
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/updateinfo", method = {RequestMethod.POST})
+	public ModelAndView updateInfo(ModelAndView model, 
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@ModelAttribute Member member,
+			HttpServletRequest request,
+			@ModelAttribute Driver driver,
+			@ModelAttribute Partner partner) {
+		String address = request.getParameter("addr1") + "," + request.getParameter("addr2");
+		int postCode = Integer.parseInt(request.getParameter("postalAddr"));
+		
+		member.setAddress(address);
+		member.setPostCode(postCode);
+		
+		int result = 0;
+		
+		if (loginMember.getUserType().equals("ROLE_MEMBER")) {
+			result = service.updateMInfo(member);
+			loginMember = service.findMemberByUserId(member.getUserId());
+		} else if (loginMember.getUserType().equals("ROLE_DRIVER")) {
+			member.setUserId(loginMember.getUserId());
+			result = driverService.updateDInfo(member, driver);
+			loginMember = service.findMemberByUserId(member.getUserId());
+			driver = driverService.selectDriver(loginMember.getUserNo());
+			model.addObject("driver", driver);
+		}else {
+			member.setUserId(loginMember.getUserId());
+			result = partnerService.updatePInfo(member, partner);
+			loginMember = service.findMemberByUserId(member.getUserId());
+			partner = partnerService.selectPartner(loginMember.getUserNo());
+			model.addObject("partner", partner);
+			
+		}
+		
+		if(result > 0) {
+			model.addObject("msg", "정보가 변경되었습니다.");
+			model.addObject("loginMember", loginMember);
+			model.addObject("location", "/");
+		
+		} else {
+			model.addObject("msg", "문제가 발생했습니다. 관리자에게 문의해주세요.");
+			model.addObject("location", "/");
+		}
+		model.setViewName("common/msg");
+		
+		return model;
+	}
 }

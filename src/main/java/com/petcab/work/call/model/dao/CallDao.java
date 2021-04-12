@@ -45,4 +45,12 @@ public interface CallDao {
 	List<Call> selectGenCallList(RowBounds rowBounds);
 	
 	EmgCall selectEmgCallWithNoDogs(int callNo);
+
+	List<Call> selectEmgCallList(RowBounds rowBounds);
+
+	List<Call> selectCancelCallList(RowBounds rowBounds);
+	
+	// 리뷰에서 종료된 예약 띄우기
+	List<Call> selectcallEndList(String userId);
+
 }
