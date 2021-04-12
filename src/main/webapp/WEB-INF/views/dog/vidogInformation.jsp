@@ -42,7 +42,7 @@
             <h1 onload="addForm();">반려 동물 등록</h1>
             <br />
             <div>
-            	<form action="${path}/dog/mdogInformation" method="post" enctype="multipart/form-data" >
+            	<form name="mydog" action="${path}/dog/vidogInformation" method="get" enctype="multipart/form-data" >
             	<div class="row">
                             <div class="col-md-3">
                              <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
@@ -52,7 +52,8 @@
                                     <div class="input-group mb-2">
                                         <select class="form-select" aria-label="Default select example" id="noDog">
                                         <c:forEach var="dog" items="${dogs}" end="10">
-                                        	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option>
+                                        	<option><a href="${path}/dog/mdogInformation/up?dogNo=${dog.dogNo}"><c:out value="${dog.dogName}"/></a></option>
+<%--                                         	<option dogNo="${dog.dogNo}"><c:out value="${dog.dogName}"/></option> --%>
                                         </c:forEach>
                                         </select>                           
                                     </div>
@@ -60,8 +61,11 @@
                  			</div>
                  </div>
             	</form>
-                <form name="dogupInformation" action="${path}/dog/mdogInformation/up" method="post" enctype="multipart/form-data" >
+                <form name="dogupInformation" action="${path}/dog/vidogInformation" method="post" enctype="multipart/form-data" >
+                  <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+                  <input type="hidden" name="dogNo" value="${dog.dogNo}" readonly>
                 <div class="row">
+                <c:forEach var="dog" items="${dogs}" end="0">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <table class="table table-borderless"
@@ -70,8 +74,7 @@
                                     <th style="width: 130px;">등록번호</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="text" class="form-control" name="animalNo" placeholder="동물등록증 등록번호 입력해주세요."
-                                                aria-describedby="button-addon2" required>
+                                            <input type="text" class="form-control" name="animalNo" value="${dog.animalNo}" aria-describedby="button-addon2" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -79,8 +82,8 @@
                                     <th>품 종</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <select class="form-select" aria-label="Default select example" name="dogType">
-                                                <option selected> - 선택 - </option>
+                                            <select class="form-select" aria-label="Default select example" name="dogType" value="${dog.dogType}">
+                                               <c:out value="${dog.dogType}"/>
                                                <option value="골든 리트리버">골든 리트리버</option>
                                                <option value="그레이트 피레니즈">그레이트 피레니즈</option>
                                                <option value="그레이 하운드">그레이 하운드</option>
@@ -200,16 +203,28 @@
                                 <th style="width: 130px;">애 견 명</th>
                                 <td>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control" name="dogName" placeholder="이름 입력해주세요.">
+                                        <input type="text" class="form-control" name="dogName" value="${dog.dogName}">
                                     </div>
                                 </td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 130px;">애견 사진</th>
+                                    <th style="width: 130px;">현재 사진</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="file" class="form-control" name="upfile" id="inputGroupFile02">
+                                             <c:if test="${ !empty dog.imageOri }">
+												<a href="${ path }/resources/upload/dog/${ dog.imageRe }" download="${ dog.imageOri }"> ${ dog.imageOri }</a>
+											 </c:if>
                                             
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 130px;">변경할 사진</th>
+                                    <td>
+                                        <div class="input-group mb-2">
+											<input type="hidden" name="imageOri" value = "${dog.imageOri}">
+											<input type="hidden" name="imageRe"  value = "${dog.imageRe}">
+                                            <input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
                                         </div>
                                     </td>
                                 </tr>
@@ -217,7 +232,7 @@
                                     <th style="width: 130px;">나이</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="text" class="form-control" name="age" placeholder="숫자만 입력해주세요."
+                                            <input type="text" class="form-control" name="age" value="${dog.age}"
                                                 aria-describedby="button-addon2" required>
                                         </div>
                                     </td>
@@ -261,7 +276,7 @@
                             <div class="editor-box">
                                 <div class="editor-box__editor">
                                     <textarea name="disorder" id="" rows="5" cols="80"
-                                        placeholder="질병이 있을 경우 작성해주세요~"></textarea>
+                                       value="${dog.disorder}"></textarea>
                                 </div>
                             </div>
                             <p style="font-size: 20px;"><br>
@@ -269,16 +284,18 @@
                             </p>
                             <div class="editor-box">
                                 <div class="editor-box__editor">
-                                    <textarea name="other" id="" rows="5" cols="80" placeholder="이용시 반영됩니다."></textarea>
+                                    <textarea name="other" id="" rows="5" cols="80" value="${dog.other}"></textarea>
                                 </div>
                             </div>
                             <br>
                         </div>
+                    </c:forEach>
                     </div> 
                         <div style="text-align:center;">
-                    	 <button type="submit" class="btn btn-outline-danger" style="margin-right: 50px;">삭제하기</button>
-                         <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;">정보 수정</button>
-                  		 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
+                         <%-- <c:if test="${ !empty loginMember && (loginMember.userId == dog.userId || loginMember.userRole == 'ROLE_ADMIN')}"> --%>
+                    	 	<button type="submit" class="btn btn-outline-danger" style="margin-right: 50px;" onclick="deletedog()" >삭제하기</button>
+                        	 <button type="submit" class="btn btn-outline-info" style="margin-left: 50px;" onclick="updatedog()">정보 수정</button>
+                         <%-- </c:if> --%>
          	       		</div>
                   </form>
          
@@ -287,5 +304,13 @@
         <br>
     </section>
   <jsp:include page="../common/footer.jsp" />
+  <script>
+  $(function(){
+ 	 $("#noDog").change(function(){
+	  var v = $("#noDog").val();
+	  alert("dogNo :" +v)
+  	});
+  });
+  </script>
 </body>
 </html>

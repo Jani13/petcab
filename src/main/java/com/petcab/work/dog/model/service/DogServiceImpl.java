@@ -12,74 +12,51 @@ import com.petcab.work.user.model.vo.Dog;
 
 @Service
 public class DogServiceImpl implements DogService {
-	@Autowired
-	private DogDao dogDao;
+   @Autowired
+   private DogDao dogDao;
 
-	@Override
-	@Transactional
-	public int saveDog(Dog dog) {
-		
-		int result =0;
-		
-		result=dogDao.insertDog(dog);
-		
-		return result;
-	}
-	
-//	@Override
-//	@Transactional
-//	public int saveDog(Dog dog) {
-//		
-//		int result =0;
-//		if(dog.getDogNo() != 0) {
-//			result = dogDao.updateDog(dog);
-//		} else {
-//			result = dogDao.insertdog(dog);
-//		}	
-//		
-//		return result;
-//	}
+   @Override
+   @Transactional
+   public int saveDog(Dog dog) {
+      
+      int result =0;
+      
+      result=dogDao.insertDog(dog);
+      
+      return result;
+   } 
 
-	@Override
-	public List<Dog> searchUserId(String userId) {
-		return dogDao.searchUserId(userId);
-	}
+   @Override
+   public List<Dog> searchUserId(String userId) {
+      return dogDao.searchUserId(userId);
+   }
 
-	@Override
-	public Dog searchByDogNo(int dogNo) {
-		
-		return dogDao.searchByDogNo(dogNo);
-	}
+   @Override
+   public Dog searchByDogNo(int dogNo) {
+      
+      return dogDao.searchByDogNo(dogNo);
+   }
 
-	@Override
-	public int updateDog(Dog dog) {
-		int result =0;
-		
-		result=dogDao.updateDog(dog);
-		
-		return result;
-	}
+   @Override
+   public int updateDog(Dog dog) {
+      int result =0;
+      
+      result=dogDao.updateDog(dog);
+      
+      return result;
+   }
 
-	@Override
-	public List<Dog> searchByCallNo(int callNo) {
-				
-		return dogDao.searchByCallNo(callNo);
-	}
-	
-//	@Service
-//	public class DogServiceImpl implements DogService {
-//		@Autowired
-//		private DogDao dogDao;
-//		
-//		@Override
-//		@Transactional
-//		public int saveDog(Dog dog) {
-//			
-//			int result =0;
-//			
-//			result=dogDao.insertDog(dog);
-//			
-//			return result;
-//		}
+   @Override
+   public List<Dog> searchByCallNo(int callNo) {
+            
+      return dogDao.searchByCallNo(callNo);
+   }
+
+   @Override
+   public int deleteDog(int dogNo) {
+      
+      return dogDao.deleteDog(dogNo);
+   }
+   
 
 }
