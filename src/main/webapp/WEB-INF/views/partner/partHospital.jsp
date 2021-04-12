@@ -81,9 +81,21 @@
        	<div class="row justify-content-center">
        	
         	<c:forEach var="partner" items="${partnerList}" end="8">
-	        <div class="col-md-3 my-5 m-4 card" style="height: 450px; cursor: pointer" onclick="location.href='${path}/'"> 
+	        <div class="col-md-3 my-5 m-4 card" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
 		    	<p class="fw-bold"><i class="fas fa-stethoscope"></i>병원</p>
-				<img src="${path}/images/hos1.png" class="imgWrap card-img-top h-50 my-2 rounded-3" alt="" >           			
+		    	
+		    	<c:if test="${partner.imageRe == null}">
+		    		<div class="d-flex row" style="height: 200px">
+	                   <img src="${path}/images/hos1.png" class=" my-2 rounded-3" style="height: 180px" alt="">		    		
+		    		</div>
+	            </c:if>
+	                
+	            <c:if test="${partner.imageRe != null}">
+	               	<div class="d-flex row" style="height: 200px">
+	                	<img src="${path}/resources/upload/partner/${partner.imageRe}" 
+	                   		 class=" my-2 rounded-3" style="height: 200px" alt="">
+	                </div>
+	            </c:if>
 		        <div class="card-body">
 			    	<p>업체명 : ${partner.partnerName}</p>
 			        <p>위치 : ${partner.member.address}</p>
@@ -96,78 +108,6 @@
         </div>
         </c:if>
 	</div>
-	
-	
-	
-	
-	<!-- 0406_이슬 화면에 어떻게 뿌려줄지 테스트 중입니다.∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨ -->
-	
-	<%-- <div class="container my-5">
-      	<div class="row" >
-	        <div class="col">
-	        	<div class="input-group mx-1 d-flex justify-content-end row">
-          			<input type="text" class="form-control col-md-3" name="" id="" placeholder="입력해주세요">
-          			<input type="button" class="btn btn-secondary bg-gradient col-md-1" id="" onclick="" value="검색하기"></input>
-        		</div>
-	        	<ul class="nav nav-tabs" id="myTab" role="tablist">
-	            	<li class="nav-item">
-	                	<a class="nav-link active text-info" id="all-tab" data-toggle="tab" role="tab" aria-controls="all" aria-selected="true"  href="#all">모두보기</a>
-	              	</li>
-	            	<li class="nav-item">
-	                	<a class="nav-link text-info" id="hospital-tab" data-toggle="tab" role="tab" aria-controls="hospital" aria-selected="false" href="#hospital">병원</a>
-	              	</li>
-		        	<li class="nav-item">
-		                <a class="nav-link text-info" data-toggle="tab" href="#kinGar">유치원</a>
-		            </li>
-	              	<li class="nav-item">
-	                	<a class="nav-link text-info" data-toggle="tab" href="#shop">샵</a>
-	              	</li>
-	          	</ul> 
-	            <div class="tab-content container pt-4" id="postTabContent">
-	            	<div class="tab-pane fade show active row d-flex justify-content-center m-3" id="all">
-                    	<c:if test="${ partnerList == null }">
-                    		<div style="text-align: center;">
-        						<h3 style="padding-top: 50px;">제휴업체가 존재하지 않습니다.</h3>
-    						</div>	
-                    	</c:if>
-                    	<c:if test="${ partnerList != null }">
-	                    	<c:forEach var="partner" items="${partnerList}" end="8" >
-		                  		<div class="card col-md-3 m-4 " style="height: 430px">
-		                  			<c:if test="${partner.partnerType == '병원' }">
-		                  				<div class=" partnerType fw-bold"><i class="fas fa-stethoscope"></i>병원</div>                  			
-		                  			</c:if>
-		                  			<c:if test="${partner.partnerType == '유치원' }">
-		                  				<div class=" partnerType fw-bold"><i class="fas fa-school"></i>유치원</div>                  			
-		                  			</c:if>
-		                  			<c:if test="${partner.partnerType == '샵' }">
-		                  				<div class=" partnerType fw-bold"><i class="fas fa-store"></i>샵</div>                  			
-		                  			</c:if>
-		                    		<img src="${path}/images/hos1.png" class="card-img-top h-50 my-2 rounded-3" alt="">
-		                   			<div class="card-body">
-		                   				<p>위치 : <br>${partner.member.address}</p>
-		                   				<p>전화번호 : <br>${partner.phone}</p>
-		                   				<p>운영시간 : <br>${partner.openTime}</p>
-		                   			</div>
-		                  		</div>
-	                    	</c:forEach>
-                    	</c:if>
-		              
-	              	</div>
-	            	<div class="tab-pane fade" id="hospital">
-	              	</div>
-	              	<div class="tab-pane fade" id="kinGar">
-	                	<p>유치원 보여 줄꺼야</p>
-	              	</div>
-	              	<div class="tab-pane fade" id="shop">
-	                	<p>샵 보여 줄꺼야</p>
-	              	</div>
-	              	
-	            </div>
-	        </div>
-    	</div>
-    </div> --%>
-
-	<!-- 테스트 중입니다 ^^^^^^^^^^^^^^^^^^^^^-->	
 
     <!-- 페이징 파트 일단 안하는걸로-->
     <!-- <div style="display: flex; align-items: center; justify-content: center;">

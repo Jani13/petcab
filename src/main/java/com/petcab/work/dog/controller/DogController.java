@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class DogController {
 
-//	<<<<<<< HEAD
+
 	@Autowired
 	private DogService service;
 
@@ -211,41 +211,6 @@ public class DogController {
 //
 //	}
 
-//	private String saveFile(MultipartFile file, HttpServletRequest request) {
-//		String renamePath = null; 
-//		String originalFileName = null;
-//		String renameFileName = null;
-//		String rootPath = request.getSession().getServletContext().getRealPath("resources");
-//		String savePath = rootPath + "/upload/dog";				
-//
-//		log.debug("Root Path : " + rootPath);
-//		log.debug("Save Path : " + savePath);
-//
-//		// Save Path가 실제로 존재하지 않으면 폴더를 생성하는 로직
-//		File folder = new File(savePath);
-//
-//		if(!folder.exists()) {
-//			folder.mkdirs();
-//		}
-//
-//		originalFileName = file.getOriginalFilename();
-//		renameFileName = 
-//				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
-//				originalFileName.substring(originalFileName.lastIndexOf("."));
-//		renamePath = savePath + "/" + renameFileName;
-//
-//		try {
-//			// 업로드 한 파일 데이터를 지정한 파일에 저장.
-//			file.transferTo(new File(renamePath));
-//		}catch (IOException e) {
-//			System.out.println("파일 전송 에러 : " + e.getMessage());
-//			e.printStackTrace();
-//		}
-//
-//		return renameFileName;
-//	}	
-
-//	===========================================================================
 
 	@RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
 	public ModelAndView view(
@@ -288,6 +253,17 @@ public class DogController {
 
 		int result = 0;
 
+		
+		List<Dog> dogs = new ArrayList<>();
+		List<Dog> dogsReordered = new ArrayList<>();
+		
+		Dog dogClicked = null;
+		
+		dogs = service.searchUserId(loginMember.getUserId());
+		
+		dogsReordered.add(dogClicked); // 선택한 dog index 0에 add
+
+		
 		//         List<Dog> dogs = service.updateDog(loginMember.getUserId());
 		//         log.info(dogs.toString());
 		//         log.info("상세조회");

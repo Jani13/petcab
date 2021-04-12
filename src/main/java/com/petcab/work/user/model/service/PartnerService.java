@@ -33,5 +33,7 @@ public interface PartnerService {
 	int getPartnerCount();
 
 	int updatePartner(Partner partner);
+
+	Partner getPartnerDetail(int userNo);
 	
 }

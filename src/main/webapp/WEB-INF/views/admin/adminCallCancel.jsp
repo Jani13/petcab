@@ -104,70 +104,104 @@
                         <thead>
                           <tr>
                             <th scope="col">No</th>
-                            <th scope="col">예약번호</th>
-                            <th scope="col">출발지</th>
-                            <th scope="col">도착지</th>
+                            <th scope="col">예약<br>번호</th>
                             <th scope="col">아이디</th>
                             <th scope="col">날짜</th>
-                            <th scope="col">상태</th>
-                            <th scope="col">드라이버</th>
-                            <th scope="col">차량번호</th>
+                            <th scope="col">출발지</th>
+                            <th scope="col">도착지</th>
+                            <th scope="col">드라<br>이버</th>
+                            <th scope="col">차량<br>번호</th>
                             <th scope="col">제휴업체</th>
+                            <th scope="col">콜타입</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>00210</td>
-                            <td>강남구 가로수길</td>
-                            <td>강남구 삼성역</td>
-                            <td>user</td>
-                            <td>yy/mm.dd</td>
-                            <td>긴급콜</td>
-                            <td>아무개</td>
-                            <td>12마 1234</td>
-                            <td>KH애견병원</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>00230</td>
-                            <td>강남구 청담역</td>
-                            <td>강남구 대치역</td>
-                            <td>user3</td>
-                            <td>20/12/12</td>
-                            <td>일반</td>
-                            <td>홍길동</td>
-                            <td>13호 1254</td>
-                            <td></td>
-                          </tr>
+                        <c:if test="${empty cancelCallList}">
+                        	<tr>
+	                        	<td class="text-center" colspan="10">
+	                        		취소 내역이 없습니다.
+	                        	</td>
+	                        </tr>
+                        </c:if>
+                        <c:if test="${!empty cancelCallList}">
+                        <c:forEach var="cancelCall" items="${cancelCallList}">
+	                        <tr>
+	                          <td>${cancelCall.rowNum}</td>
+	                          <td>${cancelCall.callNo}</td>
+	                          <td>${cancelCall.dog.userId}</td>
+	                          <td>${cancelCall.pickupTime}</td>
+	                          <td>${cancelCall.fromWhere}</td>
+	                          <td>${cancelCall.toWhere}</td>
+	                          <c:if test="${(cancelCall.driver.userName) == null}">
+                              	<td>X</td>
+                              </c:if>
+                              <c:if test="${(cancelCall.driver.userName) != null}">
+                              	<td>${cancelCall.driver.userName}</td>
+                              </c:if>
+                              <c:if test="${(cancelCall.driver.carNo) == null}">
+                              	<td>X</td>
+                              </c:if>
+                              <c:if test="${(cancelCall.driver.carNo) != null}">
+                              	<td>${cancelCall.driver.carNo}</td>
+                              </c:if>
+	                          <td>${cancelCall.partner.partnerName}</td>
+	                          <td>${cancelCall.callType}</td>
+	                        </tr>                        
+                        </c:forEach>
+                        </c:if>
                         </tbody>
                       </table>
+                      
+                      <!-- 페이징 부분 -->
                       <div
                         aria-label="Page navigation example"
                         class="d-flex justify-content-center"
                       >
                         <ul class="pagination">
+                          
+                          <!-- 맨 처음으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
+                            <a class="page-link" href="${path}/admin/call/cancel?page=1" aria-label="Previous">
+                              <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                           </li>
+                          <!-- 이전 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">1</a>
+                            <a class="page-link" href="${path}/admin/call/cancel?page=${pageInfo.prvePage}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;</span>
+                            </a>
                           </li>
+                          
+                          <!-- 5개 페이지 목록 -->
+                          <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                          	<c:if test="${status.current == pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link disabled"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          	<c:if test="${status.current != pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link" href="${path}/admin/call/cancel?page=${status.current}"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          </c:forEach>
+                          
+                          <!-- 다음 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">2</a>
+                            <a class="page-link" href="${path}/admin/call/cancel?page=${pageInfo.nextPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;</span>
+                            </a>
                           </li>
+                          
+                          <!-- 맨 끝으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
+                            <a class="page-link" href="${path}/admin/call/cancel?page=${pageInfo.maxPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                           </li>
                         </ul>
                       </div>
+                      
                     </div>
                   </div>
                 </div>

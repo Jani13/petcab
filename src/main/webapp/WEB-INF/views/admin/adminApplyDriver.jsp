@@ -89,10 +89,10 @@
                 </tr>
               </thead>
               <tbody>
-                <c:if test="${waitDrivers == null }">
+                <c:if test="${empty waitDrivers}">
 	                <tr>
-	                	<th></th>
-	                	<td>신청한 회원이 없습니다.
+	                	<td class="text-center" colspan="8">
+	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>
@@ -141,10 +141,10 @@
                 </tr>
               </thead>
              <tbody>
-                <c:if test="${rejectDrivers == null }">
+                <c:if test="${empty rejectDrivers}">
 	                <tr>
-	                	<th></th>
-	                	<td>신청한 회원이 없습니다.
+	                	<td class="text-center" colspan="9">
+	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>

@@ -87,12 +87,12 @@
                         style="margin-bottom: 10px"
                       >
                         <form action="get">
-                          <select name="type">
+                          <select name="searchType" id="searchType">
                             <option value="id">id</option>
                             <option value="name">이름</option>
                           </select>
-                          <input type="text" />
-                          <input type="button" value="검색" />
+                          <input type="text" name="keyword" id="keyword"/>
+                          <input type="button" id="btnSearch" value="검색" />
                         </form>
                       </div>
                       <table class="table table-striped">
@@ -108,7 +108,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                        	<c:if test="${memberList == null}">                       	
+                        	<c:if test="${empty memberList}">                       	
 	                        	<tr>
 	                        		<td class="text-center" colspan="7">
 	                        			회원이 존재하지 않습니다.
@@ -119,7 +119,7 @@
                         	<c:if test="${memberList != null}">
                         		<c:forEach var="member" items="${memberList}">
 				                    <tr>
-				                 	    <td>${member.rowNum}</td>
+				                 	    <td><c:out value= "${member.rowNum}"/></td>
 					                    <td>${member.userType}</td>
 					                    <td>${member.userId}</td>
 					                    <td>${member.userName}</td>
@@ -200,5 +200,6 @@
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
     ></script>
+    
   </body>
 </html>

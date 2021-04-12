@@ -79,16 +79,28 @@
        	<div class="row justify-content-center">
        	
         	<c:forEach var="partner" items="${partnerList}" end="8">
-	        <div class="col-md-3 my-5 m-4 card" style="height: 450px; cursor: pointer" onclick="location.href='${path}/'"> 
-		    	<p class="fw-bold"><i class="fas fa-store"></i>샵</p>
-				<img src="${path}/images/hos1.png" class="imgWrap card-img-top h-50 my-2 rounded-3" alt="" >           			
-		        <div class="card-body">
-			    	<p>업체명 : ${partner.partnerName}</p>
-			        <p>위치 : ${partner.member.address}</p>
-			        <p>전화번호 : ${partner.phone}</p>
-			        <p>운영시간 : ${partner.openTime}</p>
+		        <div class="col-md-3 my-5 m-4 card" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
+			    	<p class="fw-bold"><i class="fas fa-store"></i>샵</p>
+			    	
+			    	<c:if test="${partner.imageRe == null}">
+		    		<div class="d-flex row" style="height: 200px">
+	                   <img src="${path}/images/shop1.png" class=" my-2 rounded-3" style="height: 180px" alt="">		    		
+		    		</div>
+	                </c:if>
+	                
+	                <c:if test="${partner.imageRe != null}">
+	               		<div class="d-flex row" style="height: 200px">
+	                   		<img src="${path}/resources/upload/partner/${partner.imageRe}" 
+	                   				class=" my-2 rounded-3" style="height: 200px" alt="">
+	                   	</div>
+	                </c:if>
+			        <div class="card-body">
+				    	<p>업체명 : ${partner.partnerName}</p>
+				        <p>위치 : ${partner.member.address}</p>
+				        <p>전화번호 : ${partner.phone}</p>
+				        <p>운영시간 : ${partner.openTime}</p>
+			        </div>
 		        </div>
-	        </div>
         	</c:forEach>
         	
         </div>

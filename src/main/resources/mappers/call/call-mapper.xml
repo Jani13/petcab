@@ -126,6 +126,7 @@
 		<id property="userNo" column="USER_NO" />
 		<result property="carNo" column="CAR_NO" />
 		<result property="carType" column="CAR_TYPE" />
+		<result property="userName" column="USER_NAME"/>
 	</resultMap>
 
 	<resultMap type="EmgCall" id="emgCallWithNoDogsResultMap">
@@ -138,9 +139,10 @@
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
 		<result property="merchantUid" column="MERCHANT_UID" />
+		<result property="rowNum" column="ROWNUM"/>
 		<association property="driver" resultMap="DriverResultMap" />
 		<association property="partner"
-			resultMap="partnerResultMap" />
+			resultMap="partnerResultMap" />	
 	</resultMap>
 
 	<resultMap type="Call" id="callResultMap">
@@ -153,7 +155,10 @@
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
 		<result property="merchantUid" column="MERCHANT_UID" />
+		<result property="rowNum" column="ROWNUM"/>
 		<association property="driver" resultMap="DriverResultMap" />
+		<association property="partner" resultMap="partnerResultMap" />	
+		<association property="dog" resultMap="dogResultMap"/>
 		<collection property="dogs" javaType="java.util.List"
 			ofType="Dog">
 			<id property="dogNo" column="DOG_NO" />
@@ -509,6 +514,7 @@
 		AND D2.USER_ID = M.USER_ID
 		AND C.STATUS = '업체'
 	</select>
+	
 	<!-- 긴급콜 요청,긴급콜내역 -->
 	<select id="eCallList" parameterType="_int"
 		resultMap="callResultMap">
@@ -537,22 +543,114 @@
 		AND D2.USER_ID = M.USER_ID
 		AND E.USER_NO = #{userNo}
 	</select>
-
-	<select id="selectGenCallList" resultMap="callResultMap">
-		SELECT G.CALL_NO,
-		G.TIME,
-		G.FROM_WHERE,
-		G.TO_WHERE,
-		G.STATUS,
-		G.CALL_TYPE,
-		M.USER_NAME,
-		DR.CAR_NO
-		FROM GEN_CALL G
-		JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
-		JOIN MEMBER M
-		ON (DR.USER_NO = M.USER_NO) WHERE G.CALL_TYPE = '일반'
+	
+	<select id="selectGenCallList" resultMap="callResultMap" >
+		SELECT ROWNUM,
+		       CALL_NO,
+		       USER_ID,
+		       FROM_WHERE,
+		       TO_WHERE,
+		       TIME,
+		       USER_NAME,
+		       CAR_NO,
+		       STATUS,
+		       CALL_TYPE
+		FROM (
+				SELECT DISTINCT 
+			           G.CALL_NO,
+					   D.USER_ID,
+					   G.FROM_WHERE,
+					   G.TO_WHERE,
+					   G.TIME,
+				       M.USER_NAME,
+					   DR.CAR_NO,
+			           G.STATUS,
+			           G.CALL_TYPE
+				FROM GEN_CALL G
+				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
+				WHERE G.CALL_TYPE = '일반'
+				ORDER BY CALL_NO
+					)
+		ORDER BY ROWNUM
 	</select>
-
+	
+	<select id="selectEmgCallList" resultMap="callResultMap" >
+		SELECT ROWNUM,
+		       CALL_NO,
+		       USER_ID,
+		       FROM_WHERE,
+		       TO_WHERE,
+		       TIME,
+		       USER_NAME,
+		       CAR_NO,
+		       PARTNER_NAME,
+		       STATUS,
+		       CALL_TYPE
+		FROM (
+				SELECT DISTINCT 
+			           G.CALL_NO,
+					   D.USER_ID,
+					   G.FROM_WHERE,
+					   G.TO_WHERE,
+					   G.TIME,
+				       M.USER_NAME,
+					   DR.CAR_NO,
+					   P.PARTNER_NAME,
+			           G.STATUS,
+			           G.CALL_TYPE
+				FROM GEN_CALL G
+				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
+				FULL OUTER JOIN EMERG_CALL EC ON (G.CALL_NO = EC.CALL_NO)
+                CROSS JOIN PARTNER P
+				WHERE G.CALL_TYPE = '긴급'
+				ORDER BY CALL_NO
+					)
+		ORDER BY ROWNUM
+	</select>
+	
+	<select id="selectCancelCallList" resultMap="callResultMap" >
+		SELECT ROWNUM,
+		       CALL_NO,
+		       USER_ID,
+		       FROM_WHERE,
+		       TO_WHERE,
+		       TIME,
+		       USER_NAME,
+		       CAR_NO,
+		       PARTNER_NAME,
+		       STATUS,
+		       CALL_TYPE
+		FROM (
+				SELECT DISTINCT 
+			           G.CALL_NO,
+					   D.USER_ID,
+					   G.FROM_WHERE,
+					   G.TO_WHERE,
+					   G.TIME,
+				       M.USER_NAME,
+					   DR.CAR_NO,
+					   P.PARTNER_NAME,
+			           G.STATUS,
+			           G.CALL_TYPE
+				FROM GEN_CALL G
+				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
+				FULL OUTER JOIN EMERG_CALL EC ON (G.CALL_NO = EC.CALL_NO)
+                CROSS JOIN PARTNER P
+				WHERE G.STATUS = '취소'
+				ORDER BY CALL_NO
+					)
+		ORDER BY ROWNUM
+	</select>
+	
 	<!-- 리뷰에 종료된 예약 불러오기 -->
 	<select id="selectcallEndList" resultMap="callResultMap">
 		SELECT *

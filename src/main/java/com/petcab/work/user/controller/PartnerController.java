@@ -70,12 +70,30 @@ public class PartnerController {
 	}
 	
 	@RequestMapping(value = "/partApply", method = {RequestMethod.POST})
-	public ModelAndView partApply(ModelAndView model, @ModelAttribute Partner partner) {
+	public ModelAndView partApply(
+			ModelAndView model,
+			HttpServletRequest request,
+			@ModelAttribute Partner partner,
+			@RequestParam("upfile") MultipartFile upfile) {
 		
-		int result = partnerService.savePartner(partner);
+		int result = 0;
+		
+		if(upfile != null && !upfile.isEmpty()) {
+			
+			String renameFileName = saveFile(upfile,request);
+			
+			System.out.println(renameFileName);
+			
+			if(renameFileName != null) {
+				partner.setImageOri(upfile.getOriginalFilename());
+				partner.setImageRe(renameFileName);
+			}
+		}
+		
+		result = partnerService.savePartner(partner);
 		
 		log.info(partner.toString());
-		
+
 		if(result > 0) {
 			model.addObject("msg", "파트너 등록 요청에 성공했습니다.");
 			model.addObject("location", "/");
@@ -194,16 +212,33 @@ public class PartnerController {
 		return model;
 	}
 	
+	@RequestMapping("/detail")
+	public ModelAndView partnerDetail(ModelAndView model, 
+			@RequestParam("userNo")int userNo) {
+		
+		Partner partner = partnerService.getPartnerDetail(userNo);
+		
+		log.info(partner.toString());
+		
+		model.addObject("partner", partner);
+		model.setViewName("partner/partdetail");
+		
+		return model;
+	}
+	
+	// 사진파일 저장
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		
 		String renamePath = null; 
 		String originalFileName = null;
 		String renameFileName = null;
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = rootPath + "/upload/images";
-		
+		String savePath = rootPath + "/upload/partner";            
+
 		log.debug("Root Path : " + rootPath);
 		log.debug("Save Path : " + savePath);
 
+		// Save Path가 실제로 존재하지 않으면 폴더를 생성하는 로직
 		File folder = new File(savePath);
 
 		if(!folder.exists()) {
@@ -217,6 +252,7 @@ public class PartnerController {
 		renamePath = savePath + "/" + renameFileName;
 
 		try {
+			// 업로드 한 파일 데이터를 지정한 파일에 저장.
 			file.transferTo(new File(renamePath));
 		}catch (IOException e) {
 			System.out.println("파일 전송 에러 : " + e.getMessage());
@@ -224,7 +260,8 @@ public class PartnerController {
 		}
 
 		return renameFileName;
-	}
+	}   
+	
 	
 	private void deleteFile(String fileName, HttpServletRequest request) {
 

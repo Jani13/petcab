@@ -36,5 +36,6 @@ public interface PartnerDao {
 	int selectPartnerCount();
 
 	int updatePartner(Partner partner);
-	
+
+	Partner selectPartnerDetail(@Param("userNo")int userNo);
 }

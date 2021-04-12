@@ -218,4 +218,12 @@
 		    ABOUT = #{about}
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="selectPartnerDetail" parameterType="_int" resultMap="PartnerResultMap">
+		SELECT USER_NO,
+			   PARTNER_NAME, 
+			   ABOUT
+		FROM PARTNER 
+		WHERE USER_NO = #{userNo}
+	</select>
 </mapper>

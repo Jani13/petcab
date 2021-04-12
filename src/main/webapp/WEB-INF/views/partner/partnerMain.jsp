@@ -35,50 +35,54 @@
  
 <section>
   <div class="container">
-    <div class="card text-white mt-4 py-5 text-center" style="background-color: #4ec7f2">
-      <div class="card-body">
-        <p class="text-white fw-bold fs-3">
-        	데려다줄개는 제휴업체와의 연계를 통하여 
-        	<span style="color: red;"><b>긴급콜</b></span> 
-        	을 호출할 수 있습니다.
-        </p>
-        <br><br>
-        <div class="container show-grid">
-          <div class="row">
-            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/images/emergencyyy.png" style="width: 100px;"></div>
-            <div class="col-md-9 fs-5" style="text-align: left;">
-              <p><b>긴급콜</b> 이란 ?</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 바로 의사의 진료를 통하여 처방 및 수술을 받을 수 있도록 하는 서비스'</p>
-              <span>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                * 긴급콜로 발생하는 요금은 기본 요금의 2배로 측정되어 계산됩니다.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  	<div class="row">
+  	
+	    <div class="col-12 card text-white mt-4 py-5 text-center" style="background-color: #4ec7f2">
+	      <div class="card-body">
+	        <p class="text-white fw-bold fs-3">
+	        	데려다줄개는 제휴업체와의 연계를 통하여 
+	        	<span style="color: red;"><b>긴급콜</b></span> 
+	        	을 호출할 수 있습니다.
+	        </p>
+	        <br><br>
+	        <div class="container show-grid">
+	          <div class="row">
+	            <div class="col-md-3" style="text-align: right;"><img class="img-fluid" src="${path}/images/emergencyyy.png" style="width: 100px;"></div>
+	            <div class="col-md-9 fs-5" style="text-align: left;">
+	              <p><b>긴급콜</b> 이란 ?</p>
+	              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '긴급상황 시 제휴 병원에 예약을 하여 도착하자마자</p>
+	              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 바로 의사의 진료를 통하여 처방 및 수술을 받을 수 있도록 하는 서비스'</p>
+	              <span>
+	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                * 긴급콜로 발생하는 요금은 기본 요금의 2배로 측정되어 계산됩니다.
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>	
     
-    <div class="container show-grid text-center">
-      <div class="row pt-3" style="height: 350px">
-        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partHospital'" style="cursor: pointer">
-            <i class="fas fa-stethoscope fa-10x"></i>
-          <br><br>
-          <h3>병원</h3>
-        </div>
-        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partKindergarten'" style="cursor: pointer">
-			<i class="fas fa-school fa-10x"></i>
-            <br><br>
-            <h3>유치원</h3>
-        </div>
-        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partShop'" style="cursor: pointer">
-            <i class="fas fa-store fa-10x"></i>
-            <br><br>
-            <h3>샵</h3>
-        </div>
-      </div>   
+	    <div class="col-12 show-grid text-center">
+	      <div class="row pt-3" style="height: 350px">
+	        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partHospital'" style="cursor: pointer">
+	            <i class="fas fa-stethoscope fa-10x"></i>
+	          <br><br>
+	          <h3>병원</h3>
+	        </div>
+	        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partKindergarten'" style="cursor: pointer">
+				<i class="fas fa-school fa-10x"></i>
+	            <br><br>
+	            <h3>유치원</h3>
+	        </div>
+	        <div class="col-md-4 pt-5 ptMainHover" onclick="location.href='${path}/partner/partShop'" style="cursor: pointer">
+	            <i class="fas fa-store fa-10x"></i>
+	            <br><br>
+	            <h3>샵</h3>
+	        </div>
+	      </div>   
+	    </div>
+	    
     </div>
   </div>
   

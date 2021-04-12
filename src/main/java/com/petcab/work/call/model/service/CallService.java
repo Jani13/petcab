@@ -42,6 +42,10 @@ public interface CallService {
 
 	List<Call> selectGenCallList(PageInfo pageInfo);
 
+	List<Call> selectEmgCallList(PageInfo pageInfo);
+
+	List<Call> getCancelCallList(PageInfo pageInfo);
+	
 	int getGenCallCount();
 	
 	// 리뷰에서 종료된 예약 띄우기

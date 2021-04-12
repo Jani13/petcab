@@ -84,7 +84,7 @@
                         	<c:if test="${partnerList == null}">
                         		<tr>
 	                        		<td class="text-center" colspan="7">
-	                        			회원이 존재하지 않습니다.
+	                        			제휴업체가 존재하지 않습니다.
 	                        		</td>
 	                        	</tr>
                         	</c:if>
