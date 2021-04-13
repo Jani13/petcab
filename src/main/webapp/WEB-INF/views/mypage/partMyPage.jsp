@@ -150,7 +150,7 @@
                             </div>
                             <div class="container-fluid">
                             	<c:if test="${empty waitCall}">
-									<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
+									<div class="w-100 card border-light mb-3 my-5 userPageEvent fw-bold" style="height:fit-content;" >
 										대기중인 긴급 콜이 없습니다
 									</div>
 								</c:if>
@@ -187,7 +187,7 @@
                 <div class="container-fluid">
                     <div class="row">
 	                    <c:if test="${empty eCallList}">
-	                        <div class="col-sm-4 ">
+	                        <div class="col-sm-12 text-center fw-bold p-5 h3">
 								요청이 없습니다
 							</div>
 						</c:if>

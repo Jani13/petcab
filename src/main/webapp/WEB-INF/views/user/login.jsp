@@ -109,21 +109,19 @@
             <div class="row" >
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4" style="display: flex; justify-content: center;">
-                    <table class="table table-success table-striped" style="width: 300px; ">
+                    <table class="table table-striped" style="width: 150px; ">
                         <tr>
                             <th><a href="${naver_url}" target="_blank">
-                                <img src="${path}/images/naver.png" width="30px" height="30px"></a></th>
-                            <th>네이버 로그인</th>
+                                <img src="${path}/images/login/Naver_Login_Green.PNG" width="150px" height="30px"></a>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th><a href="150px" target="_blank">
+                                <img src="${path}/images/login/kakao_login_large_narrow.png" width="150px" height="30px"></a></th>
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">
-                                <img src="${path}/images/kakao.png" width="30px" height="30px"></a></th>
-                            <th>카카오 로그인</th>
-                        </tr>
-                        <tr>
-                            <th><a href="" target="_blank">
-                                <img src="${path}/images/facebook.png" width="30px" height="30px"></a></th>
-                            <th>구글 로그인</th>
+                                <img src="${path}/images/login/google_signin_dark_focus_web.png" width="150px" height="30px"></a></th>
                         </tr>
                     </table>
                 </div>
