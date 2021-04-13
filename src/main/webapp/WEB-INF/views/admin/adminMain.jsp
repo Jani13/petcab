@@ -109,7 +109,7 @@ response.addCookie(cookie);
                       class="card-title fs-4 fw-bolder"
                       style="text-align: center"
                     >
-                    <%= cookie.getValue() %>명 <%-- <%= application.getAttribute("Counter") %> --%>
+                    ${todayVisitorCount}명 
                     </h5>
                   </div>
                 </div>

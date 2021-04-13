@@ -24,6 +24,8 @@ import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
+import com.petcab.work.visit.model.dao.VisitCountDao;
+import com.petcab.work.visit.model.service.VisitorService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,26 +48,32 @@ public class AdminController {
 
 	@Autowired
 	private DriverService driverService;
-	
 
 	@Autowired
 	private PartnerService partnerService;
+	
+	@Autowired
+	private VisitorService visitorService;
 	
 	
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
 		
 		int memberCount = service.getMemberCount();
+		int todayVisitorCount = visitorService.getVisitorCount();
 		int amountAll = paymentService.selectAmount();
 		int allCall = callService.selectAllCall();
 		int genCall = callService.selectGenCall();
 		int emergCall = callService.selectEmergCall();
 		int cancelledCall = callService.selectCancelledCall();
+		
 		List<Ques> list = quesService.getQuesListForAdmin();
 		
 		System.out.println("총 회원수 : " + memberCount);
+		System.out.println(todayVisitorCount);
 		
 		model.addObject("memberCount", memberCount);
+		model.addObject("todayVisitorCount", todayVisitorCount);
 		model.addObject("amountAll", amountAll);
 		model.addObject("allCall", allCall);
 		model.addObject("genCall", genCall);
