@@ -308,7 +308,7 @@
 	          
 	          if(con_test == true){
 	               
-	             if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+	             if(count < 10){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
 	                 
 	               $.ajax({
 	                   url:"${path }/sendSms.do",
@@ -320,7 +320,7 @@
 		                   alert("해당 휴대폰으로 인증번호를 발송했습니다");
 		                   count++;
 		                   
-		                   alert(count);
+		                  //alert(count);
 		               },
 	                   error(){
 	                      
@@ -338,7 +338,7 @@
 	 })
 	 
     $("#enterBtn").click(function() {   /* 내가 작성한 번호와 인증번호를 비교한다 */
-       alert($("#text").val());
+       //alert($("#text").val());
     
        var userNum = $("#userNum").val();
        
@@ -381,7 +381,7 @@
 	          
 	          if(con_test == true){
 	               
-	             if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+	             if(count < 10){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
 	                 
 	               $.ajax({
 	                   url:"${path }/sendSms.do",
@@ -393,7 +393,7 @@
 		                   alert("해당 휴대폰으로 인증번호를 발송했습니다");
 		                   count++;
 		                   
-		                   alert(count);
+		                   //alert(count);
 		               },
 	                   error(){
 	                      
@@ -411,7 +411,7 @@
 	 })
 	 
     $("#enterBtn1").click(function() {   /* 내가 작성한 번호와 인증번호를 비교한다 */
-       alert($("#text1").val());
+       //alert($("#text1").val());
     
        var userNum = $("#userNum1").val();
        
