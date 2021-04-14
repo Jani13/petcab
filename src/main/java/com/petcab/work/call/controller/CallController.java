@@ -92,7 +92,7 @@ public class CallController {
 
 		model.addObject("call", call);
 
-		model.setViewName("call/book_gn_done");
+		model.setViewName("call/book_gn_pay");
 
 		return model;
 	}	
