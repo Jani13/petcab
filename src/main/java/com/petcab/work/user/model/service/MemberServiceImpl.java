@@ -137,4 +137,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updateMInfo(member);
 	}
 
+	@Override
+	public List<Member> getChartDateCount() {
+		// TODO Auto-generated method stub
+		return memberDao.selectChartDateCount();
+	}
+
+//	@Override
+//	public List<Member> getChartCount() {
+//		// TODO Auto-generated method stub
+//		return memberDao.selectChartCount();
+//	}
+
 }

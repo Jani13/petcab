@@ -153,10 +153,21 @@
 		               M.USER_ID,
 		               M.USER_NAME,
 		               M.PHONE,
-		               D.DOG_NAME,
+                       DOG_NAME,
 		               M.STATUS
 				FROM MEMBER M
-		        JOIN DOG D ON (M.USER_ID = D.USER_ID)
+                LEFT OUTER JOIN
+                ( 
+                    SELECT M.USER_ID, SUBSTR(
+                            XMLAGG(
+                                        XMLELEMENT(COL, ',', DOG_NAME) 
+                                        ORDER BY DOG_NAME
+                                  ).EXTRACT('//text()').GETSTRINGVAL(), 2) DOG_NAME
+                    FROM MEMBER M
+                    LEFT OUTER JOIN DOG D ON M.USER_ID = D.USER_ID
+                    GROUP BY M.USER_ID
+                ) M2
+                ON (M.USER_ID = M2.USER_ID) ORDER BY M.USER_NO
 		      )
 		ORDER BY ROWNUM
 	</select>
@@ -212,4 +223,12 @@
 			MODIFY_DATE = SYSDATE
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<select id="selectChartDateCount" resultType="hashmap">
+		SELECT TO_CHAR(ENROLL_DATE,'YYYY/MM/DD') ENROLLDATE, COUNT(*) COUNT
+		FROM MEMBER
+		GROUP BY TO_CHAR(ENROLL_DATE,'YYYY/MM/DD')
+		ORDER BY TO_CHAR(ENROLL_DATE,'YYYY/MM/DD')
+	</select>
+
 </mapper>

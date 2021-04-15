@@ -1,5 +1,7 @@
 package com.petcab.work.visit.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ public class VisitCountVo {
 	
 	private String visitIp;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private int visitTime;
 
 }

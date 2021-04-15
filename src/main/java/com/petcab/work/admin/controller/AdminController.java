@@ -1,13 +1,24 @@
 package com.petcab.work.admin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +37,7 @@ import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
 import com.petcab.work.visit.model.dao.VisitCountDao;
 import com.petcab.work.visit.model.service.VisitorService;
+import com.petcab.work.visit.model.vo.VisitCountVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -98,6 +110,28 @@ public class AdminController {
 
 		log.info(memberList.toString());
 		
+		// 콜 차트 관련 내용 ---------------------------
+		int genCallList = callService.selectGenCall();
+		int emgCallList = callService.selectEmergCall();
+		
+		String callStr = "['callType', 'count'],";
+		callStr += "['일반콜',";
+		callStr += genCallList;
+		callStr += "],";
+		callStr += "['긴급콜',";
+		callStr += emgCallList;
+		callStr += "]";
+		
+		// 카테고리별 제휴업체 차트 내용 ---------------------
+		List<Partner> pChartList = partnerService.getpChartList();
+		List<Partner> pChartCount = partnerService.getpChartCount();
+		// -----------------------------------------
+		
+		model.addObject("pChartCount",pChartCount);
+		model.addObject("pChartList",pChartList);
+		model.addObject("genCallList", genCallList);
+		model.addObject("emgCallList", emgCallList);		
+		model.addObject("callStr", callStr);
 		model.addObject("memberList", memberList);
 		model.addObject("pageInfo",pageInfo);
 		model.setViewName("admin/adminUserInfoMain");
@@ -291,6 +325,7 @@ public class AdminController {
 
 		return model;
 	}
+	
 	@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
 	public ModelAndView applyPartner(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			ModelAndView model, 
@@ -315,6 +350,7 @@ public class AdminController {
 
 		return model;
 	}
+	
 	@RequestMapping(value = "/partner/grant", method = RequestMethod.GET)
 	public ModelAndView partnerGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam("userNo") int userNo,
@@ -334,5 +370,26 @@ public class AdminController {
 
 		return model;
 	}
+	
+	@RequestMapping(value = "/joinChart", method = RequestMethod.GET)
+	@ResponseBody 
+	public ResponseEntity<List<Member>> joinChart() {
+		
+		List<Member> dateAndCount = service.getChartDateCount(); 
+		
+		return new ResponseEntity<List<Member>>(dateAndCount, HttpStatus.OK); 
+	}
+	
+	@RequestMapping(value = "/visitChart", method = RequestMethod.GET)
+	public ResponseEntity<List<VisitCountVo>> visitorChart() {
+		
+		List<VisitCountVo> visitDateCount = visitorService.getChartVisitCount();
+		
+		System.out.println(visitDateCount);
+		
+		return new ResponseEntity<List<VisitCountVo>>(visitDateCount, HttpStatus.OK);
+	}
+	
+	
 
 }
