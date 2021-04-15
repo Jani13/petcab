@@ -146,14 +146,18 @@
                                                 <option value="56">모리셔스 +230</option>
                                             </select>
                                         </div>
-                                        <div class="input-group mb-2">
-                                            <input type="tel" name="phone" class="form-control" placeholder="'-' 빼고 입력해주세요.">
-                                            <!-- <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">인증번호 받기</button> -->
-                                        </div>
-                                        <!-- <div class="input-group mb-1">
-                                            <input type="text" class="form-control" placeholder="인증번호 입력">
-                                        </div> -->
+										<div class="input-group mb-2">
+											<input type="tel" class="form-control"
+												placeholder="'-' 빼고 입력해주세요." id="newPhone" name="phone">
+											<button class="btn btn-outline-secondary" type="button"
+												id="send">인증번호 받기</button><br>												
+										</div>										
+										<div class="input-group mb-2">
+											<input type="text" class="form-control" id="userNum" placeholder="인증번호 입력">
+											<button class="btn btn-outline-secondary" type="button"
+												id="enterBtn">확인</button>
+											<input type="hidden" name="text" id="text"> 		<!-- 인증번호를 히든으로 저장해서 보낸다 -->																				
+										</div>                                        
                                     </td>
                                 </tr>                         
                             </table>
@@ -253,14 +257,18 @@
                                                 <option value="56">모리셔스 +230</option>
                                             </select>
                                         </div>
-                                        <div class="input-group mb-2">
-                                            <input type="tel" class="form-control" name="phone" placeholder="'-' 빼고 입력해주세요.">
-                                            <!-- <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">인증번호 받기</button> -->
-                                        </div>
-                                        <!-- <div class="input-group mb-1">
-                                            <input type="text" class="form-control" placeholder="인증번호 입력">
-                                        </div> -->
+										<div class="input-group mb-2">
+											<input type="tel" class="form-control"
+												placeholder="'-' 빼고 입력해주세요." id="newPhone1" name="phone">
+											<button class="btn btn-outline-secondary" type="button"
+												id="send1">인증번호 받기</button><br>												
+										</div>										
+										<div class="input-group mb-2">
+											<input type="text" class="form-control" id="userNum1" placeholder="인증번호 입력">
+											<button class="btn btn-outline-secondary" type="button"
+												id="enterBtn1">확인</button>
+											<input type="hidden" name="text1" id="text1"> 		<!-- 인증번호를 히든으로 저장해서 보낸다 -->																				
+										</div>                                        
                                     </td>
                                 </tr>                         
                             </table>
@@ -276,6 +284,152 @@
     </section>
     
     <jsp:include page="../common/footer.jsp" />
+
+	<script>
+	  var count = 0; /* 문자 중복을 막기 위한 인증번호 */
+	   
+	 $(document).ready(function() {
+	
+	    $("#send").click(function() {
+	       
+	       var number = Math.floor(Math.random() * 100000) + 100000;
+	          if(number>100000){
+	             number = number - 10000;
+	          }
+	
+	          $("#text").val(number);      /* 난수로 생성된 인증번호를 hidden name : text 에 숨긴다 */
+	       
+	       var to = $("#newPhone").val();
+	       
+	       if(to == "" || to == null){
+	          alert("빈칸이나 공백을 채워주세요");
+	       } else {
+	       var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */
+	          
+	          if(con_test == true){
+	               
+	             if(count < 10){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+	                 
+	               $.ajax({
+	                   url:"${path }/sendSms.do",
+	                   type:"post",
+	                   data:{to: $("#newPhone").val(),
+	                        text: $("#text").val()
+	                        },
+		               success:function(){
+		                   alert("해당 휴대폰으로 인증번호를 발송했습니다");
+		                   count++;
+		                   
+		                  //alert(count);
+		               },
+	                   error(){
+	                      
+	                   }
+	                   
+	                });
+	             } else {
+	                alert("휴대폰 인증 그만하세요")
+	             }
+	          
+	          } else if(con_test == false){
+	                
+	          }
+	      }   
+	 })
+	 
+    $("#enterBtn").click(function() {   /* 내가 작성한 번호와 인증번호를 비교한다 */
+       //alert($("#text").val());
+    
+       var userNum = $("#userNum").val();
+       
+       var sysNum = $("#text").val();         
+       
+       if(userNum == null || userNum == ""){
+          alert("휴대폰으로 발송된 인증번호를 입력해주세요");
+       } else {     
+          if(userNum.trim() == sysNum.trim()){
+              alert("본인확인 성공입니다.");
+           }
+           else {
+              alert("본인확인에 실패했습니다.");
+           }          
+       }
+    });
+  });
+  </script>
+
+	<script>
+	  var count = 0; /* 문자 중복을 막기 위한 인증번호 */
+	   
+	 $(document).ready(function() {
+	
+	    $("#send1").click(function() {
+	       
+	       var number = Math.floor(Math.random() * 100000) + 100000;
+	          if(number>100000){
+	             number = number - 10000;
+	          }
+	
+	          $("#text1").val(number);      /* 난수로 생성된 인증번호를 hidden name : text 에 숨긴다 */
+	       
+	       var to = $("#newPhone1").val();
+	       
+	       if(to == "" || to == null){
+	          alert("빈칸이나 공백을 채워주세요");
+	       } else {
+	       var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */
+	          
+	          if(con_test == true){
+	               
+	             if(count < 10){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+	                 
+	               $.ajax({
+	                   url:"${path }/sendSms.do",
+	                   type:"post",
+	                   data:{to: $("#newPhone1").val(),
+	                        text: $("#text1").val()
+	                        },
+		               success:function(){
+		                   alert("해당 휴대폰으로 인증번호를 발송했습니다");
+		                   count++;
+		                   
+		                   //alert(count);
+		               },
+	                   error(){
+	                      
+	                   }
+	                   
+	                });
+	             } else {
+	                alert("휴대폰 인증 그만하세요")
+	             }
+	          
+	          } else if(con_test == false){
+	                
+	          }
+	      }   
+	 })
+	 
+    $("#enterBtn1").click(function() {   /* 내가 작성한 번호와 인증번호를 비교한다 */
+       //alert($("#text1").val());
+    
+       var userNum = $("#userNum1").val();
+       
+       var sysNum = $("#text1").val();         
+       
+       if(userNum == null || userNum == ""){
+          alert("휴대폰으로 발송된 인증번호를 입력해주세요");
+       } else {     
+          if(userNum.trim() == sysNum.trim()){
+              alert("본인확인 성공입니다.");
+           }
+           else {
+              alert("본인확인에 실패했습니다.");
+           }          
+       }
+    });
+  });
+  </script>
 
 </body>
 </html>

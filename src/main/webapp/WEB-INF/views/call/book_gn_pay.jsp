@@ -17,10 +17,13 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="${path}/css/call.css">    
+<%--     <link rel="stylesheet" href="${path}/css/call.css">    
     <link rel="stylesheet" href="${path}/css/headerfooter.css">
     <script src="${path}/js/jquery-3.5.1.js"></script>
-    <script src="${path}/js/headerfooter.js"></script>
+    <script src="${path}/js/headerfooter.js"></script> --%>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
+    <link rel="stylesheet" href="${path }/css/call.css" />
     
     <title>콜예약</title>
 </head>
@@ -68,87 +71,88 @@
                 </div>
 
                 <!--  -->
-
-                <div class="col-md">
-                    <div class="">
-                        <div class="pt-5 pb-3 pickup-heading">
-                            <h1 class="text-center mb-3">결제를 진행해주세요</h1>
-                            <h3 class="text-center mb-3">예약내역을 다시 한 번 확인해주세요</h3>
-                        </div>
-
-                        <table class="table call-sum text-center">
-                            <thead>
-                                <tr>
-                                    <th colspan="4" class="text-center">예약내역</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <th scope="row">제휴업체</th>
-                                    <td>뷰티펫</td>
-                                </tr> -->
-                                <tr>
-                                    <th scope="row">예약시간</th>
-                                    <td>YYYYMMDD HH:SS</td>
-                                </tr>
-                                <!-- <tr>
-                                    <th scope="row">요청사항</th>
-                                    <td>애견커트원해요</td>
-                                </tr> -->
-                                <tr>
-                                    <th scope="row">출발지</th>
-                                    <td>신용산역 1번출구</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">도착지</th>
-                                    <td>홍대입구역 9번출구</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">보호자 탑승 여부</th>
-                                    <td>YES</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">드라이버 성함</th>
-                                    <td>홍길동</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">차량번호판</th>
-                                    <td>123가4567</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">드라이버 요청사항</th>
-                                    <td>조심히 와주세요</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">애견</th>
-                                    <td>뭉뭉이</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="pt-5 pb-3 book-time-cost row row-cols" style="margin-left: 0; margin-right: 0;">
-                            <!-- <h2 class="mb-3">예약신청이 완료되었습니다</h2>
-                            <h3 class="mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3> -->
-
-                            <div class="col-8">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">예상 시간</th>
-                                            <td>40분</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">예상 금액</th>
-                                            <td>30,000원</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <button class="btn btn-lg btn-outline-info btn-cancel col" type="button">예약취소</button>
-                        </div>
-                    </div>
-                </div>
+			<form action="${path}/call/gn_pay" method="post">
+	                <div class="col-md">
+	                    <div class="">
+	                        <div class="pt-5 pb-3 pickup-heading">
+	                            <h1 class="text-center mb-3">결제를 진행해주세요</h1>
+	                            <h3 class="text-center mb-3">예약내역을 다시 한 번 확인해주세요</h3>
+	                        </div>
+	
+	                        <table class="table call-sum text-center">
+	                            <thead>
+	                                <tr>
+	                                    <th colspan="4" class="text-center">예약내역</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <!-- <tr>
+	                                    <th scope="row">제휴업체</th>
+	                                    <td>뷰티펫</td>
+	                                </tr> -->
+	                                <tr>
+	                                    <th scope="row">예약시간</th>
+	                                    <td>YYYYMMDD HH:SS</td>
+	                                </tr>
+	                                <!-- <tr>
+	                                    <th scope="row">요청사항</th>
+	                                    <td>애견커트원해요</td>
+	                                </tr> -->
+	                                <tr>
+	                                    <th scope="row">출발지</th>
+	                                    <td>신용산역 1번출구</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">도착지</th>
+	                                    <td>홍대입구역 9번출구</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">보호자 탑승 여부</th>
+	                                    <td>YES</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">드라이버 성함</th>
+	                                    <td>홍길동</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">차량번호판</th>
+	                                    <td>123가4567</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">드라이버 요청사항</th>
+	                                    <td>조심히 와주세요</td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">애견</th>
+	                                    <td>뭉뭉이</td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	
+	                        <div class="pt-5 pb-3 book-time-cost row row-cols" style="margin-left: 0; margin-right: 0;">
+	                            <!-- <h2 class="mb-3">예약신청이 완료되었습니다</h2>
+	                            <h3 class="mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3> -->
+	
+	                            <div class="col-8">
+	                                <table class="table">
+	                                    <tbody>
+	                                        <tr>
+	                                            <th scope="row">예상 시간</th>
+	                                            <td>40분</td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th scope="row">예상 금액</th>
+	                                            <td>30,000원</td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	
+	                            <button class="btn btn-lg btn-outline-info btn-cancel col" id="api" type="button">결제하기</button>
+	                        </div>
+	                    </div>
+	                </div>
+                </form>
             </div>
     </section>
 
@@ -166,5 +170,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
-
+<script>
+	$(function(){
+		$('#api').click(function(){
+			$.ajax({
+				type: "post", 
+				url:'${path}/call/gn_pay',
+				dataType: 'json',
+				success:function(data){
+					console.log(data);
+					/* alert(data.tid); */
+ 					var box = data.next_redirect_pc_url;
+					window.open(box); 
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+		});
+	});
+</script>
 </html>

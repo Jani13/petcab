@@ -103,6 +103,19 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.selectPartnerDetail(userNo);
 	}
 
+	@Override
+	public List<Partner> getpChartList() {
+	
+		return partnerDao.selectpChartList();
+	}
+
+	@Override
+	public List<Partner> getpChartCount() {
+
+		return partnerDao.selectpChartCount();
+	}
+
+
 	
 
 }

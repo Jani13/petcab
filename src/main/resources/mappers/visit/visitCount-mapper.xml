@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.petcab.work.visit.model.dao.VisitCountDao">
+
+	<insert id="insertVisitor" parameterType="VisitCountVo">
+		INSERT INTO VISITOR (
+	    	VISIT_ID,
+		    VISIT_IP,
+		    VISIT_TIME
+		) VALUES (
+		    SEQ_VISIT_ID.NEXTVAL,
+		    #{visitIp},
+		    SYSDATE
+		)
+	</insert>
+	
+	<select id="selectVisitorCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM VISITOR
+		WHERE TO_CHAR(VISIT_TIME, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd')
+	</select>
+	
+	<select id="selectChartVisitCount" resultType="hashmap">
+		SELECT TO_CHAR(VISIT_TIME, 'YYYY/MM/DD') VISITTIME, 
+			   COUNT(*) COUNT
+		FROM VISITOR
+		GROUP BY TO_CHAR(VISIT_TIME, 'YYYY/MM/DD')
+		ORDER BY TO_CHAR(VISIT_TIME, 'YYYY/MM/DD')
+	</select>
+</mapper>
