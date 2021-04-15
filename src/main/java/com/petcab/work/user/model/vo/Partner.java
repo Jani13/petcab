@@ -29,4 +29,6 @@ public class Partner {
 	private Member member;
 	
 	private int rowNum;
+	
+	private int count;
 }

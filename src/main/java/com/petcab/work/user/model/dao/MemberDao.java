@@ -44,4 +44,8 @@ public interface MemberDao {
 
 	int updateMInfo(Member member);
 
+	List<Member> selectChartDateCount();
+
+//	List<Member> selectChartCount();
+
 }

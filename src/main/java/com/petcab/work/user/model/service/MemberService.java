@@ -40,4 +40,8 @@ public interface MemberService {
 
 	int updateMInfo(Member member);
 
+	List<Member> getChartDateCount();
+
+//	List<Member> getChartCount();
+
 }

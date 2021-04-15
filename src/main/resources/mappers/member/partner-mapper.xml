@@ -29,6 +29,7 @@
 		<result property="rowNum" column="ROWNUM"/>
 		<result property="status" column="STATUS"/>
 		<result property="rowNum" column="ROWNUM"/>
+		<result property="count" column="COUNT"/>
 		<association property="member" resultMap="MemberResultMap"/>
 	</resultMap>
 	
@@ -225,5 +226,19 @@
 			   ABOUT
 		FROM PARTNER 
 		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectpChartList" resultMap="PartnerResultMap">
+		SELECT PARTNER_TYPE
+		FROM PARTNER
+		GROUP BY PARTNER_TYPE
+		ORDER BY PARTNER_TYPE
+	</select>
+	
+	<select id="selectpChartCount" resultMap="PartnerResultMap">
+		SELECT COUNT(PARTNER_TYPE) count
+		FROM PARTNER
+		GROUP BY PARTNER_TYPE
+		ORDER BY PARTNER_TYPE
 	</select>
 </mapper>
