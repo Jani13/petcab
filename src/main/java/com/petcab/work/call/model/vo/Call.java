@@ -41,26 +41,4 @@ public class Call {
 	private Dog dog;
 	
 	private Partner partner;
-	
-//	protected int callNo;
-//	
-//	protected String pickupTime;
-//
-//	protected String fromWhere;
-//	
-//	protected String toWhere;
-//	
-//	protected String withOwner;
-//	
-//	protected String toDriver;
-//	
-//	protected String status;
-//	
-//	protected String callType;
-//		
-//	protected List<Dog> dogs;
-//	
-//	protected String merchantUid;
-//	
-//	protected Driver driver;
 }
