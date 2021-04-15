@@ -35,5 +35,9 @@ public interface PartnerService {
 	int updatePartner(Partner partner);
 
 	Partner getPartnerDetail(int userNo);
+
+	List<Partner> getpChartList();
+
+	List<Partner> getpChartCount();
 	
 }
