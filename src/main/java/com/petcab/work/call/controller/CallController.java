@@ -92,7 +92,7 @@ public class CallController {
 
 		model.addObject("call", call);
 
-		model.setViewName("call/book_gn_pay");
+        model.setViewName("call/book_gn_done");
 
 		return model;
 	}	
@@ -258,4 +258,15 @@ public class CallController {
 	//		return call; // blank page 로...
 	//	}	
 
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchPoint(ModelAndView model,
+			HttpServletRequest request) {
+		if (request.getParameter("option").equals("start")) {
+			return "call/startPoint";
+		} else {
+			return "call/endPoint";
+		}
+	}
+	
 }

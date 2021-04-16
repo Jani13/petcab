@@ -24,8 +24,12 @@
     <script src="${path}/js/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
     <link rel="stylesheet" href="${path }/css/call.css" />
-    
+       
     <title>콜예약</title>
+ <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -148,7 +152,7 @@
 	                                </table>
 	                            </div>
 	
-	                            <button class="btn btn-lg btn-outline-info btn-cancel col" id="api" type="button">결제하기</button>
+	                            <button class="btn btn-lg btn-outline-info btn-cancel col" onclick="requestPay();" type="button">결제하기</button>
 	                        </div>
 	                    </div>
 	                </div>
@@ -170,18 +174,53 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
-<script>
+  <script>
+    function requestPay() {
+      // IMP.request_pay(param, callback) 호출
+      IMP.init('imp03179840'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+      var mag;
+      
+      IMP.request_pay({ // param
+          pg: "inicis", //pg사
+          pay_method: "card",
+          merchant_uid : 'merchant_' + new Date().getTime(),
+          name: "PETCAB", // 결제창에서 보여질 이름
+          amount: 100, // 실제 결제되는 가격
+          buyer_name: "구매자",
+          buyer_tel: "010-4242-4242",
+          buyer_addr: "서울특별시 강남구 신사동",
+          buyer_postcode : '123-456'
+     	 }, function(rsp) {
+			console.log(rsp);
+			// 결제검증
+			$.ajax({
+	        	type : "POST",
+	        	url : "${path}/call/gn_pay" + rsp.imp_uid 
+	        }).done(function(data) {
+	        	
+	        	console.log(data);
+	        	
+	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+	        	if(rsp.paid_amount == data.response.amount){
+		        	alert("결제 및 결제검증완료");
+	        	} else {
+	        		alert("결제 실패");
+	        	}
+	        });
+		});
+	}
+  </script>
+<!-- <script>
 	$(function(){
 		$('#api').click(function(){
 			$.ajax({
 				type: "post", 
 				url:'${path}/call/gn_pay',
 				dataType: 'json',
-				success:function(data){
-					console.log(data);
-					/* alert(data.tid); */
- 					var box = data.next_redirect_pc_url;
-					window.open(box); 
+				success:function(data){	
+				 	console.log(data);
+					alert(data.next_redirect_pc_url);
+ 					/* var box = data.next_redirect_pc_url;*/					window.open(box); 
 				},
 				error:function(error){
 					alert(error);
@@ -189,5 +228,5 @@
 			})
 		});
 	});
-</script>
+</script> -->
 </html>
