@@ -99,15 +99,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectPartnerAddr();
 	}
 
-	// adminPage 모든 멤버 조회 리스트
-	@Override
-	public List<Member> selectAllMember(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
-		return memberDao.rNumSelectMemberAll(rowBounds);
+	// adminPage 모든 멤버 조회 리스트	
+	@Override 
+	public List<Member> selectAllMember(PageInfo pageInfo) { 
+	    int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit(); RowBounds
+	    rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	  
+	    return memberDao.rNumSelectMemberAll(rowBounds); 
 	}
-
+	 
 	@Override
 	public int applyDriver(int userNo) {
 		return memberDao.applyDriver(userNo);
@@ -129,24 +129,37 @@ public class MemberServiceImpl implements MemberService {
 	// ROLE_MEMBER만 카운터
 	@Override
 	public int getUserCount() {
+		
 		return memberDao.selectUserCount();
 	}
 
 	@Override
 	public int updateMInfo(Member member) {
+		
 		return memberDao.updateMInfo(member);
 	}
 
 	@Override
 	public List<Member> getChartDateCount() {
-		// TODO Auto-generated method stub
+		
 		return memberDao.selectChartDateCount();
 	}
 
-//	@Override
-//	public List<Member> getChartCount() {
-//		// TODO Auto-generated method stub
-//		return memberDao.selectChartCount();
-//	}
+	@Override
+	public List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword) {
+		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return memberDao.searchMemberAll(rowBounds, searchOption, keyword);
+	}
+
+	/*
+	 * @Override public List<Member> selectAllMember(PageInfo pageInfo, String
+	 * searchOption, String keyword) { int offset = (pageInfo.getCurrentPage() -1) *
+	 * pageInfo.getListLimit(); RowBounds rowBounds = new RowBounds(offset,
+	 * pageInfo.getListLimit());
+	 * 
+	 * return memberDao.rNumSelectMemberAll(rowBounds, searchOption, keyword); }
+	 */
 
 }

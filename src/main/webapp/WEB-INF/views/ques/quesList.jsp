@@ -20,16 +20,12 @@
             crossorigin="anonymous"></script>
 
     <style>
-        /* section{
-            width: 1200px;
-            margin: auto;
-        } */
-        /* div{
-            border: 1px solid red;
-        } */
-
         .container {
             width: 1200px;
+        }
+        
+        .listHover:hover {
+        	background-color: seashell;
         }
     </style>
 
@@ -42,57 +38,46 @@
     <jsp:include page="../common/nav.jsp" />
     <section class="content">
         
-        <div class="container ">
-
-            <br><br><br><br>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8"><img src="${ path }/images/dogs.png" class="img-fluid" alt="..."></div>
-                <div class="col-lg-2"></div>
-            </div>
+        <div class="container flex-column section-width">
+			
+			<div class="p-3" style="background-color:#4ec7f2">
+	            <p class="h2 fw-bold text-white mx-3">문의 공간</p>
+	        </div>
             
-       
-            <br><br>
+            <div class="d-flex justify-content-md-end">
+	            <img class="col-md-4 img-fluid mt-5 mx-5" src="${path}/images/dogs.png" alt="" >
+	        </div>
 
-            <br><br>
-            <div class="row">
-                <div class="col-lg-5"></div>
-                <div class="col-lg-2"><h2><b>문의하기</b></h2></div>
-                <div class="col-lg-5"></div>
-            </div>
-
-            <br><br><br>
-
-            <div class="input" align="right">
-               	<form name="form1" action="${path}/ques/list/search" method="GET">
-			        <select name="searchOption">
-			            <option value="M.USER_ID"
-			    			<c:if test="${searchOption == ques.userId}">selected</c:if>
-			       		>작성자</option>
-			    
-			            <option value="Q.TITLE" 
-			    			<c:if test="${searchOption == ques.title}">selected</c:if>
-			            >제목</option>
-			        </select>
-			        <input type="search" name="keyword" size="25px" placeholder="검색어를 입력하세요.">
-			        <input type="submit" value="조회">
-			    </form> 
-			    
-               <br>
-                <c:if test="${loginMember != null}">     
-                    <button type="button" id="btn-add"
+			<div class="row d-flex justify-content-center" >
+	            <div class="col-md-12 card text-center" style="width: 90%;  ">
+	                <div class="card-body">
+	                    자유롭게 작성 해주세요. <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
+	                </div>
+	            </div>
+	        </div>
+	        
+            <div class="input mt-5 row d-flex justify-content-between mb-3" align="right" >
+	            <div class="col-5 d-flex justify-content-start" >
+	               	<form name="form1" action="${path}/ques/list/search" method="GET">
+				        <select name="searchOption">
+				            <option value="M.USER_ID"
+				    			<c:if test="${searchOption == ques.userId}">selected</c:if>
+				       		>작성자</option>
+				    
+				            <option value="Q.TITLE" 
+				    			<c:if test="${searchOption == ques.title}">selected</c:if>
+				            >제목</option>
+				        </select>
+				        <input type="search" name="keyword" size="25px" placeholder="검색어를 입력하세요.">
+				        <input type="submit" class="btn btn-info" value="조회">
+				    </form> 
+	            </div>
+               	<c:if test="${loginMember != null}">     
+                    <button type="button" id="btn-add" class="col-1 btn btn-info mx-3"
                     onclick="location.href ='${path}/ques/write'">글쓰기</button>
-                 <br><br>
-                    <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
-		                <div class="card-body">
-		                    자유롭게 작성 해주세요. <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
-		                </div>
-		            </div>
-               </c:if>
-            </div>
 
-            <br>
-       
+               </c:if>  	
+            </div>
             <table class="table">
                 <thead style="text-align: center;">
                   <tr>
@@ -106,22 +91,21 @@
                   </tr>
                 </thead>
                 <tbody>
-	                <c:if test="${list == null}">
+	                <c:if test="${empty list}">
 	                    <tr>
-	                        <td colspan="7">
+	                        <td class="text-center fw-bold" colspan="7">
 	                            조회된 게시글이 없습니다.
 	                        </td>
 	                    </tr>			
 	            	</c:if>
 	            	<c:if test="${list != null}">
 						<c:forEach var="ques" items="${list}">
-		                    <tr>
+		                    <tr class="text-center listHover" 
+		                    	onclick="location.href='${path}/ques/view?quesNo=${ques.quesNo}'"
+		                    	style="cursor: pointer">
+		                    
 		                        <td><c:out value="${ques.quesNo}"/></td>
-		                        <td>
-		                        	<a href="${path}/ques/view?quesNo=${ques.quesNo}">
-										<c:out value="${ques.title}"/>
-									</a>
-		                        </td>
+		                        <td><c:out value="${ques.title}"/></td>
 		                        <td><c:out value="${ques.userId }"/></td>	                       
 		                        <td><fmt:formatDate value="${ques.postDate}" type="date"/></td>
 		                        <td><fmt:formatDate value="${ques.editDate}" type="date"/></td>	                       
@@ -130,37 +114,58 @@
 		                    </tr>                  
 	                 	</c:forEach>
 					</c:if>                    
-                </tbody>
-               
+                </tbody> 
             </table>
-        
-
-            <br>
-
-            <div class="pagination" style="display: flex; justify-content: center;">
-                <!-- 맨 처음으로 -->
-				<button onclick="location.href='${path}/ques/list?page=1'">&lt;&lt;</button>
-				
-				<!-- 이전 페이지로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.prvePage}'">&lt;</button>
-	
-				<!--  10개 페이지 목록 -->
-				<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
-					<c:if test="${status.current == pageInfo.currentPage}">
-						<button disabled><c:out value="${status.current}"/></button>
-	   				</c:if>
-					<c:if test="${status.current != pageInfo.currentPage}">
-						<button onclick="location.href='${path}/ques/list?page=${status.current}'"><c:out value="${status.current}"/></button>
-	   				</c:if>
-				</c:forEach>
-				
-				<!-- 다음 페이지로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.nextPage}'">&gt;</button>
-				
-				<!-- 맨 끝으로 -->
-				<button onclick="location.href='${path}/ques/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
-
-            </div>
+            
+            <!-- 페이징 부분 -->
+             <div
+               aria-label="Page navigation example"
+               class="d-flex justify-content-center pt-3"
+             >
+               <ul class="pagination">
+                 
+                 <!-- 맨 처음으로 -->
+                 <li class="page-item">
+                   <a class="page-link" href="${path}/ques/list?page=1" aria-label="Previous">
+                     <span aria-hidden="true">&lt;&lt;</span>
+                   </a>
+                 </li>
+                 <!-- 이전 페이지로 -->
+                 <li class="page-item">
+                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.prvePage}" aria-label="Previous">
+                     <span aria-hidden="true">&lt;</span>
+                   </a>
+                 </li>
+                 
+                 <!-- 5개 페이지 목록 -->
+                 <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                 	<c:if test="${status.current == pageInfo.currentPage}">
+                  <li class="page-item">
+                    <a class="page-link disabled"><c:out value="${status.current}"/></a>
+                  </li>
+                 	</c:if>
+                 	<c:if test="${status.current != pageInfo.currentPage}">
+                  <li class="page-item">
+                    <a class="page-link" href="${path}/ques/list?page=${status.current}"><c:out value="${status.current}"/></a>
+                  </li>
+                 	</c:if>
+                 </c:forEach>
+                 
+                 <!-- 다음 페이지로 -->
+                 <li class="page-item">
+                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.nextPage}" aria-label="Previous">
+                     <span aria-hidden="true">&gt;</span>
+                   </a>
+                 </li>
+                 
+                 <!-- 맨 끝으로 -->
+                 <li class="page-item">
+                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.maxPage}" aria-label="Previous">
+                     <span aria-hidden="true">&gt;&gt;</span>
+                   </a>
+                 </li>
+               </ul>
+             </div>
             <br><br>
         </div>
     </section>
