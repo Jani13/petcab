@@ -16,6 +16,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,11 +83,12 @@ public class DogController {
 		return model;
 	}
 
-	@RequestMapping(value="/dog/select", method = {RequestMethod.GET})
+	@RequestMapping(value="/dogs/{id}", method = {RequestMethod.GET})
 	@ResponseBody
 	public Dog findDog(
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
 			@RequestParam(name="dogNo") Integer dogNo,
+			@PathVariable("id") String id,
 			HttpServletRequest request) {
 
 		System.out.println(dogNo);
