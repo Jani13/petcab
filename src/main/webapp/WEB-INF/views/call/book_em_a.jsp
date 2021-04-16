@@ -58,25 +58,58 @@
 								</div>
 								<div class="form-group mb-3 row row-cols partner-type"
 									style="margin-left: 10px;">
-									<div class="col-sm-4">
-										<input type="button" class="btn btn-outline-primary"
-											name="partnerType" value="병원">
+									
+									<div class="dropdown col-sm-4">
+									  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									    병원
+									  </button>
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									  	<c:forEach var="hospital" items="${hospital}">
+											<c:set var="addr" value="${fn:split(hospital.member.address,',')}"/>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${hospital.partnerName}"/></a></li>
+									  	</c:forEach>
+									  </ul>
 									</div>
-									<div class="col-sm-4">
-										<input type="button" class="btn btn-outline-primary"
-											name="partnerType" value="유치원">
+									<div class="dropdown col-sm-4">
+									  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									    유치원
+									  </button>
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									  	<c:forEach var="school" items="${school}">
+											<c:set var="addr" value="${fn:split(school.member.address,',')}"/>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${school.partnerName}"/></a></li>
+									  	</c:forEach>
+									  </ul>
 									</div>
-									<div class="col-sm-4">
-										<input type="button" class="btn btn-outline-primary"
-											name="partnerType" value="애견샵">
+									<div class="dropdown col-sm-4">
+									  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									    애견샵
+									  </button>
+									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									  	<c:forEach var="shop" items="${shop}">
+											<c:set var="addr" value="${fn:split(shop.member.address,',')}"/>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${shop.partnerName}"/></a></li>
+									  	</c:forEach>
+									  </ul>
 									</div>
 								</div>
+								
+								<div class="row row-cols"
+									style="margin-left: 0; margin-right: 0">
+									<div class="col-9" style="padding-left: 0; padding-right: 0">
+										<input type="input" class="form-control where-from"
+											name="fromWhere" placeholder="출발지" required
+											onclick="selectStart();"/> 
+										<input type="text"
+											class="form-control where-to" name="toWhere"
+											placeholder="도착지" required readonly/>
+									</div>
 
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" name="partnerName"
-										style="margin-left: 20px;" placeholder="업체명" required />
-									<button class="btn btn-outline-secondary" type="button"
-										id="button-addon2">검색</button>
+									<div class="col-3" style="padding-left: 0; padding-right: 0">
+										<button class="btn btn-outline-info btn-calc-cost"
+											type="button" onclick="searchView();">조회</button>
+											
+									</div>
 								</div>
 
 								<div class="pt-5 pb-3 pickup-heading">
@@ -115,7 +148,8 @@
 										style="margin-left: 0; margin-right: 0">
 										<div class="col-9" style="padding-left: 0; padding-right: 0">
 											<input type="text" class="form-control where-from"
-												name="fromWhere" placeholder="출발지" required /> <input type="text"
+												name="fromWhere" placeholder="출발지" required />
+											<input type="text"
 												class="form-control where-to" name="toWhere"
 												placeholder="도착지" required />
 										</div>
@@ -233,7 +267,6 @@ function searchView() {
 	        });
 	        infowindow.open(map, marker);
 
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        point.push(parseFloat(result[0].y));
 	        point.push(parseFloat(result[0].x));
 	    } 
@@ -250,9 +283,10 @@ function searchView() {
 	        });
 
 	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지</div>'
 	        });
 	        infowindow.open(map, marker);
+	        
 	        point.push(parseFloat(result[0].y));
 	        point.push(parseFloat(result[0].x));
 	    } 
@@ -340,7 +374,20 @@ document.getElementById('emgCallForm').onsubmit = function () {
 
         return false;
     }
+}	
+
+function pickPartner(e){
+	console.log(e);
+	document.getElementsByName('toWhere')[0].value = e;
 }
 
+function selectStart() {
+	let url = '${path}/call/search?option=start';
+	let windowName = '위치 검색';
+	let windowFeatures = 'resizable=no,height=550,width=1200';
+
+	window.open(url, windowName, windowFeatures);
+	 
+}
 </script>
 </html>

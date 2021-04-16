@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.map.HashedMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -132,6 +134,34 @@ public class AdminController {
 		model.addObject("genCallList", genCallList);
 		model.addObject("emgCallList", emgCallList);		
 		model.addObject("callStr", callStr);
+		model.addObject("memberList", memberList);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("admin/adminUserInfoMain");
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/info/search", method = {RequestMethod.GET})
+	public ModelAndView infoMainSearch(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
+			@RequestParam(defaultValue = "userId") String searchOption,
+			@RequestParam(defaultValue = "") String keyword, 
+			HttpServletRequest request) {
+		
+		System.out.println(request.getParameter("searchOption"));
+		System.out.println("keyword : " + request.getParameter("keyword"));
+		
+		List<Member> memberList =null;
+		int memberCount = service.getMemberCount();
+		
+		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
+		
+		memberList = service.getSearchMember(pageInfo, searchOption, keyword);
+		
+		log.info(memberList.toString());
+		
 		model.addObject("memberList", memberList);
 		model.addObject("pageInfo",pageInfo);
 		model.setViewName("admin/adminUserInfoMain");

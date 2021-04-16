@@ -115,7 +115,19 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDao.selectpChartCount();
 	}
 
+	@Override
+	public List<Partner> getShopList() {
+		return partnerDao.selectShop();
+	}
 
-	
+	@Override
+	public List<Partner> getHospitalList() {
+		return partnerDao.selectHospital();
+	}
+
+	@Override
+	public List<Partner> getSchoolList() {
+		return partnerDao.selectpSchool();
+	}
 
 }

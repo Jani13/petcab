@@ -103,14 +103,20 @@
                         class="d-flex justify-content-end"
                         style="margin-bottom: 10px"
                       >
-                        <form action="get">
-                          <select name="searchType" id="searchType">
-                            <option value="id">id</option>
-                            <option value="name">이름</option>
+                        <form action="${path}/admin/info/search" action="GET">
+                          <select name="searchOption">
+                            <option value="USER_ID"
+                            	<c:if test="${searchOption == member.userId}">selected</c:if>
+                            >id</option>
+                            
+                            <option value="USER_NAME"
+                            	<c:if test="${searchOption == member.userName}">selected</c:if>
+                            >이름</option>
                           </select>
-                          <input type="text" name="keyword" id="keyword"/>
-                          <input type="button" id="btnSearch" value="검색" />
+                          <input type="search" name="keyword"/>
+                          <input type="submit" id="btnSearch" value="검색" />
                         </form>
+                        
                       </div>
                       <table class="table table-striped">
                         <thead>
