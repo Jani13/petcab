@@ -182,7 +182,8 @@ public class CallController {
 
 		model.addObject("emgCall", emgCall);
 
-		model.setViewName("call/book_gn_done");
+//		model.setViewName("call/book_gn_done");
+		model.setViewName("call/book_gn_pay");
 
 		return model;
 	}	
