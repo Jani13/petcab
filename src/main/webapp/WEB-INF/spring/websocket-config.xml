@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd">
+
+	<websocket:message-broker
+		application-destination-prefix="/work">
+		<websocket:stomp-endpoint path="/portfolio">
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/call" />
+		<!-- <websocket:simple-broker prefix="/topic, /queue" /> -->
+		<!-- <websocket:stomp-broker-relay prefix="" /> -->
+	</websocket:message-broker>
+
+		<!-- <websocket:handlers> -->
+	    <websocket:handlers allowed-origins="http://localhost:8089/portfolio">
+		<websocket:mapping path="/myHandler"
+			handler="myHandler" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> 
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+
+	<bean id="myHandler" class="com.petcab.work.greet.MyHandler" />
+
+	<bean
+		class="org.springframework.web.socket.client.standard.WebSocketContainerFactoryBean">
+		<property name="maxTextMessageBufferSize" value="8192" />
+		<property name="maxBinaryMessageBufferSize" value="8192" />
+	</bean>
+</beans>
