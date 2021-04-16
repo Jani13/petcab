@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,7 +44,7 @@ public class CallController {
 
 	@Autowired
 	private DogService dogService;
-
+	
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book() {
@@ -180,7 +182,8 @@ public class CallController {
 
 		model.addObject("emgCall", emgCall);
 
-		model.setViewName("call/book_gn_done");
+//		model.setViewName("call/book_gn_done");
+		model.setViewName("call/book_gn_pay");
 
 		return model;
 	}	
@@ -233,31 +236,6 @@ public class CallController {
 				
 		return "dog/dogsForCall";
 	}
-		
-	// JSON으로 데이터 전송 시 AJAX 필요
-	//	@RequestMapping(value = "/book/emg_a", 
-	//			method = {RequestMethod.POST}, 
-	//			produces = MediaType.APPLICATION_JSON_VALUE)
-	//	@ResponseBody
-	//	public Call bookEmg(
-	//			@ModelAttribute Partner partner,
-	//			@ModelAttribute EmgCall emgCall,
-	//			@ModelAttribute Call call) {
-	//
-	//		// partnerName : Partner
-	//		// pickupTime : Call
-	//		// toPartner : EmgCall
-	//				
-	//		emgCall.setPartner(partner);
-	//		call.setEmgCall(emgCall);
-	//						
-	//		log.info(emgCall.toString());
-	//		
-	//		// 쿼리문
-	//		
-	//		return call; // blank page 로...
-	//	}	
-
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchPoint(ModelAndView model,
