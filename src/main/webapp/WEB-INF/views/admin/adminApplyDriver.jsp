@@ -168,32 +168,56 @@
                 </c:if>    
               </tbody>
             </table>
-            <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            
+            <!-- 페이징 부분 -->
+                      <div
+                        aria-label="Page navigation example"
+                        class="d-flex justify-content-center"
+                      >
+                        <ul class="pagination">
+                          
+                          <!-- 맨 처음으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/driver?page=1" aria-label="Previous">
+                              <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                          </li>
+                          <!-- 이전 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/driver?page=${pageInfo.prvePage}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 5개 페이지 목록 -->
+                          <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                          	<c:if test="${status.current == pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link disabled"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          	<c:if test="${status.current != pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link" href="${path}/admin/apply/driver?page=${status.current}"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          </c:forEach>
+                          
+                          <!-- 다음 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/driver?page=${pageInfo.nextPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 맨 끝으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/driver?page=${pageInfo.maxPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>

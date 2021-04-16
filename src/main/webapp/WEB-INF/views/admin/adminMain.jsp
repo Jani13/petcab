@@ -121,7 +121,7 @@
                     >
                       <button
                         type="button"
-                        class="btn btn-primary btn-lg col-7"
+                        class="btn btn-primary btn-lg col-12"
                         style="height: 200px;"
                         disabled
                       >
@@ -129,16 +129,7 @@
                         <div class="CurrTemp fw-bolder"></div>
                         <div class="City fw-bolder"></div>
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-lg col-4"
-                        style="height: 200px"
-                        disabled
-                      >
-                        <i class="far fa-sad-tear fa-3x"></i>
-                        <h3 class="fw-bolder">미세먼지</h3>
-                        <h5>아주 나쁨</h5>
-                      </button>
+                      
                     </div>
                   </div>
                 </div>
