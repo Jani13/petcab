@@ -66,7 +66,7 @@ public class PaymentController {
 		 log.info("완료요청페이지");
 		 return "/call/book_gn_confirm";
 	 } 
-	 @RequestMapping(value={"/call/doncl"}, method = {RequestMethod.GET})
+	 @RequestMapping(value={"/call/book/cancel"}, method = {RequestMethod.GET})
 	 public String book_gn_view() {
 		 log.info("완료요청페이지");
 		 return "/call/book_gn_cancel";

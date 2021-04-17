@@ -296,7 +296,7 @@ $('#api').click(function () {
         merchant_uid: 'merchant_' + new Date().getTime(),
 
         name: 'PETCAB', // 결제창에서 보여질 이름
-        amount: 100,
+        amount: 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
         buyer_name: '구매자',
         buyer_tel: '010-1234-5678',
         buyer_addr: '서울특별시 강남구 신사동',
@@ -315,12 +315,12 @@ $('#api').click(function () {
                 data: {
                 	imp_uid : rsp.imp_uid
                 },
-            }).done(function(data) {
+            });
            document.location.href="${path}/call/confirm"; //alert창 확인 후 이동할 url 설정
         } else {
             var msg = '결제에 실패하였습니다. 켄슬로 다시 해주세요.';
             //msg += '에러내용 : ' + rsp.error_msg;
-            document.location.href="${path}/call/book";   //alert창 확인 후 이동할 url 설정
+            document.location.href="${path}/call/book/cancel";   //alert창 확인 후 이동할 url 설정
         }
         alert(msg);
        // document.location.href="${path}/call/book/cancel"; //alert창 확인 후 이동할 url 설정
@@ -328,7 +328,7 @@ $('#api').click(function () {
 });
 </script> 
  
-<!-- <script>
+<!--  <script>
 $('#api').click(function () {
 	   // IMP.request_pay(param, callback) 호출
     IMP.init('imp03179840'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -339,7 +339,7 @@ $('#api').click(function () {
         pay_method: "card",
         merchant_uid : 'merchant_' + new Date().getTime(),
         name: "PETCAB", // 결제창에서 보여질 이름
-        amount: 100, // 실제 결제되는 가격
+        amount: 100, // 실제 결제되는 가격  // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
         buyer_name: "구매자",
         buyer_tel: "010-4242-4242",
         buyer_addr: "서울특별시 강남구 신사동",
@@ -356,13 +356,13 @@ $('#api').click(function () {
 	        	
 	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 	        	if(rsp.paid_amount == data.response.amount){
-		        	alert("결제 및 결제검증완료");
+	        			
 	        	} else {
-	        		alert("결제 실패");
+	        		
 	        	}
 	        });
 		});
 });
 
-</script>   -->
+</script>  -->
 </html>
