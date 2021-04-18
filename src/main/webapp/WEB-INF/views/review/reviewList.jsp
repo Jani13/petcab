@@ -108,7 +108,7 @@
 		                        </td>
 		                        <td><c:out value="${review.userId }"/></td>
 		                        <td><c:out value="${review.starNo}"/></td>
-		                        <td><fmt:formatDate type="both" value="${review.postDate}"/></td>
+		                        <td><c:out value="${review.postDate}"/></td>
 		                        <td><c:out value="${review.callType}"/></td>
 		                        <td><c:out value="${review.viewNo}"/></td>
 		                    </tr>                  

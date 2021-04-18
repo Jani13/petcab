@@ -43,5 +43,12 @@ public interface MemberDao {
 	int selectUserCount();
 
 	int updateMInfo(Member member);
-
+	
+	/*카카오 회원 가입 및 로그인 시작============================*/ 
+	int kakaoCheck(String email);
+	
+	int kakaoInsert(String email);
+	
+	Member kakaoLogin(String email);
+	/*카카오 회원 가입 및 로그인 끝 =============================*/ 
 }

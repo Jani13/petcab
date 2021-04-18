@@ -657,5 +657,6 @@ CREATE TABLE VISITOR (
 CREATE SEQUENCE SEQ_VISIT_ID;
 
 --------------------------------------------------------------------------------
-
+-- 4/18 일요일
+ALTER TABLE MEMBER ADD USER_ID VARCHAR2(100);   -- 카톡 로그인을 위해 아이디를 varchar2 100으로 늘려야함 만들어서 뿌려야함
 
