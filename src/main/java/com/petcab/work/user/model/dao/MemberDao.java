@@ -29,9 +29,6 @@ public interface MemberDao {
 
 	List<Member> selectPartnerAddr();
 
-	/*
-	 * List<Member> selectMemberAll(RowBounds rowBounds);
-	 */
 	List<Member> rNumSelectMemberAll(RowBounds rowBounds);
 
 	int applyDriver(int userNo);
@@ -51,4 +48,11 @@ public interface MemberDao {
 	
 	Member kakaoLogin(String email);
 	/*카카오 회원 가입 및 로그인 끝 =============================*/ 
+
+	List<Member> selectChartDateCount();
+
+	List<Member> searchMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
+
+//	List<Member> rNumSelectMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
+
 }

@@ -148,17 +148,4 @@
     </section>
      <jsp:include page="../common/footer.jsp" />
 </body>
-	<script type="text/javascript">
-		/* $("#naverLogin").on("click", function(e){
-			/* $(location).attr("href","${path}/user/naverLogin"); */
-			/*$(location).attr("href",${path}"/user/naverLogin");*/
-			location.href="${path}/user/naverLogin";
-		}); */
-		
-		/* $("#kakaoLogin").on("click", function(e){
-			/*$(location).attr("href",${path}"/user/kakaoLogin");*/
-			location.href="${path}/user/kakaoLogin";
-		}); */
-		
-	</script>
 </html>

@@ -46,4 +46,10 @@ public interface MemberService {
 	
 	Member kakaoLogin(String email);
 
+	List<Member> getChartDateCount();
+
+	List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword);
+
+//	List<Member> selectAllMember(PageInfo pageInfo, String searchOption, String keyword);
+
 }

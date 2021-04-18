@@ -139,7 +139,7 @@ public class MemberController {
 		
 		
 		model.addObject("loginMember", loginMember);
-		model.setViewName("redirect:/");
+		model.setViewName("redirect:/");  
 		// mav.addObject("page", "mainBody.jsp");
 
 		return model;
@@ -285,7 +285,7 @@ public class MemberController {
 			model.addObject("member", result);
 			model.setViewName("user/successFindId");
 		} else {
-			model.addObject("msg", "존재하지 않는 회원입니다.");
+			model.addObject("msg", "존재하지 않는 회원입니다. 회원가입을 진행해 주세요.");
 			model.addObject("location", "/user/findIdPwd");
 			model.setViewName("common/msg");
 		}

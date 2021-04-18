@@ -38,4 +38,16 @@ public interface PartnerDao {
 	int updatePartner(Partner partner);
 
 	Partner selectPartnerDetail(@Param("userNo")int userNo);
+
+	String selectPartnerChart();
+
+	List<Partner> selectpChartList();
+
+	List<Partner> selectpChartCount();
+
+	List<Partner> selectShop();
+
+	List<Partner> selectHospital();
+
+	List<Partner> selectpSchool();
 }

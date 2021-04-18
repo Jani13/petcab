@@ -29,6 +29,7 @@
 		<result property="rowNum" column="ROWNUM"/>
 		<result property="status" column="STATUS"/>
 		<result property="rowNum" column="ROWNUM"/>
+		<result property="count" column="COUNT"/>
 		<association property="member" resultMap="MemberResultMap"/>
 	</resultMap>
 	
@@ -226,4 +227,51 @@
 		FROM PARTNER 
 		WHERE USER_NO = #{userNo}
 	</select>
+	
+	<select id="selectpChartList" resultMap="PartnerResultMap">
+		SELECT PARTNER_TYPE
+		FROM PARTNER
+		GROUP BY PARTNER_TYPE
+		ORDER BY PARTNER_TYPE
+	</select>
+	
+	<select id="selectpChartCount" resultMap="PartnerResultMap">
+		SELECT COUNT(PARTNER_TYPE) count
+		FROM PARTNER
+		GROUP BY PARTNER_TYPE
+		ORDER BY PARTNER_TYPE
+	</select>
+	
+	<select id="selectShop" resultMap="PartnerResultMap">
+		SELECT 
+			P.PARTNER_NAME,
+			P.PARTNER_TYPE,
+			M.ADDRESS
+		FROM PARTNER P
+		JOIN MEMBER M ON (P.USER_NO=M.USER_NO)
+		WHERE P.STATUS = 'Y'
+		AND PARTNER_TYPE = '샵'
+	</select>
+	<select id="selectHospital" resultMap="PartnerResultMap">
+		SELECT 
+			P.PARTNER_NAME,
+			P.PARTNER_TYPE,
+			M.ADDRESS
+		FROM PARTNER P
+		JOIN MEMBER M ON (P.USER_NO=M.USER_NO)
+		WHERE P.STATUS = 'Y'
+		AND PARTNER_TYPE = '병원'
+	</select>
+	<select id="selectpSchool" resultMap="PartnerResultMap">
+		SELECT 
+			P.PARTNER_NAME,
+			P.PARTNER_TYPE,
+			M.ADDRESS
+		FROM PARTNER P
+		JOIN MEMBER M ON (P.USER_NO=M.USER_NO)
+		WHERE P.STATUS = 'Y'
+		AND PARTNER_TYPE = '유치원'
+	</select>
+	
+	
 </mapper>

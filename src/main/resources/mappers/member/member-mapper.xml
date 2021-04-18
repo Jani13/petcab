@@ -153,11 +153,58 @@
 		               M.USER_ID,
 		               M.USER_NAME,
 		               M.PHONE,
-		               D.DOG_NAME,
+                       DOG_NAME,
 		               M.STATUS
 				FROM MEMBER M
-		        JOIN DOG D ON (M.USER_ID = D.USER_ID)
+                LEFT OUTER JOIN
+                ( 
+                    SELECT M.USER_ID, SUBSTR(
+                            XMLAGG(
+                                        XMLELEMENT(COL, ',', DOG_NAME) 
+                                        ORDER BY DOG_NAME
+                                  ).EXTRACT('//text()').GETSTRINGVAL(), 2) DOG_NAME
+                    FROM MEMBER M
+                    LEFT OUTER JOIN DOG D ON M.USER_ID = D.USER_ID
+                    GROUP BY M.USER_ID
+                ) M2
+                ON (M.USER_ID = M2.USER_ID) ORDER BY M.USER_NO
 		      )
+		ORDER BY ROWNUM
+	</select>
+	
+	<select id="searchMemberAll" resultMap="memberResultMap">
+		SELECT ROWNUM,
+		       USER_NO,
+		       USER_TYPE,
+		       USER_ID,
+		       USER_NAME,
+		       PHONE,
+		       DOG_NAME,
+		       STATUS
+		FROM 
+		     (
+		        SELECT M.USER_NO,
+		               M.USER_TYPE,
+		               M.USER_ID,
+		               M.USER_NAME,
+		               M.PHONE,
+                       DOG_NAME,
+		               M.STATUS
+				FROM MEMBER M
+                LEFT OUTER JOIN
+                ( 
+                    SELECT M.USER_ID, SUBSTR(
+                            XMLAGG(
+                                        XMLELEMENT(COL, ',', DOG_NAME) 
+                                        ORDER BY DOG_NAME
+                                  ).EXTRACT('//text()').GETSTRINGVAL(), 2) DOG_NAME
+                    FROM MEMBER M
+                    LEFT OUTER JOIN DOG D ON M.USER_ID = D.USER_ID
+                    GROUP BY M.USER_ID
+                ) M2
+                ON (M.USER_ID = M2.USER_ID) ORDER BY M.USER_NO
+		      )
+		WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
 		ORDER BY ROWNUM
 	</select>
 	
@@ -255,4 +302,11 @@
 		WHERE USER_ID = #{email}
 	</select>
 	
+	<select id="selectChartDateCount" resultType="hashmap">
+		SELECT TO_CHAR(ENROLL_DATE,'YYYY/MM/DD') ENROLLDATE, COUNT(*) COUNT
+		FROM MEMBER
+		GROUP BY TO_CHAR(ENROLL_DATE,'YYYY/MM/DD')
+		ORDER BY TO_CHAR(ENROLL_DATE,'YYYY/MM/DD')
+	</select>
+
 </mapper>

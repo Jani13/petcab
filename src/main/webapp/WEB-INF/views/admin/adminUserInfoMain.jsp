@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="${path}/css/headerfooter.css"/>
     <link rel="stylesheet" href="${path}/css/adminpage.css"/>
     <script src="${path}/js/jquery-3.5.1.js"></script>
-    <script src="${path}/js/headerfooter.js"></script>
 
   </head>
   <body>
@@ -57,20 +56,38 @@
                     통계
                   </div>
                   <div class="card-body text-dark">
-                    <div class="row">
-                      <div class="col-xs-12 mb-3" style="text-align: end">
-                        <form action="get">
-                          <input type="date" /> <span>~ </span
-                          ><input type="date" />
-                          <input type="button" value="검색" />
-                        </form>
+                    
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-12 row mb-3" style="border: 1px ridge;">
+                      	<p class="col-md-12 fw-bold h5 my-2 p-2" 
+                      		style="background-color: rgb(0,0,0,0.15);">
+                      			방문자수		
+                      	</p>
+                      	<div class="col-md-12" id="chart_visitor" style="height: 300px; width: 900px"></div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 m-2 chart-box">차트</div>
-                      <div class="col-md-6 m-2 chart-box">차트</div>
-                      <div class="col-md-6 m-2 chart-box">차트</div>
-                      <div class="col-md-6 m-2 chart-box">차트</div>
+                      
+                      <div class="col-md-12 row mb-3" style="border: 1px ridge;">
+                      	<p class="col-md-12 fw-bold h5 my-2 p-2" 
+                      		style="background-color: rgb(0,0,0,0.15);">
+                      			가입자수		
+                      	</p>
+                      	<div class="col-md-12" id="chart_member" style="height: 300px; width: 900px"></div>
+                      </div>
+                   
+                      <div class="col-md-12 row mb-3" style="border: 1px ridge;">
+                      	<p class="col-md-12 fw-bold h5 my-2 p-2" 
+                      		style="background-color: rgb(0,0,0,0.15);">
+                      			카테고리별 제휴업체		
+                      	</p>
+                      	<div class="col-md-12" id="barchart_partner"></div>
+                      </div>
+                      <div class="col-md-12 row mb-3" style="border: 1px ridge;">
+                      	<p class="col-md-12 fw-bold h5 my-2 p-2" 
+                      		style="background-color: rgb(0,0,0,0.15)">
+                      			콜 수		
+                      	</p>
+                      	<div class="col-md-12" id="call_chart" style="height: 300px; width: 800px"></div>
+                      </div>                      
                     </div>
                   </div>
                 </div>
@@ -86,18 +103,24 @@
                         class="d-flex justify-content-end"
                         style="margin-bottom: 10px"
                       >
-                        <form action="get">
-                          <select name="searchType" id="searchType">
-                            <option value="id">id</option>
-                            <option value="name">이름</option>
+                        <form action="${path}/admin/info/search" action="GET">
+                          <select name="searchOption">
+                            <option value="USER_ID"
+                            	<c:if test="${searchOption == member.userId}">selected</c:if>
+                            >id</option>
+                            
+                            <option value="USER_NAME"
+                            	<c:if test="${searchOption == member.userName}">selected</c:if>
+                            >이름</option>
                           </select>
-                          <input type="text" name="keyword" id="keyword"/>
-                          <input type="button" id="btnSearch" value="검색" />
+                          <input type="search" name="keyword"/>
+                          <input type="submit" id="btnSearch" value="검색" />
                         </form>
+                        
                       </div>
                       <table class="table table-striped">
                         <thead>
-                          <tr>
+                          <tr class="text-center">
                             <th scope="col">No</th>
                             <th scope="col">타입</th>
                             <th scope="col">아이디</th>
@@ -118,13 +141,18 @@
                         	
                         	<c:if test="${memberList != null}">
                         		<c:forEach var="member" items="${memberList}">
-				                    <tr>
-				                 	    <td><c:out value= "${member.rowNum}"/></td>
+				                    <tr class="text-center">
+				                 	    <td>${member.rowNum}</td>
 					                    <td>${member.userType}</td>
 					                    <td>${member.userId}</td>
 					                    <td>${member.userName}</td>
 					                    <td>${member.phone}</td>
-					                    <td>${member.dog.dogName}</td>
+					                    <c:if test="${empty member.dog.dogName}">
+					                    <td>X</td>
+					                    </c:if>
+					                    <c:if test="${!empty member.dog.dogName}">
+					                    <td>${member.dog.dogName}</td>					                    
+					                    </c:if>
 					                    <td>${member.status}</td>
 				                    </tr>                        		
                         		</c:forEach>
@@ -181,7 +209,7 @@
                           </li>
                         </ul>
                       </div>
-                      
+                
                     </div>
                   </div>
                 </div>
@@ -196,10 +224,186 @@
 
   <jsp:include page="../common/footer.jsp" />
 
+	<!-- 부트스트랩 이미지 불러오기 위한 경로 -->
     <script
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
     ></script>
+    
+    <!-- 차트 api-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- 방문자수 차트 api -->
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(visitorChart);
+	  
+      function visitorChart() {
+		  var visitDateCount = "";
+    	  
+    	  var result;
+    	  
+    	  var jsonData = $.ajax({
+	    	  type: "get",
+	    	  async : false,
+	    	  url: "${path}/admin/visitChart",
+	    	  dataType: "json",
+	    	  data: {visitDateCount},
+	    	  success: function(data) {
+	    		  console.log(data);
+	    		  
+	    		  var items = new Array();
+	    		  
+	    		  for (var i = 0; i < data.length; i++) {
+	    			  
+					items[i] = new Array(new Date(data[i].VISITTIME), data[i].COUNT);
+				}
+	    		  console.log(items);
+	 			  data = items;
+	 			  
+	 			  result = data;
+	 			  console.log(data);
+	    	  },
+	    	  
+	    	  error: function(e) {
+	    		  console.log(e);
+	    	  }
+	    	  
+   	  	  });	
+
+    	  console.log(result);
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', '방문자 수');
+   
+        data.addRows(result);
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_visitor'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <!-- 가입자수 차트 api -->
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(joinChart);
+		
+            
+      function joinChart() {
+  
+    	  var dateAndCount = "";
+    	  
+    	  var result;
+    	  
+    	  var jsonData = $.ajax({
+	    	  type: "get",
+	    	  async : false,
+	    	  url: "${path}/admin/joinChart",
+	    	  dataType: "json",
+	    	  data: {dateAndCount},
+	    	  success: function(data) {
+	    		  console.log(data);
+	    		  
+	    		  var items = new Array();
+	    		  
+	    		  for (var i = 0; i < data.length; i++) {
+	    			  
+					items[i] = new Array(new Date(data[i].ENROLLDATE), data[i].COUNT);
+				}
+	    		  console.log(items);
+	 			  data = items;
+	 			  
+	 			  result = data;
+	 			  console.log(data);
+	    	  },
+	    	  
+	    	  error: function(e) {
+	    		  console.log(e);
+	    	  }
+	    	  
+   	  	  });	
+
+    	  console.log(result);
+ 
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', '가입자 수');
+     
+        data.addRows(result);
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_member'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <!-- 카테고리별 제휴업체 차트 -->
+    <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["PartnerType", "Count", { role: "style" } ],
+        ["${pChartList[0].partnerType}", ${pChartCount[0].count}, "#38c970"],
+        ["${pChartList[1].partnerType}", ${pChartCount[1].count}, "#8ba5ed"],
+        ["${pChartList[2].partnerType}", ${pChartCount[2].count}, "#ffea5e"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        width: 800,
+        height: 300,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+        hAxis: {
+        	format: '#'
+        }
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_partner"));
+      chart.draw(view, options);
+  }
+  </script>
+    
+    <!-- 콜 수 차트 -->
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          		${callStr}
+        ]);
+
+        var options = {
+          title: '누적 일반콜 & 긴급콜',
+          colors: ['#3f51b5', '#c62828'],
+          width: 800,
+          height: 300,
+          chartArea:{left:200,top:80,width:'80%',height:'60%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('call_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
     
   </body>
 </html>

@@ -4,31 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<% 	
-Cookie [] cookieArray = request.getCookies();
-Cookie cookie = null;
-int countNum = 0;
-String countStr = "";
-
-if(cookieArray != null) {
-	for(int i = 0; i < cookieArray.length; i++) {
-		if(cookieArray[i].getName().equals("counter")) {
-			cookie = cookieArray[i];
-			break;
-		}
-	}
-}
-
-if(cookie != null) {
-	countNum = Integer.parseInt(cookie.getValue()) + 1;
-	countStr = Integer.toString(countNum);
-	cookie.setValue(countStr);
-} else {
-	cookie = new Cookie("counter", "1");
-}
-
-response.addCookie(cookie);
-%>
 
 <style>
  .listHover:hover {
@@ -146,7 +121,7 @@ response.addCookie(cookie);
                     >
                       <button
                         type="button"
-                        class="btn btn-primary btn-lg col-7"
+                        class="btn btn-primary btn-lg col-12"
                         style="height: 200px;"
                         disabled
                       >
@@ -154,16 +129,7 @@ response.addCookie(cookie);
                         <div class="CurrTemp fw-bolder"></div>
                         <div class="City fw-bolder"></div>
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-lg col-4"
-                        style="height: 200px"
-                        disabled
-                      >
-                        <i class="far fa-sad-tear fa-3x"></i>
-                        <h3 class="fw-bolder">미세먼지</h3>
-                        <h5>아주 나쁨</h5>
-                      </button>
+                      
                     </div>
                   </div>
                 </div>
@@ -305,14 +271,7 @@ response.addCookie(cookie);
     				$('.City').append($city); 
     				} 
     			}) 
-    		});
-
-  
-
-    
-    	
-    	
+    		});  	
     </script>
-    
   </body>
 </html>
