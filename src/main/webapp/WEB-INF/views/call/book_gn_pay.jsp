@@ -309,9 +309,29 @@ $('#api').click(function () {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
+ 			var payInfo = [];
+            
+            var payment = {
+                  payInfo : JSON.stringify(payInfo),
+                  merchantUid : rsp.merchant_uid,
+                  impUid : rsp.imp_uid,
+                  name : rsp.name,
+                  buyerNmae : rsp.buyer_name,
+                  paidAmount : rsp.paid_amount,
+                  applyNum : rsp.apply_num,
+                  status : rsp.status,
+                  payMethod : rsp.pay_method,
+                  pgProvider : rsp.pg_provider,
+                  pgTid : rsp.pg_tid,
+                  paidAt : rsp.paid_at,
+                  receiptUrl : rsp.receipt_url,               
+                   nserNo : $('loginMember.userNo').val()
+               };
             $.ajax({
                 type: "GET", 
-                url: "${path}/call/gn_pay", 
+                url: "${path}/call/gn_pay",
+              	dataType: "json", 
+                contentType : "application/x-www-form-urlencoded; charset=UTF-8",
                 data: {
                 	imp_uid : rsp.imp_uid
                 },
