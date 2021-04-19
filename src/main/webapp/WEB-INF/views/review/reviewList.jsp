@@ -99,7 +99,7 @@
 	                            <td><c:out value="${review.title}"/></td>
 	                            <td><c:out value="${review.userId }"/></td>
 	                            <td><c:out value="${review.starNo}"/></td>
-	                            <td><fmt:formatDate type="both" value="${review.postDate}"/></td>
+	                            <td><c:out value="${review.postDate}"/></td>
 	                            <td><c:out value="${review.callType}"/></td>
 	                            <td><c:out value="${review.viewNo}"/></td>
 	                        </tr>                  
@@ -108,101 +108,7 @@
 	            </tbody>
 	        </table>
             
-<<<<<<< HEAD
-            <br><br><br><br>
 
-            <div class="row">
-                <div class="col-lg-5"></div>
-                <div class="col-lg-2"><h2><b>리뷰 광장</b></h2></div>
-                <div class="col-lg-5"></div>
-            </div>
-
-            <br><br><br>
-
-            <div class="input" align="right">
-                <c:if test="${ loginMember != null }">
-                    <input type="search" name="serchText" size="40px" placeholder="검색할 내용을 입력하세요.">
-                    <button type="button" id="btn-add"
-                    onclick="location.href ='${path}/review/reviewWrite'">글쓰기</button>
-                </c:if>
-            </div>
-
-            <br>
-
-            <div class="card" style="width: 75%; align-items: center; margin-left: 150px;">
-                <div class="card-body">
-                    자유롭게 작성 해주세요. <span style="color: red;">(* 욕설 & 비방 악성 글은 관리자에 의해 삭제될 수 있습니다. )</span>
-                </div>
-            </div>
-       
-            <table class="table">
-                <thead style="text-align: center;">
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">글쓴이</th>
-                    <th scope="col">평점</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">긴급콜</th>
-                    <th scope="col">조회</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <c:if test="${list == null}">
-                    <tr>
-                        <td colspan="7">
-                            조회된 게시글이 없습니다.
-                        </td>
-                    </tr>			
-                  </c:if>                 
-                    <c:if test="${list != null}">
-						<c:forEach var="review" items="${list}">
-		                    <tr>
-		                        <td><c:out value="${review.reviewNo}"/></td>
-		                        <td>
-		                        	<a href="${path}/review/reviewView?reviewNo=${review.reviewNo}">
-										<c:out value="${review.title}"/>
-									</a>
-		                        </td>
-		                        <td><c:out value="${review.userId }"/></td>
-		                        <td><c:out value="${review.starNo}"/></td>
-		                        <td><c:out value="${review.postDate}"/></td>
-		                        <td><c:out value="${review.callType}"/></td>
-		                        <td><c:out value="${review.viewNo}"/></td>
-		                    </tr>                  
-	                 	</c:forEach>
-					</c:if>        
-                </tbody>
-            </table>
-        
-
-            <br>
-
-            <div class="pagination" style="display: flex; justify-content: center;">
-                <!-- 맨 처음으로 -->
-				<button onclick="location.href='${path}/review/list?page=1'">&lt;&lt;</button>
-				
-				<!-- 이전 페이지로 -->
-				<button onclick="location.href='${path}/review/list?page=${pageInfo.prvePage}'">&lt;</button>
-	
-				<!--  10개 페이지 목록 -->
-				<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
-					<c:if test="${status.current == pageInfo.currentPage}">
-						<button disabled><c:out value="${status.current}"/></button>
-	   				</c:if>
-					<c:if test="${status.current != pageInfo.currentPage}">
-						<button onclick="location.href='${path}/review/list?page=${status.current}'"><c:out value="${status.current}"/></button>
-	   				</c:if>
-				</c:forEach>
-				
-				<!-- 다음 페이지로 -->
-				<button onclick="location.href='${path}/review/list?page=${pageInfo.nextPage}'">&gt;</button>
-				
-				<!-- 맨 끝으로 -->
-				<button onclick="location.href='${path}/review/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
-
-            </div>
-=======
             <!-- 페이징 부분 -->
              <div
                aria-label="Page navigation example"
@@ -253,7 +159,6 @@
                </ul>
              </div>
              
->>>>>>> 3ea75ac37abf598d94257732b90bb4abc6ae05d4
             <br><br>
         </div>
     </section>
