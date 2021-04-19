@@ -28,6 +28,7 @@ import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.dog.model.service.DogService;
+import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
@@ -41,6 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CallController {	
 	@Autowired
 	private CallService callService;
+	
+	@Autowired
+	private PartnerService partnerService;
 	
 //	@Autowired
 //	private DriverService driverService;
@@ -83,7 +87,6 @@ public class CallController {
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book() {
-
 		return "call/book_gn";
 	}
 
@@ -195,9 +198,21 @@ public class CallController {
 
 	// 긴급예약 신청 정보 입력 a
 	@RequestMapping(value = "/book/emg_a", method = RequestMethod.GET)
-	public String bookEmg() {
+	public ModelAndView bookEmg(ModelAndView model) {
+		List<Partner> shop = partnerService.getShopList();
+		List<Partner> hospital = partnerService.getHospitalList();
+		List<Partner> school = partnerService.getSchoolList();
 
-		return "call/book_em_a";
+		log.info(shop.toString());
+		log.info(hospital.toString());
+		log.info(school.toString());
+
+		model.addObject("shop", shop);
+		model.addObject("hospital", hospital);
+		model.addObject("school", school);
+		model.setViewName("call/book_em_a");
+		
+		return model;
 	}
 
 	@RequestMapping(value = "/book/emg/done", method = {RequestMethod.POST})

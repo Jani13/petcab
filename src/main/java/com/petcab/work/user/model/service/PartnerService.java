@@ -39,5 +39,11 @@ public interface PartnerService {
 	List<Partner> getpChartList();
 
 	List<Partner> getpChartCount();
+
+	List<Partner> getShopList();
+
+	List<Partner> getHospitalList();
+
+	List<Partner> getSchoolList();
 	
 }

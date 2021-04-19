@@ -29,9 +29,6 @@ public interface MemberDao {
 
 	List<Member> selectPartnerAddr();
 
-	/*
-	 * List<Member> selectMemberAll(RowBounds rowBounds);
-	 */
 	List<Member> rNumSelectMemberAll(RowBounds rowBounds);
 
 	int applyDriver(int userNo);
@@ -46,6 +43,8 @@ public interface MemberDao {
 
 	List<Member> selectChartDateCount();
 
-//	List<Member> selectChartCount();
+	List<Member> searchMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
+
+//	List<Member> rNumSelectMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
 
 }

@@ -42,6 +42,8 @@ public interface MemberService {
 
 	List<Member> getChartDateCount();
 
-//	List<Member> getChartCount();
+	List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword);
+
+//	List<Member> selectAllMember(PageInfo pageInfo, String searchOption, String keyword);
 
 }

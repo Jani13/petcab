@@ -48,26 +48,30 @@ public class PaymentController {
 		this.api = new IamportClient("1426572333225365","9ynAIUqQkHvRsKdQ7t3FPGfTZrGXh6XrFl2nfsdA9IsCsFtA8wgYdwRcYx9fE7GjsIGHbUilCKX5qrGy");
 	}
 		@ResponseBody
-		@RequestMapping(value="/call/gn_pay/{imp_uid}")
+		@RequestMapping(value="/call/gn_pay/{imp_uid}", method = {RequestMethod.POST})
 		public IamportResponse<com.siot.IamportRestClient.response.Payment> paymentByImpUid(
-				Model model
-				, Locale locale
-				, HttpSession session
-				, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
-		{	
+				Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+			System.out.println("amount");
 				return api.paymentByImpUid(imp_uid);
 		}
 		
 	 @RequestMapping(value={"/call/gn_pay"}, method = {RequestMethod.GET})
 	 public String book_gn_payview() {
 	      log.info("결제 요청페이지");
+	      System.out.println("결제하러 왔어:");
 	      return "/call/book_gn_pay";
 	   } 
-	 @RequestMapping(value={"/call/book/cancel"}, method = {RequestMethod.GET})
+	 @RequestMapping(value={"/call/confirm"}, method = {RequestMethod.GET})
 	 public String book_gn_doneview() {
 		 log.info("완료요청페이지");
-		 return "/call/book_gn_done";
+		 return "/call/book_gn_confirm";
 	 } 
+	 @RequestMapping(value={"/call/book/cancel"}, method = {RequestMethod.GET})
+	 public String book_gn_view() {
+		 log.info("완료요청페이지");
+		 return "/call/book_gn_cancel";
+	 } 
+ 
 	
 
 

@@ -20,10 +20,10 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${path}/css/call.css">
-<link rel="stylesheet" href="${path}/css/headerfooter.css">
+
 <script src="${path}/js/jquery-3.5.1.js"></script>
-<script src="${path}/js/headerfooter.js"></script>
+<link rel="stylesheet" href="${path}/css/headerfooter.css" />
+<link rel="stylesheet" href="${path }/css/call.css" />
 
 <title>콜예약</title>
 </head>
@@ -99,9 +99,9 @@
 							class="btn btn-primary btn-lg btn-block disabled">예약완료</button>
 					</div>
 				</div>
-
+				
 				<!--  -->
-
+				<form action="${path}/call/confirm" method="post">
 				<div class="col-md">
 					<div class="">
 						<div class="pt-5 pb-3 pickup-heading">
@@ -231,7 +231,8 @@
 								type="button">예약취소</button>
 						</div>
 					</div>
-				</div>
+				  </div>
+				</form>
 			</div>
 	</section>
 
