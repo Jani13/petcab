@@ -318,4 +318,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+<script>
+	$(document).ready(function() {
+
+	});
+
+	function selectGen() {
+		$('input[name=callType]').val('일반');
+		window.location = "${path}/call/book";
+	}
+
+	function selectEmg() {
+		$('input[name=callType]').val('긴급');
+		window.location = "${path}/call/book/emg_a";
+	}
+</script>
+
 </html>
