@@ -49,7 +49,8 @@
 				<div class="col-md-4 pickup-details"
 					style="padding-left: 12px; padding-right: 12px">
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form id="emgCallForm" action="${ path }/call/book/emg_a" method="POST">
+						<form id="emgCallForm" action="${ path }/call/book/emg/done" method="POST">
+							<input type="hidden" name="callType" value="긴급" />
 							<!-- <input type="hidden" name="pUserNo" value="3" /> -->
 						
 							<div id="bookEmgA">
