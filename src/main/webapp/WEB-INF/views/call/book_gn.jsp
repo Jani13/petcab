@@ -53,10 +53,13 @@
 					</div>
 
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book" method="POST" id="callForm">
+						<form action="${ path }/call/book/done" method="POST" id="callForm">
+							<input type="hidden" name="callType" value="일반" />
+							
 							<div class="form-group mb-3">
 								<label for="pickupTime">예약 시간</label> <input
-									type="datetime-local" id="pickupTime" name="pickupTime" required />
+									type="datetime-local" id="pickupTime" name="pickupTime"
+									required />
 							</div>
 
 							<div class="form-group mb-3">
@@ -67,17 +70,14 @@
 									<div class="col-9" style="padding-left: 0; padding-right: 0">
 										<input type="input" class="form-control where-from"
 											name="fromWhere" placeholder="출발지" required
-											onclick="selectStart();"/> 
-										<input type="text"
+											onclick="selectStart();" /> <input type="text"
 											class="form-control where-to" name="toWhere"
-											placeholder="도착지" required 
-											onclick="selectEnd();"/>
+											placeholder="도착지" required onclick="selectEnd();" />
 									</div>
 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
 										<button class="btn btn-outline-info btn-calc-cost"
 											type="button" onclick="searchView();">조회</button>
-											
 									</div>
 								</div>
 
@@ -98,13 +98,12 @@
 
 							<div class="d-grid gap-1 mb-3">
 								<button class="btn btn-sm btn-outline-info" type="button"
-									onclick="selectDogs();">
-									애견 선택하기</button>
+									onclick="selectDogs();">애견 선택하기</button>
 								<!-- 버튼 클릭 후 애견 선택 시 여기에 애견 프로필 띄우기 -->
 								<!-- 미로그인 시 로그인 페이지로 이동 -->
-								<input type="hidden" name="dogNo" value="" /> 
-								<input type="hidden" name="dogNo" value="" /> 
-								<input type="hidden" name="dogNo" value="" />                                
+								<input type="hidden" name="dogNo" value="" /> <input
+									type="hidden" name="dogNo" value="" /> <input type="hidden"
+									name="dogNo" value="" />
 							</div>
 
 							<div class="form-floating mb-3">
@@ -115,8 +114,7 @@
 							</div>
 
 							<div class="d-grid gap-1 mb-3">
-								<button class="btn btn-lg btn-outline-info" type="submit">
-									예약하기</button>
+								<button class="btn btn-lg btn-outline-info" type="submit">예약하기</button>
 							</div>
 						</form>
 					</div>
@@ -141,9 +139,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
-<script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
+	<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표

@@ -82,6 +82,21 @@ public class DogController {
 
 		return model;
 	}
+   
+   // 삭제된 메소드 다시 추가
+	@RequestMapping(value="/dog/select", method = {RequestMethod.GET})
+	@ResponseBody
+	public Dog findDog(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam(name="dogNo") Integer dogNo,
+			HttpServletRequest request) {
+
+		System.out.println(dogNo);
+
+		Dog dog = service.searchByDogNo(dogNo);
+
+		return dog;
+	}
 
 	@RequestMapping(value="/dogs/{id}", method = {RequestMethod.GET})
 	@ResponseBody

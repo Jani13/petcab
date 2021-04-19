@@ -292,7 +292,7 @@
 		#{toWhere},
 		#{fromWhere},
 		#{withOwner}, #{toDriver},
-		#{status}, #{callType},
+		DEFAULT, #{callType},
 		NULL,
 		#{merchantUid}
 		)
@@ -362,7 +362,30 @@
 		</foreach>
 		SELECT * FROM DUAL
 	</insert>
-
+	
+	<!-- 드라이버 예약선택 화면 예약목록 조회 -->
+	<select id="selectCallListForDriver" resultMap="emgCallResultMap">
+		SELECT G.CALL_NO,
+			G.TIME,
+			G.FROM_WHERE,
+			G.TO_WHERE,
+			G.WITH_OWNER,
+			G.TO_DRIVER,
+			G.STATUS,
+			G.CALL_TYPE,
+			G.USER_NO
+		FROM GEN_CALL G
+        WHERE G.STATUS = '신청'
+	</select>
+	
+	<!-- 드라이버 예약선택 화면 예약 선택 -->
+	<update id="updateCallByDriver" parameterType="_int">
+		UPDATE GEN_CALL
+		SET
+		STATUS='기사'
+		WHERE CALL_NO=#{callNo}
+	</update>
+	
 	<!-- 원석작업 -->
 	<select id="driverWaitCallList" resultMap="callResultMap">
 		SELECT

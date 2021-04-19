@@ -53,4 +53,7 @@ public interface CallDao {
 	// 리뷰에서 종료된 예약 띄우기
 	List<Call> selectcallEndList(String userId);
 
+	List<Call> selectCallListForDriver();
+
+	int updateCallByDriver(int callNo);
 }
