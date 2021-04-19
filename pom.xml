@@ -268,6 +268,12 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- 제이슨 파싱 payInfo용  -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20210307</version>
+		</dependency>
 
 		<!-- jstl(네이버 로그인에 필요) -->
 		<dependency>

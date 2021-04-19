@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petcab.work.payment.model.dao.PaymentDao;
-
+import com.petcab.work.payment.model.vo.Payment;
 
 import lombok.extern.java.Log;
 
@@ -29,6 +29,13 @@ public class PaymentServiceImpl implements PaymentService {
 	public int selectAmount() {
 		
 		return paymentDao.selectTodayPaymentAmount();
+	}
+
+
+	@Override
+	public int savePayInfo(Payment payment) {
+		
+		return paymentDao.insertPayInfo(payment);
 	}
 
 	
