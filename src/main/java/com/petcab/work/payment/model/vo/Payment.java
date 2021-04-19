@@ -35,4 +35,6 @@ public class Payment {
 	private String receiptUrl;
 	
 	private int userNo;
+	
+	private Date paymentDate;
 }
