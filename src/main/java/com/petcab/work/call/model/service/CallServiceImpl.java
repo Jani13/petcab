@@ -146,4 +146,16 @@ public class CallServiceImpl implements CallService {
 		return callDao.selectcallEndList(userId);
 	}
 
+	@Override
+	public List<Call> selectCallListForDriver() {
+		
+		return callDao.selectCallListForDriver();
+	}
+
+	@Override
+	public int updateCallByDriver(int callNo) {
+		
+		return callDao.updateCallByDriver(callNo);
+	}
+
 }
