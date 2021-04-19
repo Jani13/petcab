@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
@@ -73,7 +74,7 @@ public class AdminController {
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
 		
-		int memberCount = service.getMemberCount();
+		int memberCount = service.getMemberCount(null);
 		int todayVisitorCount = visitorService.getVisitorCount();
 		int amountAll = paymentService.selectAmount();
 		int allCall = callService.selectAllCall();
@@ -102,16 +103,27 @@ public class AdminController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ModelAndView infoMain(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit){
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit,
+			@RequestParam(required = false, defaultValue = "userNo")String searchType,
+			@RequestParam(required = false) String keyword){
 		
 		List<Member> memberList = null;
-		int memberCount = service.getMemberCount();
-		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
-			
-		memberList = service.selectAllMember(pageInfo);
+		int memberCount = service.getMemberCount(null);
+		Search search = new Search(page, 5, memberCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		memberCount = service.getMemberCount(search);
+		memberList = service.selectAllMember(search);
+		
+		search = new Search(page, 5, memberCount, listLimit);
 
 		log.info(memberList.toString());
-		
+		System.out.println("memberCount : " + memberCount);
+		System.out.println("searchType : " + searchType + ", keyword : " + keyword );
 		// 콜 차트 관련 내용 ---------------------------
 		int genCallList = callService.selectGenCall();
 		int emgCallList = callService.selectEmergCall();
@@ -135,35 +147,7 @@ public class AdminController {
 		model.addObject("emgCallList", emgCallList);		
 		model.addObject("callStr", callStr);
 		model.addObject("memberList", memberList);
-		model.addObject("pageInfo",pageInfo);
-		model.setViewName("admin/adminUserInfoMain");
-		
-		return model;
-	}
-	
-	@RequestMapping(value="/info/search", method = {RequestMethod.GET})
-	public ModelAndView infoMainSearch(
-			ModelAndView model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
-			@RequestParam(defaultValue = "userId") String searchOption,
-			@RequestParam(defaultValue = "") String keyword, 
-			HttpServletRequest request) {
-		
-		System.out.println(request.getParameter("searchOption"));
-		System.out.println("keyword : " + request.getParameter("keyword"));
-		
-		List<Member> memberList =null;
-		int memberCount = service.getMemberCount();
-		
-		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
-		
-		memberList = service.getSearchMember(pageInfo, searchOption, keyword);
-		
-		log.info(memberList.toString());
-		
-		model.addObject("memberList", memberList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminUserInfoMain");
 		
 		return model;

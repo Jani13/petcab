@@ -26,7 +26,7 @@ public class Review {
 	
 	private int starNo;
 	
-	private Date postDate;
+	private String postDate;
 	
 	private Date editDate;
 	
@@ -41,4 +41,5 @@ public class Review {
 	private String userId;
 	
 	private int sUserNo;
+
 }

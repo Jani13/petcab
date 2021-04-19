@@ -657,6 +657,8 @@ CREATE TABLE VISITOR (
 CREATE SEQUENCE SEQ_VISIT_ID;
 
 --------------------------------------------------------------------------------
+-- 4/18 일요일
+ALTER TABLE MEMBER MODIFY USER_ID VARCHAR2(100);   -- 카톡 로그인을 위해 아이디를 varchar2 100으로 늘려야함 만들어서 뿌려야함
 
 -- 아래 쿼리 실행해서 랭귀지가 KOREAN 이 아니면 그 다음 ALTER문 실행해주세요
 SELECT * FROM nls_session_parameters 

@@ -20,9 +20,9 @@ public class RReply {
 	
 	private String content;
 	
-	private Date postDate;
+	private String postDate;
 	
-	private Date editDate;
+	private String editDate;
 	
 	private String status;
 	

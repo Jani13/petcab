@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.dao.MemberDao;
 import com.petcab.work.user.model.vo.Member;
 
@@ -88,9 +89,9 @@ public class MemberServiceImpl implements MemberService {
 //	adminPage에서 사용
 	// 모든 멤버 카운터
 	@Override
-	public int getMemberCount() {
+	public int getMemberCount(Search search) {
 		
-		return memberDao.selectCount();
+		return memberDao.selectCount(search);
 	}
 
 	// 제휴업체검색에서 사용
@@ -101,11 +102,11 @@ public class MemberServiceImpl implements MemberService {
 
 	// adminPage 모든 멤버 조회 리스트	
 	@Override 
-	public List<Member> selectAllMember(PageInfo pageInfo) { 
-	    int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit(); RowBounds
-	    rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Member> selectAllMember(Search search) { 
+	    int offset = (search.getCurrentPage() -1) * search.getListLimit(); 
+	    RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 	  
-	    return memberDao.rNumSelectMemberAll(rowBounds); 
+	    return memberDao.rNumSelectMemberAll(rowBounds, search); 
 	}
 	 
 	@Override
@@ -140,6 +141,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int kakaoCheck(String email) {
+		// TODO Auto-generated method stub
+		return  memberDao.kakaoCheck(email);
+	}
+
+	@Override
+	public int kakaoInsert(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.kakaoInsert(email);
+	}
+
+	@Override
+	public Member kakaoLogin(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.kakaoLogin(email);
+	}
+	
 	public List<Member> getChartDateCount() {
 		
 		return memberDao.selectChartDateCount();
