@@ -48,6 +48,16 @@
 
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					AND USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'userName'">
+					AND USER_NAME LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 	
 	<select id="selectMemberAll" resultMap="memberResultMap">
@@ -169,6 +179,14 @@
                 ) M2
                 ON (M.USER_ID = M2.USER_ID) ORDER BY M.USER_NO
 		      )
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'userName' and keyword != null and keyword != ''">
+				AND USER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	
