@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,9 +75,9 @@ public class PaymentController {
 		 return "/call/book_gn_cancel";
 	 } 
  
-	 
+	
 	@RequestMapping(value = "call/payInfo", method= {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Payment payment) {
+	public ModelAndView enroll(ModelAndView model, @RequestBody Payment payment) {
 		
 		log.info(payment.toString());
 		
