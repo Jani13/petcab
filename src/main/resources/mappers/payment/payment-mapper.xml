@@ -73,7 +73,8 @@
   			#{pgTid},  			
   			#{paidAt},
   			#{receiptUrl},				
-  			#{userNo}
+  			#{userNo},
+  			SYSDATE
  		)
   	</insert>
 	

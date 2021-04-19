@@ -84,6 +84,7 @@ public class CallController {
 		return String.valueOf(result);
 	}
 
+
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book() {
@@ -160,8 +161,34 @@ public class CallController {
 			ModelAndView model
 			) {
 		
-		model.setViewName("call/book_gn_done");
+	//	model.setViewName("call/book_gn_done");
+		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
 
+		return model;
+	}
+	
+	// 결제했을때 넘어가는페이지 4/19(은주)
+	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
+	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			HttpServletRequest request,
+			@RequestParam(value="callNo", required=true) int callNo,
+			@ModelAttribute Call call,
+            RedirectAttributes redirectAttributes,			
+			ModelAndView model) {
+		
+		call = callService.selectCall(callNo);
+		int result = 0;
+		log.info(call.toString());
+
+		if(result > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+
+		model.addObject("call", call);
+		model.setViewName("call/book_gn_done");
+		
 		return model;
 	}
 

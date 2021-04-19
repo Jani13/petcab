@@ -217,7 +217,7 @@
 								<!-- <input type="hidden" name="dUserNo" value="1"> -->
 
 								<div class="pt-5 pb-3 pickup-heading">
-									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
+									<h1 class="text-center mb-3">가결제 및 예약신청이 완료되었습니다</h1>
 									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
 								</div>
 
