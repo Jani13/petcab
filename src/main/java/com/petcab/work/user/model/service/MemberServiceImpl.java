@@ -141,6 +141,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int kakaoCheck(String email) {
+		// TODO Auto-generated method stub
+		return  memberDao.kakaoCheck(email);
+	}
+
+	@Override
+	public int kakaoInsert(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.kakaoInsert(email);
+	}
+
+	@Override
+	public Member kakaoLogin(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.kakaoLogin(email);
+	}
+	
 	public List<Member> getChartDateCount() {
 		
 		return memberDao.selectChartDateCount();

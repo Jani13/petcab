@@ -17,12 +17,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.payment.model.vo.Payment;
@@ -48,27 +50,50 @@ public class PaymentController {
 		this.api = new IamportClient("1426572333225365","9ynAIUqQkHvRsKdQ7t3FPGfTZrGXh6XrFl2nfsdA9IsCsFtA8wgYdwRcYx9fE7GjsIGHbUilCKX5qrGy");
 	}
 		@ResponseBody
-		@RequestMapping(value="/call/gn_pay/{imp_uid}")
+		@RequestMapping(value="/call/gn_pay/{imp_uid}", method = {RequestMethod.POST})
 		public IamportResponse<com.siot.IamportRestClient.response.Payment> paymentByImpUid(
-				Model model
-				, Locale locale
-				, HttpSession session
-				, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
-		{	
+				Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+			System.out.println("amount");
 				return api.paymentByImpUid(imp_uid);
 		}
 		
 	 @RequestMapping(value={"/call/gn_pay"}, method = {RequestMethod.GET})
 	 public String book_gn_payview() {
 	      log.info("결제 요청페이지");
+	      System.out.println("결제하러 왔어:");
 	      return "/call/book_gn_pay";
 	   } 
-	 @RequestMapping(value={"/call/book/cancel"}, method = {RequestMethod.GET})
+	 @RequestMapping(value={"/call/confirm"}, method = {RequestMethod.GET})
 	 public String book_gn_doneview() {
 		 log.info("완료요청페이지");
-		 return "/call/book_gn_done";
+		 return "/call/book_gn_confirm";
 	 } 
-	
+	 @RequestMapping(value={"/call/book/cancel"}, method = {RequestMethod.GET})
+	 public String book_gn_view() {
+		 log.info("완료요청페이지");
+		 return "/call/book_gn_cancel";
+	 } 
+ 
+	 
+	@RequestMapping(value = "call/payInfo", method= {RequestMethod.POST})
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Payment payment) {
+		
+		log.info(payment.toString());
+		
+		int result = service.savePayInfo(payment);
+		
+		if(result > 0) {
+			model.addObject("msg", "결제 정보가 정상적으로 입력되었습니다.");
+			model.addObject("location", "/");
+		}else {
+			model.addObject("msg", "결제 정보 입력에 실패했습니다.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
 
 
 // 카카오페이 api만 사용했을때... 

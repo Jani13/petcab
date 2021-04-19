@@ -7,24 +7,28 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.dog.model.service.DogService;
+import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
@@ -39,26 +43,61 @@ public class CallController {
 	@Autowired
 	private CallService callService;
 	
+	@Autowired
+	private PartnerService partnerService;
+	
 //	@Autowired
 //	private DriverService driverService;
 
 	@Autowired
 	private DogService dogService;
 	
+	// 드라이버 예약보기
+	@RequestMapping(value = "/driver/confirm", method = RequestMethod.GET)
+	public ModelAndView bookDriver(
+			ModelAndView model) {		
+		
+		List<Call> calls = new ArrayList<>();
+		
+		// 신청 status 예약목록 불러오기
+		calls = callService.selectCallListForDriver();
+		
+		model.addObject("calls", calls);
+		
+		model.setViewName("call/book_driver_confirm");
+				
+		return model;
+	}
+	
+	@RequestMapping(value="/driver/confirm/select", method = {RequestMethod.POST})
+	public @ResponseBody String selectCallByDriver(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@RequestParam String callNo, @RequestParam String callType,
+			HttpServletRequest request) {
+						
+//		int callNo = call.getCallNo();
+		
+		System.out.println("callNo : " + callNo);
+		
+		int result = callService.updateCallByDriver(Integer.parseInt(callNo));
+				
+		return String.valueOf(result);
+	}
+
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book() {
-
 		return "call/book_gn";
 	}
 
 	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book", method = {RequestMethod.POST})
+	@RequestMapping(value = "/book/done", method = {RequestMethod.POST})
 	public ModelAndView book(
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@ModelAttribute Call call,
+            RedirectAttributes redirectAttributes,			
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
@@ -91,13 +130,40 @@ public class CallController {
 		} else {
 			// 실패
 		}
-
-		model.addObject("call", call);
-
-        model.setViewName("call/book_gn_done");
-
+		
+//		model.addObject("call", call);
+		
+//		model.addObject("callNo", call.getCallNo()); // 추가 시 쿼리스트링으로 callNo가 전달된다.
+	    				
+		String callNo = String.valueOf(call.getCallNo()); // 아래 컨트롤러에서 url 값으로 받는 것으로 보인다.
+								
+//        model.setViewName("call/book_gn_done");
+        
+		RedirectView redirectView = new RedirectView();
+		redirectAttributes.addFlashAttribute("call", call); // flash!
+//		redirectAttributes.addAttribute("call", call); // requestParam으로, String, primitives 타입에 한정된다.
+		
+		// 완료화면에서 예약취소 후 뒤로가기 버튼 누르지 못하게 disable 해야 ***************************************************
+		
+		redirectView.setUrl(callNo + "/done");
+		redirectView.setExposeModelAttributes(false);
+		
+//		model.setView(new RedirectView(callNo + "/done")); // redirect
+		model.setView(redirectView); // redirect
+		
 		return model;
 	}	
+	
+//	@MessageMapping("/book/{callNo}/done")
+	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
+	public ModelAndView bookRedirect(
+			ModelAndView model
+			) {
+		
+		model.setViewName("call/book_gn_done");
+
+		return model;
+	}
 
 	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
@@ -132,12 +198,24 @@ public class CallController {
 
 	// 긴급예약 신청 정보 입력 a
 	@RequestMapping(value = "/book/emg_a", method = RequestMethod.GET)
-	public String bookEmg() {
+	public ModelAndView bookEmg(ModelAndView model) {
+		List<Partner> shop = partnerService.getShopList();
+		List<Partner> hospital = partnerService.getHospitalList();
+		List<Partner> school = partnerService.getSchoolList();
 
-		return "call/book_em_a";
+		log.info(shop.toString());
+		log.info(hospital.toString());
+		log.info(school.toString());
+
+		model.addObject("shop", shop);
+		model.addObject("hospital", hospital);
+		model.addObject("school", school);
+		model.setViewName("call/book_em_a");
+		
+		return model;
 	}
 
-	@RequestMapping(value = "/book/emg_a", method = {RequestMethod.POST})
+	@RequestMapping(value = "/book/emg/done", method = {RequestMethod.POST})
 	public ModelAndView bookEmg(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request,

@@ -44,4 +44,10 @@ public interface PartnerDao {
 	List<Partner> selectpChartList();
 
 	List<Partner> selectpChartCount();
+
+	List<Partner> selectShop();
+
+	List<Partner> selectHospital();
+
+	List<Partner> selectpSchool();
 }

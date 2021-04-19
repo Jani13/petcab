@@ -40,6 +40,12 @@ public interface MemberService {
 	int getUserCount();
 
 	int updateMInfo(Member member);
+	
+	int kakaoCheck(String email);
+	
+	int kakaoInsert(String email);
+	
+	Member kakaoLogin(String email);
 
 	List<Member> getChartDateCount();
 

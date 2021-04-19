@@ -278,6 +278,48 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<select id="kakaoCheck" resultType="int">
+		SELECT COUNT(*) 
+		FROM MEMBER
+		WHERE USER_ID = #{email}
+	</select>
+	
+	<insert id="kakaoInsert" 
+		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+		 INSERT INTO MEMBER (
+		 	 USER_NO,
+		 	 USER_NAME,
+		 	 USER_ID,
+			 USER_PWD,
+			 POSTCODE,
+			 ADDRESS,
+			 PHONE,
+			 ENROLL_DATE,
+			 MODIFY_DATE,
+			 STATUS,
+			 USER_TYPE
+		 )
+		 VALUES(
+		     SEQ_USER_NO.NEXTVAL,
+		     '카카오회원',
+		     #{email},
+		     '0000',
+		     0000,
+		     'asd',
+		     'asd',
+		     SYSDATE,
+		     SYSDATE,		      	
+		     DEFAULT,
+		     DEFAULT
+		 )
+	</insert>
+	
+	<select id="kakaoLogin" resultMap="memberResultMap">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = #{email}
+	</select>
+	
 	<select id="selectChartDateCount" resultType="hashmap">
 		SELECT TO_CHAR(ENROLL_DATE,'YYYY/MM/DD') ENROLLDATE, COUNT(*) COUNT
 		FROM MEMBER

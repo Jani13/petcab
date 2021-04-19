@@ -129,8 +129,8 @@
 						 <br> <input type="text"
 						class="form-controll" id="replyContent${vs.index}"
 						readonly="readonly" style="border:0; width: 300px;" value="${rReply.content}"></td>
-					<td id="nodii""><c:if
-							test="${!empty loginMember && loginMember.userNo == rReply.userNo}">
+					<td id="nodii">
+					<c:if test="${!empty loginMember && loginMember.userNo == rReply.userNo}">
 							<input type="hidden" name="" id="replyNo${vs.index}"
 								value="${rReply.replyNo}">
 							<div style="text-align: center; padding: 17px;">

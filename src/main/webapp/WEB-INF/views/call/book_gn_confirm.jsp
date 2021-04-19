@@ -20,12 +20,18 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${path}/css/call.css">
-<link rel="stylesheet" href="${path}/css/headerfooter.css">
+
 <script src="${path}/js/jquery-3.5.1.js"></script>
-<script src="${path}/js/headerfooter.js"></script>
+<link rel="stylesheet" href="${path}/css/headerfooter.css" />
+<link rel="stylesheet" href="${path }/css/call.css" />
 
 <title>콜예약</title>
+<!-- jQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -99,9 +105,9 @@
 							class="btn btn-primary btn-lg btn-block disabled">예약완료</button>
 					</div>
 				</div>
-
+				
 				<!--  -->
-
+				<form action="${path}/call/confirm" method="post">
 				<div class="col-md">
 					<div class="">
 						<div class="pt-5 pb-3 pickup-heading">
@@ -231,7 +237,8 @@
 								type="button">예약취소</button>
 						</div>
 					</div>
-				</div>
+				  </div>
+				</form>
 			</div>
 	</section>
 
@@ -251,5 +258,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
-
 </html>

@@ -657,5 +657,20 @@ CREATE TABLE VISITOR (
 CREATE SEQUENCE SEQ_VISIT_ID;
 
 --------------------------------------------------------------------------------
+-- 4/18 일요일
+ALTER TABLE MEMBER ADD USER_ID VARCHAR2(100);   -- 카톡 로그인을 위해 아이디를 varchar2 100으로 늘려야함 만들어서 뿌려야함
 
+-- 아래 쿼리 실행해서 랭귀지가 KOREAN 이 아니면 그 다음 ALTER문 실행해주세요
+SELECT * FROM nls_session_parameters 
+WHERE PARAMETER LIKE '%DATE%' OR PARAMETER LIKE '%LANG%'; 
 
+-- 세팅이 디폴트로 KOREAN 이 아닌 경우에만 실행
+ALTER SESSION SET NLS_LANGUAGE = 'KOREAN';
+ALTER SESSION SET NLS_DATE_LANGUAGE = 'KOREAN';
+
+-- 정일님 세팅과 동일하게 만드는 법 (아래 쿼리 정정 필요)
+-- ALTER SESSION SET NLS_DATE_FORMAT='DD/MM/RR HH24:MI:SS';
+
+ALTER TABLE GEN_CALL MODIFY STATUS DEFAULT '신청';
+
+--------------------------------------------------------------------------------

@@ -10,41 +10,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Payment {
-	private String merchatuid;
-	
-	private String pg;
-	
-	private String payMethod;
-	
-	private String name;
-	
-	private int amount;
+	private String merchantUid;
 	
 	private String impUid;
 	
+	private String name;
+
+	private String buyerName;
+	
 	private int paidAmount;
-	
+
 	private String applyNum;
-	
-	private String success;
-	
+
 	private String status;
-	
+
+	private String payMethod;
+
 	private String pgProvider;
 	
 	private String pgTid;
 	
 	private int paidAt;
 	
-	private String receipUrl;
+	private String receiptUrl;
 	
-	private String vbankNum;
-	
-	private String vbankName;
-	
-	private String vbankHolder;
-	
-	private int vbankDate;
-	
-	private int paymentDate;
+	private int userNo;
 }

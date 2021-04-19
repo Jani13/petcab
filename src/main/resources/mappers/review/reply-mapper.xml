@@ -7,10 +7,11 @@
 		SELECT R2.REPLY_NO,
 		R2.GROUP_NO,
 		R2.CONTENT,
-		R2.POST_DATE,
+		TO_CHAR(R2.POST_DATE, 'YYYY/MM/DD hh24:mm:ss')as POST_DATE,
 		R2.STATUS,
 		M.USER_ID,
 		REVIEW_NO,
+		R2.USER_NO,
 		R2.USER_ID
 		FROM MEMBER M, REVIEW_REPLY R2
 		WHERE M.USER_NO= R2.USER_NO
@@ -30,12 +31,10 @@
 		<result property="userId" column="USER_ID" />
 	</resultMap>
 
-	<select id="replyList" parameterType="map"
-		resultMap="rReplyResultMap">
-		SELECT *
-		FROM REVIEW_REPLY
-		WHERE REVIEW_NO = #{listLimit} AND
-		STATUS = 'Y'
+	<select id="replyList" parameterType="map" resultMap="rReplyResultMap">
+		<include refid="ReplyListSql"></include>
+		AND REVIEW_NO = #{listLimit} AND
+		R2.STATUS = 'Y'
 	</select>
 
 	<insert id="insertRRely" parameterType="map"
@@ -59,9 +58,8 @@
 		DEFAULT,
 		DEFAULT,
 		#{content},
-		TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'),
-		TO_DATE(SYSDATE, 'YYYY-MM-DD
-		HH24:MI:SS'),
+		SYSDATE,
+		SYSDATE,
 		DEFAULT,
 		#{userNo},
 		#{reviewNo},
