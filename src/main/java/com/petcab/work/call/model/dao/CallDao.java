@@ -55,5 +55,5 @@ public interface CallDao {
 
 	List<Call> selectCallListForDriver();
 
-	int updateCallByDriver(int callNo);
+	int updateCallByDriver(@Param("dUserNo") int dUserNo, @Param("callNo") int callNo);
 }

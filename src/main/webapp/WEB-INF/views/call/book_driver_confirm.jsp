@@ -115,6 +115,8 @@
 			<div class="row row-call-3 bg-light">
 				<div class="row row-cols-1 row-cols-md-3 g-4"
 					style="margin-left: 0; margin-right: 0">
+					
+					<!-- <input type="hidden" name="dUserNo" value="${ loginMember.userNo }" /> -->
 
 					<c:forEach var="call" items="${ calls }">					
 						<div class="col">
@@ -239,11 +241,13 @@
 				
 		let callNo = $(e).siblings('input').val();
 		let callType = $(e).siblings('.callType').text();
+		let dUserNo = $('input[name=dUserNo]').val();
 		
 		console.log(callNo);
 		console.log(callType);
 		
 		let call = {
+			// 'dUserNo': dUserNo,
 			'callNo': callNo,
 			'callType': callType
 		};

@@ -7,14 +7,12 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,18 +68,24 @@ public class CallController {
 	}
 	
 	@RequestMapping(value="/driver/confirm/select", method = {RequestMethod.POST})
-	public @ResponseBody String selectCallByDriver(
+	public @ResponseBody int selectCallByDriver(
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
-			@RequestParam String callNo, @RequestParam String callType,
+			@RequestParam(name="callNo") String callNo, 
+			// @RequestParam(name="dUserNo") String dUserNo,
+			@RequestParam String callType,
 			HttpServletRequest request) {
 						
 //		int callNo = call.getCallNo();
 		
+ 		int dUserNo = loginMember.getUserNo();
+		
+		System.out.println("dUserNo : " + dUserNo);
+		
 		System.out.println("callNo : " + callNo);
 		
-		int result = callService.updateCallByDriver(Integer.parseInt(callNo));
+		int result = callService.updateCallByDriver(dUserNo, Integer.parseInt(callNo));
 				
-		return String.valueOf(result);
+		return result;
 	}
 
 	// 일반예약 신청 화면으로 이동

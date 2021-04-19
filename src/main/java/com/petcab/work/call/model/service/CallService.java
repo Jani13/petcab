@@ -2,6 +2,8 @@ package com.petcab.work.call.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.common.util.PageInfo;
@@ -22,7 +24,7 @@ public interface CallService {
 	
 	List<Call> selectCallListForDriver(); // 드라이버 예약선택
 	
-	int updateCallByDriver(int callNo);
+	int updateCallByDriver(@Param("dUserNo") int dUserNo, @Param("callNo") int callNo); // 드라이버넘버
 
 	List<Call> driverWaitCallList();
 

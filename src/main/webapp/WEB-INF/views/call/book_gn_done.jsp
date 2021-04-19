@@ -31,7 +31,48 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../common/nav.jsp" />
-
+	
+	<section>
+		<h3>Example</h3>
+		
+		<div id="main-content" class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-inline">
+					<div class="form-group">
+						<label for="connect">WebSocket connection:</label>
+						<a id="connect" href="#" class="btn btn-default">Connect</a>
+						<a id="disconnect" href="#" class="btn btn-default" disabled="disabled">Disconnect</a>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<form class="form-inline">
+					<div class="form-group">
+						<label for="name">What is your name?</label> <input type="text"
+							id="name" class="form-control" placeholder="Your name here...">
+					</div>
+					<a id="send" href="#" class="btn btn-default">Send</a>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table id="conversation" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Greetings</th>
+						</tr>
+					</thead>
+					<tbody id="greetings">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+		</section>
+	
 	<section class="section-wrap">
 		<div class="container mt-5 mb-5">
 			<div class="row row-call-1 text-center">
@@ -111,7 +152,6 @@
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
 								<input type="hidden" name="callType" value="긴급">
 								<input type="hidden" name="pUserNo" value="3">
-								<!-- <input type="hidden" name="dUserNo" value="1">-->
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
@@ -342,5 +382,12 @@
 		$('input[name=callType]').val('긴급');
 		window.location = "${path}/call/book/emg_a";
 	}
+	
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!-- <script src="${ pageContext.request.contextPath }/resources/app.js"></script> -->
+
+<script src="${path}/js/socket-book-done.js"></script>
+
 </html>
