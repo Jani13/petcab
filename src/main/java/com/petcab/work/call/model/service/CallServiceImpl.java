@@ -2,9 +2,11 @@ package com.petcab.work.call.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.call.model.vo.Call;
@@ -160,9 +162,11 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public int updateCallByDriver(int callNo) {
+	public int updateCallByDriver(@Param("dUserNo") int dUserNo, @Param("callNo") int callNo) {
 		
-		return callDao.updateCallByDriver(callNo);
+		System.out.println("serviceImpl ... dUserNo : " + dUserNo);
+		
+		return callDao.updateCallByDriver(dUserNo, callNo);
 	}
 
 	@Override

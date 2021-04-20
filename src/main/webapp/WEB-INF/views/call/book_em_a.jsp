@@ -318,8 +318,6 @@ function searchView() {
 	}
 	setTimeout(setBounds,500);
 }
-
-
 </script>
 </body>
 
@@ -383,7 +381,6 @@ function pickPartner(e,f){
 	document.getElementsByName('toWhere')[0].value = e;
 	document.getElementsByName('pUserNo')[0].value = f;
 }
-
 
 function selectStart() {
 	let url = '${path}/call/search?option=start';

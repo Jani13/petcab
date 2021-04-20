@@ -385,13 +385,14 @@
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->
-	<update id="updateCallByDriver" parameterType="_int">
+	<update id="updateCallByDriver" parameterType="map">		
 		UPDATE GEN_CALL
 		SET
-		STATUS='기사'
+		STATUS='기사',
+		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
-	
+		
 	<!-- 원석작업 -->
 	<select id="driverWaitCallList" resultMap="callResultMap">
 		SELECT

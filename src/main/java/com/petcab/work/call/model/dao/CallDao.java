@@ -58,12 +58,11 @@ public interface CallDao {
 
 	List<Call> selectCallListForDriver();
 
-	int updateCallByDriver(int callNo);
+	int updateCallByDriver(@Param("dUserNo") int dUserNo, @Param("callNo") int callNo);
 
 	int searchGenCallCount(Search search);
 
 	int searchEmgCallCount(Search search);
 
 	int searchCancelCount(Search search);
-
 }
