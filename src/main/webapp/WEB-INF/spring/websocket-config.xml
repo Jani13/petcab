@@ -11,25 +11,26 @@
 
 	<websocket:message-broker
 		application-destination-prefix="/work">
-		<websocket:stomp-endpoint path="/portfolio">
+		<websocket:stomp-endpoint path="/accept">
 			<websocket:sockjs />
 		</websocket:stomp-endpoint>
 		<!--<websocket:simple-broker prefix="/call" />-->
-		<websocket:simple-broker prefix="/topic, /queue" /> 
+		<websocket:simple-broker prefix="/call, /book" /> 
 		<!-- <websocket:stomp-broker-relay prefix="" /> -->
 	</websocket:message-broker>
 
 		<!-- <websocket:handlers> -->
-	    <websocket:handlers allowed-origins="http://localhost:8089/done">
-		<websocket:mapping path="/myHandler"
-			handler="myHandler" />
+	    <!-- <websocket:handlers allowed-origins="http://localhost:8089/accept"> -->
+	    <websocket:handlers allowed-origins="*">    
+		<websocket:mapping path="/callHandler"
+			handler="callHandler" />
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> 
 		</websocket:handshake-interceptors>
 		<websocket:sockjs />
 	</websocket:handlers>
 
-	<bean id="myHandler" class="com.petcab.work.common.handler.MyHandler" />
+	<bean id="callHandler" class="com.petcab.work.common.handler.CallHandler" />
 
 	<bean
 		class="org.springframework.web.socket.client.standard.WebSocketContainerFactoryBean">

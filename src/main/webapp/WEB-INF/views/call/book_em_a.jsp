@@ -51,7 +51,8 @@
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form id="emgCallForm" action="${ path }/call/book/emg/done" method="POST">
 							<input type="hidden" name="callType" value="긴급" />
-							<!-- <input type="hidden" name="pUserNo" value="3" /> -->
+							<input type="hidden" name="pUserNo" value="" />
+							<!-- 제휴업체의 userNo가 위의 input 태그 value로 들어가야한다. -->
 						
 							<div id="bookEmgA">
 								<div class="pt-5 pb-3 pickup-heading">
@@ -380,6 +381,8 @@ document.getElementById('emgCallForm').onsubmit = function () {
 function pickPartner(e){
 	console.log(e);
 	document.getElementsByName('toWhere')[0].value = e;
+	
+	//
 }
 
 function selectStart() {

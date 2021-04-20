@@ -115,12 +115,13 @@
 			<div class="row row-call-3 bg-light">
 				<div class="row row-cols-1 row-cols-md-3 g-4"
 					style="margin-left: 0; margin-right: 0">
-					
-					<!-- <input type="hidden" name="dUserNo" value="${ loginMember.userNo }" /> -->
 
-					<c:forEach var="call" items="${ calls }">					
+					<input type="hidden" name="callNo" value="" />
+					<input type="hidden" name="dUserNo" value="${ loginMember.userNo }" />
+
+					<c:forEach var="call" items="${ calls }">
 						<div class="col">
-							
+
 							<div class="card h-100 border-info">
 								<div class="card-header">${ call.pickupTime }</div>
 								<div class="card-body">
@@ -129,7 +130,8 @@
 									<div class="row row-cols-2">
 										<p class="card-text col-8 callType">${ call.callType }</p>
 										<p class="card-text col-8">${ call.toDriver }</p>
-										<input type="hidden" name="${ call.callNo }" value="${ call.callNo }" />
+										<input type="hidden" name="${ call.callNo }"
+											value="${ call.callNo }" />
 										<button type="button" class="btn btn-outline-primary col-3"
 											onclick="selectCallByDriver(this);">선택</button>
 									</div>
@@ -235,45 +237,79 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!--<script src="${path}/js/book_driver_confirm.js"></script>-->
 <script>
-	function selectCallByDriver(e) {
-		// 예약상태를 '기사'로 바꿈
-				
-		let callNo = $(e).siblings('input').val();
-		let callType = $(e).siblings('.callType').text();
-		let dUserNo = $('input[name=dUserNo]').val();
-		
-		console.log(callNo);
-		console.log(callType);
-		
-		let call = {
-			// 'dUserNo': dUserNo,
-			'callNo': callNo,
-			'callType': callType
-		};
+$(function () {
+	var socket = new SockJS("/work/accept");
+	stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+    console.log('Connected: ' + frame);
+//        stompClient.subscribe('/work/call/book/{callNo}/done', function (/*greeting*/) {
+//            // showGreeting(JSON.parse(greeting.body).content);
+//           
+//            console.log('where am I?')
+    });
+});
+    
+// function sendDriverDetail(e) {
+// 	let data = {
+// 			'callNo': $(e).siblings('input').val(),
+// 			'userNo': $('input[name=dUserNo]').val()
+// 	};
+// 	
+// 	console.log(data);
+// 	
+// 	stompClient.send("/work/notify", {}, JSON.stringify(data));
+    // 여기서 드라이버 넘버도 같이 보내야될듯
+// }
+    
+function selectCallByDriver(e) {
+    // 예약상태를 '기사'로 바꿈
+                    
+    let callNo = $(e).siblings('input').val();
+    let dUserNo = $('input[name=dUserNo]').val();
+    
+    $('input[name=callNo]').val(callNo);
+    
+    console.log(dUserNo);
+    console.log(callNo);
+    
+    let data = {
+        'dUserNo': dUserNo,
+        'callNo': callNo
+    };
 
-		$.ajax({
-			url : 'confirm/select',
-			dataType : 'json',
-			// contentType : "application/json; charset=UTF-8",
-			type : 'post',
-			data : call,
-			// async : false,
-			// cache : false,
-			// processData : false,
-			success : function(result) {
+    $.ajax({
+        url : 'confirm/select',
+        dataType : 'json',
+        // contentType : "application/json; charset=UTF-8",
+        type : 'post',
+        data : data,
+        // async : false,
+        // cache : false,
+        // processData : false,
+        success : function(result) {
 
-				console.log("result : " + result);
+            console.log("result : " + result);
+            
+            console.log("callNo in success function  : " + callNo);
+            
+         	stompClient.send("/work/notify", {}, JSON.stringify(data)); // send() 메소드 실행
+            
+            alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
+        },
+        error : function(e) {
 
-                alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
-			},
-			error : function(e) {
+            console.log(e);
 
-				console.log(e);
-
-				alert('에러가 발생해습니다. 다시 시도해주세요!');
-			}
-		});
-	}
+            alert('에러가 발생해습니다. 다시 시도해주세요!');
+        }
+    });
+}
 </script>
 </html>

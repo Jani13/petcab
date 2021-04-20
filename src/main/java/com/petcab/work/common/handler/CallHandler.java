@@ -7,18 +7,19 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class MyHandler extends TextWebSocketHandler {
+public class CallHandler extends TextWebSocketHandler {
 	
-	private static Logger logger = LoggerFactory.getLogger(MyHandler.class);
+	private static Logger logger = LoggerFactory.getLogger(CallHandler.class);
 
 	/*@Override
 	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
 		// TODO Auto-generated method stub
 		super.handleBinaryMessage(session, message);
 	}*/
+	
 	@Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	logger.info(message.toString());
-    	
+    	    	
     }
 }

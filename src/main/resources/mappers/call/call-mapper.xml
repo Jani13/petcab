@@ -349,7 +349,7 @@
 		#{callNo},
 		#{toPartner},
 		NULL,
-		3
+		#{pUserNo}
 		)
 		<foreach collection="dogs" index="index" item="dog">
 			INTO CALL_DOG (
