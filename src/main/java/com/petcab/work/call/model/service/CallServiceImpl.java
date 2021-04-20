@@ -73,6 +73,12 @@ public class CallServiceImpl implements CallService {
 		
 		return callDao.selectEmergCall();
 	}
+	
+	@Override
+	public int selectEmerCall(int callNo) {
+		
+		return callDao.selectEmerCall(callNo);
+	}
 
 	@Override
 	public int selectCancelledCall() {

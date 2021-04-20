@@ -189,6 +189,12 @@
 		<include refid="selectCallSql"></include>
 		WHERE G.CALL_NO = #{callNo}
 	</select>
+	
+	<select id="selectEmerCall" parameterType="_int"
+		resultMap="callResultMap">
+		<include refid="selectEmgCallSql"></include>
+		WHERE E.CALL_NO = #{callNo}
+	</select>
 
 	<resultMap type="EmgCall" id="emgCallResultMap">
 		<id property="callNo" column="CALL_NO" />
@@ -349,7 +355,7 @@
 		#{callNo},
 		#{toPartner},
 		NULL,
-		3
+		#{pUserNo}
 		)
 		<foreach collection="dogs" index="index" item="dog">
 			INTO CALL_DOG (

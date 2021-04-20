@@ -44,5 +44,7 @@ public class EmgCall {
 	private String merchantUid;
 
 	private Driver driver;
+	
+	private int pUserNo;
 
 }

@@ -18,15 +18,14 @@
 			   PG_TID,
 			   PAID_AT,
 			   RECEIPT_URL,
-			   USER_NO ,			
+			   USER_NO 			
 		FROM PAYMENT
 	</sql>
 	
 	<resultMap type="Payment" id="PaymentResultMap">
 	
-		<id property="userNo" column="USER_NO"/>
+		<id property="merchatUid" column="MERCHANT_UID"/>
 		
-		<result property="merchatUid" column="MERCHANT_UID"/>
 		<result property="impUid" column="IMP_UID" />
 		<result property="name" column="NAME" />
 		<result property="buyerName" column="BUYER_NAME" />
@@ -38,6 +37,7 @@
 		<result property="pgTid" column="PG_TID" />
 		<result property="paidAt" column="PAID_AT" />
 		<result property="receipUrl" column="RECEIPT_URL" />
+		<result property="userNo" column="USER_NO" />
 	</resultMap>
 
 	<select id="selectPaymentCount" resultType="_int">
@@ -57,7 +57,7 @@
 	</select>
 	
 	<insert id="insertPayInfo" parameterType="map"
-  		useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+  		useGeneratedKeys="true" keyProperty="merchantUid" keyColumn="MERCHANT_UID">
   		
   		INSERT INTO PAYMENT 
   		VALUES(  			
@@ -72,8 +72,9 @@
   			#{pgProvider},			
   			#{pgTid},  			
   			#{paidAt},
-  			#{receiptUrl} 				
+  			#{receiptUrl},				
   			#{userNo},
+  			SYSDATE
  		)
   	</insert>
 	

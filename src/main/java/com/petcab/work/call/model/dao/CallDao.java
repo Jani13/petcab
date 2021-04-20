@@ -30,6 +30,8 @@ public interface CallDao {
 	int selectGenCall();
 
 	int selectEmergCall();
+	
+	int selectEmerCall(int callNo);
 
 	int selectCancelledCall();
 
