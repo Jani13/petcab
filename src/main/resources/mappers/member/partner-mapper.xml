@@ -124,6 +124,16 @@
 	
 	<select id="selectPartnerCount" resultType="_int">
 		SELECT COUNT(*) FROM PARTNER
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'partnerName'">
+					AND PARTNER_NAME LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'partnerType'">
+					AND PARTNER_TYPE LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 
 	<select id="selectAllPartners" parameterType="_int" resultMap="PartnerResultMap">
@@ -131,6 +141,7 @@
 			   USER_NO,
 			   USER_ID,
 			   PARTNER_NAME,
+			   PARTNER_TYPE,
 			   PHONE,
 			   ADDRESS,
 		   	   OPEN_TIME,
@@ -142,6 +153,7 @@
 				SELECT P.USER_NO,
 					   M.USER_ID,
 					   P.PARTNER_NAME,
+					   P.PARTNER_TYPE,
 					   P.PHONE,
 					   M.ADDRESS,
 					   P.OPEN_TIME,
@@ -152,6 +164,14 @@
 				FROM PARTNER P
 				JOIN MEMBER M ON (P.USER_NO = M.USER_NO)
 		)
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'partnerName' and keyword != null and keyword != ''">
+				AND PARTNER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'partType' and keyword != null and keyword != ''">
+				AND PARTNER_TYPE LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	

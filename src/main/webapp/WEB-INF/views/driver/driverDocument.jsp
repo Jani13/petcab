@@ -72,6 +72,7 @@
 	              <input
 	                type="text"
 	                name="carType"
+	                id="carType"
 	                class="information__input"
 	                placeholder="차종을 입력해주세요(K3,아반떼,소나타)"
 	              />
@@ -81,10 +82,14 @@
 	              <input
 	                type="text"
 	                name="carNo"
+	                id="carNo"
 	                class="information__input"
 	                placeholder="OOO가 OOOO형태로 입력해주세요."
 	              />
 	            </div>
+                <button type="button" id="carNoCheckBtn" class="btn btn-info" style="width: 300px; margin-left: 200px">
+                	차량번호확인
+                </button>
 	            <div>
 	              <h5 class="information__title">자기<br>소개</h5>
 	              <textarea name="about" id="" cols="28" rows="10"></textarea>
@@ -93,7 +98,7 @@
 	              <h5 class="information__title">프로필사진</h5>
 	              <input type="file" name="upfile" class="information__input file" />
 	            </div>
-	            <button type="submit" class="information_btn">제출하기</button>
+	            <button type="submit" id="infoBtn" class="information_btn">제출하기</button>
 	       		<input type="hidden" name="userNo"
 	        	value="${loginMember.userNo}" readonly>
 	          </form>
@@ -127,8 +132,9 @@
 	              <input
 	                type="text"
 	                name="carType"
-	                class="information__input"
-	                placeholder="${driver.carType }"
+	                id="carType"
+	                class="information__input carType"
+	                placeholder="${driver.carType}"
 	              />
 	            </div>
 	            <div>
@@ -136,7 +142,8 @@
 	              <input
 	                type="text"
 	                name="carNo"
-	                class="information__input"
+	                id="carNo"
+	                class="information__input carNo"
 	                placeholder="${driver.carNo }"
 	              />
 	            </div>
@@ -157,5 +164,55 @@
       </div>
     </section>
   <jsp:include page="../common/footer.jsp" />
+  
+  <script>
+  	$(document).ready(() => {
+  		
+  		$("#infoBtn").on("click", () => {
+  			var carType = $("#carType").val();
+  			var carNo = $("#carNo").val();
+  			
+  			if(carType.length == 0) {
+  				alert("차종을 입력해 주세요");
+	        	$("#carType").focus();
+	        	
+	        	return false;
+  			}
+  			
+  			if(carNo.length == 0) {
+  				alert("차량번호 입력 후 중복체크를 해주세요");
+	        	$("#carNo").focus();
+	        	
+	        	return false;
+  			}
+  		});
+  		
+  		$("#carNoCheckBtn").on("click", () => {
+	    	  let carNo = $("#carNo").val().trim();
+	    	  
+	          $.ajax({
+	        	  type: "get",
+	        	  url: "${path}/driver/carNoCheck",
+	        	  dataType: "json",
+	        	  data: {
+	        		  carNo
+	        	  },
+	        	  success: function(data) {
+	        		  console.log(data);
+	        		  
+	        		  if(data.carNoCheck !== true) {
+	        			  alert("차량 번호 중복 체크가 완료되었습니다.")
+	        		  } else {
+	        			  alert("이미 등록된 차량번호 입니다.")     			  
+	        		  }
+	        	  },
+	        	  
+	        	  error: function(e) {
+	        		  console.log(e);
+	        	  }
+	       	  });
+	       });
+  	});
+  </script>
   </body>
 </html>

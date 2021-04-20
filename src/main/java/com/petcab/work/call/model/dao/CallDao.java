@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
+import com.petcab.work.common.util.Search;
 
 @Mapper
 public interface CallDao {
@@ -42,13 +43,13 @@ public interface CallDao {
 
 	List<Call> eCallList(int userNo);
 
-	List<Call> selectGenCallList(RowBounds rowBounds);
+	List<Call> selectGenCallList(RowBounds rowBounds, Search search);
 	
 	EmgCall selectEmgCallWithNoDogs(int callNo);
 
-	List<Call> selectEmgCallList(RowBounds rowBounds);
+	List<Call> selectEmgCallList(RowBounds rowBounds, Search search);
 
-	List<Call> selectCancelCallList(RowBounds rowBounds);
+	List<Call> selectCancelCallList(RowBounds rowBounds, Search search);
 	
 	// 리뷰에서 종료된 예약 띄우기
 	List<Call> selectcallEndList(String userId);
@@ -56,4 +57,11 @@ public interface CallDao {
 	List<Call> selectCallListForDriver();
 
 	int updateCallByDriver(int callNo);
+
+	int searchGenCallCount(Search search);
+
+	int searchEmgCallCount(Search search);
+
+	int searchCancelCount(Search search);
+
 }

@@ -36,9 +36,9 @@ public interface MemberDao {
 
 	int applyPartner(int userNo);
 	
-	List<Member> selectAllUsers(RowBounds rowBounds);
+	List<Member> selectAllUsers(RowBounds rowBounds, Search search);
 
-	int selectUserCount();
+	int selectUserCount(Search search);
 
 	int updateMInfo(Member member);
 	
@@ -51,9 +51,5 @@ public interface MemberDao {
 	/*카카오 회원 가입 및 로그인 끝 =============================*/ 
 
 	List<Member> selectChartDateCount();
-
-	List<Member> searchMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
-
-//	List<Member> rNumSelectMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
 
 }

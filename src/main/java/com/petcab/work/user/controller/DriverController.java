@@ -5,17 +5,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -211,5 +215,18 @@ public class DriverController {
 		if(file.exists()) {
 			file.delete();
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/carNoCheck")
+	public Object carNoCheck(@RequestParam("carNo")String carNo) {
+		
+		log.info("carNo : {}", carNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("carNoCheck", service.carNoCheck(carNo));
+		
+		return map;
 	}
 }

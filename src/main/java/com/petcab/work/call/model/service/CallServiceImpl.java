@@ -10,6 +10,7 @@ import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -110,11 +111,11 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> selectGenCallList(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Call> selectGenCallList(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return callDao.selectGenCallList(rowBounds);
+		return callDao.selectGenCallList(rowBounds, search);
 	}
 	
 	@Override
@@ -124,19 +125,19 @@ public class CallServiceImpl implements CallService {
 	}
 
 	@Override
-	public List<Call> selectEmgCallList(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Call> selectEmgCallList(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return callDao.selectEmgCallList(rowBounds);
+		return callDao.selectEmgCallList(rowBounds, search);
 	}
 
 	@Override
-	public List<Call> getCancelCallList(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Call> getCancelCallList(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return callDao.selectCancelCallList(rowBounds);
+		return callDao.selectCancelCallList(rowBounds, search);
 	}
 	
 	// 리뷰에서 종료된 예약 띄우기
@@ -156,6 +157,24 @@ public class CallServiceImpl implements CallService {
 	public int updateCallByDriver(int callNo) {
 		
 		return callDao.updateCallByDriver(callNo);
+	}
+
+	@Override
+	public int searchGenCallCount(Search search) {
+		
+		return callDao.searchGenCallCount(search);
+	}
+
+	@Override
+	public int searchEmgCallCount(Search search) {
+		
+		return callDao.searchEmgCallCount(search);
+	}
+
+	@Override
+	public int searchCancelCount(Search search) {
+		
+		return callDao.searchCancelCount(search);
 	}
 
 }

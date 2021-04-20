@@ -5,6 +5,7 @@ import java.util.List;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 
 public interface CallService {
 	
@@ -44,13 +45,19 @@ public interface CallService {
 
 	List<Call> eCallList(int userNo);
 
-	List<Call> selectGenCallList(PageInfo pageInfo);
+	List<Call> selectGenCallList(Search search);
 
-	List<Call> selectEmgCallList(PageInfo pageInfo);
+	List<Call> selectEmgCallList(Search search);
 
-	List<Call> getCancelCallList(PageInfo pageInfo);
+	List<Call> getCancelCallList(Search search);
 	
 	// 리뷰에서 종료된 예약 띄우기
 	List<Call> callEndList(String userId);
+
+	int searchGenCallCount(Search search);
+
+	int searchEmgCallCount(Search search);
+
+	int searchCancelCount(Search search);
 
 }

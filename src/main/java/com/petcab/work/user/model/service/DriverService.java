@@ -3,6 +3,7 @@ package com.petcab.work.user.model.service;
 import java.util.List;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 
@@ -16,9 +17,9 @@ public interface DriverService {
 
 	List<Driver> selectWaitDrivers();
 
-	int getDriverCount();
+	int getDriverCount(Search search);
 
-	List<Driver> rNumSelectDrivers(PageInfo pageInfo);
+	List<Driver> rNumSelectDrivers(Search search);
 
 	int getRejectDriverCount();
 
@@ -27,5 +28,8 @@ public interface DriverService {
 	int applyDriver(int userNo);
 
 	int updateDriver(Driver driver);
-
+	
+	Driver findCarNo(String carNo);
+	
+	boolean carNoCheck(String carNo);
 }
