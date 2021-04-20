@@ -20,10 +20,9 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${path}/css/call.css">
-<link rel="stylesheet" href="${path}/css/headerfooter.css">
 <script src="${path}/js/jquery-3.5.1.js"></script>
-<script src="${path}/js/headerfooter.js"></script>
+<link rel="stylesheet" href="${path}/css/headerfooter.css" />
+<link rel="stylesheet" href="${path }/css/call.css" />
 
 <title>콜예약</title>
 </head>

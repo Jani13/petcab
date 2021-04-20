@@ -167,7 +167,7 @@ public class CallController {
 		return model;
 	}
 	
-	// 결제했을때 넘어가는페이지 4/19(은주)
+	// 일반콜 결제했을때 넘어가는페이지 4/19(은주)
 	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
 	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request,
@@ -246,13 +246,14 @@ public class CallController {
 	public ModelAndView bookEmg(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request,
+			@RequestParam(name="pUserNo", required=false) String pUserNo,
 			@ModelAttribute Partner partner,
 			@ModelAttribute EmgCall emgCall,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
-		
+			System.out.println("???????????????????????????????"+pUserNo);
 		log.info(dogNos.toString());
 		List<Dog> dogs = new ArrayList<>();
 		
@@ -292,6 +293,32 @@ public class CallController {
 
 		return model;
 	}	
+	
+	// 긴급콜 결제했을때 넘어가는페이지 4/20(은주)
+	@RequestMapping(value = "/book/emg_done", method = RequestMethod.GET)
+	public ModelAndView emg_done(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			HttpServletRequest request,
+			@RequestParam(name="pUserNo", required=false) String pUserNo,
+			@ModelAttribute Partner partner,
+			@ModelAttribute EmgCall emgCall,
+			@RequestParam(value="callNo", required=true) int callNo,
+			ModelAndView model) {
+		
+		int result = 0;
+		int resultE = callService.selectEmerCall(callNo);
+		log.info(emgCall.toString());
+
+		if(result > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+
+		model.addObject("emgCall", emgCall);
+		model.setViewName("call/book_gn_done");
+		
+		return model;
+	}
 
 	// 긴급예약 취소
 	@RequestMapping(value = "/book/emg/cancel", method = {RequestMethod.POST})

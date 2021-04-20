@@ -243,7 +243,8 @@
 	</select>
 	
 	<select id="selectShop" resultMap="PartnerResultMap">
-		SELECT 
+		SELECT
+			p.USER_NO, 
 			P.PARTNER_NAME,
 			P.PARTNER_TYPE,
 			M.ADDRESS
@@ -254,6 +255,7 @@
 	</select>
 	<select id="selectHospital" resultMap="PartnerResultMap">
 		SELECT 
+			p.USER_NO, 			
 			P.PARTNER_NAME,
 			P.PARTNER_TYPE,
 			M.ADDRESS
@@ -263,7 +265,8 @@
 		AND PARTNER_TYPE = '병원'
 	</select>
 	<select id="selectpSchool" resultMap="PartnerResultMap">
-		SELECT 
+		SELECT
+			p.USER_NO, 		 
 			P.PARTNER_NAME,
 			P.PARTNER_TYPE,
 			M.ADDRESS
