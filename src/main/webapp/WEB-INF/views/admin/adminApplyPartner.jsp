@@ -106,7 +106,7 @@
 		                  <td>${partner.partnerName }</td>
 		                  <td>${partner.partnerType }</td>
 		                  <td>${partner.member.phone }</td>
-		                  <td>${partner.openTime }</td>
+		                  <td>${partner.member.address}</td>
 		                  <td>
 		                    <button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/partner/grant?userNo=${partner.userNo}'">승인</button>

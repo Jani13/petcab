@@ -5,6 +5,7 @@ package com.petcab.work.user.model.service;
 import java.util.List;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.vo.Member;
 
 public interface MemberService {
@@ -24,26 +25,28 @@ public interface MemberService {
 
 	int updatePwd(Member member);
 
-	int getMemberCount();
+	int getMemberCount(Search search);
 
 	List<Member> selectMemberAddr();
 
-	List<Member> selectAllMember(PageInfo pageInfo);
+	List<Member> selectAllMember(Search search);
 
 	int applyDriver(int userNo);
 
 	int applyPartner(int userNo);
 
-	List<Member> selectAllUsers(PageInfo pageInfo);
+	List<Member> selectAllUsers(Search search);
 
-	int getUserCount();
+	int getUserCount(Search search);
 
 	int updateMInfo(Member member);
+	
+	int kakaoCheck(String email);
+	
+	int kakaoInsert(String email);
+	
+	Member kakaoLogin(String email);
 
 	List<Member> getChartDateCount();
-
-	List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword);
-
-//	List<Member> selectAllMember(PageInfo pageInfo, String searchOption, String keyword);
 
 }

@@ -58,9 +58,15 @@
         } */
 
     </style>
-    <link rel="stylesheet" href="${path}/css/headerfooter.css" />
-    <script src="${path}/js/jquery-3.5.1.js"></script>
-    
+	<link rel="stylesheet" href="${path}/css/headerfooter.css" />
+	<script src="${path}/js/jquery-3.5.1.js"></script>
+	<!-- 카카오 로그인 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script type="text/javascript">
+		Kakao.init('bbb869a66a7f6d7cb05fcbed70f52803');
+		console.log(Kakao.isInitialized());
+	</script>
+
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -74,7 +80,7 @@
 
             <br><br>
 			
-			<form action="login" method="POST">
+			<form action="loginCheck" method="POST">
 	            <div class="row">
 	                <div class="col-lg-4"></div>
 	                <div class="col-lg-4">
@@ -109,15 +115,23 @@
             <div class="row" >
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4" style="display: flex; justify-content: center;">
-                    <table class="table table-striped" style="width: 150px; ">
+                    <table class="table table-striped" style="width: 150px;">
                         <tr>
-                            <th><a href="${naver_url}" target="_blank">
-                                <img src="${path}/images/login/Naver_Login_Green.PNG" width="150px" height="30px"></a>
+                            <th><a href="${naver_url}" target="_blank">  <!-- id="naverLogin" -->
+                            	<button type="button" id="naverLogin">
+                                <img src="${path}/images/login/Naver_Login_Green.PNG" 
+                                width="150px" height="30px">
+                                </button>
+                                </a>
                             </th>
                         </tr>
                         <tr>
-                            <th><a href="150px" target="_blank">
-                                <img src="${path}/images/login/kakao_login_large_narrow.png" width="150px" height="30px"></a></th>
+                        
+                            <th><a href="${kakaoUrl}">
+                            <button type="button" id="kakaoLogin">
+                                <img src="${path}/images/login/kakao_login_large_narrow.png" width="150px" height="30px">
+                             </button></a></th>
+                                
                         </tr>
                         <tr>
                             <th><a href="" target="_blank">

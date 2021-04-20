@@ -93,6 +93,8 @@
 				<c:choose>
 					<c:when test="${ emgCall != null }">
 						<form action="${path}/call/em_pay" method="post">
+						<input type="hidden" name="callNo" value="${ emgCall.callNo }">
+						<input type="hidden" name="callType" value="긴급">
 							<div class="col-md">
 								<div class="">
 									<div class="pt-5 pb-3 pickup-heading">
@@ -109,43 +111,62 @@
 										<tbody>
 											<tr>
 												<th scope="row">제휴업체</th>
-												<td>뷰티펫</td>
+												<td>${ emgCall.getPartner().getPartnerName() }</td>
 											</tr>
 											<tr>
 												<th scope="row">예약시간</th>
-												<td>YYYYMMDD HH:SS</td>
+												<td>${ emgCall.getPickupTime() }</td>
 											</tr>
 											<tr>
 												<th scope="row">요청사항</th>
-												<td>애견커트원해요</td>
+												<td>${ emgCall.getToPartner() }</td>
 											</tr>
 											<tr>
 												<th scope="row">출발지</th>
-												<td>신용산역 1번출구</td>
+												<td>${ emgCall.getFromWhere() }</td>
 											</tr>
 											<tr>
 												<th scope="row">도착지</th>
-												<td>홍대입구역 9번출구</td>
+												<td>${ emgCall.getToWhere() }</td>
 											</tr>
 											<tr>
 												<th scope="row">보호자 탑승 여부</th>
-												<td>YES</td>
+												<td>${ emgCall.getWithOwner() }</td>
 											</tr>
 											<tr>
 												<th scope="row">드라이버 성함</th>
-												<td>홍길동</td>
+												<c:choose>
+												<c:when test="${ emgCall.getDriver() == null }">
+													<td>매칭 대기</td>
+												</c:when>
+												<c:otherwise>
+													<td>${ emgCall.getDriver().getUserName() }</td>
+												</c:otherwise>
+											</c:choose>
 											</tr>
 											<tr>
 												<th scope="row">차량번호판</th>
-												<td>123가4567</td>
+												<c:choose>
+												<c:when test="${ emgCall.getDriver() == null }">
+													<td>매칭 대기</td>
+												</c:when>
+												<c:otherwise>
+													<td>${ emgCall.getDriver().getCarNo() }</td>
+												</c:otherwise>
+											</c:choose>
 											</tr>
 											<tr>
 												<th scope="row">드라이버 요청사항</th>
-												<td>조심히 와주세요</td>
+												<td>${ emgCall.getToDriver() }</td>
 											</tr>
 											<tr>
 												<th scope="row">애견</th>
-												<td>뭉뭉이</td>
+												<td><c:forEach var="dog" items="${ emgCall.getDogs() }">
+													<c:if test="${ dog.dogNo > 0}">
+														<c:out value="${ dog.dogName }" />
+														<br>
+													</c:if>
+												</c:forEach></td>
 											</tr>
 										</tbody>
 									</table>
@@ -169,9 +190,10 @@
 												</tbody>
 											</table>
 										</div>
-
+										<input type="hidden" id="userNo" value="${loginMember.userNo }">
+										<input type="hidden" id="buyerName" value="${loginMember.userId }">
 										<button class="btn btn-lg btn-outline-info btn-pay col"
-											id="requestPay2" type="button">결제하기</button>
+											id="api2" type="button">결제하기</button>
 									</div>
 								</div>
 							</div>
@@ -179,7 +201,9 @@
 					</c:when>
 
 					<c:otherwise>
-						<form action="${path}/call/gn_pay" method="post">
+						<form action="${path}/call/gn_done" method="post">
+						<input type="hidden" name="callNo" value="${ call.callNo }" />
+						<input type="hidden" name="callType" value="일반" />
 							<div class="col-md">
 								<div class="">
 									<div class="pt-5 pb-3 pickup-heading">
@@ -200,7 +224,7 @@
 	                                </tr> -->
 											<tr>
 												<th scope="row">예약시간</th>
-												<td>YYYYMMDD HH:SS</td>
+												<td>${ call.getPickupTime() }</td>
 											</tr>
 											<!-- <tr>
 	                                    <th scope="row">요청사항</th>
@@ -208,31 +232,50 @@
 	                                </tr> -->
 											<tr>
 												<th scope="row">출발지</th>
-												<td>신용산역 1번출구</td>
+												<td>${ call.getFromWhere() }</td>
 											</tr>
 											<tr>
 												<th scope="row">도착지</th>
-												<td>홍대입구역 9번출구</td>
+												<td>${ call.getToWhere() }</td>
 											</tr>
 											<tr>
 												<th scope="row">보호자 탑승 여부</th>
-												<td>YES</td>
+												<td>${ call.getWithOwner() }</td>
 											</tr>
 											<tr>
 												<th scope="row">드라이버 성함</th>
-												<td>홍길동</td>
+												<c:choose>
+												<c:when test="${ call.getDriver() == null }">
+													<td>매칭 대기</td>
+												</c:when>
+												<c:otherwise>
+													<td>${ call.getDriver().getUserName() }</td>
+												</c:otherwise>
+											</c:choose>
 											</tr>
 											<tr>
 												<th scope="row">차량번호판</th>
-												<td>123가4567</td>
+												<c:choose>
+												<c:when test="${ call.getDriver() == null }">
+													<td>매칭 대기</td>
+												</c:when>
+												<c:otherwise>
+													<td>${ call.getDriver().getCarNo() }</td>
+												</c:otherwise>
+												</c:choose>
 											</tr>
 											<tr>
 												<th scope="row">드라이버 요청사항</th>
-												<td>조심히 와주세요</td>
+												<td>${ call.getToDriver() }</td>
 											</tr>
 											<tr>
 												<th scope="row">애견</th>
-												<td>뭉뭉이</td>
+												<td><c:forEach var="dog" items="${ call.getDogs() }">
+													<c:if test="${ dog.dogNo > 0}">
+														<c:out value="${ dog.dogName }" />
+														<br>
+													</c:if>
+												</c:forEach></td>
 											</tr>
 										</tbody>
 									</table>
@@ -256,7 +299,8 @@
 												</tbody>
 											</table>
 										</div>
-
+										<input type="hidden" id="userNo" value="${loginMember.userNo }">
+										<input type="hidden" id="buyerName" value="${loginMember.userId }">
 										<button class="btn btn-lg btn-outline-info btn-cancel col"
 											id="api" type="button">결제하기</button>
 									</div>
@@ -297,7 +341,7 @@ $('#api').click(function () {
 
         name: 'PETCAB', // 결제창에서 보여질 이름
         amount: 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
-        buyer_name: '구매자',
+        buyer_name: '${loginMember.userId }',
         buyer_tel: '010-1234-5678',
         buyer_addr: '서울특별시 강남구 신사동',
         buyer_postcode: '123-456'
@@ -309,25 +353,98 @@ $('#api').click(function () {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
+          	
             $.ajax({
-                type: "GET", 
-                url: "${path}/call/gn_pay", 
-                data: {
-                	imp_uid : rsp.imp_uid
-                },
+                type: "POST", 
+                url: "${path}/call/payInfo", 
+                dataType: "json", 
+                contentType : "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                	merchantUid : rsp.merchant_uid,
+            		impUid : rsp.imp_uid,
+            		name : rsp.name,
+            		buyerName : rsp.buyer_name,
+            		paidAmount : rsp.paid_amount,
+            		applyNum : rsp.apply_num,
+            		status : rsp.status,
+            		payMethod : rsp.pay_method,
+            		pgProvider : rsp.pg_provider,
+            		pgTid : rsp.pg_tid,
+            		paidAt : rsp.paid_at,
+            		receiptUrl : rsp.receipt_url,         		
+            	    userNo : $('#userNo').val()
+                }),
             });
-           document.location.href="${path}/call/confirm"; //alert창 확인 후 이동할 url 설정
+           document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}"; //alert창 확인 후 이동할 url 설정
         } else {
-            var msg = '결제에 실패하였습니다. 켄슬로 다시 해주세요.';
+            var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
             //msg += '에러내용 : ' + rsp.error_msg;
-            document.location.href="${path}/call/book/cancel";   //alert창 확인 후 이동할 url 설정
+           document.location.href="${path}/call/book";   //alert창 확인 후 이동할 url 설정
         }
         alert(msg);
        // document.location.href="${path}/call/book/cancel"; //alert창 확인 후 이동할 url 설정
     });
 });
 </script> 
- 
+
+ <script>
+$('#api2').click(function () {
+    // getter
+    var IMP = window.IMP;
+    IMP.init('imp03179840');
+
+
+    IMP.request_pay({
+        pg:  "inicis", //pg사
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: 'PETCAB', // 결제창에서 보여질 이름
+        amount: 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
+        buyer_name: '${loginMember.userId }',
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '서울특별시 강남구 신사동',
+        buyer_postcode: '123-456'
+    }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+          	
+            $.ajax({
+                type: "POST", 
+                url: "${path}/call/payInfo", 
+                dataType: "json", 
+                contentType : "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                	merchantUid : rsp.merchant_uid,
+            		impUid : rsp.imp_uid,
+            		name : rsp.name,
+            		buyerName : rsp.buyer_name,
+            		paidAmount : rsp.paid_amount,
+            		applyNum : rsp.apply_num,
+            		status : rsp.status,
+            		payMethod : rsp.pay_method,
+            		pgProvider : rsp.pg_provider,
+            		pgTid : rsp.pg_tid,
+            		paidAt : rsp.paid_at,
+            		receiptUrl : rsp.receipt_url,         		
+            	    userNo : $('#userNo').val()
+                }),
+            });	
+           document.location.href="${ path }/call/book/gn_done?callNo=${emgCall.callNo}"; //alert창 확인 후 이동할 url 설정
+        } else {
+            var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
+            //msg += '에러내용 : ' + rsp.error_msg;
+           document.location.href="${path}/call/book";   //alert창 확인 후 이동할 url 설정
+        }
+        alert(msg);
+       // document.location.href="${path}/call/book/cancel"; //alert창 확인 후 이동할 url 설정
+    });
+});
+</script>  
 <!--  <script>
 $('#api').click(function () {
 	   // IMP.request_pay(param, callback) 호출

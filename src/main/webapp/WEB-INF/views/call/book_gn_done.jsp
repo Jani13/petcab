@@ -20,10 +20,9 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${path}/css/call.css">
-<link rel="stylesheet" href="${path}/css/headerfooter.css">
 <script src="${path}/js/jquery-3.5.1.js"></script>
-<script src="${path}/js/headerfooter.js"></script>
+<link rel="stylesheet" href="${path}/css/headerfooter.css" />
+<link rel="stylesheet" href="${path }/css/call.css" />
 
 <title>콜예약</title>
 </head>
@@ -257,7 +256,7 @@
 								<!-- <input type="hidden" name="dUserNo" value="1"> -->
 
 								<div class="pt-5 pb-3 pickup-heading">
-									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
+									<h1 class="text-center mb-3">가결제 및 예약신청이 완료되었습니다</h1>
 									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
 								</div>
 

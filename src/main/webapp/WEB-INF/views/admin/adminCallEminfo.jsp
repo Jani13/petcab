@@ -83,19 +83,18 @@
                       긴급콜 정보
                     </div>
                     <div class="card-body text-dark">
-                      <div
-                        class="d-flex justify-content-end"
-                        style="margin-bottom: 10px"
-                      >
-                        <form action="get">
-                          <select name="type">
-                            <option value="id">아이디</option>
-                            <option value="name">제휴업체</option>
-                            <option value="name">날짜</option>
-                          </select>
-                          <input type="text" />
-                          <input type="button" value="검색" />
-                        </form>
+                      <div class="d-flex mb-3 justify-content-end">
+	                      <div class="input-group " style="width: 110px">
+	                          <select class="form-select" name="searchType" id="searchType">
+	                            <option value="userId">id</option>
+	                            <option value="partName">업체이름</option>
+	                            <option value="dateAndTime">날짜</option>
+	                          </select>
+	                      </div>
+	                      <div class="input-group input-group-sm" style="width: 250px">
+	                          <input type="text" class="form-control" name="keyword" id="keyword" />
+	                          <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+	                      </div>
                       </div>
                       <table class="table table-striped">
                         <thead>
@@ -179,7 +178,7 @@
                           	</c:if>
                           	<c:if test="${status.current != pageInfo.currentPage}">
 	                          <li class="page-item">
-	                            <a class="page-link" href="${path}/admin/call/emergency?page=${status.current}"><c:out value="${status.current}"/></a>
+	                            <a class="page-link" href="${path}/admin/call/emergency?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}"><c:out value="${status.current}"/></a>
 	                          </li>
                           	</c:if>
                           </c:forEach>
@@ -218,5 +217,22 @@
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
     ></script>
+    
+    <!-- 검색기능 url만들어주는 부분 -->
+    <script>
+    	$(document).on('click', '#btnSearch', function(e){
+    		e.preventDefault();
+    		
+    		var url = "${path}/admin/call/emergency";
+    		
+    		url = url + "?searchType=" + $('#searchType').val();
+    		
+    		url = url + "&keyword=" + $('#keyword').val();
+    		
+    		location.href = url;
+    		
+    		console.log(url);
+    	});
+    </script>
   </body>
 </html>

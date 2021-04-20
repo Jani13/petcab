@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.vo.Member;
 
 @Mapper
@@ -25,26 +26,30 @@ public interface MemberDao {
 
 	int updatePwd(Member member);
 
-	int selectCount();
+	int selectCount(Search search);
 
 	List<Member> selectPartnerAddr();
 
-	List<Member> rNumSelectMemberAll(RowBounds rowBounds);
+	List<Member> rNumSelectMemberAll(RowBounds rowBounds, Search search);
 
 	int applyDriver(int userNo);
 
 	int applyPartner(int userNo);
 	
-	List<Member> selectAllUsers(RowBounds rowBounds);
+	List<Member> selectAllUsers(RowBounds rowBounds, Search search);
 
-	int selectUserCount();
+	int selectUserCount(Search search);
 
 	int updateMInfo(Member member);
+	
+	/*카카오 회원 가입 및 로그인 시작============================*/ 
+	int kakaoCheck(String email);
+	
+	int kakaoInsert(String email);
+	
+	Member kakaoLogin(String email);
+	/*카카오 회원 가입 및 로그인 끝 =============================*/ 
 
 	List<Member> selectChartDateCount();
-
-	List<Member> searchMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
-
-//	List<Member> rNumSelectMemberAll(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
 
 }

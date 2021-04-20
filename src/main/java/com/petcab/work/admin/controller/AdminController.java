@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
@@ -73,7 +74,7 @@ public class AdminController {
 	@RequestMapping(value = "/adminMain", method = {RequestMethod.GET})
 	public ModelAndView adminMainView(ModelAndView model) {
 		
-		int memberCount = service.getMemberCount();
+		int memberCount = service.getMemberCount(null);
 		int todayVisitorCount = visitorService.getVisitorCount();
 		int amountAll = paymentService.selectAmount();
 		int allCall = callService.selectAllCall();
@@ -102,15 +103,31 @@ public class AdminController {
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ModelAndView infoMain(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit){
+			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 		
 		List<Member> memberList = null;
-		int memberCount = service.getMemberCount();
-		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
-			
-		memberList = service.selectAllMember(pageInfo);
+		int memberCount = service.getMemberCount(null);
+		Search search = new Search(page, 5, memberCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		memberCount = service.getMemberCount(search);
+		memberList = service.selectAllMember(search);
+		
+		search = new Search(page, 5, memberCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 
 		log.info(memberList.toString());
+		log.info("123123"+search.toString());
 		
 		// 콜 차트 관련 내용 ---------------------------
 		int genCallList = callService.selectGenCall();
@@ -135,35 +152,7 @@ public class AdminController {
 		model.addObject("emgCallList", emgCallList);		
 		model.addObject("callStr", callStr);
 		model.addObject("memberList", memberList);
-		model.addObject("pageInfo",pageInfo);
-		model.setViewName("admin/adminUserInfoMain");
-		
-		return model;
-	}
-	
-	@RequestMapping(value="/info/search", method = {RequestMethod.GET})
-	public ModelAndView infoMainSearch(
-			ModelAndView model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
-			@RequestParam(defaultValue = "userId") String searchOption,
-			@RequestParam(defaultValue = "") String keyword, 
-			HttpServletRequest request) {
-		
-		System.out.println(request.getParameter("searchOption"));
-		System.out.println("keyword : " + request.getParameter("keyword"));
-		
-		List<Member> memberList =null;
-		int memberCount = service.getMemberCount();
-		
-		PageInfo pageInfo = new PageInfo(page, 5, memberCount, listLimit);
-		
-		memberList = service.getSearchMember(pageInfo, searchOption, keyword);
-		
-		log.info(memberList.toString());
-		
-		model.addObject("memberList", memberList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminUserInfoMain");
 		
 		return model;
@@ -172,18 +161,33 @@ public class AdminController {
 	@RequestMapping(value = "/info/driver", method = RequestMethod.GET)
 	public ModelAndView infoDriver(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 
 		List<Driver> driverList = null; 
-		int driverCount = driverService.getDriverCount();
-		PageInfo pageInfo = new PageInfo(page, 5, driverCount, listLimit);
+		int driverCount = driverService.getDriverCount(null);
+		Search search = new Search(page, 5, driverCount, listLimit);
 		  
-		driverList = driverService.rNumSelectDrivers(pageInfo);
+		driverList = driverService.rNumSelectDrivers(search);
 		
-		log.info(driverList.toString());
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		driverCount = driverService.getDriverCount(search);
+		driverList = driverService.rNumSelectDrivers(search);
+		
+		search = new Search(page, 5, driverCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		  
 		model.addObject("driverList", driverList);
-		model.addObject("pageInfo",pageInfo); 
+		model.addObject("pageInfo", search); 
 		model.setViewName("admin/adminUserInfoDriver");
 		 	
 		return model;
@@ -192,16 +196,33 @@ public class AdminController {
 	@RequestMapping(value = "/info/user", method = RequestMethod.GET)
 	public ModelAndView infoUser(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 		
 		List<Member> onlyUserList = null;
-		int onlyUserCount = service.getUserCount();
-		PageInfo pageInfo = new PageInfo(page, 5, onlyUserCount, listLimit);
+		int onlyUserCount = service.getUserCount(null);
+		Search search = new Search(page, 5, onlyUserCount, listLimit);
 		
-		onlyUserList = service.selectAllUsers(pageInfo);
+		onlyUserList = service.selectAllUsers(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		onlyUserCount = service.getUserCount(search);
+		onlyUserList = service.selectAllUsers(search);
+		
+		search = new Search(page, 5, onlyUserCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		
 		model.addObject("onlyUserList", onlyUserList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminUserInfoUser");
 		
 		return model;
@@ -210,18 +231,34 @@ public class AdminController {
 	@RequestMapping(value = "/info/partner", method = RequestMethod.GET)
 	public ModelAndView infoCompany(ModelAndView model,
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "partnerName")String searchType,
+			@RequestParam(required = false) String keyword) {
 		
 		List<Partner> partnerList = null;
-		int partnerCount = partnerService.getPartnerCount();
-		PageInfo pageInfo = new PageInfo(page, 5, partnerCount, listLimit);
+		int partnerCount = partnerService.getPartnerCount(null);
+		Search search = new Search(page, 5, partnerCount, listLimit);
 		
-		partnerList = partnerService.selectPartners(pageInfo);
+		partnerList = partnerService.selectPartners(search);
 		
-		log.info(partnerList.toString());
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		System.out.println("searchType : " + searchType + "keyword : " +keyword);
+		partnerCount = partnerService.getPartnerCount(search);
+		partnerList = partnerService.selectPartners(search);
+		search = new Search(page, 5, partnerCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
 		
 		model.addObject("partnerList", partnerList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminUserInfoPartner");
 		
 		return model;
@@ -230,17 +267,33 @@ public class AdminController {
 	@RequestMapping(value = "/call/normal", method = RequestMethod.GET)
 	public ModelAndView callNormal(ModelAndView model, 
 			@RequestParam(value ="page" , required = false, defaultValue="1") int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 
 		List<Call> callList = null;
-		int callCount = callService.selectGenCall();
-		PageInfo pageInfo = new PageInfo(page, 5, callCount, listLimit);
+		int callCount = callService.searchGenCallCount(null);
+		Search search = new Search(page, 5, callCount, listLimit);
 		
-		callList = callService.selectGenCallList(pageInfo);
+		callList = callService.selectGenCallList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		callCount = callService.searchGenCallCount(search);
+		callList = callService.selectGenCallList(search);
+		search = new Search(page, 5, callCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		
 		log.info(callList.toString());
 		model.addObject("callList", callList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminCallinfo");
 		
 		return model;	
@@ -249,17 +302,33 @@ public class AdminController {
 	@RequestMapping(value = "/call/emergency", method = RequestMethod.GET)
 	public ModelAndView callEmergency(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1")int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 
 		List<Call> emgCallList = null;
-		int emgCallCount = callService.selectEmergCall();
-		PageInfo pageInfo = new PageInfo(page, 5, emgCallCount, listLimit);
+		int emgCallCount = callService.searchEmgCallCount(null);
+		Search search = new Search(page, 5, emgCallCount, listLimit);
 		
-		emgCallList = callService.selectEmgCallList(pageInfo);
+		emgCallList = callService.selectEmgCallList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		emgCallCount = callService.searchEmgCallCount(search);
+		emgCallList = callService.selectEmgCallList(search);
+		search = new Search(page, 5, emgCallCount, listLimit);
+	
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		
 		log.info(emgCallList.toString());
 		model.addObject("emgCallList", emgCallList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminCallEminfo");
 		
 		return model;
@@ -268,17 +337,33 @@ public class AdminController {
 	@RequestMapping(value = "/call/cancel", method = RequestMethod.GET)
 	public ModelAndView callCancel(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1")int page,
-			@RequestParam(value="listLimit", required = false, defaultValue = "5")int listLimit) {
+			@RequestParam(value="listLimit", required = false, defaultValue = "10")int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 		
 		List<Call> cancelCallList = null;
-		int cancelCallCount = callService.selectCancelledCall();
-		PageInfo pageInfo = new PageInfo(page, 5, cancelCallCount, listLimit);
+		int cancelCallCount = callService.searchCancelCount(null);
+		Search search = new Search(page, 5, cancelCallCount, listLimit);
 		
-		cancelCallList = callService.getCancelCallList(pageInfo);
+		cancelCallList = callService.getCancelCallList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		cancelCallCount = callService.searchCancelCount(search);
+		cancelCallList = callService.getCancelCallList(search);
+		search = new Search(page, 5, cancelCallCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		
 		log.info(cancelCallList.toString());
 		model.addObject("cancelCallList",cancelCallList);
-		model.addObject("pageInfo",pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("admin/adminCallCancel");
 		
 		return model;

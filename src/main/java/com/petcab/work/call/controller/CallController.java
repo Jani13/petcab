@@ -88,6 +88,7 @@ public class CallController {
 		return result;
 	}
 
+
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book() {
@@ -164,8 +165,34 @@ public class CallController {
 			ModelAndView model
 			) {
 		
-		model.setViewName("call/book_gn_done");
+	//	model.setViewName("call/book_gn_done");
+		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
 
+		return model;
+	}
+	
+	// 일반콜 결제했을때 넘어가는페이지 4/19(은주)
+	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
+	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			HttpServletRequest request,
+			@RequestParam(value="callNo", required=true) int callNo,
+			@ModelAttribute Call call,
+            RedirectAttributes redirectAttributes,			
+			ModelAndView model) {
+		
+		call = callService.selectCall(callNo);
+		int result = 0;
+		log.info(call.toString());
+
+		if(result > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+
+		model.addObject("call", call);
+		model.setViewName("call/book_gn_done");
+		
 		return model;
 	}
 
@@ -223,13 +250,14 @@ public class CallController {
 	public ModelAndView bookEmg(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request,
+			@RequestParam(name="pUserNo", required=false) String pUserNo,
 			@ModelAttribute Partner partner,
 			@ModelAttribute EmgCall emgCall,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
-		
+			System.out.println("???????????????????????????????"+pUserNo);
 		log.info(dogNos.toString());
 		List<Dog> dogs = new ArrayList<>();
 		
@@ -269,6 +297,32 @@ public class CallController {
 
 		return model;
 	}	
+	
+	// 긴급콜 결제했을때 넘어가는페이지 4/20(은주)
+	@RequestMapping(value = "/book/emg_done", method = RequestMethod.GET)
+	public ModelAndView emg_done(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			HttpServletRequest request,
+			@RequestParam(name="pUserNo", required=false) String pUserNo,
+			@ModelAttribute Partner partner,
+			@ModelAttribute EmgCall emgCall,
+			@RequestParam(value="callNo", required=true) int callNo,
+			ModelAndView model) {
+		
+		int result = 0;
+		int resultE = callService.selectEmerCall(callNo);
+		log.info(emgCall.toString());
+
+		if(result > 0) {
+			// 성공
+		} else {
+			// 실패
+		}
+
+		model.addObject("emgCall", emgCall);
+		model.setViewName("call/book_gn_done");
+		
+		return model;
+	}
 
 	// 긴급예약 취소
 	@RequestMapping(value = "/book/emg/cancel", method = {RequestMethod.POST})

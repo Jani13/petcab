@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.vo.Partner;
 
 @Mapper
@@ -31,9 +32,9 @@ public interface PartnerDao {
 
 	int applyPartner(int userNo);
 
-	List<Partner> selectAllPartners(RowBounds rowBounds);
+	List<Partner> selectAllPartners(RowBounds rowBounds, Search search);
 
-	int selectPartnerCount();
+	int selectPartnerCount(Search search);
 
 	int updatePartner(Partner partner);
 
