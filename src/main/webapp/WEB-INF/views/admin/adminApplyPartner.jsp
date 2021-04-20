@@ -92,7 +92,7 @@
               <tbody>
                 <c:if test="${empty waitPartners}">
 	                <tr>
-	                	<td class="text-center" colspan="8">
+	                	<td class="text-center fw-bold" colspan="8">
 	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
@@ -116,32 +116,6 @@
                 </c:if> 
               </tbody>
             </table>
-            <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>
@@ -171,7 +145,7 @@
               <tbody>
                 <c:if test="${empty rejectPartners}">
 	                <tr>
-	                	<td class="text-center" colspan="9">
+	                	<td class="text-center fw-bold" colspan="9">
 	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
