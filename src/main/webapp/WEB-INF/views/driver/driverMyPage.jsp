@@ -133,8 +133,8 @@
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
-								<c:if test="${review == null}">
-									<div>조회된 리뷰가 없습니다</div>
+								<c:if test="${empty review}">
+									<div class="text-center fw-bold my-5">조회된 리뷰가 없습니다</div>
 								</c:if>
 								<c:if test="${review != null}">
 									<c:forEach var="board" items="${review}" end="2">
@@ -161,8 +161,8 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                    	<c:if test="${waitCall == null}">
-							<div>조회된 예약이 없습니다</div>
+                    	<c:if test="${empty waitCall}">
+							<div class="card-body fw-bold text-center">조회된 예약이 없습니다</div>
 						</c:if>
 						<c:if test="${waitCall != null}">
 							<c:forEach var="call" items="${waitCall}" end="2">
@@ -209,8 +209,8 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                    	<c:if test="${endCall == null}">
-							<div>조회된 예약이 없습니다</div>
+                    	<c:if test="${empty endCall}">
+							<div class="card-body fw-bold text-center">조회된 예약이 없습니다</div>
 						</c:if>
 						<c:if test="${endCall != null}">
 							<c:forEach var="call" items="${endCall}" end="2">

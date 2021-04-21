@@ -120,18 +120,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> selectAllUsers(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Member> selectAllUsers(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return memberDao.selectAllUsers(rowBounds);
+		return memberDao.selectAllUsers(rowBounds, search);
 	}
 	
 	// ROLE_MEMBER만 카운터
 	@Override
-	public int getUserCount() {
+	public int getUserCount(Search search) {
 		
-		return memberDao.selectUserCount();
+		return memberDao.selectUserCount(search);
 	}
 
 	@Override
@@ -162,22 +162,5 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectChartDateCount();
 	}
-
-	@Override
-	public List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
-		return memberDao.searchMemberAll(rowBounds, searchOption, keyword);
-	}
-
-	/*
-	 * @Override public List<Member> selectAllMember(PageInfo pageInfo, String
-	 * searchOption, String keyword) { int offset = (pageInfo.getCurrentPage() -1) *
-	 * pageInfo.getListLimit(); RowBounds rowBounds = new RowBounds(offset,
-	 * pageInfo.getListLimit());
-	 * 
-	 * return memberDao.rNumSelectMemberAll(rowBounds, searchOption, keyword); }
-	 */
 
 }
