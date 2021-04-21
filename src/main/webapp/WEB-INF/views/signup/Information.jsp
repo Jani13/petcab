@@ -363,6 +363,7 @@
 		         var pass2 = $("#pass2").val();
 		         var name = $("#newName").val();
 		         var phone = $("#newPhone").val();
+		         var userNum = $("#userNum").val();
 		         var addr = $("#addr2").val();
 		         
 		         if(id.length == 0) {
@@ -388,6 +389,11 @@
 		         if(phone.length == 0) {
 		        	 alert("전화번호를 입력해주세요");
 		        	 $("#newPhone").focus();
+		        	 return false;
+		         }
+		         if(userNum.length == 0) {
+		        	 alert("인증번호를 받아 입력해주세요");
+		        	 $("#userNum").focus();
 		        	 return false;
 		         }
 		         if(addr.length == 0) {
