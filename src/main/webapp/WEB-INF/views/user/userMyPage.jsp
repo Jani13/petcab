@@ -56,7 +56,7 @@
 
         .successCall {
             width: 300px;
-            height: 300px;
+            height: 350px;
         }
 
         .myDogsEvent:hover {
@@ -146,7 +146,7 @@
 									<c:forEach var="board" items="${review}" end="2">
 			                        	<div class="w-100 card border-light mb-3 my-5" >
 				                            <div class="card-header bg-transparent ">
-				                            	<fmt:formatDate type="both" value="${board.postDate}" pattern="yyyy.MM.dd"/>
+				                            	<c:out value="${board.postDate}"/>
 				                            </div>
 				                            <div class="card-body ">
 					                            <h5 class="card-title fw-bold">${board.title}</h5>
@@ -274,6 +274,10 @@
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
 		                                        제휴업체 : 아직미정
 		                                    </p>
+		                                    <div class="text-center pt-3">
+		                                    	<button class="btn btn-outline-info"
+		                                    	onclick="location.href='${path}/review/reviewWrite?callNo=${call.callNo}'">리뷰작성</button>
+		                                    </div>
 		                            	</div>
 		                            </div>
 		                        </div>

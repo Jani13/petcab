@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.petcab.work.common.util.Search;
 import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 
@@ -16,9 +17,9 @@ public interface ReviewDao {
 
 	int insertReview(Review review);
 
-	int selectCount();
+	int selectCount(Search search);
 
-	List<Review> selectReviewList(RowBounds rowBounds);
+	List<Review> selectReviewList(RowBounds rowBounds, Search search);
 
 	List<Review> searchUserNo(@Param("userNo") int userNo);
 

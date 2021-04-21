@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.review.model.dao.ReviewDao;
 import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
@@ -35,17 +36,17 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public int getReviewCount() {
+	public int getReviewCount(Search search ) {
 		
-		return reviewDao.selectCount();
+		return reviewDao.selectCount(search);
 	}
 
 	@Override
-	public List<Review> getReviewList(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Review> getReviewList(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return reviewDao.selectReviewList(rowBounds);
+		return reviewDao.selectReviewList(rowBounds, search);
 	}
 
 	@Override
