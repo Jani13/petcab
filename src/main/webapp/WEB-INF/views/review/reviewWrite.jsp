@@ -81,73 +81,64 @@
           </div>
 
           <br><br><br>
-
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col" style="width: 300px;">
-                        <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
-                            <option selected>내가 사용한 내역</option>
-                            <c:if test="${endCall==null}"><option selected>데이터 없음 </option></c:if>
-                            <c:forEach var="call" items="${endCall}">
-                            <!-- callNO이 데이터에서 넘겨올 수 있게 mapper에서 맞게끔 변경해줘야한다. -->
-                            <option value="${call.callNo}">${call.callNo}</option>
-                            </c:forEach>
-                          </select>
-                    </th>
-                    <th scope="col">
-                    <input type="hidden" id="useInfo" name="useInfo" class="form-control" ></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">* 긴급콜 이용 *</th>
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="Y">Y
-                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="N">N
-                            </label>
-                          </div>
-                    </td>         
-                  </tr>
-                  <tr>
-                    <th scope="row">* 평점 *</th>
-                    <td><input type="number" id="starNo" name="starNo" class="form-control"></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요."></td>
-                  </tr>
-                  <tr>
-                    <th scope="row" colspan="2">
-                      <p>* 글쓰기 *</p> 
-                        <!-- ====  스마트 에디터  ===== -->
-                        <div class="editor-box">
-                          <div class="editor-box__editor">
-                              <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
-                              <script type="text/javascript">
-                 						 CKEDITOR.replace('ir1', {height: 500});
-                  				</script>
-                          </div>
-                      </div>
-                      <div style="text-align : center; padding: 30px;">
-                          <span style="padding-right : 3rem;">
-                              <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
-                          </span>
-                          <span>
-                              <input type="button" class="btn btn-secondary" id="reviewCancel"
-                              			onclick="location.replace('${path}/review/list')" value="취소하기">
-                          </span>
-                      </div>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-              </form>
+				
+				<input type="hidden" id="useInfo" name="useInfo"
+						class="form-control">
+				<input type="hidden" value="${call.callNo}" name="callNo">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th scope="row">* 긴급콜 이용 *</th>
+							<td>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="checkbox"
+										id="callType" name="callType" class="form-check-input"
+										value="Y">Y
+									</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
+										class="form-check-label"> <input type="checkbox"
+										id="callType" name="callType" class="form-check-input"
+										value="N">N
+									</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">* 평점 *</th>
+							<td><input type="number" id="starNo" name="starNo"
+								class="form-control"></td>
+						</tr>
+						<tr>
+							<th scope="row">* 제목 *</th>
+							<td><input type="text" id="title" name="title"
+								class="form-control" placeholder="제목을 입력하세요."></td>
+						</tr>
+						<tr>
+							<th scope="row" colspan="2">
+								<p>* 글쓰기 *</p> 
+								<div style="text-align: center; padding: 30px;">
+									<span style="padding-right: 3rem;"> <input type="submit"
+										class="btn btn-primary" id="reviewSubmit" value="작성완료">
+									</span> 
+									<span> <input type="button" class="btn btn-secondary"
+										id="reviewCancel"
+										onclick="location.replace('${path}/review/list')" value="취소하기">
+									</span>
+								</div>
+								<!-- ====  스마트 에디터  ===== -->
+								<div class="editor-box">
+									<div class="editor-box__editor">
+										<!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
+										<textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
+										<script type="text/javascript">
+											CKEDITOR.replace('ir1', {height : 380});
+										</script>
+									</div>
+								</div>
+							</th>
+						</tr>
+					</tbody>
+				</table>
+			</form>
         </div>
 
     </section>

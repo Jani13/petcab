@@ -13,6 +13,7 @@
 				R.STATUS,
 				R.CALL_TYPE,
 				R.VIEW_NO,
+				R.CALL_NO,
 				R.S_USER_NO
 			FROM REVIEW R
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
@@ -112,7 +113,7 @@
 				R.TITLE,
 				M.USER_ID,
 				R.STAR_NO,
-				R.POST_DATE,
+				TO_CHAR(R.POST_DATE, 'YYYY/MM/DD hh24:mm:ss')as POST_DATE,
 				R.CONTENT,
 				R.STATUS,
 				R.VIEW_NO,
@@ -147,7 +148,7 @@
 				R.TITLE,
 				M.USER_ID,
 				R.STAR_NO,
-				R.POST_DATE,
+				TO_CHAR(R.POST_DATE, 'YYYY/MM/DD hh24:mm:ss')as POST_DATE,
 				R.CONTENT,
 				R.STATUS,
 				R.VIEW_NO,

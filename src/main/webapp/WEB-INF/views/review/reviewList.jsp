@@ -64,10 +64,10 @@
 		                <input type="submit" class="btn btn-info" value="조회">
 		            </form>
 	            </div>
-	            <c:if test="${ loginMember != null }">
+	            <!-- <c:if test="${ loginMember != null }">
 	                <button class="btn btn-info col-1 d-inline-block mx-3" type="button" id="btn-add"
 	                onclick="location.href ='${path}/review/reviewWrite'">글쓰기</button>
-	            </c:if>
+	            </c:if> -->
 	        </div>
 	        
 	        <table class="table">

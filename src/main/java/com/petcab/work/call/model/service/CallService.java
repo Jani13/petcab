@@ -51,6 +51,6 @@ public interface CallService {
 	List<Call> getCancelCallList(PageInfo pageInfo);
 	
 	// 리뷰에서 종료된 예약 띄우기
-	List<Call> callEndList(String userId);
+	List<Call> callEndList(int callNo);
 
 }

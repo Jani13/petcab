@@ -69,15 +69,21 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/reviewWrite", method = { RequestMethod.GET })
-	public ModelAndView aaa(@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+	public ModelAndView aaa(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("callNo") int callNo) {
 		ModelAndView model = new ModelAndView();
 		
-		List<Call> call = new ArrayList<Call>();
-
-		call = callservice.callEndList(loginMember.getUserId());
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ" + callNo);
 		
-		System.out.println("11ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ"+call);
-		model.addObject("endCall", call);
+		Call call = new Call();
+		
+		call.setCallNo(callNo);
+		
+//		int callNo = Integer.parseInt(s);
+		
+//		call = callservice.callEndList(callNo);
+
+		model.addObject(call);
 		model.setViewName("/review/reviewWrite");
 		
 		return model;
@@ -86,8 +92,7 @@ public class ReviewController {
 	// 게시글 작성처리
 	@RequestMapping(value = "/reviewWriteResult", method = { RequestMethod.POST })
 	public ModelAndView reviewWriteResult(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, ModelAndView model
-			) {
+			HttpServletRequest request, ModelAndView model) {
 
 		// 예약과 연동하여 나중에 예약한 리스트로 리뷰 작성 내역을 선택하여 작성할 수 있도록 만들기
 
@@ -177,6 +182,8 @@ public class ReviewController {
 	public ModelAndView update(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, Review review, ModelAndView model) {
 
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa" + review.toString());
+		
 		int result = 0;
 
 //			System.out.println("xxxxxxxxxxxxxxxxx" + review);

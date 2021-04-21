@@ -117,26 +117,25 @@
                 <div class="col-lg-4" style="display: flex; justify-content: center;">
                     <table class="table table-striped" style="width: 150px;">
                         <tr>
-                            <th><a href="${naver_url}" target="_blank">  <!-- id="naverLogin" -->
-                            	<button type="button" id="naverLogin">
-                                <img src="${path}/images/login/Naver_Login_Green.PNG" 
-                                width="150px" height="30px">
+                            <th><a href="${naver_url}">  	<!-- id="naverLogin" -->
+                            	<button type="button" id="naverLogin" style="border: 0px">
+                                <img src="${path}/images/login/Naver_Login_Green.PNG" width="150px" height="30px">
                                 </button>
                                 </a>
                             </th>
                         </tr>
                         <tr>
                         
-                            <th><a href="${kakaoUrl}">
-                            <button type="button" id="kakaoLogin">
+                            <th><a href="${kakaoUrl}">		<!-- id="kakaoLogin" -->
+                            <button type="button" id="kakaoLogin" style="border: 0px">
                                 <img src="${path}/images/login/kakao_login_large_narrow.png" width="150px" height="30px">
                              </button></a></th>
                                 
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th><a href="" target="_blank">
                                 <img src="${path}/images/login/google_signin_dark_focus_web.png" width="150px" height="30px"></a></th>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
                 <div class="col-lg-4"></div>
