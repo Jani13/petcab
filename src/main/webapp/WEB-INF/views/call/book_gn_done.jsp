@@ -392,11 +392,11 @@
 <!-- <script src="${path}/js/socket-book-done.js"></script>-->
 <script>
 $(function() {
-    var socket = new SockJS("/work/accept");
+    var socket = new SockJS("/work/notify");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected : ' + frame);
-        stompClient.subscribe('/work/call/notify', function(data) {
+        stompClient.subscribe('/work/call/notify/' + ${ call.callNo }, function(data) {
                 	
         	console.log("subscribed yet?");
         	

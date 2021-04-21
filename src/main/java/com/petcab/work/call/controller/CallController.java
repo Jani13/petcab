@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -36,7 +40,6 @@ import com.petcab.work.user.model.vo.Dog;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
-import com.thoughtworks.qdox.parser.ParseException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,7 +59,7 @@ public class CallController {
 
 	@Autowired
 	private DogService dogService;
-	
+
 	@Autowired
 	private SimpMessagingTemplate template;
 	
@@ -132,8 +135,7 @@ public class CallController {
 		return result;
 	}
 	
-	@MessageMapping("/notify")
-	@ResponseBody
+	@MessageMapping("/notify/{callNo}")
 	public void handle(String message) {
 		
 //		System.out.println("handle() ... callNo : " + callNo);
@@ -157,16 +159,23 @@ public class CallController {
         System.out.println(obj.get("callNo"));
         System.out.println(obj.get("dUserNo"));
         
-        String callNo = (String) obj.get("dUserNo");
+        String callNo = (String) obj.get("callNo");
         int dUserNo = Integer.parseInt((String) obj.get("dUserNo"));
 		
 		Driver driver = driverService.selectDriver(dUserNo);
 		
 		System.out.println(driver);
 		
-		template.convertAndSend("/call/book/done", driver);
+		String a = "/work/call/book/" + callNo + "/done";
 		
-//		template.convertAndSend("/call/book/" + callNo + "/done", driver);
+		System.out.println(a);
+		
+//		template.convertAndSend("/call/book/done", driver);
+		
+		template.convertAndSend(a, message);		
+//		template.convertAndSend("/work/call/book/notify", message);		
+		template.convertAndSend("/work/call/notify/" + callNo, "test");	
+		template.convertAndSend("/work/notify/" + callNo, "test");
 	}
 	
 //	@MessageMapping("/notify")
