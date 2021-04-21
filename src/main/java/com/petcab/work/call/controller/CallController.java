@@ -2,25 +2,20 @@ package com.petcab.work.call.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,28 +80,6 @@ public class CallController {
 		return model;
 	}
 	
-//	@RequestMapping(value="/driver/confirm/select", method = {RequestMethod.POST})
-//	public @ResponseBody int selectCallByDriver(
-//			@SessionAttribute(name="loginMember", required = false) Member loginMember,
-//			@RequestParam(name="callNo") String callNo, 
-//			@RequestParam(name="dUserNo") String dUserNo,
-//			// @RequestParam String callType,
-//			HttpServletRequest request) {
-//						
-////		int callNo = call.getCallNo();
-//		
-// 		int userNo = loginMember.getUserNo();
-//		
-//		System.out.println("dUserNo : " + userNo);
-//		
-//		System.out.println("callNo : " + callNo);
-//		
-//		int result = callService.updateCallByDriver(userNo, Integer.parseInt(callNo));
-//				
-//		return result;
-//	}
-	
-//	@MessageMapping("/notify")
 	@RequestMapping(value="/driver/confirm/select", method = {RequestMethod.POST})
 	public @ResponseBody int selectCallByDriver(
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
@@ -121,79 +94,68 @@ public class CallController {
 		System.out.println("callNo : " + callNo);
 		
 		int result = callService.updateCallByDriver(userNo, Integer.parseInt(callNo));
-		
-//		System.out.println("handle() ... callNo : " + callNo);
-//		
-//		System.out.println("handle() ... dUserNo : " + dUserNo);
-//
-//		Driver driver = driverService.selectDriver(Integer.parseInt(dUserNo));
-//		
-//		System.out.println(driver);
-//		
-//		template.convertAndSend("/call/book/" + callNo + "/done", driver);
 				
 		return result;
 	}
 	
-	@MessageMapping("/notify/{callNo}")
-	public void handle(String message) {
+	// 드라이버 정보 업데이트
+	@RequestMapping(value="/book/{callNo}/driver", method = {RequestMethod.GET})
+	@ResponseBody
+	public Driver getDriver(
+			@SessionAttribute(name="loginMember", required = false) Member loginMember,
+			@PathVariable(name="callNo") int callNo,
+			@RequestParam(name="userNo") int userNo,
+//			@RequestBody Driver driver,
+			Driver driver,
+			HttpServletRequest request) {
 		
-//		System.out.println("handle() ... callNo : " + callNo);
-//		
-//		System.out.println("handle() ... dUserNo : " + dUserNo);
+		System.out.println("getDriver() 메소드는 타나? ");
 		
-		System.out.println("정일님 천재 : " + message);
-
-        JSONParser parser = new JSONParser();
-        
-        JSONObject obj = null;
-        
-        try {
-			obj = (JSONObject)parser.parse(message);
-		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        System.out.println(obj);
-        System.out.println(obj.get("callNo"));
-        System.out.println(obj.get("dUserNo"));
-        
-        String callNo = (String) obj.get("callNo");
-        int dUserNo = Integer.parseInt((String) obj.get("dUserNo"));
+//		int dUserNo = driver.getUserNo();
 		
-		Driver driver = driverService.selectDriver(dUserNo);
+		driver = driverService.selectDriverMember(userNo);
 		
-		System.out.println(driver);
+		System.out.println("getDriver() : " + driver);
 		
-		String a = "/work/call/book/" + callNo + "/done";
-		
-		System.out.println(a);
-		
-//		template.convertAndSend("/call/book/done", driver);
-		
-		template.convertAndSend(a, message);		
-//		template.convertAndSend("/work/call/book/notify", message);		
-		template.convertAndSend("/work/call/notify/" + callNo, "test");	
-		template.convertAndSend("/work/notify/" + callNo, "test");
+		return driver;
 	}
 	
-//	@MessageMapping("/notify")
-//	@SendTo("/call/book/{callNo}/done")
-//	public Driver handle(
-//			@DestinationVariable(value="callNo") int callNo,
-//			@RequestParam(name="dUserNo") int dUserNo) {
-//
-//		// 이하 syso로 찍히지 않음
-//		System.out.println("handle() ... callNo : " + callNo);
+//	@MessageMapping("/notify/{callNo}")
+//	public void handle(String message) {
 //		
-//		System.out.println("handle() ... dUserNo : " + dUserNo);
+//		System.out.println("정일님 천재 : " + message);
 //
+//        JSONParser parser = new JSONParser();
+//        
+//        JSONObject obj = null;
+//        
+//        try {
+//			obj = (JSONObject)parser.parse(message);
+//		} catch (org.json.simple.parser.ParseException e) {
+//			e.printStackTrace();
+//		}
+//
+//        System.out.println(obj);
+//        System.out.println(obj.get("callNo"));
+//        System.out.println(obj.get("dUserNo"));
+//        
+//        String callNo = (String) obj.get("callNo");
+//        int dUserNo = Integer.parseInt((String) obj.get("dUserNo"));
+//		
 //		Driver driver = driverService.selectDriver(dUserNo);
 //		
 //		System.out.println(driver);
 //		
-//		return driver;
+//		String a = "/work/call/book/" + callNo + "/done";
+//		
+//		System.out.println(a);
+//		
+////		template.convertAndSend("/call/book/done", driver);
+//		
+//		template.convertAndSend(a, message);		
+////		template.convertAndSend("/work/call/book/notify", message);		
+//		template.convertAndSend("/work/call/notify/" + callNo, "test");	
+//		template.convertAndSend("/work/notify/" + callNo, "test");
 //	}
 	
 	// 일반예약 신청 화면으로 이동
@@ -266,19 +228,18 @@ public class CallController {
 		return model;
 	}	
 	
-//	@MessageMapping("/book/{callNo}/done")
 	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
 	public ModelAndView bookRedirect(
-			@ModelAttribute Driver driver,
+			// @ModelAttribute Driver driver,
 			ModelAndView model
 			) {
 		
 		model.setViewName("call/book_gn_done");
 //		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
 		
-		System.out.println("원석캐리 : " + driver);
+		// System.out.println("원석캐리 : " + driver);
 				
-		model.addObject("driver", driver);
+		// model.addObject("driver", driver);
 		
 		model.setViewName("call/book_gn_done");
 

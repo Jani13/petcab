@@ -15,7 +15,7 @@
 			<websocket:sockjs />
 		</websocket:stomp-endpoint>
 		<!--<websocket:simple-broker prefix="/call" /> -->
-		<websocket:simple-broker prefix="/call, /book" />
+		<websocket:simple-broker prefix="/topic/call" />
 		<!-- <websocket:stomp-broker-relay prefix="" /> -->
 	</websocket:message-broker>
 

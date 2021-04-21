@@ -221,7 +221,7 @@ function selectCallByDriver(e) {
             
             console.log("callNo in success function  : " + callNo);
             
-         	stompClient.send("/work/notify/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
+         	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
             
             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
         },

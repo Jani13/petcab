@@ -31,49 +31,6 @@
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../common/nav.jsp" />
 
-	<!-- 
-	<section>
-		<h3>Example</h3>
-
-		<div id="main-content" class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<form class="form-inline">
-						<div class="form-group">
-							<label for="connect">WebSocket connection:</label> <a
-								id="connect" href="#" class="btn btn-default">Connect</a> <a
-								id="disconnect" href="#" class="btn btn-default"
-								disabled="disabled">Disconnect</a>
-						</div>
-					</form>
-				</div>
-				<div class="col-md-6">
-					<form class="form-inline">
-						<div class="form-group">
-							<label for="name">What is your name?</label> <input type="text"
-								id="name" class="form-control" placeholder="Your name here...">
-						</div>
-						<a id="send" href="#" class="btn btn-default">Send</a>
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<table id="conversation" class="table table-striped">
-						<thead>
-							<tr>
-								<th>Greetings</th>
-							</tr>
-						</thead>
-						<tbody id="greetings">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</section>
-	-->
-
 	<section class="section-wrap">
 		<div class="container mt-5 mb-5">
 			<div class="row row-call-1 text-center">
@@ -111,7 +68,21 @@
 
 					<div class="row">
 						<button type="button"
-							class="btn btn-secondary btn-lg btn-block disabled">드라이버
+							class="btn btn-primary btn-lg btn-block disabled">가결제</button>
+					</div>
+
+					<div class="row">
+						<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+							fill="currentColor" class="bi bi-arrow-down-circle"
+							viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+								d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+                          </svg>
+					</div>
+
+					<div class="row">
+						<button type="button"
+							class="btn btn-primary btn-lg btn-block disabled">드라이버
 							확인</button>
 					</div>
 
@@ -126,25 +97,9 @@
 
 					<div class="row">
 						<button type="button"
-							class="btn btn-secondary btn-lg btn-block disabled">가결제</button>
-					</div>
-
-					<div class="row">
-						<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
-							fill="currentColor" class="bi bi-arrow-down-circle"
-							viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-								d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
-                          </svg>
-					</div>
-
-					<div class="row">
-						<button type="button"
-							class="btn btn-secondary btn-lg btn-block disabled">예약완료</button>
+							class="btn btn-secondary btn-lg btn-block disabled confirmed">예약완료</button>
 					</div>
 				</div>
-
-				<!--  -->
 
 				<div class="col-md">
 					<c:choose>
@@ -154,9 +109,14 @@
 								<input type="hidden" name="callType" value="긴급"> <input
 									type="hidden" name="pUserNo" value="3">
 
-								<div class="pt-5 pb-3 pickup-heading">
-									<h1 class="text-center mb-3">예약신청이 완료되었습니다</h1>
-									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+								<div class="pt-5 pb-3 pickup-heading-waiting">
+									<h1 class="text-center mb-3">긴급 예약을 요청하셨습니다</h1>
+									<h3 class="text-center mb-3">드라이버 확인 후 예약이 확정됩니다</h3>
+								</div>
+
+								<div class="pt-5 pb-3 pickup-heading-confirmed d-none">
+									<h1 class="text-center mb-3">긴급 예약이 확정되었습니다</h1>
+									<h3 class="text-center mb-3">승차시간을 꼭 지켜주세요</h3>
 								</div>
 
 								<table class="table call-sum text-center tb-call-done">
@@ -257,9 +217,14 @@
 								<input type="hidden" name="callType" value="일반" />
 								<!-- <input type="hidden" name="dUserNo" value="1"> -->
 
-								<div class="pt-5 pb-3 pickup-heading">
-									<h1 class="text-center mb-3">가결제 및 예약신청이 완료되었습니다</h1>
-									<h3 class="text-center mb-3">제휴업체 혹은 드라이버 확인 후 예약이 확정됩니다</h3>
+								<div class="pt-5 pb-3 pickup-heading-waiting">
+									<h1 class="text-center mb-3">일반 예약을 요청하셨습니다</h1>
+									<h3 class="text-center mb-3">드라이버 확인 후 예약이 확정됩니다</h3>
+								</div>
+
+								<div class="pt-5 pb-3 pickup-heading-confirmed d-none">
+									<h1 class="text-center mb-3">일반 예약이 확정되었습니다</h1>
+									<h3 class="text-center mb-3">승차시간을 꼭 지켜주세요</h3>
 								</div>
 
 								<table class="table call-sum text-center tb-call-done">
@@ -287,25 +252,11 @@
 										</tr>
 										<tr>
 											<th scope="row">드라이버 성함</th>
-											<c:choose>
-												<c:when test="${ call.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td class="dName">${ call.getDriver().getUserName() }</td>
-												</c:otherwise>
-											</c:choose>
+											<td class="dName"></td>
 										</tr>
 										<tr>
 											<th scope="row">차량번호판</th>
-											<c:choose>
-												<c:when test="${ call.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td class="dCarNo">${ call.getDriver().getCarNo() }</td>
-												</c:otherwise>
-											</c:choose>
+											<td class="dCarNo"></td>
 										</tr>
 										<tr>
 											<th scope="row">드라이버 요청사항</th>
@@ -389,30 +340,66 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!-- <script src="${ pageContext.request.contextPath }/resources/app.js"></script> -->
-<!-- <script src="${path}/js/socket-book-done.js"></script>-->
+<script src="${path}/js/webSocket.js"></script>
 <script>
-$(function() {
+$(function() {	
     var socket = new SockJS("/work/notify");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected : ' + frame);
-        stompClient.subscribe('/work/call/notify/' + ${ call.callNo }, function(data) {
+        stompClient.subscribe('/topic/call/' + ${ call.callNo }, function(data) {
                 	
         	console.log("subscribed yet?");
-        	
         	console.log("data @ book_gn_done : " + data);
-        	
+        
+        	console.log("JSON.parse(data.body).dUserNo : " + JSON.parse(data.body).dUserNo);
         	console.log("JSON.parse(data.body).callNo : " + JSON.parse(data.body).callNo);
         	
-            // showDriverDetail(JSON.parse(data.body).callNo);
+        	let callNo = JSON.parse(data.body).callNo;
+        	let userNo = JSON.parse(data.body).dUserNo;
+        	
+        	let driver = {
+        		'userNo' : userNo
+        	};
+        	        	
+        	// AJAX로 드라이버 정보를 가져와서 뿌려준다.
+			 $.ajax({
+				 async : true,
+				 url : 'driver',
+				 dataType : 'json',
+				 contentType : "application/json; charset=UTF-8",
+				 type : 'get',
+				 data : driver,
+				 success : function(driver) {
+					 console.log('ajax success!');
+					 
+					 console.log(driver);
+					 
+					 showDriverDetail(driver);
+					 
+					  $('.confirmed').removeClass('btn-secondary').addClass('btn-primary');
+					  $('.pickup-heading-waiting').addClass('d-none');
+					  $('.pickup-heading-confirmed').removeClass('d-none');
+				 },
+				 error : function(e) {
+					 console.log('ajax error!');
+					 console.log(e);	 
+				 }
+			 });
+        	
+        		// 여기까지
+        	
         });
     });
 });
 
-//function showDriverDetail(driver) {
-//    $('.dName').text(driver.userName);
-//    $('.dCarNo').text(driver.carNo);
-//}
+function showDriverDetail(driver) {
+	console.log(driver.userName);
+	console.log(driver.carNo);
+	
+    $('.dName').text(driver.userName);
+    $('.dCarNo').text(driver.carNo);
+}
 
 </script>
 </html>

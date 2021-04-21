@@ -51,7 +51,7 @@
 					<div class="pt-5 pb-3 pickup-heading">
 						<h2 class="mb-3" style="margin-left: 10px;">픽업정보 기입</h2>
 					</div>
-
+					
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form action="${ path }/call/book/done" method="POST" id="callForm">
 							<input type="hidden" name="callType" value="일반" />
