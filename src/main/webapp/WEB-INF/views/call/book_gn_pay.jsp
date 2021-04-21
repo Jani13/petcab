@@ -375,7 +375,8 @@ $('#api').click(function () {
             	    userNo : $('#userNo').val()
                 }),
             });
-           document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}"; //alert창 확인 후 이동할 url 설정
+          // document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}"; //alert창 확인 후 이동할 url 설정
+           document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}&impUid="+rsp.imp_uid;
         } else {
             var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
             //msg += '에러내용 : ' + rsp.error_msg;

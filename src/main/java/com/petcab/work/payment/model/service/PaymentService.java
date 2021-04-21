@@ -7,6 +7,10 @@ public interface PaymentService {
 	int selectAmount();
 
 	int savePayInfo(Payment payment);
+
+	int updatPay(String impUid);
+
+
 	
 //	String PayReady();
 	

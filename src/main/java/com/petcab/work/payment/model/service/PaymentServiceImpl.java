@@ -38,6 +38,17 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDao.insertPayInfo(payment);
 	}
 
+
+
+	@Override
+	public int updatPay(String impUid) {
+		
+		return paymentDao.updatPay(impUid);
+	}
+
+
+
+
 	
 ////	private static final String HOST = "https://kapi.kakao.com";
 ////	private Ready Ready;

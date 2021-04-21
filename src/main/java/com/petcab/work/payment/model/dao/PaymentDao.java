@@ -10,6 +10,9 @@ public interface PaymentDao {
 	int selectTodayPaymentAmount();
 
 	int insertPayInfo(Payment payment);
+
+	int updatPay(String impUid);
+
 	
 
 }

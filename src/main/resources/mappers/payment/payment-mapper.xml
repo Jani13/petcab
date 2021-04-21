@@ -77,5 +77,12 @@
   			SYSDATE
  		)
   	</insert>
-	
+  	
+	<!-- 결제취소 paid(결제완료), cancelled(결제취소, 부분취소포함) -->
+	<update id="updatPay" parameterType="String">
+		UPDATE PAYMENT
+		SET
+		STATUS='cancelled'
+		WHERE IMP_UID=#{impUid}
+	</update>
 </mapper>

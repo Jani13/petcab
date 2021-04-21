@@ -154,7 +154,7 @@
 	
 	</update>
 	
-	<delete id="deleteReply" parameterType="int">
+    <delete id="deleteReply" parameterType="int">
 		DELETE
 		FROM QUES_REPLY
 		WHERE QUES_NO=#{quesNo}

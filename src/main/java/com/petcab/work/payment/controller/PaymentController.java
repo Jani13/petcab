@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.payment.model.vo.Payment;
+import com.petcab.work.user.model.vo.Member;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -86,7 +90,22 @@ public class PaymentController {
 			
 		return model;
 	}
+	
+//	@RequestMapping(value = "call/paycancel", method= {RequestMethod.POST})
+//	public ModelAndView enroll(ModelAndView model,@RequestParam(value="impUid", required=true) int impUid,
+//			@ModelAttribute Payment payment) {
+//		
+//		log.info(payment.toString());
+//			System.out.println("유아이디:??????????" + impUid);
+//		int result = service.updatPay(payment.getImpUid());
+//		
+//		return model;
+//	}
 
+
+
+	
+	
 
 // 카카오페이 api만 사용했을때... 
 //	 @RequestMapping(value={"/call/book_gn_pay"}, method = {RequestMethod.GET})
