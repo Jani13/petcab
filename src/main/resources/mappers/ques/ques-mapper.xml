@@ -75,21 +75,15 @@
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM QUES
+		WHERE STATUS = 'Y'
 	</select>	 	
 	
 	<select id="selectCount2" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
-		FROM QUES
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="keyword != null and keyword != ''">
-				<if test="searchType == 'userId'">
-					 USER_ID LIKE '%'||#{keyword}||'%'
-				</if>
-				<if test="searchType == 'title'">
-					AND TITLE LIKE '%'||#{keyword}||'%'
-				</if>
-			</if>
-		</trim>
+		FROM QUES Q
+		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)			
+		WHERE Q.STATUS = 'Y'		
+		AND ${searchType} like '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="selectQuesDetail" parameterType="_int" resultMap="quesResultMap">
