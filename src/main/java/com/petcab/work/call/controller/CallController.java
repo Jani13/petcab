@@ -105,14 +105,11 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required = false) Member loginMember,
 			@PathVariable(name="callNo") int callNo,
 			@RequestParam(name="userNo") int userNo,
-//			@RequestBody Driver driver,
 			Driver driver,
 			HttpServletRequest request) {
 		
 		System.out.println("getDriver() 메소드는 타나? ");
-		
-//		int dUserNo = driver.getUserNo();
-		
+				
 		driver = driverService.selectDriverMember(userNo);
 		
 		System.out.println("getDriver() : " + driver);
@@ -163,15 +160,15 @@ public class CallController {
 	public String book() {
 		return "call/book_gn";
 	}
-
-	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book/done", method = {RequestMethod.POST})
-	public ModelAndView book(
+	
+	// 일반예약 신청 정보 입력 후 가결제 화면으로 이동
+	@RequestMapping(value = "/book/prepay", method = {RequestMethod.POST})
+	public ModelAndView prepay(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@ModelAttribute Call call,
-            RedirectAttributes redirectAttributes,			
+//            RedirectAttributes redirectAttributes,			
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
@@ -194,105 +191,110 @@ public class CallController {
 		log.info(dogs.toString());
 		
 		call.setDogs(dogs);
-
-		int result = callService.insertCall(call); // 서비스등록
-
+		
 		log.info(call.toString());
 
-		if(result > 0) {
-			// 성공
-		} else {
-			// 실패
-		}
+		int result = callService.insertCall(call);
 		
-//		model.addObject("call", call);
+		log.info("insertCall(call) : " + String.valueOf(result));
+					
+		String callNo = String.valueOf(call.getCallNo());
 		
-//		model.addObject("callNo", call.getCallNo()); // 추가 시 쿼리스트링으로 callNo가 전달된다.
-	    				
-		String callNo = String.valueOf(call.getCallNo()); // 아래 컨트롤러에서 url 값으로 받는 것으로 보인다.
-								
-//        model.setViewName("call/book_gn_done");
-        
-		RedirectView redirectView = new RedirectView();
-		redirectAttributes.addFlashAttribute("call", call); // flash!
-//		redirectAttributes.addAttribute("call", call); // requestParam으로, String, primitives 타입에 한정된다.
-		
-		// 완료화면에서 예약취소 후 뒤로가기 버튼 누르지 못하게 disable 해야 ***************************************************
-		
-		redirectView.setUrl(callNo + "/done");
-		redirectView.setExposeModelAttributes(false);
-		
-//		model.setView(new RedirectView(callNo + "/done")); // redirect
-		model.setView(redirectView); // redirect
+		model.addObject("call", call);
+		model.addObject("callNo", callNo);
+		model.setViewName("call/book_gn_pay");
 		
 		return model;
 	}	
 	
-	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
-	public ModelAndView bookRedirect(
-			// @ModelAttribute Driver driver,
-			ModelAndView model
-			) {
-		
-		model.setViewName("call/book_gn_done");
-//		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
-		
-		// System.out.println("원석캐리 : " + driver);
-				
-		// model.addObject("driver", driver);
-		
-		model.setViewName("call/book_gn_done");
-
-		return model;
-	}
-	
-	// 일반콜 결제했을때 넘어가는페이지 4/19(은주)
-	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
-	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
+	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
+	@RequestMapping(value = "/book/{callNo}/done", method = {RequestMethod.GET})
+	public ModelAndView book(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@PathVariable int callNo,
 			HttpServletRequest request,
-			@RequestParam(value="callNo", required=true) int callNo,
 			@ModelAttribute Call call,
-            RedirectAttributes redirectAttributes,			
 			ModelAndView model) {
 		
 		call = callService.selectCall(callNo);
-		int result = 0;
-		log.info(call.toString());
-
-		if(result > 0) {
-			// 성공
-		} else {
-			// 실패
-		}
+		
+		log.info("book() : " + call.toString());
 
 		model.addObject("call", call);
 		model.setViewName("call/book_gn_done");
 		
-		return model;
-	}
+		return model;		
+	}	
+	
+//	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
+//	public ModelAndView bookRedirect(
+//			// @ModelAttribute Driver driver,
+//			ModelAndView model
+//			) {
+//		
+//		model.setViewName("call/book_gn_done");
+////		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
+//		
+//		// System.out.println("원석캐리 : " + driver);
+//				
+//		// model.addObject("driver", driver);
+//		
+//		model.setViewName("call/book_gn_done");
+//
+//		return model;
+//	}
+	
+//	// 일반콜 결제했을때 넘어가는페이지 4/19(은주)
+//	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
+//	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
+//			HttpServletRequest request,
+//			@RequestParam(value="callNo", required=true) int callNo,
+//			@ModelAttribute Call call,
+//            RedirectAttributes redirectAttributes,			
+//			ModelAndView model) {
+//		
+//		call = callService.selectCall(callNo);
+//		int result = 0;
+//		log.info(call.toString());
+//
+//		if(result > 0) {
+//			// 성공
+//		} else {
+//			// 실패
+//		}
+//
+//		model.addObject("call", call);
+//		model.setViewName("call/book_gn_done");
+//		
+//		return model;
+//	}
 
 	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@SessionAttribute(name = "loginMember", required=false) Member loginMember,
 			HttpServletRequest request, 
 			@ModelAttribute Call call,
 			ModelAndView model) {
 
-		int result = callService.updateCall(call.getCallNo());
+		callService.updateCall(call.getCallNo());
 
-		System.out.println(call.getCallNo());
+		System.out.println("cancel() callNo : " + call.getCallNo());
 		
 		log.info(call.toString());
 
 		call = callService.selectCall(call.getCallNo());
 
 		log.info(call.toString());
+		
+		String dUserNo = request.getParameter("dUserNo");
+		
+		System.out.println("String dUserNo : " + dUserNo);
+		
+		if (dUserNo != null && dUserNo != "") {
+			Driver driver = driverService.selectDriverMember(Integer.parseInt(dUserNo));
 
-		if(result > 0) {
-			// 성공
-		} else {
-			// 실패
+			call.setDriver(driver);
 		}
 
 		model.addObject("call", call);

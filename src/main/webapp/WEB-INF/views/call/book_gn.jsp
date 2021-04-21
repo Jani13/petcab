@@ -53,7 +53,7 @@
 					</div>
 					
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book/done" method="POST" id="callForm">
+						<form action="${ path }/call/book/prepay" method="POST" id="callForm">
 							<input type="hidden" name="callType" value="일반" />
 							
 							<div class="form-group mb-3">

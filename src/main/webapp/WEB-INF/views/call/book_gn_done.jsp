@@ -102,12 +102,14 @@
 				</div>
 
 				<div class="col-md">
+					<input type="hidden" name="dUserNo" value="" />
+					
 					<c:choose>
 						<c:when test="${ emgCall != null }">
 							<form action="${ path }/call/book/emg/cancel" method="POST">
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
-								<input type="hidden" name="callType" value="긴급"> <input
-									type="hidden" name="pUserNo" value="3">
+								<input type="hidden" name="callType" value="긴급">
+								<input type="hidden" name="pUserNo" value="">
 
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">긴급 예약을 요청하셨습니다</h1>
@@ -215,7 +217,6 @@
 							<form action="${ path }/call/book/cancel" method="POST">
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
-								<!-- <input type="hidden" name="dUserNo" value="1"> -->
 
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">일반 예약을 요청하셨습니다</h1>
@@ -380,6 +381,8 @@ $(function() {
 					  $('.confirmed').removeClass('btn-secondary').addClass('btn-primary');
 					  $('.pickup-heading-waiting').addClass('d-none');
 					  $('.pickup-heading-confirmed').removeClass('d-none');
+					  
+					  $('input[name=dUserNo]').val(driver.userNo);
 				 },
 				 error : function(e) {
 					 console.log('ajax error!');
