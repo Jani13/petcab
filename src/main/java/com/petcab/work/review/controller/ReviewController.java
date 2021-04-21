@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.ques.model.vo.QuesReply;
 import com.petcab.work.review.model.service.RReplyService;
 import com.petcab.work.review.model.service.ReviewService;
@@ -47,24 +48,37 @@ public class ReviewController {
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 
 		List<Review> list = null;
-		int reviewCount = service.getReviewCount();
-
-		System.out.println();
-
-		PageInfo pageInfo = new PageInfo(page, 10, reviewCount, listLimit);
-
+		int reviewCount = service.getReviewCount(null);
+		Search search = new Search(page, 10, reviewCount, listLimit);
+		list = service.getReviewList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
 		System.out.println(reviewCount);
+		
+		reviewCount = service.getReviewCount(search);
+		list = service.getReviewList(search);
 
-		list = service.getReviewList(pageInfo);
-
-		log.info(list.toString());
+		search = new Search(page, 10, reviewCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+//		log.info(list.toString());
 		model.addObject("list", list);
-		model.addObject("pageInfo", pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("review/reviewList");
-
+		
 		return model;
 	}
 
