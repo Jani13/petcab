@@ -71,10 +71,10 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>결제 내역</h4></span>
+            <span class="fw-bold fs-3 mt-3">결제내역</span>
             <br>
             <br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-sm-6">
                 <div class="card">
                   <div class="card-body">
@@ -95,7 +95,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>
@@ -105,29 +105,25 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <div
-              class="d-flex flex-row bd-highlight mb-3"
-              style="margin-bottom: 10px"
-            >
-              <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                  <button type="button" class="btn btn-outline-info">전체</button>
-                  <button type="button" class="btn btn-outline-info">일반</button>
-                  <button type="button" class="btn btn-outline-info">긴급콜</button>
-                </li>
-                <li class="list-group-item">
-                  <select class="form-select" aria-label="Default select example"  style="width: 100px;">
-                    <option selected>사용자</option>
-                    <option value="1">드라이버</option>
-                  </select>
-                </li>
-                <li class="list-group-item">
-                  <input type="search" id="title" class="form-control" placeholder="내용을 입력하세요." size="30px">
-                </li>
-                <li class="list-group-item">
-                  <button type="button" class="btn btn-outline-info">검색</button>
-                </li>
-              </ul>
+            
+            <div class="d-flex justify-content-between">
+            	<div>
+            		<button type="button" class="btn btn-outline-info" onclick="location.href='${path}/admin/pay'">전체</button>
+                  	<button type="button" id="genButton" name="genButton" class="btn btn-outline-info" value="일반">일반</button>
+                  	<button type="button" id="emgButton" name="emgButton" class="btn btn-outline-info" value="긴급">긴급콜</button>
+            	</div>
+            	<div class="d-flex mb-3 justify-content-end">
+	                <div class="input-group " style="width: 120px">
+	                    <select class="form-select" name="searchType" id="searchType">
+	                      <option value="user">사용자</option>
+	                      <option value="paymentDate">결제날짜</option>
+	                    </select>
+	                </div>
+	                <div class="input-group input-group-sm" style="width: 250px">
+	                    <input type="text" class="form-control" name="keyword" id="keyword"/>
+	                    <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+	                </div>
+                </div>
             </div>
             
             <br>
@@ -135,66 +131,95 @@
 
             <table class="table">
               <thead>
-                <tr style="background-color: skyblue;">
+                <tr class="text-center fw-bold" style="background-color: skyblue;">
                   <th scope="col">NO</th>
-                  <th scope="col">운행일시</th>
-                  <th scope="col">호출옵션</th>
+                  <th scope="col">결제날짜</th>
+                  <th scope="col">콜타입</th>
                   <th scope="col">사용자</th>
                   <th scope="col">드라이버</th>
-                  <th scope="col">차량번호</th>
+                  <th scope="col">차량<br>번호</th>
                   <th scope="col">출발지</th>
                   <th scope="col">도착지</th>
                   <th scope="col">금액</th>
-                  <th scope="col">결제수단</th>
+                  <th scope="col">결제<br>수단</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2021/4/26</td>
-                  <td>긴급콜</td>
-                  <td>여장구</td>
-                  <td>송강호</td>
-                  <td>18마 7365</td>
-                  <td>경기도 성남시 분당구 양현로 479 2층</td>
-                  <td>경기도 성남시 분당구 양현로 479 3층</td>
-                  <td>30,000원</td>
-                  <td>카드결제</td>
-                </tr>    
+              <c:if test="${empty paymentList}">
+	              <tr>
+	              	<td class="text-center" colspan="10">
+	               		결제 내역이 없습니다.
+	              	</td>
+	              </tr>
+              </c:if>
+              <c:if test="${!empty paymentList}">
+	              <c:forEach var="payList" items="${paymentList}">
+		              <tr class="text-center">
+			              <th class="rowNum">${payList.rowNum}</th>
+			              <td class="paymentDate">${payList.paymentDate}</td>
+			              <td class="callType">${payList.call.callType}</td>
+			              <td class="userId">${payList.dog.userId}</td>
+			              <td class="userName">${payList.driver.userName}</td>
+			              <td class="carNo">${payList.driver.carNo}</td>
+			              <td class="fromWhere">${payList.call.fromWhere}</td>
+			              <td class="toWhere">${payList.call.toWhere}</td>
+			              <td class="paidAmount">${payList.paidAmount}</td>
+			              <td class="payMethod">${payList.payMethod}</td>
+		              </tr>                  
+	              </c:forEach>		
+              </c:if>
               </tbody>
             </table>
-            <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-
-
-
-
-            
+            <!-- 페이징 부분 -->
+                      <div
+                        aria-label="Page navigation example"
+                        class="d-flex justify-content-center"
+                      >
+                        <ul class="pagination">
+                          
+                          <!-- 맨 처음으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/pay?page=1&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                          </li>
+                          <!-- 이전 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.prvePage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 5개 페이지 목록 -->
+                          <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                          	<c:if test="${status.current == pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link disabled"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          	<c:if test="${status.current != pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link" href="${path}/admin/pay?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          </c:forEach>
+                          
+                          <!-- 다음 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.nextPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 맨 끝으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.maxPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+          
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>
@@ -208,5 +233,69 @@
       src="https://kit.fontawesome.com/0fe4d45686.js"
       crossorigin="anonymous"
     ></script>
+    
+    <!-- 검색기능 url만들어주는 부분 -->
+    <script>
+    	$(document).on('click', '#btnSearch', function(e){
+    		e.preventDefault();
+    		
+    		var url = "${path}/admin/pay";
+    		
+    		url = url + "?searchType=" + $('#searchType').val();
+    		
+    		url = url + "&keyword=" + $('#keyword').val();
+    		
+    		location.href = url;
+    		
+    		console.log(url);
+    	});
+    	
+    	$(document).ready(function() {
+    		$('#genButton').click(function() {
+				let btnValue = $('#genButton').val();
+				
+				console.log(btnValue);
+				
+				$.ajax({
+					async : true,
+					url : '${path}/admin/genCallSelect',
+					dataType : 'json',
+					contentType : "application/json; charset=UTF-8",
+					type : 'get',
+					data : {
+						'btnValue' : btnValue
+					},
+					
+					success : function(selectList) {
+						
+						console.log(selectList[0].CAR_NO);
+						
+						for (var i = 0; i < selectList.length; i++) {
+				    			
+								console.log(selectList[i].ROWNUM);
+								console.log(selectList[i].PAYMENT_DATE);
+								$('th[class=rowNum]').val(selectList[i].ROWNUM);
+								$('td[class=paymentDate]').val(selectList[i].PAYMENT_DATE);
+								$('td[class=callType]').val(selectList[i].CALL_TYPE);
+								$('td[class=userId]').val(selectList[i].USER_ID);
+								$('td[class=userName]').val(selectList[i].USER_NAME);
+								$('td[class=carNo]').val(selectList[i].CAR_NO);
+								$('td[class=fromWhere]').val(selectList[i].FROM_WHERE);
+								$('td[class=toWhere]').val(selectList[i].TO_WHERE);
+								$('td[class=paidAmount]').val(selectList[i].PAID_AMOUNT);
+								$('td[class=payMethod]').val(selectList[i].PAY_METHOD);
+								console.log($('td[class=payMethod]').val(selectList[i].PAY_METHOD));
+								
+							} 
+						console.log(selectList);
+					},
+					error : function(e) {
+						console.log(e);
+						console.log('문제가 발생했습니다.');
+					}
+				});
+			});
+    	});
+    </script>
   </body>
 </html>

@@ -38,7 +38,35 @@
 		<result property="paidAt" column="PAID_AT" />
 		<result property="receipUrl" column="RECEIPT_URL" />
 		<result property="userNo" column="USER_NO" />
+		<result property="paymentDate" column="PAYMENT_DATE"/>
+		<result property="rowNum" column="ROWNUM"/>
+		<association property="driver" resultMap="DriverResultMap" />
+		<association property="call" resultMap="CallResultMap" />
+		<association property="dog" resultMap="DogResultMap" />
 	</resultMap>
+	
+	<resultMap type="Driver" id="DriverResultMap">
+		<id property="userNo" column="USER_NO" />
+		
+		<result property="carNo" column="CAR_NO" />
+		<result property="carType" column="CAR_TYPE" />
+		<result property="userName" column="USER_NAME"/>
+	</resultMap>
+	
+	<resultMap type="Call" id="CallResultMap">
+		<id property="callNo" column="CALL_NO"/>
+		
+		<result property="fromWhere" column="FROM_WHERE"/>
+		<result property="toWhere" column="TO_WHERE"/>
+		<result property="callType" column="CALL_TYPE"/>
+	</resultMap>
+	
+	<resultMap type="Dog" id="DogResultMap">
+		<id property="dogNo" column="DOG_NO" />
+		
+		<result property="userId" column="USER_ID" />
+	</resultMap>
+	
 
 	<select id="selectPaymentCount" resultType="_int">
 		SELECT COUNT(*) FROM PAYMENT
@@ -77,5 +105,117 @@
   			SYSDATE
  		)
   	</insert>
+  	
+  	<select id="searchPayCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		        SELECT DISTINCT
+		               P.PAYMENT_DATE,
+		               G.CALL_TYPE,
+		               M.USER_ID,
+		               M2.USER_NAME,
+		               D.CAR_NO,
+		               G.FROM_WHERE,
+		               G.TO_WHERE,
+		               P.PAID_AMOUNT,
+		               P.PAY_METHOD
+		        FROM PAYMENT P, GEN_CALL G, MEMBER M, MEMBER M2, DRIVER D, CALL_DOG CD, DOG D2
+		        WHERE P.USER_NO = M.USER_NO
+		        AND G.CALL_NO = CD.CALL_NO
+		        AND D2.USER_ID = M.USER_ID
+		        AND M2.USER_NO = D.USER_NO
+		        AND P.MERCHANT_UID = G.MERCHANT_UID
+		        AND P.STATUS = 'Y'
+		        <trim prefix="AND" prefixOverrides="AND">
+				<if test="keyword != null and keyword != ''">
+					<if test="searchType == 'user'">
+						M.USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'paymentDate'">
+						P.PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+					</if>
+				</if>
+				</trim>
+		        ORDER BY PAYMENT_DATE
+		     )
+		ORDER BY ROWNUM
+  	</select>
+  	
+  	<select id="searchPayList" resultMap="PaymentResultMap">
+  		SELECT ROWNUM,
+		       PAYMENT_DATE,
+		       CALL_TYPE,
+		       USER_ID,
+		       USER_NAME,
+		       CAR_NO,
+		       FROM_WHERE,
+		       TO_WHERE,
+		       PAID_AMOUNT,
+		       PAY_METHOD 
+		FROM (
+		        SELECT DISTINCT
+		               P.PAYMENT_DATE,
+		               G.CALL_TYPE,
+		               M.USER_ID,
+		               M2.USER_NAME,
+		               D.CAR_NO,
+		               G.FROM_WHERE,
+		               G.TO_WHERE,
+		               P.PAID_AMOUNT,
+		               P.PAY_METHOD
+		        FROM PAYMENT P, GEN_CALL G, MEMBER M, MEMBER M2, DRIVER D, CALL_DOG CD, DOG D2
+		        WHERE P.USER_NO = M.USER_NO
+		        AND G.CALL_NO = CD.CALL_NO
+		        AND D2.USER_ID = M.USER_ID
+		        AND M2.USER_NO = D.USER_NO
+		        AND P.MERCHANT_UID = G.MERCHANT_UID
+		        AND P.STATUS = 'Y'
+		        ORDER BY PAYMENT_DATE
+		     )
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'user' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'paymentDate' and keyword != null and keyword != ''">
+				AND PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
+		ORDER BY ROWNUM
+  	</select>
+  	
+	<select id="selectByCallType" resultType="hashmap">
+		SELECT ROWNUM,
+			   TO_CHAR(PAYMENT_DATE, 'YYYY/MM/DD')PAYMENT_DATE,
+		       CALL_TYPE,
+		       USER_ID,
+		       USER_NAME,
+		       CAR_NO,
+		       FROM_WHERE,
+		       TO_WHERE,
+		       PAID_AMOUNT,
+		       PAY_METHOD 
+		FROM (
+		        SELECT DISTINCT
+		               P.PAYMENT_DATE,
+		               G.CALL_TYPE,
+		               M.USER_ID,
+		               M2.USER_NAME,
+		               D.CAR_NO,
+		               G.FROM_WHERE,
+		               G.TO_WHERE,
+		               P.PAID_AMOUNT,
+		               P.PAY_METHOD
+		        FROM PAYMENT P, GEN_CALL G, MEMBER M, MEMBER M2, DRIVER D, CALL_DOG CD, DOG D2
+		        WHERE P.USER_NO = M.USER_NO
+		        AND G.CALL_NO = CD.CALL_NO
+		        AND D2.USER_ID = M.USER_ID
+		        AND M2.USER_NO = D.USER_NO
+		        AND P.MERCHANT_UID = G.MERCHANT_UID
+		        AND P.STATUS = 'Y'
+		        ORDER BY PAYMENT_DATE
+		     )
+		WHERE CALL_TYPE = #{btnValue}
+		ORDER BY ROWNUM
 	
+	</select>
 </mapper>

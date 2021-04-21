@@ -2,6 +2,11 @@ package com.petcab.work.payment.model.vo;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.user.model.vo.Dog;
+import com.petcab.work.user.model.vo.Driver;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,5 +41,14 @@ public class Payment {
 	
 	private int userNo;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date paymentDate;
+	
+	private int rowNum;
+	
+	private Driver driver;
+	
+	private Call call;
+	
+	private Dog dog;
 }
