@@ -274,17 +274,17 @@
 				    			
 								console.log(selectList[i].ROWNUM);
 								console.log(selectList[i].PAYMENT_DATE);
-								$('th[class=rowNum]').val(selectList[i].ROWNUM);
-								$('td[class=paymentDate]').val(selectList[i].PAYMENT_DATE);
-								$('td[class=callType]').val(selectList[i].CALL_TYPE);
-								$('td[class=userId]').val(selectList[i].USER_ID);
-								$('td[class=userName]').val(selectList[i].USER_NAME);
-								$('td[class=carNo]').val(selectList[i].CAR_NO);
-								$('td[class=fromWhere]').val(selectList[i].FROM_WHERE);
-								$('td[class=toWhere]').val(selectList[i].TO_WHERE);
-								$('td[class=paidAmount]').val(selectList[i].PAID_AMOUNT);
-								$('td[class=payMethod]').val(selectList[i].PAY_METHOD);
-								console.log($('td[class=payMethod]').val(selectList[i].PAY_METHOD));
+								$('.rowNum').val(selectList[i].ROWNUM);
+								$('.paymentDate').val(selectList[i].PAYMENT_DATE);
+								$('.callType').val(selectList[i].CALL_TYPE);
+								$('.userId').val(selectList[i].USER_ID);
+								$('.userName').val(selectList[i].USER_NAME);
+								$('.carNo').val(selectList[i].CAR_NO);
+								$('.fromWhere').val(selectList[i].FROM_WHERE);
+								$('.toWhere').val(selectList[i].TO_WHERE);
+								$('.paidAmount').val(selectList[i].PAID_AMOUNT);
+								$('.payMethod').val(selectList[i].PAY_METHOD);
+								
 								
 							} 
 						console.log(selectList);
