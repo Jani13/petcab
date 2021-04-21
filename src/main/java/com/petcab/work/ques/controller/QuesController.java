@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
 import com.petcab.work.ques.model.vo.QuesReply;
@@ -32,7 +33,7 @@ public class QuesController {
 	public ModelAndView list(
 			ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {	
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit) {	
 
 		List<Ques> list = null;
 		int quesCount = service.getQuesCount();
@@ -57,30 +58,41 @@ public class QuesController {
 	public ModelAndView list(
 			ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit, 
-			@RequestParam(defaultValue="userId") String searchOption, 	
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit, 
+			@RequestParam(defaultValue="userId") String searchType, 	
             @RequestParam(defaultValue="") String keyword, 
 								HttpServletRequest request) {				 
-			
-		
-		System.out.println(request.getParameter("searchOption"));
-		System.out.println(request.getParameter("keyword"));
+				
+//		System.out.println(request.getParameter("searchType"));
+//		System.out.println(request.getParameter("keyword"));
 		
 		List<Ques> list = null;
-		int quesCount = service.getQuesCount();
-
-		PageInfo pageInfo = new PageInfo(page, 10, quesCount, listLimit);
+		int quesCount = 0;
 		
+		Search search = new Search(page, 10, quesCount, listLimit);
 		
-		System.out.println(quesCount);
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
 		
-		list = service.getQuesList2(pageInfo, searchOption, keyword);
+		quesCount = service.getQuesCount2(search);		
+		list = service.getQuesList2(search);
 		
-//		log.info(list.toString());
+		System.out.println("정말 이러기야?!" + quesCount);
+		
+		search = new Search(page, 5, quesCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		log.info(list.toString());
 		
 		model.addObject("list", list);
-		model.addObject("pageInfo", pageInfo);
-		model.setViewName("ques/quesList");
+		model.addObject("pageInfo", search);
+		model.setViewName("ques/quesList2");
 		
 		return model;
 	}

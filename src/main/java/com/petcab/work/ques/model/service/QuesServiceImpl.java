@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.ques.model.dao.QuesDao;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
@@ -45,15 +46,15 @@ public class QuesServiceImpl implements QuesService {
 	}
 
 	@Override
-	public List<Ques> getQuesList2(PageInfo pageInfo, String searchOption, String keyword) {
+	public List<Ques> getQuesList2(Search search) {
 		
-		System.out.println(searchOption);
-		System.out.println(keyword);
+		System.out.println(search);
+
 		
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		int offset = (search.getCurrentPage() - 1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return quesDao.selectQuesList2(rowBounds, searchOption, keyword);
+		return quesDao.selectQuesList2(rowBounds, search);
 	}
 	
 	@Override
@@ -62,6 +63,12 @@ public class QuesServiceImpl implements QuesService {
 		return quesDao.selectCount();
 	}
 
+	@Override
+	public int getQuesCount2(Search search) {
+		
+		return quesDao.selectCount2(search);
+	}
+	
 	@Override
 	public Ques findQuesByNo(int quesNo) {
 		
@@ -106,6 +113,8 @@ public class QuesServiceImpl implements QuesService {
 		
 		return quesDao.selectQuesList();
 	}
+
+	
 
 
 }

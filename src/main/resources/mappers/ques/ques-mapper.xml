@@ -68,7 +68,7 @@
 		<include refid="quesListSql"></include>
 				
 		WHERE Q.STATUS = 'Y'		
-		AND ${searchOption} like '%'||#{keyword}||'%'
+		AND ${searchType} like '%'||#{keyword}||'%'
 		ORDER BY Q.QUES_NO DESC
 	</select>
 	
@@ -76,6 +76,21 @@
 		SELECT COUNT(*)
 		FROM QUES
 	</select>	 	
+	
+	<select id="selectCount2" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM QUES
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					 USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'title'">
+					AND TITLE LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
+	</select>
 	
 	<select id="selectQuesDetail" parameterType="_int" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>

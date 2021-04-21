@@ -1,8 +1,10 @@
 package com.petcab.work.payment.model.service;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.dao.PaymentDao;
 import com.petcab.work.payment.model.vo.Payment;
 
@@ -17,6 +19,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Service
 @Log
@@ -40,13 +43,34 @@ public class PaymentServiceImpl implements PaymentService {
 
 
 
+
 	@Override
 	public int updatPay(String impUid) {
 		
 		return paymentDao.updatPay(impUid);
 	}
 
+	@Override
+	public int searchPayCount(Search search) {
+		
+		return paymentDao.searchPayCount(search);
+	}
 
+
+	@Override
+	public List<Payment> searchPayList(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit(); 
+	    RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
+		
+		return paymentDao.searchPayList(rowBounds, search);
+	}
+
+
+	@Override
+	public List<Payment> searchByCallType(String btnValue) {
+		
+		return paymentDao.selectByCallType(btnValue);
+	}
 
 
 	

@@ -82,73 +82,56 @@
           </div>
 
           <br><br><br>
-
+                    <input type="hidden" id="useInfo" name="useInfo" class="form-control" >
+                    <input type="text" value="${review.callNo}" name="callNo">
+                    <input type="text" value="${review.callType}" name="callType">
             <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col" style="width: 300px;">
-                        <select class="form-select" name="callNo" aria-label="Default select example" style="width: 300px;">
-                            <option selected>${review.callNo}</option>
-                            <option value="1">내가 사용한 내역</option>
-                            <option value="2">One</option>
-                            <option value="3">Two</option>
-                            <option value="4">Three</option>
-                          </select>
-                    </th>
-                    <th scope="col">
-                    <input type="text" id="useInfo" name="useInfo" class="form-control" ></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">* 긴급콜 이용 *</th>
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="${review.callType}">Y
-                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <label class="form-check-label">
-                              <input type="checkbox" id="callType" name="callType" class="form-check-input" value="${review.callType}">N
-                            </label>
-                          </div>
-                    </td>         
-                  </tr>
-                  <tr>
-                    <th scope="row">* 평점 *</th>
-                    <td><input type="number" id="starNo" name="starNo" value="${review.starNo}" class="form-control"></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">* 제목 *</th>
-                    <td><input type="text" id="title" name="title" class="form-control" value="${review.title}" placeholder="제목을 입력하세요.">
-                    	<input type="hidden" name="userNo" value = "${loginMember.userNo}">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" colspan="2">
-                      <p>* 글쓰기 *</p> 
-                        <!-- ====  스마트 에디터  ===== -->
-                        <div class="editor-box">
-                          <div class="editor-box__editor">
-                              <!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
-                              <textarea name="content" id="ir1" rows="10" cols="100"><c:out value="${review.content}"/> </textarea>
-                              <script type="text/javascript">
+					<tbody>
+						<tr>
+							<th scope="row">* 긴급콜 이용 *</th>
+							<td>
+								<div class="form-check">
+									<c:out value="${review.callType}"></c:out>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">* 평점 *</th>
+							<td><input type="number" id="starNo" name="starNo"
+								value="${review.starNo}" class="form-control"></td>
+						</tr>
+						<tr>
+							<th scope="row">* 제목 *</th>
+							<td><input type="text" id="title" name="title"
+								class="form-control" value="${review.title}"
+								placeholder="제목을 입력하세요."> <input type="hidden"
+								name="userNo" value="${loginMember.userNo}"></td>
+						</tr>
+						<tr>
+							<th scope="row" colspan="2">
+								<p>* 글쓰기 *</p> <!-- ====  스마트 에디터  ===== -->
+								<div class="editor-box">
+									<div class="editor-box__editor">
+										<!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다. -->
+										<textarea name="content" id="ir1" rows="10" cols="100"><c:out
+												value="${review.content}" /> </textarea>
+										<script type="text/javascript">
                  						 CKEDITOR.replace('content', {height: 500});
                   				</script>
-                          </div>
-                      </div>
-                      <div style="text-align : center; padding: 30px;">
-                          <span style="padding-right : 3rem;">
-                              <input type="submit" class="btn btn-primary" id="reviewSubmit" value="작성완료"> 
-                          </span>
-                          <span>
-                              <input type="button" class="btn btn-secondary" id="reviewCancel"
-                              			onclick="location.replace('${path}/review/list')" value="취소하기">
-                          </span>
-                      </div>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
+									</div>
+								</div>
+								<div style="text-align: center; padding: 30px;">
+									<span style="padding-right: 3rem;"> <input type="submit"
+										class="btn btn-primary" id="reviewSubmit" value="작성완료">
+									</span> <span> <input type="button" class="btn btn-secondary"
+										id="reviewCancel"
+										onclick="location.replace('${path}/review/list')" value="취소하기">
+									</span>
+								</div>
+							</th>
+						</tr>
+					</tbody>
+				</table>
               </form>
         </div>
 

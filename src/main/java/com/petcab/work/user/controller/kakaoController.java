@@ -39,11 +39,12 @@ public class kakaoController {
 		System.out.println("autorize_code = "+autorize_code);
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+		
 		postParams.add(new BasicNameValuePair("grant_type","authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "bbb869a66a7f6d7cb05fcbed70f52803")); // REST API KEY
 		
 		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8089/work/kakaoLogin")); // 리다이렉트 URI 
-
+		
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 
 		final HttpClient client = HttpClientBuilder.create().build();

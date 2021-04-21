@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.ques.model.vo.QuesReply;
 import com.petcab.work.review.model.service.RReplyService;
 import com.petcab.work.review.model.service.ReviewService;
@@ -47,37 +48,56 @@ public class ReviewController {
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit,
+			@RequestParam(required = false, defaultValue = "userId")String searchType,
+			@RequestParam(required = false) String keyword) {
 
 		List<Review> list = null;
-		int reviewCount = service.getReviewCount();
-
-		System.out.println();
-
-		PageInfo pageInfo = new PageInfo(page, 10, reviewCount, listLimit);
-
+		int reviewCount = service.getReviewCount(null);
+		Search search = new Search(page, 10, reviewCount, listLimit);
+		list = service.getReviewList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
 		System.out.println(reviewCount);
+		
+		reviewCount = service.getReviewCount(search);
+		list = service.getReviewList(search);
 
-		list = service.getReviewList(pageInfo);
-
-		log.info(list.toString());
+		search = new Search(page, 10, reviewCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+//		log.info(list.toString());
 		model.addObject("list", list);
-		model.addObject("pageInfo", pageInfo);
+		model.addObject("pageInfo", search);
 		model.setViewName("review/reviewList");
-
+		
 		return model;
 	}
 
 	@RequestMapping(value = "/reviewWrite", method = { RequestMethod.GET })
-	public ModelAndView aaa(@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+	public ModelAndView aaa(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("callNo") int callNo) {
 		ModelAndView model = new ModelAndView();
 		
-		List<Call> call = new ArrayList<Call>();
-
-		call = callservice.callEndList(loginMember.getUserId());
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ" + callNo);
 		
-		System.out.println("11ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ"+call);
-		model.addObject("endCall", call);
+		Call call = new Call();
+		
+		call.setCallNo(callNo);
+		
+//		int callNo = Integer.parseInt(s);
+		
+//		call = callservice.callEndList(callNo);
+
+		model.addObject(call);
 		model.setViewName("/review/reviewWrite");
 		
 		return model;
@@ -86,8 +106,7 @@ public class ReviewController {
 	// 게시글 작성처리
 	@RequestMapping(value = "/reviewWriteResult", method = { RequestMethod.POST })
 	public ModelAndView reviewWriteResult(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, ModelAndView model
-			) {
+			HttpServletRequest request, ModelAndView model) {
 
 		// 예약과 연동하여 나중에 예약한 리스트로 리뷰 작성 내역을 선택하여 작성할 수 있도록 만들기
 
@@ -177,6 +196,8 @@ public class ReviewController {
 	public ModelAndView update(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			HttpServletRequest request, Review review, ModelAndView model) {
 
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa" + review.toString());
+		
 		int result = 0;
 
 //			System.out.println("xxxxxxxxxxxxxxxxx" + review);
