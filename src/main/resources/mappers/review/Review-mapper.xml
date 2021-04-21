@@ -49,14 +49,35 @@
 	 	<collection property="replies" javaType="java.util.ArrayList" resultMap="reviewReplyResultMap"/>	
 	</resultMap>
 	
-  	<select id="selectCount" parameterType="map" resultType="_int">
+  	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM REVIEW
+		FROM REVIEW R
+		JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					AND M.USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'title'">
+					AND R.TITLE LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 	
-	<select id="selectReviewList" parameterType="map" resultMap="reviewResultMap">
+	<select id="selectReviewList" resultMap="reviewResultMap">
 		<include refid="ReviewListSql"></include>
 		WHERE R.STATUS = 'Y'
+		<trim prefix="AND" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					AND M.USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'title'">
+					AND R.TITLE LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 		ORDER BY R.REVIEW_NO DESC
 	</select>
 	 

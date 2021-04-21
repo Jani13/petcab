@@ -273,7 +273,7 @@
                                 </tr>                         
                             </table>
                             <div style="text-align: right;">
-                                <button type="submit" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
+                                <button type="submit" id="idSearchBtn2" class="btn btn-outline-info justify-content-center btn-sm" >확인</button>
                             </div>
                         </div>
                         <div class="col-md-3"></div>   
@@ -284,6 +284,26 @@
     </section>
     
     <jsp:include page="../common/footer.jsp" />
+    
+    <script>
+	    $("#idSearchBtn").on("click", () => {
+	        
+	        var phone = $("#newPhone").val();
+	        var userNum = $("#userNum").val();
+	           
+	        if(phone.length == 0) {
+	       	 alert("전화번호를 입력해주세요");
+	       	 $("#newPhone").focus();
+	       	 return false;
+	        }
+	        
+	        if(userNum.length == 0) {
+	       	 alert("인증번호를 받아 입력해주세요");
+	       	 $("#userNum").focus();
+	       	 return false;
+	        }	       
+	     });
+    </script>
 
 	<script>
 	  var count = 0; /* 문자 중복을 막기 위한 인증번호 */
@@ -358,6 +378,25 @@
   });
   </script>
 
+	 <script>
+	    $("#idSearchBtn2").on("click", () => {
+	        
+	        var phone = $("#newPhone1").val();
+	        var userNum = $("#userNum1").val();
+	           
+	        if(phone.length == 0) {
+	       	 alert("전화번호를 입력해주세요");
+	       	 $("#newPhone1").focus();
+	       	 return false;
+	        }
+	        
+	        if(userNum.length == 0) {
+	       	 alert("인증번호를 받아 입력해주세요");
+	       	 $("#userNum1").focus();
+	       	 return false;
+	        }	       
+	     });
+    </script>
 	<script>
 	  var count = 0; /* 문자 중복을 막기 위한 인증번호 */
 	   
