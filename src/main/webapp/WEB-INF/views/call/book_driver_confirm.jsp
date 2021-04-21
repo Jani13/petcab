@@ -154,68 +154,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- 
-					<div class="col">
-						<div class="card h-100 border-info">
-							<div class="card-header">YYYY.MM.DD. HH:MM</div>
-							<div class="card-body">
-								<h5 class="card-title">출발지</h5>
-								<h5 class="card-title">도착지</h5>
-								<div class="row row-cols-2">
-									<p class="card-text col-8">세부사항</p>
-									<button type="button" class="btn btn-outline-primary col-3">
-										선택</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col">
-						<div class="card h-100 border-info">
-							<div class="card-header">YYYY.MM.DD. HH:MM</div>
-							<div class="card-body">
-								<h5 class="card-title">출발지</h5>
-								<h5 class="card-title">도착지</h5>
-								<div class="row row-cols-2">
-									<p class="card-text col-8">세부사항</p>
-									<button type="button" class="btn btn-outline-primary col-3">
-										선택</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col">
-						<div class="card h-100 border-info">
-							<div class="card-header">YYYY.MM.DD. HH:MM</div>
-							<div class="card-body">
-								<h5 class="card-title">출발지</h5>
-								<h5 class="card-title">도착지</h5>
-								<div class="row row-cols-2">
-									<p class="card-text col-8">세부사항</p>
-									<button type="button" class="btn btn-outline-primary col-3">
-										선택</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col">
-						<div class="card h-100 border-info">
-							<div class="card-header">YYYY.MM.DD. HH:MM</div>
-							<div class="card-body">
-								<h5 class="card-title">출발지</h5>
-								<h5 class="card-title">도착지</h5>
-								<div class="row row-cols-2">
-									<p class="card-text col-8">세부사항</p>
-									<button type="button" class="btn btn-outline-primary col-3">
-										선택</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					-->
 				</div>
 			</div>
 		</div>
@@ -245,28 +183,12 @@
 <!--<script src="${path}/js/book_driver_confirm.js"></script>-->
 <script>
 $(function () {
-	var socket = new SockJS("/work/accept");
+	var socket = new SockJS("/work/notify");
 	stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
     console.log('Connected: ' + frame);
-//        stompClient.subscribe('/work/call/book/{callNo}/done', function (/*greeting*/) {
-//            // showGreeting(JSON.parse(greeting.body).content);
-//           
-//            console.log('where am I?')
     });
 });
-    
-// function sendDriverDetail(e) {
-// 	let data = {
-// 			'callNo': $(e).siblings('input').val(),
-// 			'userNo': $('input[name=dUserNo]').val()
-// 	};
-// 	
-// 	console.log(data);
-// 	
-// 	stompClient.send("/work/notify", {}, JSON.stringify(data));
-    // 여기서 드라이버 넘버도 같이 보내야될듯
-// }
     
 function selectCallByDriver(e) {
     // 예약상태를 '기사'로 바꿈
@@ -283,7 +205,7 @@ function selectCallByDriver(e) {
         'dUserNo': dUserNo,
         'callNo': callNo
     };
-
+    
     $.ajax({
         url : 'confirm/select',
         dataType : 'json',
@@ -299,7 +221,7 @@ function selectCallByDriver(e) {
             
             console.log("callNo in success function  : " + callNo);
             
-         	stompClient.send("/work/notify", {}, JSON.stringify(data)); // send() 메소드 실행
+         	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
             
             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
         },

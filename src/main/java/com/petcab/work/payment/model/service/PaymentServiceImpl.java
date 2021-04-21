@@ -42,6 +42,14 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 
+
+
+	@Override
+	public int updatPay(String impUid) {
+		
+		return paymentDao.updatPay(impUid);
+	}
+
 	@Override
 	public int searchPayCount(Search search) {
 		
@@ -63,6 +71,7 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return paymentDao.selectByCallType(btnValue);
 	}
+
 
 	
 ////	private static final String HOST = "https://kapi.kakao.com";

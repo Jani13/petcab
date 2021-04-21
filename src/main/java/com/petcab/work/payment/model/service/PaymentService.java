@@ -11,11 +11,14 @@ public interface PaymentService {
 
 	int savePayInfo(Payment payment);
 
+	int updatPay(String impUid);
+
 	int searchPayCount(Search search);
 
 	List<Payment> searchPayList(Search search);
 
 	List<Payment> searchByCallType(String btnValue);
+
 	
 //	String PayReady();
 	

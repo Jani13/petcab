@@ -106,6 +106,14 @@
  		)
   	</insert>
   	
+	<!-- 결제취소 paid(결제완료), cancelled(결제취소, 부분취소포함) -->
+	<update id="updatPay" parameterType="String">
+		UPDATE PAYMENT
+		SET
+		STATUS='cancelled'
+		WHERE IMP_UID=#{impUid}
+	</update>
+	
   	<select id="searchPayCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM (
@@ -218,4 +226,5 @@
 		ORDER BY ROWNUM
 	
 	</select>
+>>>>>>> acf624e5150880c736906b9e4fb3b91b905a885e
 </mapper>

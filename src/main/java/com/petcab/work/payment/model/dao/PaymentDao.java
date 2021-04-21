@@ -15,6 +15,8 @@ public interface PaymentDao {
 
 	int insertPayInfo(Payment payment);
 
+	int updatPay(String impUid);
+
 	int searchPayCount(Search search);
 
 	List<Payment> searchPayList(RowBounds rowBounds, Search search);
