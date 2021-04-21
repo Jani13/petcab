@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverMessage {
-	private int callNo;
+public class CallMessage {
+	private String senderSessionId;
 	
-	private int dUserNo;
+	private int callNo; // message
 	
-	private String carNo;
+	private int dUserNo; // message
+	
+	private String carNo; // message
 }

@@ -29,6 +29,7 @@ import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.service.PaymentService;
+import com.petcab.work.payment.model.vo.Payment;
 import com.petcab.work.ques.model.service.QuesService;
 import com.petcab.work.ques.model.vo.Ques;
 import com.petcab.work.user.model.service.DriverService;
@@ -42,6 +43,7 @@ import com.petcab.work.visit.model.dao.VisitCountDao;
 import com.petcab.work.visit.model.service.VisitorService;
 import com.petcab.work.visit.model.vo.VisitCountVo;
 
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -373,28 +375,50 @@ public class AdminController {
 	
 	
 	
-	
-	
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
-	public String payReview() {
-
-		return "admin/adminPayReview";
+	public ModelAndView payReview(ModelAndView model, 
+								  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+								  @RequestParam(value="listLimit", required = false, defaultValue = "10") int listLimit,
+								  @RequestParam(required = false, defaultValue = "userId") String searchType,
+								  @RequestParam(required = false) String keyword) {
+		
+		List<Payment> paymentList = null;
+		int payCount = paymentService.searchPayCount(null);
+		Search search = new Search(page, 5, payCount, listLimit);
+		
+		paymentList = paymentService.searchPayList(search);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		log.info(paymentList.toString());
+		
+		payCount = paymentService.searchPayCount(search);
+		paymentList = paymentService.searchPayList(search);
+		search = new Search(page, 5, payCount, listLimit);
+		
+		if (keyword != null) {
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		}
+		
+		model.addObject("paymentList", paymentList);
+		model.addObject("pageInfo", search);
+		model.setViewName("admin/adminPayReview");
+		
+		return model;
 	}
 	
-	@RequestMapping(value = "/apply", method = RequestMethod.GET)
-	public String apply() {
-
-		return "admin/adminApply";
+	@RequestMapping(value = "/genCallSelect", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseEntity<List<Payment>> findGenPayList(@RequestParam(name = "btnValue", required=false)String btnValue) {
+	
+		List<Payment> selectList = paymentService.searchByCallType(btnValue);
+				
+		return new ResponseEntity<List<Payment>>(selectList, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@RequestMapping(value = "/apply/driver", method = RequestMethod.GET)
 	public ModelAndView applyDriver(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
