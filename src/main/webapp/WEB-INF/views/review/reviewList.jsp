@@ -46,7 +46,7 @@
 	        </div>
 	        
 	        <div class="d-flex justify-content-md-end">
-	            <img class="col-md-4 img-fluid mt-5 mx-5" src="${path}/images/dogs.png" alt="" >
+	            <img class="col-md-4 img-fluid mt-5 mx-5" src="${path}/images/dogs.png">
 	        </div>
 	        
 	        <div class="row d-flex justify-content-center" >
@@ -56,21 +56,19 @@
 	                </div>
 	            </div>
 	        </div>
-	        
-	        <div class="input mt-5 row d-flex justify-content-between mb-3" align="right" >
-	            <div class="col-5 d-flex justify-content-start">
-		            <form action="">
-		                <input type="search" name="serchText" size="25px"  placeholder="검색할 내용을 입력하세요.">	            
-		                <input type="submit" class="btn btn-info" value="조회">
-		            </form>
-	            </div>
-	            <c:if test="${ loginMember != null }">
-	                <button class="btn btn-info col-1 d-inline-block mx-3" type="button" id="btn-add"
-	                onclick="location.href ='${path}/review/reviewWrite'">글쓰기</button>
-	            </c:if>
-	        </div>
-	        
-	        <table class="table">
+			<div class="d-flex mb-3 pt-4 justify-content-end">
+				<div class="input-group " style="width: 100px">
+					<select class="form-select" name="searchType" id="searchType">
+						<option value="userId">작성자</option>
+						<option value="title">제목</option>
+					</select>
+				</div>
+				<div class="input-group input-group-sm" style="width: 250px">
+					<input type="text" class="form-control" name="keyword" id="keyword" />
+					<button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+				</div>
+			</div>
+			<table class="table">
 	            <thead style="text-align: center;">
 	              <tr>
 	                <th scope="col">No</th>
@@ -138,7 +136,7 @@
                  	</c:if>
                  	<c:if test="${status.current != pageInfo.currentPage}">
                   <li class="page-item">
-                    <a class="page-link" href="${path}/review/list?page=${status.current}"><c:out value="${status.current}"/></a>
+                    <a class="page-link" href="${path}/review/list?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}"><c:out value="${status.current}"/></a>
                   </li>
                  	</c:if>
                  </c:forEach>
@@ -165,4 +163,20 @@
     <jsp:include page="../common/footer.jsp" />
     
 </body>
+	<!-- 검색 -->
+    <script>
+    	$(document).on('click', '#btnSearch', function(e){
+    		e.preventDefault();
+    		
+    		var url = "${path}/review/list";
+    		
+    		url = url + "?searchType=" + $('#searchType').val();
+    		
+    		url = url + "&keyword=" + $('#keyword').val();
+    		
+    		location.href = url;
+    		
+    		console.log(url);
+    	});
+    </script>
 </html>

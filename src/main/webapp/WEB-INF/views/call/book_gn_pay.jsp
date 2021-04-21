@@ -304,31 +304,24 @@
     -->
 </body>
 <script>
-$('#api').click(function() {
-	// getter
-	var IMP = window.IMP;
-	IMP.init('imp03179840');
-
-	IMP.request_pay({
-		pg : "inicis", //pg사
-		merchant_uid : 'merchant_'
-				+ new Date().getTime(),
-		name : 'PETCAB', // 결제창에서 보여질 이름
-		amount : 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
-		buyer_name : '${loginMember.userId }',
-		buyer_tel : '010-1234-5678',
-		buyer_addr : '서울특별시 강남구 신사동',
-		buyer_postcode : '123-456'
-	}, function(rsp) {
-		console.log(rsp);
-
-		if (rsp.success) {
-			var msg = '결제가 완료되었습니다.';
-			msg += '고유ID : ' + rsp.imp_uid;
-			msg += '상점 거래ID : ' + rsp.merchant_uid;
-			msg += '결제 금액 : ' + rsp.paid_amount;
-			msg += '카드 승인번호 : ' + rsp.apply_num;
-
+$('#api').click(function () {
+	   // IMP.request_pay(param, callback) 호출
+    IMP.init('imp03179840'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+    var mag;
+    
+    IMP.request_pay({ // param
+        pg: "inicis", //pg사
+        pay_method: "card",
+        merchant_uid : 'merchant_' + new Date().getTime(),
+        name: "PETCAB", // 결제창에서 보여질 이름
+        amount: 100, // 실제 결제되는 가격  // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
+        buyer_name: "구매자",
+        buyer_tel: "010-4242-4242",
+        buyer_addr: "서울특별시 강남구 신사동",
+        buyer_postcode : '123-456'
+   	 }, function(rsp) {
+			console.log(rsp);
+			// 결제검증
 			$.ajax({
 				type : "POST",
 				url : "${path}/call/payInfo",
@@ -351,8 +344,8 @@ $('#api').click(function() {
 			});
 		
 			document.location.href = "${ path }/call/book/${ call.callNo }/done"; //alert창 확인 후 이동할 url 설정
-
-			// document.location.href = "${ path }/call/book/gn_done?callNo=${call.callNo}"; //alert창 확인 후 이동할 url 설정
+	        
+			// document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}&impUid="+rsp.imp_uid;
 		} else {
 			var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
 			//msg += '에러내용 : ' + rsp.error_msg;

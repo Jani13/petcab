@@ -214,7 +214,8 @@
 						</c:when>
 
 						<c:otherwise>
-							<form action="${ path }/call/book/cancel" method="POST">
+							<form name="ee" action="${ path }/call/book/cancel" method="POST">
+								<input type="hidden" id="test" name="impUid" value="${payment.impUid}" />
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
 
@@ -292,7 +293,7 @@
 										</table>
 									</div>
 
-									<input class="btn btn-lg btn-outline-info btn-cancel col"
+									<input class="btn btn-lg btn-outline-info btn-cancel col" 
 										type="submit" value="예약취소">
 								</div>
 							</form>
@@ -321,6 +322,11 @@
 </body>
 
 <!-- <script type="text/javascript" src="${ path }/resources/js/call.js" ></script> -->
+ <script>
+$(document).ready(function() {
+        $('#test').val('${payment.impUid}');
+    });
+</script> 
 <script>
 	$(document).ready(function() {
 

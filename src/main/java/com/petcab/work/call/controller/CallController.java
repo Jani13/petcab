@@ -29,6 +29,8 @@ import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.dog.model.service.DogService;
+import com.petcab.work.payment.model.service.PaymentService;
+import com.petcab.work.payment.model.vo.Payment;
 import com.petcab.work.user.model.service.DriverService;
 import com.petcab.work.user.model.service.PartnerService;
 import com.petcab.work.user.model.vo.Dog;
@@ -43,6 +45,9 @@ import lombok.extern.slf4j.Slf4j;
 @ControllerAdvice // Model에 글로벌 값을 넣을 수 있다.
 @RequestMapping("/call")
 public class CallController {	
+	
+	@Autowired private PaymentService service;
+	
 	@Autowired
 	private CallService callService;
 	
@@ -213,6 +218,8 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
 			HttpServletRequest request,
+			// @RequestParam(value="callNo", required=true) int callNo,
+			@RequestParam(value="impUid", required=true) String impUid,
 			@ModelAttribute Call call,
 			ModelAndView model) {
 		
@@ -225,59 +232,23 @@ public class CallController {
 		
 		return model;		
 	}	
-	
-//	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
-//	public ModelAndView bookRedirect(
-//			// @ModelAttribute Driver driver,
-//			ModelAndView model
-//			) {
-//		
-//		model.setViewName("call/book_gn_done");
-////		model.setViewName("call/book_gn_pay"); //예약하기 누르면 결제 페이지로 이동 4/19 (은주)
-//		
-//		// System.out.println("원석캐리 : " + driver);
-//				
-//		// model.addObject("driver", driver);
-//		
-//		model.setViewName("call/book_gn_done");
-//
-//		return model;
-//	}
-	
-//	// 일반콜 결제했을때 넘어가는페이지 4/19(은주)
-//	@RequestMapping(value = "/book/gn_done", method = RequestMethod.GET)
-//	public ModelAndView gn_done(@SessionAttribute(name="loginMember", required=false) Member loginMember,
-//			HttpServletRequest request,
-//			@RequestParam(value="callNo", required=true) int callNo,
-//			@ModelAttribute Call call,
-//            RedirectAttributes redirectAttributes,			
-//			ModelAndView model) {
-//		
-//		call = callService.selectCall(callNo);
-//		int result = 0;
-//		log.info(call.toString());
-//
-//		if(result > 0) {
-//			// 성공
-//		} else {
-//			// 실패
-//		}
-//
-//		model.addObject("call", call);
-//		model.setViewName("call/book_gn_done");
-//		
-//		return model;
-//	}
 
-	// 일반예약 취소
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required=false) Member loginMember,
 			HttpServletRequest request, 
 			@ModelAttribute Call call,
+			@ModelAttribute Payment payment,
+			@RequestParam(value="impUid", required=true) String impUid,
 			ModelAndView model) {
 
 		callService.updateCall(call.getCallNo());
+
+		 int resulta = service.updatPay(payment.getImpUid());
+		System.out.println("????????????????????????????????????????"+payment);
+		log.info(payment.toString());
+		
+		int result = callService.updateCall(call.getCallNo());
 
 		System.out.println("cancel() callNo : " + call.getCallNo());
 		
@@ -303,7 +274,38 @@ public class CallController {
 
 		return model;
 	}
-
+	
+//	// 일반예약 취소
+//	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
+//	public ModelAndView cancel(
+//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//			HttpServletRequest request, 
+//			@ModelAttribute Call call,
+//			ModelAndView model) {
+//
+//		int result = callService.updateCall(call.getCallNo());
+//
+//		System.out.println(call.getCallNo());
+//		
+//		log.info(call.toString());
+//
+//		call = callService.selectCall(call.getCallNo());
+//
+//		log.info(call.toString());
+//
+//		if(result > 0) {
+//			// 성공
+//		} else {
+//			// 실패
+//		}
+//
+//		model.addObject("call", call);
+//
+//		model.setViewName("call/book_gn_cancel");
+//
+//		return model;
+//	}
+	
 	// 긴급예약 신청 정보 입력 a
 	@RequestMapping(value = "/book/emg_a", method = RequestMethod.GET)
 	public ModelAndView bookEmg(ModelAndView model) {
