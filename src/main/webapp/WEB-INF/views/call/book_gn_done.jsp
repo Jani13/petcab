@@ -154,25 +154,11 @@
 										</tr>
 										<tr>
 											<th scope="row">드라이버 성함</th>
-											<c:choose>
-												<c:when test="${ emgCall.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td>${ emgCall.getDriver().getUserName() }</td>
-												</c:otherwise>
-											</c:choose>
+												<td class="dName"></td>
 										</tr>
 										<tr>
 											<th scope="row">차량번호판</th>
-											<c:choose>
-												<c:when test="${ emgCall.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td>${ emgCall.getDriver().getCarNo() }</td>
-												</c:otherwise>
-											</c:choose>
+												<td class="dCarNo"></td>
 										</tr>
 										<tr>
 											<th scope="row">드라이버 요청사항</th>
@@ -356,12 +342,12 @@ $(function() {
     stompClient.connect({}, function (frame) {
         console.log('Connected : ' + frame);
         
-        let destCallNo = 0;
+        let destCallNo = null;
         
 		if (${ emgCall != null }) { // 긴급
-			destCallNo = ${ emgCall.callNo };
+			destCallNo = "${ emgCall.callNo }";
 		} else if (${ call != null }) { // 일반
-			destCallNo = ${ call.callNo };
+			destCallNo = "${ call.callNo }";
 		}
         
         stompClient.subscribe('/topic/call/' + destCallNo, function(data) {

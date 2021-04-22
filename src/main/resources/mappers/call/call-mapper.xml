@@ -63,13 +63,15 @@
 		D.ENROLL_DATE,
 		D.MODIFY_DATE,
 		D.STATUS,
-		D.USER_ID
+		D.USER_ID,
+        P.USER_NO,
+        P.PARTNER_NAME,
+        P.PARTNER_TYPE
 		FROM GEN_CALL G
 		JOIN EMERG_CALL E ON (G.CALL_NO = E.CALL_NO)
-		JOIN
-		CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-		JOIN DOG D ON (CD.DOG_NO =
-		D.DOG_NO)
+		JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+		JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+        JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
 	</sql>
 
 	<sql id="selectEmgCallWithNoDogsSql">
@@ -135,6 +137,7 @@
 		<result property="fromWhere" column="FROM_WHERE" />
 		<result property="toWhere" column="TO_WHERE" />
 		<result property="withOwner" column="WITH_OWNER" />
+		<result property="toPartner" column="TO_PARTNER" />
 		<result property="toDriver" column="TO_DRIVER" />
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
@@ -400,7 +403,7 @@
             CD.DOG_NO
 		FROM GEN_CALL G, CALL_DOG CD
         WHERE G.CALL_NO = CD.CALL_NO
-        AND G.STATUS = '신청'
+        AND G.STATUS = '결제'
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->

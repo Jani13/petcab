@@ -173,7 +173,6 @@ public class CallController {
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@ModelAttribute Call call,
-//            RedirectAttributes redirectAttributes,			
 			ModelAndView model) {
 		
 		Stream<String> stream = Arrays.stream(dogNos);
@@ -416,57 +415,57 @@ public class CallController {
 		return model;
 	}
 
-	@RequestMapping(value = "/book/emg/done", method = {RequestMethod.POST})
-	public ModelAndView bookEmg(
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request,
-			@RequestParam(name="pUserNo", required=false) String pUserNo,
-			@ModelAttribute Partner partner,
-			@ModelAttribute EmgCall emgCall,
-			@RequestParam(value="dogNo", required=true) String[] dogNos,
-			ModelAndView model) {
-		
-		Stream<String> stream = Arrays.stream(dogNos);
-			System.out.println("???????????????????????????????"+pUserNo);
-		log.info(dogNos.toString());
-		List<Dog> dogs = new ArrayList<>();
-		
-		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
-		stream.forEach(dogNo -> {
-			
-			if(!dogNo.equals("")) { // 값이 있으면	
-				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
-				dogs.add(dog);
-			} else { // 값이 없으면
-				// 
-			}
-		});
-		
-		log.info(dogs.toString());
-		
-		emgCall.setDogs(dogs);
-		
-		// **********파트너 조회해서 emgCall에 set 하기
-		
-		emgCall.setPartner(partner);
-
-		int resultE = callService.insertEmgCall(emgCall);
-
-		if(resultE > 0) {
-			// 성공
-		} else {
-			// 실패
-		}
-
-		log.info(emgCall.toString());
-
-		model.addObject("emgCall", emgCall);
-
-//		model.setViewName("call/book_gn_done");
-		model.setViewName("call/book_gn_pay");
-
-		return model;
-	}	
+//	@RequestMapping(value = "/book/emg/done", method = {RequestMethod.POST})
+//	public ModelAndView bookEmg(
+//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//			HttpServletRequest request,
+//			@RequestParam(name="pUserNo", required=false) String pUserNo,
+//			@ModelAttribute Partner partner,
+//			@ModelAttribute EmgCall emgCall,
+//			@RequestParam(value="dogNo", required=true) String[] dogNos,
+//			ModelAndView model) {
+//		
+//		Stream<String> stream = Arrays.stream(dogNos);
+//			System.out.println("???????????????????????????????"+pUserNo);
+//		log.info(dogNos.toString());
+//		List<Dog> dogs = new ArrayList<>();
+//		
+//		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
+//		stream.forEach(dogNo -> {
+//			
+//			if(!dogNo.equals("")) { // 값이 있으면	
+//				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+//				dogs.add(dog);
+//			} else { // 값이 없으면
+//				// 
+//			}
+//		});
+//		
+//		log.info(dogs.toString());
+//		
+//		emgCall.setDogs(dogs);
+//		
+//		// **********파트너 조회해서 emgCall에 set 하기
+//		
+//		emgCall.setPartner(partner);
+//
+//		int resultE = callService.insertEmgCall(emgCall);
+//
+//		if(resultE > 0) {
+//			// 성공
+//		} else {
+//			// 실패
+//		}
+//
+//		log.info(emgCall.toString());
+//
+//		model.addObject("emgCall", emgCall);
+//
+////		model.setViewName("call/book_gn_done");
+//		model.setViewName("call/book_gn_pay");
+//
+//		return model;
+//	}	
 	
 	// 긴급콜 결제했을때 넘어가는페이지 4/20(은주)
 	@RequestMapping(value = "/book/emg_done", method = RequestMethod.GET)
