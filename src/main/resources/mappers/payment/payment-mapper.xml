@@ -136,11 +136,23 @@
 		        AND P.STATUS = 'Y'
 		        <trim prefix="AND" prefixOverrides="AND">
 				<if test="keyword != null and keyword != ''">
-					<if test="searchType == 'user'">
-						M.USER_ID LIKE '%'||#{keyword}||'%'
+					<if test="searchType2 == 'genCallType'">
+							G.CALL_TYPE = '일반'
+						<if test="searchType == 'user'">
+							AND M.USER_ID LIKE '%'||#{keyword}||'%'
+						</if>
+						<if test="searchType == 'paymentDate'">
+							AND P.PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+						</if>					
 					</if>
-					<if test="searchType == 'paymentDate'">
-						P.PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+					<if test="searchType2 == 'emgCallType'">
+							AND G.CALL_TYPE = '긴급'
+						<if test="searchType == 'user'">
+							AND M.USER_ID LIKE '%'||#{keyword}||'%'
+						</if>
+						<if test="searchType == 'paymentDate'">
+							P.PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+						</if>					
 					</if>
 				</if>
 				</trim>
@@ -181,11 +193,27 @@
 		        ORDER BY PAYMENT_DATE
 		     )
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchType == 'user' and keyword != null and keyword != ''">
-				AND USER_ID LIKE '%'||#{keyword}||'%'
+			<if test="searchType2 == 'genCallType'">
+				AND CALL_TYPE = '일반'
+				
+					<if test="searchType == 'user' and keyword != null and keyword != ''">
+						AND USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'paymentDate' and keyword != null and keyword != ''">
+						AND PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+					</if>
+			
 			</if>
-			<if test="searchType == 'paymentDate' and keyword != null and keyword != ''">
-				AND PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+			<if test="searchType2 == 'emgCallType'">
+				AND CALL_TYPE = '긴급'
+		
+					<if test="searchType == 'user' and keyword != null and keyword != ''">
+						AND USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'paymentDate' and keyword != null and keyword != ''">
+						AND PAYMENT_DATE LIKE '%'||#{keyword}||'%'
+					</if>
+				
 			</if>
 		</trim>
 		ORDER BY ROWNUM
@@ -226,5 +254,5 @@
 		ORDER BY ROWNUM
 	
 	</select>
->>>>>>> acf624e5150880c736906b9e4fb3b91b905a885e
+
 </mapper>

@@ -108,15 +108,18 @@
             
             <div class="d-flex justify-content-between">
             	<div>
-            		<button type="button" class="btn btn-outline-info" onclick="location.href='${path}/admin/pay'">전체</button>
-                  	<button type="button" id="genButton" name="genButton" class="btn btn-outline-info" value="일반">일반</button>
-                  	<button type="button" id="emgButton" name="emgButton" class="btn btn-outline-info" value="긴급">긴급콜</button>
+            		<button type="button" class="btn btn-outline-info" onclick="location.href='${path}/admin/pay'">전체보기</button>
             	</div>
             	<div class="d-flex mb-3 justify-content-end">
-	                <div class="input-group " style="width: 120px">
+	                <div class="input-group " style="width: 250px">
+	                	<select class="form-select" name="searchType" id="searchType2">
+	                		<option value="genCallType">일반</option>
+	                		<option value="emgCallType">긴급</option>
+	                	</select>
 	                    <select class="form-select" name="searchType" id="searchType">
-	                      <option value="user">사용자</option>
-	                      <option value="paymentDate">결제날짜</option>
+	                    	<option> - </option>
+	                      	<option value="user">사용자</option>
+	                      	<option value="paymentDate">결제날짜</option>
 	                    </select>
 	                </div>
 	                <div class="input-group input-group-sm" style="width: 250px">
@@ -179,13 +182,13 @@
                           
                           <!-- 맨 처음으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="${path}/admin/pay?page=1&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                            <a class="page-link" href="${path}/admin/pay?page=1&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}&searchType2=${pageInfo.searchType2}" aria-label="Previous">
                               <span aria-hidden="true">&lt;&lt;</span>
                             </a>
                           </li>
                           <!-- 이전 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.prvePage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.prvePage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}&searchType2=${pageInfo.searchType2}" aria-label="Previous">
                               <span aria-hidden="true">&lt;</span>
                             </a>
                           </li>
@@ -199,21 +202,21 @@
                           	</c:if>
                           	<c:if test="${status.current != pageInfo.currentPage}">
 	                          <li class="page-item">
-	                            <a class="page-link" href="${path}/admin/pay?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}"><c:out value="${status.current}"/></a>
+	                            <a class="page-link" href="${path}/admin/pay?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}&searchType2=${pageInfo.searchType2}"><c:out value="${status.current}"/></a>
 	                          </li>
                           	</c:if>
                           </c:forEach>
                           
                           <!-- 다음 페이지로 -->
                           <li class="page-item">
-                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.nextPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.nextPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}&searchType2=${pageInfo.searchType2}" aria-label="Previous">
                               <span aria-hidden="true">&gt;</span>
                             </a>
                           </li>
                           
                           <!-- 맨 끝으로 -->
                           <li class="page-item">
-                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.maxPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
+                            <a class="page-link" href="${path}/admin/pay?page=${pageInfo.maxPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}&searchType2=${pageInfo.searchType2}" aria-label="Previous">
                               <span aria-hidden="true">&gt;&gt;</span>
                             </a>
                           </li>
@@ -245,6 +248,8 @@
     		
     		url = url + "&keyword=" + $('#keyword').val();
     		
+    		url = url + "&searchType2=" + $('#searchType2').val();
+    		
     		location.href = url;
     		
     		console.log(url);
@@ -269,24 +274,6 @@
 					success : function(selectList) {
 						
 						console.log(selectList[0].CAR_NO);
-						
-						for (var i = 0; i < selectList.length; i++) {
-				    			
-								console.log(selectList[i].ROWNUM);
-								console.log(selectList[i].PAYMENT_DATE);
-								$('.rowNum').val(selectList[i].ROWNUM);
-								$('.paymentDate').val(selectList[i].PAYMENT_DATE);
-								$('.callType').val(selectList[i].CALL_TYPE);
-								$('.userId').val(selectList[i].USER_ID);
-								$('.userName').val(selectList[i].USER_NAME);
-								$('.carNo').val(selectList[i].CAR_NO);
-								$('.fromWhere').val(selectList[i].FROM_WHERE);
-								$('.toWhere').val(selectList[i].TO_WHERE);
-								$('.paidAmount').val(selectList[i].PAID_AMOUNT);
-								$('.payMethod').val(selectList[i].PAY_METHOD);
-								
-								
-							} 
 						console.log(selectList);
 					},
 					error : function(e) {
