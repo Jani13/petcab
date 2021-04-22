@@ -14,7 +14,6 @@ public interface PartnerService {
 
 	List<Partner> ptSearchHospital();
 
-
 	List<Partner> ptSearchKinderGarten();
 
 	List<Partner> ptSearchShop();
@@ -26,8 +25,6 @@ public interface PartnerService {
 	int getRejectPartnerCount();
 
 	List<Partner> selectRejectPartners(PageInfo pageInfo);
-
-	int applyPartner(int userNo);
 	
 	List<Partner> selectPartners(Search search);
 
@@ -46,5 +43,7 @@ public interface PartnerService {
 	List<Partner> getHospitalList();
 
 	List<Partner> getSchoolList();
+
+	int rejectPartner(int userNo);
 	
 }

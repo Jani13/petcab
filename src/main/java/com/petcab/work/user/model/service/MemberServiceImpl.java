@@ -12,15 +12,19 @@ import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.dao.DriverDao;
 import com.petcab.work.user.model.dao.MemberDao;
+import com.petcab.work.user.model.dao.PartnerDao;
 import com.petcab.work.user.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao memberDao;
-	
+
 	@Autowired
 	private DriverDao driverDao;
+	
+	@Autowired
+	private PartnerDao partnerDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -126,8 +130,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public int applyPartner(int userNo) {
-		return memberDao.applyPartner(userNo);
+		int result = memberDao.applyPartner(userNo);
+		
+		if (result > 0) {
+			result = partnerDao.applyPartner(userNo);
+		} else {
+			result = 0;
+		}
+		return result;
 	}
 
 	@Override
@@ -173,5 +185,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectChartDateCount();
 	}
+
+	
 
 }
