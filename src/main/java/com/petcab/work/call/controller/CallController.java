@@ -205,6 +205,7 @@ public class CallController {
 					
 		String callNo = String.valueOf(call.getCallNo());
 		
+		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("call", call);
 		model.addObject("callNo", callNo);
 		model.setViewName("call/book_gn_pay");

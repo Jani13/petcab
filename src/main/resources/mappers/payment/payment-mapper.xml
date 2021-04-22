@@ -225,6 +225,5 @@
 		WHERE CALL_TYPE = #{btnValue}
 		ORDER BY ROWNUM
 	
-	</select>
->>>>>>> acf624e5150880c736906b9e4fb3b91b905a885e
+	</select> 
 </mapper>
