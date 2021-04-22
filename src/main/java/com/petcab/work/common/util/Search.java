@@ -16,4 +16,6 @@ public class Search extends PageInfo{
 	
 	private String keyword;
 	
+	private String searchType2;
+	
 }

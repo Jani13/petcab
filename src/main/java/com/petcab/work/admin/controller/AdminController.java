@@ -380,6 +380,7 @@ public class AdminController {
 								  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 								  @RequestParam(value="listLimit", required = false, defaultValue = "10") int listLimit,
 								  @RequestParam(required = false, defaultValue = "userId") String searchType,
+								  @RequestParam(required = false) String searchType2,
 								  @RequestParam(required = false) String keyword) {
 		
 		List<Payment> paymentList = null;
@@ -391,6 +392,7 @@ public class AdminController {
 		if (keyword != null) {
 			search.setSearchType(searchType);
 			search.setKeyword(keyword);
+			search.setSearchType2(searchType2);
 		}
 		
 		log.info(paymentList.toString());
@@ -402,7 +404,10 @@ public class AdminController {
 		if (keyword != null) {
 			search.setSearchType(searchType);
 			search.setKeyword(keyword);
+			search.setSearchType2(searchType2);
 		}
+		
+		System.out.println(searchType2);
 		
 		model.addObject("paymentList", paymentList);
 		model.addObject("pageInfo", search);
