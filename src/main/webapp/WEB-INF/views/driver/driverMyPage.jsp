@@ -153,59 +153,10 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- 현재 예약내역  -->
-                <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
-                    <p class="h4 mx-3 my-2 fw-bold text-white">콜대기 내역</p>
-                    <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                    	<c:if test="${empty waitCall}">
-							<div class="card-body fw-bold text-center">조회된 예약이 없습니다</div>
-						</c:if>
-						<c:if test="${waitCall != null}">
-							<c:forEach var="call" items="${waitCall}" end="2">
-		                        <div class="col-sm-4">
-		                            <div class="card m-5 successCall">
-		                                <div class="card-body p-4">
-		                                    <c:if test='${call.callType == "일반"}'> 
-		                                    	<i class="fas fa-bone text-secondary">일반</i>
-		                                    </c:if>
-		                                    <c:if test='${call.callType == "긴급"}'>
-		                                    	<i class="fas fa-meteor text-danger">긴급</i>
-		                                    </c:if>
-		                                    <h5 class="card-title fw-bold">
-		                                        ${call.fromWhere}
-		                                        <i class="fas fa-arrow-right"></i> 
-		                                        ${call.toWhere}
-		                                    </h5>
-		                                    <p class="fs-5">${call.pickupTime}</p>
-		                                    <p class="card-text m-0">
-		                                        애견 이름 :
-												<c:forEach var="dog" items="${call.dogs}" end="2">
-		                                         ${dog.dogName} 
-		                                         </c:forEach>
-		                                         <br>
-		                                        예상 소요 시간 : 아직미정<br>
-		                                        예상 결제 금액 : 아직미정<br>
-		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
-		                                        제휴업체 : 아직미정
-		                                    </p>
-		                               		<div class="d-flex align-items-center justify-content-center" style="margin-top: 5px;">
-		                                    	<button type="button" class="btn btn-outline-info border-info rounded-pill">선택하기</button>
-		                                	</div>
-		                            	</div>
-		                            </div>
-		                        </div>
-			                </c:forEach>
-                        </c:if>
-                    </div>
-                </div>
-
                 <!-- 이용 완료 목록 -->
                 <div class="p-2" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">이용 완료 목록</p>
+                    <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
