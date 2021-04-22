@@ -93,11 +93,11 @@
 								<div class="form-check">
 									<label class="form-check-label"> <input type="checkbox"
 										id="callType" name="callType" class="form-check-input"
-										value="Y">Y
+										value="긴급">긴급
 									</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 										class="form-check-label"> <input type="checkbox"
 										id="callType" name="callType" class="form-check-input"
-										value="N">N
+										value="일반">일반
 									</label>
 								</div>
 							</td>
@@ -105,7 +105,7 @@
 						<tr>
 							<th scope="row">* 평점 *</th>
 							<td><input type="number" id="starNo" name="starNo"
-								class="form-control"></td>
+								class="form-control" max="5" min="1"></td>
 						</tr>
 						<tr>
 							<th scope="row">* 제목 *</th>

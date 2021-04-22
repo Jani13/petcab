@@ -83,8 +83,8 @@
 
           <br><br><br>
                     <input type="hidden" id="useInfo" name="useInfo" class="form-control" >
-                    <input type="text" value="${review.callNo}" name="callNo">
-                    <input type="text" value="${review.callType}" name="callType">
+                    <input type="hidden" value="${review.callNo}" name="callNo">
+                    <input type="hidden" value="${review.callType}" name="callType">
             <table class="table">
 					<tbody>
 						<tr>

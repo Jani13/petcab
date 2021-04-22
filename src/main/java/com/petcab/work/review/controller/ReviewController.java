@@ -87,7 +87,7 @@ public class ReviewController {
 			@RequestParam("callNo") int callNo) {
 		ModelAndView model = new ModelAndView();
 		
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ" + callNo);
+//		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ" + callNo);
 		
 		Call call = new Call();
 		
@@ -170,8 +170,6 @@ public class ReviewController {
 			count.add(i);
 		}
 		
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
-
 		model.addObject("replyList", replyList);
 		model.addObject("review", review);
 		model.addObject("loginMember", loginMember);
