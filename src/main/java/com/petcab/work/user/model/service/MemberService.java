@@ -35,9 +35,9 @@ public interface MemberService {
 
 	int applyPartner(int userNo);
 
-	List<Member> selectAllUsers(PageInfo pageInfo);
+	List<Member> selectAllUsers(Search search);
 
-	int getUserCount();
+	int getUserCount(Search search);
 
 	int updateMInfo(Member member);
 	
@@ -48,9 +48,5 @@ public interface MemberService {
 	Member kakaoLogin(String email);
 
 	List<Member> getChartDateCount();
-
-	List<Member> getSearchMember(PageInfo pageInfo, String searchOption, String keyword);
-
-//	List<Member> selectAllMember(PageInfo pageInfo, String searchOption, String keyword);
 
 }

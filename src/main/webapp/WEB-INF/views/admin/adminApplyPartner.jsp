@@ -92,7 +92,7 @@
               <tbody>
                 <c:if test="${empty waitPartners}">
 	                <tr>
-	                	<td class="text-center" colspan="8">
+	                	<td class="text-center fw-bold" colspan="8">
 	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
@@ -145,7 +145,7 @@
               <tbody>
                 <c:if test="${empty rejectPartners}">
 	                <tr>
-	                	<td class="text-center" colspan="9">
+	                	<td class="text-center fw-bold" colspan="9">
 	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>

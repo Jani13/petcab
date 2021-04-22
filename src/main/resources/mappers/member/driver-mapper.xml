@@ -58,7 +58,19 @@
 	</resultMap>
 
 	<select id="selectDriverCount" resultType="_int">
-		SELECT COUNT(*) FROM DRIVER
+		SELECT COUNT(*) 
+		FROM DRIVER D
+		JOIN MEMBER M ON (D.USER_NO = M.USER_NO)
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					AND M.USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'userName'">
+					AND M.USER_NAME LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 	
 	<select id="selectDriverAll" resultMap="DriverResultMap">
@@ -167,6 +179,14 @@
             FROM DRIVER D
             JOIN MEMBER M ON (D.USER_NO=M.USER_NO)
         )
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'userName' and keyword != null and keyword != ''">
+				AND USER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
         ORDER BY ROWNUM
     </select>
 	
@@ -207,4 +227,8 @@
 		SET STATUS = 'Y'
 		WHERE USER_NO = #{userNo}
 	</update>
+	<select id="selectCarNo" parameterType="string" resultMap="DriverResultMap">
+		<include refid="selectDriverSql"></include>
+		WHERE CAR_NO = #{carNo}
+	</select>
 </mapper>

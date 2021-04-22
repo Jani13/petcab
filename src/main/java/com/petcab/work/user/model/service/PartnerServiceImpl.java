@@ -5,22 +5,16 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
-import com.petcab.work.user.model.dao.MemberDao;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.dao.PartnerDao;
-import com.petcab.work.user.model.vo.Driver;
-import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
 	@Autowired
 	private PartnerDao partnerDao;
-	
-	@Autowired
-	private MemberDao memberDao;
 	
 	@Override
 	public int savePartner(Partner partner) {
@@ -79,17 +73,17 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 	
 	@Override
-	public List<Partner> selectPartners(PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() -1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Partner> selectPartners(Search search) {
+		int offset = (search.getCurrentPage() -1) * search.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, search.getListLimit());
 		
-		return partnerDao.selectAllPartners(rowBounds);
+		return partnerDao.selectAllPartners(rowBounds, search);
 	}
 
 	@Override
-	public int getPartnerCount() {
+	public int getPartnerCount(Search search) {
 		
-		return partnerDao.selectPartnerCount();
+		return partnerDao.selectPartnerCount(search);
 	}
 
 	@Override

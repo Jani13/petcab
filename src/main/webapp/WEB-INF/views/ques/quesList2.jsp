@@ -126,13 +126,13 @@
                  
                  <!-- 맨 처음으로 -->
                  <li class="page-item">
-                   <a class="page-link" href="${path}/ques/list?page=1" aria-label="Previous">
+                   <a class="page-link" href="${path}/ques/list/search?page=1&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
                      <span aria-hidden="true">&lt;&lt;</span>
                    </a>
                  </li>
                  <!-- 이전 페이지로 -->
                  <li class="page-item">
-                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.prvePage}" aria-label="Previous">
+                   <a class="page-link" href="${path}/ques/list/search?page=${pageInfo.prvePage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
                      <span aria-hidden="true">&lt;</span>
                    </a>
                  </li>
@@ -146,21 +146,21 @@
                  	</c:if>
                  	<c:if test="${status.current != pageInfo.currentPage}">
                   <li class="page-item">
-                    <a class="page-link" href="${path}/ques/list?page=${status.current}"><c:out value="${status.current}"/></a>
+                    <a class="page-link" href="${path}/ques/list/search?page=${status.current}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}"><c:out value="${status.current}"/></a>
                   </li>
                  	</c:if>
                  </c:forEach>
                  
                  <!-- 다음 페이지로 -->
                  <li class="page-item">
-                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.nextPage}" aria-label="Previous">
+                   <a class="page-link" href="${path}/ques/list/search?page=${pageInfo.nextPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
                      <span aria-hidden="true">&gt;</span>
                    </a>
                  </li>
                  
                  <!-- 맨 끝으로 -->
                  <li class="page-item">
-                   <a class="page-link" href="${path}/ques/list?page=${pageInfo.maxPage}" aria-label="Previous">
+                   <a class="page-link" href="${path}/ques/list/search?page=${pageInfo.maxPage}&searchType=${pageInfo.searchType}&keyword=${pageInfo.keyword}" aria-label="Previous">
                      <span aria-hidden="true">&gt;&gt;</span>
                    </a>
                  </li>

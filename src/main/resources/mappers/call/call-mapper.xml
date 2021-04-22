@@ -189,6 +189,12 @@
 		<include refid="selectCallSql"></include>
 		WHERE G.CALL_NO = #{callNo}
 	</select>
+	
+	<select id="selectEmerCall" parameterType="_int"
+		resultMap="callResultMap">
+		<include refid="selectEmgCallSql"></include>
+		WHERE E.CALL_NO = #{callNo}
+	</select>
 
 	<resultMap type="EmgCall" id="emgCallResultMap">
 		<id property="callNo" column="CALL_NO" />
@@ -349,7 +355,7 @@
 		#{callNo},
 		#{toPartner},
 		NULL,
-		3
+		#{pUserNo}
 		)
 		<foreach collection="dogs" index="index" item="dog">
 			INTO CALL_DOG (
@@ -379,13 +385,14 @@
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->
-	<update id="updateCallByDriver" parameterType="_int">
+	<update id="updateCallByDriver" parameterType="map">		
 		UPDATE GEN_CALL
 		SET
-		STATUS='기사'
+		STATUS='기사',
+		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
-	
+		
 	<!-- 원석작업 -->
 	<select id="driverWaitCallList" resultMap="callResultMap">
 		SELECT
@@ -443,8 +450,7 @@
 
 	<select id="selectGenCall" resultType="_int">
 		SELECT COUNT(*)
-		FROM
-		GEN_CALL
+		FROM GEN_CALL
 		WHERE CALL_TYPE = '일반'
 	</select>
 
@@ -573,7 +579,7 @@
 		       USER_ID,
 		       FROM_WHERE,
 		       TO_WHERE,
-		       TIME,
+		       TO_CHAR(TIME, 'YYYY/MM/DD HH24:mm')TIME,
 		       USER_NAME,
 		       CAR_NO,
 		       STATUS,
@@ -597,6 +603,14 @@
 				WHERE G.CALL_TYPE = '일반'
 				ORDER BY CALL_NO
 					)
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'genCallDate' and keyword != null and keyword != ''">
+				AND TIME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	
@@ -604,73 +618,93 @@
 		SELECT ROWNUM,
 		       CALL_NO,
 		       USER_ID,
+		       TO_CHAR(TIME, 'YYYY/MM/DD HH24:mm')TIME,
 		       FROM_WHERE,
 		       TO_WHERE,
-		       TIME,
 		       USER_NAME,
 		       CAR_NO,
 		       PARTNER_NAME,
-		       STATUS,
-		       CALL_TYPE
+		       STATUS
 		FROM (
-				SELECT DISTINCT 
-			           G.CALL_NO,
-					   D.USER_ID,
-					   G.FROM_WHERE,
-					   G.TO_WHERE,
-					   G.TIME,
-				       M.USER_NAME,
-					   DR.CAR_NO,
-					   P.PARTNER_NAME,
-			           G.STATUS,
-			           G.CALL_TYPE
-				FROM GEN_CALL G
-				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
-				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
-				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
-				FULL OUTER JOIN EMERG_CALL EC ON (G.CALL_NO = EC.CALL_NO)
-                CROSS JOIN PARTNER P
-				WHERE G.CALL_TYPE = '긴급'
-				ORDER BY CALL_NO
-					)
+		        SELECT G.CALL_NO, 
+		               D2.USER_ID, 
+		               G.TIME, 
+		               G.FROM_WHERE, 
+		               G.TO_WHERE,
+		               M2.USER_NAME, 
+		               D.CAR_NO, 
+		               P.PARTNER_NAME, 
+		               G.STATUS
+		        FROM GEN_CALL G, PARTNER P, EMERG_CALL E, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
+		        WHERE E.CALL_NO = G.CALL_NO
+		        AND E.USER_NO = P.USER_NO
+		        AND G.USER_NO = D.USER_NO
+		        AND G.CALL_NO = CD.CALL_NO
+		        AND CD.DOG_NO = D2.DOG_NO
+		        AND D2.USER_ID = M.USER_ID
+		        AND M2.USER_NO = D.USER_NO
+		        AND G.CALL_TYPE='긴급'
+		        ORDER BY CALL_NO
+		    )
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'partName' and keyword != null and keyword != ''">
+				AND PARTNER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'dateAndTime' and keyword != null and keyword != ''">
+				AND TIME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	
 	<select id="selectCancelCallList" resultMap="callResultMap" >
 		SELECT ROWNUM,
-		       CALL_NO,
-		       USER_ID,
-		       FROM_WHERE,
-		       TO_WHERE,
-		       TIME,
-		       USER_NAME,
-		       CAR_NO,
-		       PARTNER_NAME,
-		       STATUS,
-		       CALL_TYPE
-		FROM (
-				SELECT DISTINCT 
-			           G.CALL_NO,
-					   D.USER_ID,
-					   G.FROM_WHERE,
-					   G.TO_WHERE,
-					   G.TIME,
-				       M.USER_NAME,
-					   DR.CAR_NO,
-					   P.PARTNER_NAME,
-			           G.STATUS,
-			           G.CALL_TYPE
-				FROM GEN_CALL G
-				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
-				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
-				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
-				FULL OUTER JOIN EMERG_CALL EC ON (G.CALL_NO = EC.CALL_NO)
-                CROSS JOIN PARTNER P
-				WHERE G.STATUS = '취소'
-				ORDER BY CALL_NO
-					)
+	           CALL_NO,
+	           USER_ID,
+	           TO_CHAR(TIME, 'YYYY/MM/DD HH24:mm')TIME,
+	           FROM_WHERE,
+	           TO_WHERE,
+	           USER_NAME,
+	           CAR_NO,
+	           PARTNER_NAME,
+	           STATUS,
+	           CALL_TYPE
+	    FROM (
+	            SELECT G.CALL_NO, 
+	                   D2.USER_ID, 
+	                   G.TIME, 
+	                   G.FROM_WHERE, 
+	                   G.TO_WHERE,
+	                   M2.USER_NAME, 
+	                   D.CAR_NO, 
+	                   P.PARTNER_NAME, 
+	                   G.STATUS,
+	                   G.CALL_TYPE
+	            FROM GEN_CALL G 
+	            LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO = E.CALL_NO 
+	            LEFT OUTER JOIN PARTNER P ON P.USER_NO = E.USER_NO, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
+	            WHERE G.USER_NO = D.USER_NO
+	            AND G.CALL_NO = CD.CALL_NO
+	            AND CD.DOG_NO = D2.DOG_NO
+	            AND D2.USER_ID = M.USER_ID
+	            AND M2.USER_NO = D.USER_NO
+	            AND G.STATUS='취소'
+	            ORDER BY CALL_NO
+			   )
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'partName' and keyword != null and keyword != ''">
+				AND PARTNER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'dateAndTime' and keyword != null and keyword != ''">
+				AND TIME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	
@@ -684,4 +718,113 @@
 		AND D.USER_ID = '${userId}'
 	</select>
 
+	<select id="searchGenCallCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+				SELECT DISTINCT 
+			           G.CALL_NO,
+					   D.USER_ID,
+					   G.FROM_WHERE,
+					   G.TO_WHERE,
+					   G.TIME,
+				       M.USER_NAME,
+					   DR.CAR_NO,
+			           G.STATUS,
+			           G.CALL_TYPE
+				FROM GEN_CALL G
+				FULL OUTER JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+				FULL OUTER JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
+				FULL OUTER JOIN DRIVER DR ON (G.USER_NO = DR.USER_NO)
+				FULL OUTER JOIN MEMBER M ON (DR.USER_NO = M.USER_NO) 
+				WHERE G.CALL_TYPE = '일반'
+				<trim prefix="AND" prefixOverrides="AND">
+				<if test="keyword != null and keyword != ''">
+					<if test="searchType == 'userId'">
+						D.USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'genCallDate'">
+						G.TIME LIKE '%'||#{keyword}||'%'
+					</if>
+				</if>
+				</trim>
+				ORDER BY CALL_NO
+				)
+	</select>
+	
+	<select id="searchEmgCallCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		        SELECT G.CALL_NO, 
+		               D2.USER_ID, 
+		               G.TIME, 
+		               G.FROM_WHERE, 
+		               G.TO_WHERE,
+		               M2.USER_NAME, 
+		               D.CAR_NO, 
+		               P.PARTNER_NAME, 
+		               G.STATUS
+		        FROM GEN_CALL G, PARTNER P, EMERG_CALL E, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
+		        WHERE E.CALL_NO = G.CALL_NO
+		        AND E.USER_NO = P.USER_NO
+		        AND G.USER_NO = D.USER_NO
+		        AND G.CALL_NO = CD.CALL_NO
+		        AND CD.DOG_NO = D2.DOG_NO
+		        AND D2.USER_ID = M.USER_ID
+		        AND M2.USER_NO = D.USER_NO
+		        AND G.CALL_TYPE='긴급'
+				<trim prefix="AND" prefixOverrides="AND">
+				<if test="keyword != null and keyword != ''">
+					<if test="searchType == 'userId'">
+						D2.USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'partName'">
+						P.PARTNER_NAME LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'dateAndTime'">
+						G.TIME LIKE '%'||#{keyword}||'%'
+					</if>
+				</if>
+				</trim>
+				ORDER BY CALL_NO
+				)
+	</select>
+	
+	<select id="searchCancelCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+	            SELECT G.CALL_NO, 
+	                   D2.USER_ID, 
+	                   G.TIME, 
+	                   G.FROM_WHERE, 
+	                   G.TO_WHERE,
+	                   M2.USER_NAME, 
+	                   D.CAR_NO, 
+	                   P.PARTNER_NAME, 
+	                   G.STATUS,
+	                   G.CALL_TYPE
+	            FROM GEN_CALL G 
+	            LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO = E.CALL_NO 
+	            LEFT OUTER JOIN PARTNER P ON P.USER_NO = E.USER_NO, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
+	            WHERE G.USER_NO = D.USER_NO
+	            AND G.CALL_NO = CD.CALL_NO
+	            AND CD.DOG_NO = D2.DOG_NO
+	            AND D2.USER_ID = M.USER_ID
+	            AND M2.USER_NO = D.USER_NO
+	            AND G.STATUS='취소'
+				<trim prefix="AND" prefixOverrides="AND">
+				<if test="keyword != null and keyword != ''">
+					<if test="searchType == 'userId'">
+						D2.USER_ID LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'partName'">
+						P.PARTNER_NAME LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="searchType == 'dateAndTime'">
+						G.TIME LIKE '%'||#{keyword}||'%'
+					</if>
+				</if>
+				</trim>
+				ORDER BY CALL_NO
+			)
+	</select>
 </mapper>	

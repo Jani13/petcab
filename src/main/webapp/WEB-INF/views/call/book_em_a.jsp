@@ -51,7 +51,7 @@
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form id="emgCallForm" action="${ path }/call/book/emg/done" method="POST">
 							<input type="hidden" name="callType" value="긴급" />
-							<!-- <input type="hidden" name="pUserNo" value="3" /> -->
+						 	<input type="hidden" name="pUserNo" value="${pUserNo}" /> 
 						
 							<div id="bookEmgA">
 								<div class="pt-5 pb-3 pickup-heading">
@@ -67,7 +67,7 @@
 									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 									  	<c:forEach var="hospital" items="${hospital}">
 											<c:set var="addr" value="${fn:split(hospital.member.address,',')}"/>
-									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${hospital.partnerName}"/></a></li>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}','${hospital.userNo}');"><c:out value="${hospital.partnerName}"/></a></li>
 									  	</c:forEach>
 									  </ul>
 									</div>
@@ -78,7 +78,7 @@
 									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 									  	<c:forEach var="school" items="${school}">
 											<c:set var="addr" value="${fn:split(school.member.address,',')}"/>
-									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${school.partnerName}"/></a></li>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}','${school.userNo}');"><c:out value="${school.partnerName}"/></a></li>
 									  	</c:forEach>
 									  </ul>
 									</div>
@@ -89,7 +89,7 @@
 									  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 									  	<c:forEach var="shop" items="${shop}">
 											<c:set var="addr" value="${fn:split(shop.member.address,',')}"/>
-									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}');"><c:out value="${shop.partnerName}"/></a></li>
+									   		<li><a class="dropdown-item" href="#" onclick="pickPartner('${addr[0]}','${shop.userNo}');"><c:out value="${shop.partnerName}"/></a></li>
 									  	</c:forEach>
 									  </ul>
 									</div>
@@ -398,9 +398,11 @@ document.getElementById('emgCallForm').onsubmit = function () {
     }
 }	
 
-function pickPartner(e){
+function pickPartner(e,f){
 	console.log(e);
+	console.log(f); 
 	document.getElementsByName('toWhere')[0].value = e;
+	document.getElementsByName('pUserNo')[0].value = f;
 }
 
 function selectStart() {

@@ -2,7 +2,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"	
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,25 +11,28 @@
 
 	<websocket:message-broker
 		application-destination-prefix="/work">
-		<websocket:stomp-endpoint path="/done">
+		<websocket:stomp-endpoint path="/notify">
 			<websocket:sockjs />
 		</websocket:stomp-endpoint>
-		<websocket:simple-broker prefix="/call" />
-		<!-- <websocket:simple-broker prefix="/topic, /queue" /> -->
+		<!--<websocket:simple-broker prefix="/call" /> -->
+		<websocket:simple-broker prefix="/topic/call" />
 		<!-- <websocket:stomp-broker-relay prefix="" /> -->
 	</websocket:message-broker>
 
-		<!-- <websocket:handlers> -->
-	    <websocket:handlers allowed-origins="http://localhost:8089/done">
-		<websocket:mapping path="/myHandler"
-			handler="myHandler" />
+	<!-- <websocket:handlers> -->
+	<!-- <websocket:handlers allowed-origins="http://localhost:8089/accept"> -->
+	<websocket:handlers allowed-origins="*">
+		<websocket:mapping path="/callHandler"
+			handler="callHandler" />
 		<websocket:handshake-interceptors>
-			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> 
+			<bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 		<websocket:sockjs />
 	</websocket:handlers>
 
-	<bean id="callHandler" class="com.petcab.work.common.handler.CallHandler" />
+	<bean id="callHandler"
+		class="com.petcab.work.common.handler.CallHandler" />
 
 	<bean
 		class="org.springframework.web.socket.client.standard.WebSocketContainerFactoryBean">

@@ -190,42 +190,6 @@
 		ORDER BY ROWNUM
 	</select>
 	
-	<select id="searchMemberAll" resultMap="memberResultMap">
-		SELECT ROWNUM,
-		       USER_NO,
-		       USER_TYPE,
-		       USER_ID,
-		       USER_NAME,
-		       PHONE,
-		       DOG_NAME,
-		       STATUS
-		FROM 
-		     (
-		        SELECT M.USER_NO,
-		               M.USER_TYPE,
-		               M.USER_ID,
-		               M.USER_NAME,
-		               M.PHONE,
-                       DOG_NAME,
-		               M.STATUS
-				FROM MEMBER M
-                LEFT OUTER JOIN
-                ( 
-                    SELECT M.USER_ID, SUBSTR(
-                            XMLAGG(
-                                        XMLELEMENT(COL, ',', DOG_NAME) 
-                                        ORDER BY DOG_NAME
-                                  ).EXTRACT('//text()').GETSTRINGVAL(), 2) DOG_NAME
-                    FROM MEMBER M
-                    LEFT OUTER JOIN DOG D ON M.USER_ID = D.USER_ID
-                    GROUP BY M.USER_ID
-                ) M2
-                ON (M.USER_ID = M2.USER_ID) ORDER BY M.USER_NO
-		      )
-		WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
-		ORDER BY ROWNUM
-	</select>
-	
 	<select id="selectAllUsers" resultMap="memberResultMap">
 		SELECT ROWNUM,
        		   USER_NO,
@@ -248,6 +212,14 @@
 			    JOIN DOG D ON (M.USER_ID = D.USER_ID)
 			    WHERE USER_TYPE = 'ROLE_MEMBER'
 			)
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'userId' and keyword != null and keyword != ''">
+				AND USER_ID LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'userName' and keyword != null and keyword != ''">
+				AND USER_NAME LIKE '%'||#{keyword}||'%'
+			</if>
+		</trim>
 		ORDER BY ROWNUM
 	</select>
 	
@@ -255,6 +227,16 @@
 		SELECT COUNT(*) 
 		FROM MEMBER
 		WHERE USER_TYPE = 'ROLE_MEMBER'
+		<trim prefix="AND" prefixOverrides="AND">
+			<if test="keyword != null and keyword != ''">
+				<if test="searchType == 'userId'">
+					USER_ID LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="searchType == 'userName'">
+					USER_NAME LIKE '%'||#{keyword}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 	
 	<update id="applyDriver" parameterType="Member">

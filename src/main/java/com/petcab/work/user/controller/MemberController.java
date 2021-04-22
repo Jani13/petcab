@@ -336,6 +336,7 @@ public class MemberController {
 	public ModelAndView userMyPageView(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			ModelAndView model) {
 		List<Review> review = reviewServcie.searchUserNo(loginMember.getUserNo());
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ" + review);
 		List<Dog> dog = dogService.searchUserId(loginMember.getUserId());
 		List<Call> useCall = callService.useCallUserId(loginMember.getUserId());
 		List<Call> endCall = callService.endCallUserId(loginMember.getUserId());

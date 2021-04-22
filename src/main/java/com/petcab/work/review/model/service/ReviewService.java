@@ -3,14 +3,15 @@ package com.petcab.work.review.model.service;
 import java.util.List;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.review.model.vo.RReply;
 import com.petcab.work.review.model.vo.Review;
 
 public interface ReviewService {
 
-	List<Review> getReviewList(PageInfo pageInfo);
+	List<Review> getReviewList(Search search);
 
-	int getReviewCount();
+	int getReviewCount(Search search);
 
 	int saveReview(Review review);
 

@@ -3,6 +3,7 @@ package com.petcab.work.user.model.service;
 import java.util.List;
 
 import com.petcab.work.common.util.PageInfo;
+import com.petcab.work.common.util.Search;
 import com.petcab.work.user.model.vo.Driver;
 import com.petcab.work.user.model.vo.Member;
 import com.petcab.work.user.model.vo.Partner;
@@ -28,9 +29,9 @@ public interface PartnerService {
 
 	int applyPartner(int userNo);
 	
-	List<Partner> selectPartners(PageInfo pageInfo);
+	List<Partner> selectPartners(Search search);
 
-	int getPartnerCount();
+	int getPartnerCount(Search search);
 
 	int updatePartner(Partner partner);
 

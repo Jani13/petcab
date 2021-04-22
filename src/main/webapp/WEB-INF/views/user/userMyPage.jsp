@@ -11,7 +11,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>데려다줄개 - 마이페이지</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -56,7 +56,7 @@
 
         .successCall {
             width: 300px;
-            height: 300px;
+            height: 350px;
         }
 
         .myDogsEvent:hover {
@@ -137,14 +137,16 @@
                                 <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
-								<c:if test="${review == null}">
-									<div>조회된 리뷰가 없습니다</div>
+								<c:if test="${empty review}">
+									<div class="text-center fw-bold my-5">
+										조회된 리뷰가 없습니다										
+									</div>
 								</c:if>
 								<c:if test="${review != null}">
 									<c:forEach var="board" items="${review}" end="2">
 			                        	<div class="w-100 card border-light mb-3 my-5" >
 				                            <div class="card-header bg-transparent ">
-				                            	<fmt:formatDate type="both" value="${board.postDate}" pattern="yyyy.MM.dd"/>
+				                            	<c:out value="${board.postDate}"/>
 				                            </div>
 				                            <div class="card-body ">
 					                            <h5 class="card-title fw-bold">${board.title}</h5>
@@ -164,7 +166,7 @@
                             </div>
                             <div class="container my-2">
                                 <div class="row">
-									<c:if test="${dog == null}">
+									<c:if test="${empty dog}">
 										<div>조회된 애견이 없습니다</div>
 									</c:if>
 									<c:if test="${dog != null}">
@@ -194,8 +196,8 @@
                     <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
-                	<c:if test="${useCall== null}">
-						<div class="card-body p-4">
+                	<c:if test="${empty useCall}">
+						<div class="card-body text-center fw-bold p-4">
 							조회된 예약이 없습니다
 						</div>
 					</c:if>
@@ -239,8 +241,10 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                    	<c:if test="${endCall == null}">
-							<div>조회된 예약이 없습니다</div>
+                    	<c:if test="${empty endCall}">
+							<div class="card-body text-center fw-bold p-4">
+								이용 완료된 내역이 없습니다
+							</div>
 						</c:if>
 						<c:if test="${endCall != null}">
 							<c:forEach var="call" items="${endCall}" end="2">
@@ -270,6 +274,10 @@
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
 		                                        제휴업체 : 아직미정
 		                                    </p>
+		                                    <div class="text-center pt-3">
+		                                    	<button class="btn btn-outline-info"
+		                                    	onclick="location.href='${path}/review/reviewWrite?callNo=${call.callNo}'">리뷰작성</button>
+		                                    </div>
 		                            	</div>
 		                            </div>
 		                        </div>
