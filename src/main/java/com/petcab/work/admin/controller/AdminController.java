@@ -324,11 +324,9 @@ public class AdminController {
 	public ModelAndView driverGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam("userNo") int userNo,
 			ModelAndView model){
-		
-		int result = driverService.applyDriver(userNo);
-		int result2 = service.applyDriver(userNo);
+		int result = service.applyDriver(userNo);
 					
-		if (result > 0 && result2 > 0) {
+		if (result > 0) {
 			model.addObject("msg", "승인하였습니다");
 			model.addObject("location", "/admin/apply/driver");
 		}else {

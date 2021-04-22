@@ -77,10 +77,6 @@ public class DriverServiceImpl implements DriverService {
 		return driverDao.selectRejectDrivers(rowBounds);
 	}
 
-	@Override
-	public int applyDriver(int userNo) {
-		return driverDao.applyDriver(userNo);
-	}
 
 	@Override
 	public int updateDriver(Driver driver) {

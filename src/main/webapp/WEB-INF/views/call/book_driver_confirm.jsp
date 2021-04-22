@@ -38,61 +38,63 @@
 			<div class="row row-call-1 text-center">
 				<div
 					class="col btn-call-gen bg-info h-100 d-flex justify-content-center flex-column">
-					<h1 class="text-white">일반</h1>
+					<h1 class="text-white">예약 정보</h1>
 				</div>
 				<div
 					class="col btn-call-emg bg-warning h-100 d-flex justify-content-center flex-column">
-					<h1 class="text-white">긴급</h1>
+					<h1 class="text-white">지도</h1>
 				</div>
 			</div>
 
 			<div class="row row-call-2">
 				<div class="col-md pickup-details bg-light">
-					<div class="pt-5 pb-3 pickup-heading">
+					<div class="pt-5 pb-3 pickup-heading" style="margin-bottom:150px;">
 						<h2 class="mb-3" style="margin-left: 10px;">드라이버 예약 선택</h2>
 					</div>
 
-					<div class="pickup-fill-in">
+					<div class="pickup-fill-in" style="margin-bottom:150px;">
 						<form action="">
+							<!-- 
 							<div class="form-group mb-3" style="margin-left: 10px;">
 								<label for="pickup-time">예약 시간</label><br /> <input
 									type="datetime-local" id="pickup-time" name="meeting-time"
 									value="2021-03-25T15:30" min="2018-06-07T00:00"
 									max="2021-04-01T00:00" />
 							</div>
-
+ 							-->
 							<div class="form-group mb-3">
 								<label style="margin-left: 10px;">예상 금액</label>
 
 								<div class="row row-cols"
 									style="margin-left: 0; margin-right: 0">
-									<div class="col-9" style="padding-left: 0; padding-right: 0">
+									<div class="col-12" style="padding-left: 0; padding-right: 0">
 										<div style="margin-left: 10px;">
 											<input type="text" class="form-control where-from"
-												placeholder="출발지" />
+												placeholder="출발지" name="fromWhere" readonly/>
 										</div>
 										<div style="margin-left: 10px;">
 											<input type="text" class="form-control where-to"
-												placeholder="도착지" />
+												placeholder="도착지" name="toWhere" readonly/>
 										</div>
 									</div>
-
+									<!-- 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
 										<button class="btn btn-outline-info btn-calc-cost"
 											type="button">조회</button>
 									</div>
+									 -->
 								</div>
 
 								<div class="row">
 									<div>
 										<div style="margin-left: 10px;">
 											<input type="text" class="form-control"
-												placeholder="예상금액 (원)" />
+												placeholder="예상금액 (원)" readonly />
 										</div>
 									</div>
 								</div>
 							</div>
-
+							<!-- 
 							<div class="form-group mb-3" style="margin-left: 10px;">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value=""
@@ -105,11 +107,12 @@
 								<button class="btn btn-lg btn-outline-info" type="button"
 									style="margin-left: 10px;">검색하기</button>
 							</div>
+							 -->
 						</form>
 					</div>
 				</div>
-
-				<div class="col-md locationMap">지도 API</div>
+				<!-- 지도 API -->
+				<div class="col-md locationMap" id="map">지도 API</div>
 			</div>
 
 			<div class="row row-call-3 bg-light">
@@ -122,8 +125,8 @@
 							<div class="card h-100 border-info">
 								<div class="card-header">${ call.pickupTime }</div>
 								<div class="card-body">
-									<h5 class="card-title">${ call.fromWhere }</h5>
-									<h5 class="card-title">${ call.toWhere }</h5>
+									<h5 class="card-title" id="startPoint">${ call.fromWhere }</h5>
+									<h5 class="card-title" id="endPoint">${ call.toWhere }</h5>
 									<div class="row row-cols-2">
 										<p class="card-text col-8 callType">${ call.callType }</p>
 										<p class="card-text col-8">${ call.toDriver }</p>
@@ -232,11 +235,103 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
+    <script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
+	<script>var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+	   
+	var point = [];
+
+	function searchView() {
+		geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
+
+			
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+		        });
+		        infowindow.open(map, marker);
+
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        point.push(parseFloat(result[0].y));
+		        point.push(parseFloat(result[0].x));
+		    } 
+		}); 
+		geocoder.addressSearch(document.getElementsByName('toWhere')[0].value, function(result, status) {
+
+		     if (status === kakao.maps.services.Status.OK) {
+
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+		        });
+		        infowindow.open(map, marker);
+		        point.push(parseFloat(result[0].y));
+		        point.push(parseFloat(result[0].x));
+		    } 
+		});  
+		function setBounds() {
+		var points = [
+		    new kakao.maps.LatLng(point[0], point[1]),
+		    new kakao.maps.LatLng(point[2], point[3])
+		];
+
+		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+		var bounds = new kakao.maps.LatLngBounds();    
+
+		var i, marker;
+		for (i = 0; i < points.length; i++) {
+		    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+		    marker =     new kakao.maps.Marker({ position : points[i] });
+		    marker.setMap(map);
+		    
+		    // LatLngBounds 객체에 좌표를 추가합니다
+		    bounds.extend(points[i]);
+		}
+
+			
+		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		    map.setBounds(bounds);
+		}
+		setTimeout(setBounds,500);
+	}
+	</script>
 </body>
 <script>
 	function selectCallByDriver(e) {
 		// 예약상태를 '기사'로 바꿈
-				
+		/*
 		let callNo = $(e).siblings('input').val();
 		let callType = $(e).siblings('.callType').text();
 		
@@ -269,7 +364,82 @@
 
 				alert('에러가 발생해습니다. 다시 시도해주세요!');
 			}
-		});
+		});*/
+		document.getElementsByName('fromWhere')[0].value = document.getElementById("startPoint").innerText;
+		document.getElementsByName('toWhere')[0].value = document.getElementById("endPoint").innerText;
+		
+		var point = [];
+
+		geocoder.addressSearch(document.getElementById("startPoint").innerText, function(result, status) {
+
+				
+			   // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+		        });
+		        infowindow.open(map, marker);
+
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        point.push(parseFloat(result[0].y));
+		        point.push(parseFloat(result[0].x));
+		    } 
+		}); 
+		geocoder.addressSearch(document.getElementById("endPoint").innerText, function(result, status) {
+
+		     if (status === kakao.maps.services.Status.OK) {
+
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+		        });
+		        infowindow.open(map, marker);
+		        point.push(parseFloat(result[0].y));
+		        point.push(parseFloat(result[0].x));
+		    } 
+		});  
+		function setBounds() {
+			var points = [
+		  	  new kakao.maps.LatLng(point[0], point[1]),
+			  new kakao.maps.LatLng(point[2], point[3])
+			];
+
+			// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+			var bounds = new kakao.maps.LatLngBounds();    
+
+			var i, marker;
+			for (i = 0; i < points.length; i++) {
+			    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+			    marker =     new kakao.maps.Marker({ position : points[i] });
+			    marker.setMap(map);
+			    
+			    // LatLngBounds 객체에 좌표를 추가합니다
+			    bounds.extend(points[i]);
+			}
+
+				
+			    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+			    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+			    map.setBounds(bounds);
+		}
+		setTimeout(setBounds,500);
+		
 	}
 </script>
 </html>

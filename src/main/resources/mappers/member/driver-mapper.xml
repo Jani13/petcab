@@ -201,4 +201,10 @@
 			IMAGE_RE = #{imageRe}
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<update id="applyDriver" parameterType="Driver">
+		UPDATE DRIVER
+		SET STATUS = 'Y'
+		WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.petcab.work.common.util.PageInfo;
 import com.petcab.work.common.util.Search;
+import com.petcab.work.user.model.dao.DriverDao;
 import com.petcab.work.user.model.dao.MemberDao;
 import com.petcab.work.user.model.vo.Member;
 
@@ -18,6 +19,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Autowired
+	private DriverDao driverDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -110,8 +113,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	 
 	@Override
+	@Transactional
 	public int applyDriver(int userNo) {
-		return memberDao.applyDriver(userNo);
+		int result = driverDao.applyDriver(userNo);
+		
+		if (result > 0) {
+			result = memberDao.applyDriver(userNo);
+		} else {
+			result = 0;
+		}
+		return result;
 	}
 
 	@Override

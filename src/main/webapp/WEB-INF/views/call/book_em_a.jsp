@@ -108,11 +108,14 @@
 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
 										<button class="btn btn-outline-info btn-calc-cost"
-											type="button" onclick="searchView();">조회</button>
+											type="button" onclick="searchView();" id="viewBtn">조회</button>
 											
 									</div>
 								</div>
-
+								<div class="row" style="margin-left: 0; margin-right: 0">
+									<input type="text" class="form-control" id="estCost"
+										name="estCost" placeholder="예상금액 (원)" required readonly/>
+								</div>
 								<div class="pt-5 pb-3 pickup-heading">
 									<h2 class="mb-3" style="margin-left: 10px;">2. 예약시간 선택</h2>
 								</div>
@@ -248,6 +251,7 @@ var geocoder = new kakao.maps.services.Geocoder();
 var point = [];
 
 function searchView() {
+    document.getElementById("viewBtn").disabled = true;
 	geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
 
 		
@@ -293,6 +297,11 @@ function searchView() {
 	    } 
 	});  
 	function setBounds() {
+		var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
+		if(cost<3000){
+			cost=3000
+		}
+	    document.getElementsByName('estCost')[0].value = cost;
 	var points = [
 	    new kakao.maps.LatLng(point[0], point[1]),
 	    new kakao.maps.LatLng(point[2], point[3])
@@ -318,7 +327,19 @@ function searchView() {
 	}
 	setTimeout(setBounds,500);
 }
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
 
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d*10;
+}
 
 </script>
 </body>
