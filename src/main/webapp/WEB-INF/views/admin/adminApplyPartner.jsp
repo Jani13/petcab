@@ -74,9 +74,8 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>제휴업체 승인</h4></span>
-            <br>
-            <table class="table">
+            <span class="fw-bold fs-3 mt-3">제휴업체 승인 요청</span>
+            <table class="table mt-3">
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
@@ -125,10 +124,8 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-
-            <span><h4>제휴업체 거부</h4></span>
-            <br>
-            <table class="table">
+            <span class="fw-bold fs-3 mt-3">제휴업체 승인 거부</span>
+            <table class="table mt-3">
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
@@ -146,7 +143,7 @@
                 <c:if test="${empty rejectPartners}">
 	                <tr>
 	                	<td class="text-center fw-bold" colspan="9">
-	                		신청한 회원이 없습니다.
+	                		조회 결과가 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>
@@ -170,32 +167,55 @@
                 </c:if>  
               </tbody>
             </table>
-            <div
-                aria-label="Page navigation example"
-                class="d-flex justify-content-center"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <!-- 페이징 부분 -->
+                      <div
+                        aria-label="Page navigation example"
+                        class="d-flex justify-content-center"
+                      >
+                        <ul class="pagination">
+                          
+                          <!-- 맨 처음으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/partner?page=1" aria-label="Previous">
+                              <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                          </li>
+                          <!-- 이전 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/partner?page=${pageInfo.prvePage}" aria-label="Previous">
+                              <span aria-hidden="true">&lt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 5개 페이지 목록 -->
+                          <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">                          
+                          	<c:if test="${status.current == pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link disabled"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          	<c:if test="${status.current != pageInfo.currentPage}">
+	                          <li class="page-item">
+	                            <a class="page-link" href="${path}/admin/apply/partner?page=${status.current}"><c:out value="${status.current}"/></a>
+	                          </li>
+                          	</c:if>
+                          </c:forEach>
+                          
+                          <!-- 다음 페이지로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/partner?page=${pageInfo.nextPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;</span>
+                            </a>
+                          </li>
+                          
+                          <!-- 맨 끝으로 -->
+                          <li class="page-item">
+                            <a class="page-link" href="${path}/admin/apply/partner?page=${pageInfo.maxPage}" aria-label="Previous">
+                              <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
             <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
             <!-- 여기 까지 -->
           </div>

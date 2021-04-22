@@ -380,6 +380,7 @@ public class AdminController {
 								  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 								  @RequestParam(value="listLimit", required = false, defaultValue = "10") int listLimit,
 								  @RequestParam(required = false, defaultValue = "userId") String searchType,
+								  @RequestParam(required = false) String searchType2,
 								  @RequestParam(required = false) String keyword) {
 		
 		List<Payment> paymentList = null;
@@ -391,6 +392,7 @@ public class AdminController {
 		if (keyword != null) {
 			search.setSearchType(searchType);
 			search.setKeyword(keyword);
+			search.setSearchType2(searchType2);
 		}
 		
 		log.info(paymentList.toString());
@@ -402,7 +404,10 @@ public class AdminController {
 		if (keyword != null) {
 			search.setSearchType(searchType);
 			search.setKeyword(keyword);
+			search.setSearchType2(searchType2);
 		}
+		
+		System.out.println(searchType2);
 		
 		model.addObject("paymentList", paymentList);
 		model.addObject("pageInfo", search);
@@ -449,11 +454,9 @@ public class AdminController {
 	public ModelAndView driverGrant(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam("userNo") int userNo,
 			ModelAndView model){
-		
-		int result = driverService.applyDriver(userNo);
-		int result2 = service.applyDriver(userNo);
+		int result = service.applyDriver(userNo);
 					
-		if (result > 0 && result2 > 0) {
+		if (result > 0) {
 			model.addObject("msg", "승인하였습니다");
 			model.addObject("location", "/admin/apply/driver");
 		}else {

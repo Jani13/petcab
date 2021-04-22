@@ -162,7 +162,7 @@ public class CallController {
 	
 	// 일반예약 신청 화면으로 이동
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public String book() {
+	public String book(@SessionAttribute(name="loginMember", required = false) Member loginMember) {
 		return "call/book_gn";
 	}
 	
@@ -205,6 +205,7 @@ public class CallController {
 					
 		String callNo = String.valueOf(call.getCallNo());
 		
+		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("call", call);
 		model.addObject("callNo", callNo);
 		model.setViewName("call/book_gn_pay");
@@ -218,7 +219,7 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
 			HttpServletRequest request,
-			// @RequestParam(value="callNo", required=true) int callNo,
+			@RequestParam(value="callNo", required=true) int callNo,
 			@RequestParam(value="impUid", required=true) String impUid,
 			@ModelAttribute Call call,
 			ModelAndView model) {
@@ -308,7 +309,8 @@ public class CallController {
 	
 	// 긴급예약 신청 정보 입력 a
 	@RequestMapping(value = "/book/emg_a", method = RequestMethod.GET)
-	public ModelAndView bookEmg(ModelAndView model) {
+	public ModelAndView bookEmg(ModelAndView model,
+			@SessionAttribute(name="loginMember", required = false) Member loginMember) {
 		List<Partner> shop = partnerService.getShopList();
 		List<Partner> hospital = partnerService.getHospitalList();
 		List<Partner> school = partnerService.getSchoolList();
@@ -320,6 +322,7 @@ public class CallController {
 		model.addObject("shop", shop);
 		model.addObject("hospital", hospital);
 		model.addObject("school", school);
+		model.addObject("loginMember",loginMember);
 		model.setViewName("call/book_em_a");
 		
 		return model;

@@ -222,6 +222,11 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
+	<update id="applyDriver" parameterType="Driver">
+		UPDATE DRIVER
+		SET STATUS = 'Y'
+		WHERE USER_NO = #{userNo}
+	</update>
 	<select id="selectCarNo" parameterType="string" resultMap="DriverResultMap">
 		<include refid="selectDriverSql"></include>
 		WHERE CAR_NO = #{carNo}
