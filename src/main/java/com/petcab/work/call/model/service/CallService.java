@@ -22,6 +22,8 @@ public interface CallService {
 	List<EmgCall> selectEmgCall(int callNo); // many
 	
 	EmgCall selectEmgCallWithNoDogs(int callNo); // one
+		
+	EmgCall	selectEmgCallWithDogs(int callNo); // one
 	
 	List<Call> selectCallListForDriver(); // 드라이버 예약선택
 	

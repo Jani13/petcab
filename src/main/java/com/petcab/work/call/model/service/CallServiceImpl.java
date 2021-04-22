@@ -192,6 +192,13 @@ public class CallServiceImpl implements CallService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public EmgCall selectEmgCallWithDogs(int callNo) {
+		
+		return callDao.selectEmgCallWithDogs(callNo);
+
+	}
 
 	@Override
 	public int updatUid(String merchantUid) {

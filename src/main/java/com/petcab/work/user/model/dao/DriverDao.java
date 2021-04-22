@@ -38,4 +38,6 @@ public interface DriverDao {
 
 	Driver selectCarNo(@Param("carNo") String carNo);
 
+	int rejectDriver(int userNo);
+
 }

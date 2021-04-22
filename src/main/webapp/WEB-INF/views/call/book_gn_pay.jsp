@@ -112,6 +112,7 @@
 							<form action="${path}/call/em_pay" method="post">
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
 								<input type="hidden" name="callType" value="긴급">
+								<input type="hidden" name="pUserNo" value="${ emgCall.getPartner().getUserNo() }">
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">결제를 진행해주세요</h1>
@@ -127,7 +128,7 @@
 									<tbody>
 										<tr>
 											<th scope="row">제휴업체</th>
-											<td>${ emgCall.getPartner().getPartnerName() }</td>
+											<td class=".pName">${ emgCall.getPartner().getPartnerName() }</td>
 										</tr>
 										<tr>
 											<th scope="row">예약시간</th>
@@ -190,11 +191,12 @@
 										</table>
 									</div>
 
+									<input type="hidden" name="impUid" value="" />
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
 										value="${loginMember.userId }">
 									<button class="btn btn-lg btn-outline-info btn-pay col"
-										id="api2" type="button">결제하기</button>
+										id="api" type="button">결제하기</button>
 								</div>
 							</form>
 						</c:when>
@@ -274,6 +276,8 @@
 											</tbody>
 										</table>
 									</div>
+									
+									<input type="hidden" name="impUid" value="" />
 									<input type="hidden" id="estCost" name="estCost" value="${estCost}">
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
@@ -312,6 +316,7 @@ $('#api').click(function() {
 	IMP.init('imp03179840');
 	
 	IMP.request_pay({
+
 		pg : "inicis", //pg사
 		merchant_uid : 'merchant_'
 				+ new Date().getTime(),
@@ -375,6 +380,7 @@ $('#api2').click(function() {
 
 	IMP.request_pay(
 		pg : "inicis", //pg사
+
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : 'PETCAB', // 결제창에서 보여질 이름
 		amount : 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
@@ -392,6 +398,10 @@ $('#api2').click(function() {
 			msg += '결제 금액 : ' + rsp.paid_amount;
 			msg += '카드 승인번호 : ' + rsp.apply_num;
 
+			$('input[name=impUid]').val(rsp.imp_uid);
+			
+			console.log($('input[name=impUid]').val());
+			
 			$.ajax({
 				type : "POST",
 				url : "${path}/call/payInfo",
@@ -411,9 +421,13 @@ $('#api2').click(function() {
 							paidAt : rsp.paid_at,
 							receiptUrl : rsp.receipt_url,
 							userNo : $('#userNo').val()})
-			});
+			});	
 			
-			document.location.href = "${ path }/call/book/gn_done?callNo=${emgCall.callNo}"; //alert창 확인 후 이동할 url 설정
+			if (${ emgCall != null }) { // 긴급콜
+				document.location.href = "${ path }/call/book/emg/${ emgCall.callNo }/done"; 
+			} else { // 일반콜
+				document.location.href = "${ path }/call/book/${ call.callNo }/done";
+			}
 		} else {
 			var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
 			//msg += '에러내용 : ' + rsp.error_msg;

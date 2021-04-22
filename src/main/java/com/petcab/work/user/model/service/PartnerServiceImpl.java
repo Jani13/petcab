@@ -66,11 +66,6 @@ public class PartnerServiceImpl implements PartnerService {
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		return partnerDao.selectRejectPartners(rowBounds);
 	}
-
-	@Override
-	public int applyPartner(int userNo) {
-		return partnerDao.applyPartner(userNo);
-	}
 	
 	@Override
 	public List<Partner> selectPartners(Search search) {
@@ -122,6 +117,12 @@ public class PartnerServiceImpl implements PartnerService {
 	@Override
 	public List<Partner> getSchoolList() {
 		return partnerDao.selectpSchool();
+	}
+
+	@Override
+	public int rejectPartner(int userNo) {
+		// TODO Auto-generated method stub
+		return partnerDao.rejectPartner(userNo);
 	}
 
 }

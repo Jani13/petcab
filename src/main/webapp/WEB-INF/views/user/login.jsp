@@ -112,35 +112,22 @@
             <br><br>
 
 			<!-- SNS 로그인 부분 -->
-            <div class="row" >
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4" style="display: flex; justify-content: center;">
-                    <table class="table table-striped" style="width: 150px;">
-                        <tr>
-                            <th><a href="${naver_url}">  	<!-- id="naverLogin" -->
-                            	<button type="button" id="naverLogin" style="border: 0px">
-                                <img src="${path}/images/login/Naver_Login_Green.PNG" width="150px" height="30px">
-                                </button>
-                                </a>
-                            </th>
-                        </tr>
-                        <tr>
-                        
-                            <th><a href="${kakaoUrl}">		<!-- id="kakaoLogin" -->
-                            <button type="button" id="kakaoLogin" style="border: 0px">
-                                <img src="${path}/images/login/kakao_login_large_narrow.png" width="150px" height="30px">
-                             </button></a></th>
-                                
-                        </tr>
+            <div class="row flex-column justify-content-center">
+	      		<div class="mb-1 d-flex justify-content-center">
+		            <a id="naverLogin" href="${naver_url}">  	<!-- id="naverLogin" -->
+		               	<img class="rounded-3" src="${path}/images/login/Naver_Login_Green.PNG" style="width: 182px; height: 44px" >
+		            </a>      		
+	      		</div>         
+	            <div class="d-flex justify-content-center">
+		            <a id="kakaoLogin" href="${kakaoUrl}">		<!-- id="kakaoLogin" -->
+		            	<img src="${path}/images/kakao_login.png" >
+		            </a>            
+	            </div>
                         <!-- <tr>
                             <th><a href="" target="_blank">
                                 <img src="${path}/images/login/google_signin_dark_focus_web.png" width="150px" height="30px"></a></th>
-                        </tr> -->
-                    </table>
-                </div>
-                <div class="col-lg-4"></div>
+                        </tr> --> 
             </div>
-
             <br>
             <br><br>
         </div>

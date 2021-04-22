@@ -90,7 +90,7 @@
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center">
                         <!-- 첫 번째 컨텐츠 내 정보 박스 -->
-                        <div class="col-md-6 py-5" style="border-right: 1px ridge; border-top: 1px ridge;">
+                        <div class="col-md-6 py-5" style="border-right: 1px; border-top: 1px;">
                             <p class="h3 fw-bold mt-3 mx-4">내 정보</p>
                             <form class="row my-5 d-flex justify-content-center"  method="post" action="${path}/updateinfo">
                                 <input type="hidden" name="userNo" value="${loginMember.userNo}">
@@ -110,7 +110,7 @@
                                     value="${loginMember.phone}">
                                 </div>
                                 <div class="col-sm-10 form-floating mb-3 my-2">
-                                    <div for="postalAddr">주소</div>
+                                    <div>주소</div>
                                     <div class="input-group mb-1">
                                         <input type="text" class="form-control" name="postalAddr" id="postalAddr" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="basic-addon2"
                                         value="${loginMember.postCode }">
@@ -142,86 +142,10 @@
                                 </div>
                             </form> 
                         </div> 
-                        <!-- 두 번째 컨텐츠 리뷰 관리 박스 -->
-                        <div class="col-md-6 py-5" style="border-top: 1px ridge;">
-                            <div class="d-flex justify-content-between">
-                                <p class="h3 fw-bold mt-3 mx-4">긴급콜 요청상황</p>
-                                <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
-                            </div>
-                            <div class="container-fluid">
-                            	<c:if test="${empty waitCall}">
-									<div class="w-100 card border-light mb-3 my-5 userPageEvent fw-bold" style="height:fit-content;" >
-										대기중인 긴급 콜이 없습니다
-									</div>
-								</c:if>
-                            	<c:if test="${waitCall != null}">
-									<c:forEach var="call" items="${waitCall}" end="2">
-		                            	<div class="w-100 card border-light mb-3 my-5 userPageEvent" style="height:fit-content;" >
-		                                    <div class="card-header bg-transparent">
-		                                        <span class="card-text" style="padding-right: 15px;">${call.pickupTime}</span> 
-		                                        <span class="card-text" style="padding-right: 15px;">고객 : </span>
-		                                        <span class="card-text" style="padding-right: 15px;">애견 : 
-			                                        <c:forEach var="dog" items="${call.dogs}" end="2">
-				                                		${dog.dogName} 
-				                                	</c:forEach>
-				                                </span>
-		                                    </div>
-		                                    <div class="card-body">
-		                                        <p class="card-title">도착 예상시간 : <!--도착예상시간 넣을 부분--></p>
-		                                        <span class="card-text">요청사항 : <!--요청사항 넣을 부분--></span> 
-		                                        <div class="text-center">
-		                                            <button type="button" class="btn btn-danger">수락</button>
-		                                            <button type="button" class="btn btn-secondary" onclick="popup()">거절</button>
-		                                        </div>
-		                                    </div>
-		                                </div>
-	                                </c:forEach>
-								</c:if>
-                            </div>
-                        </div>
-                <!-- 긴급콜 내역확인  -->
-                <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
-                    <p class="h4 mx-3 my-2 fw-bold text-white">예약요청 내역 확인</p>
-                    <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-	                    <c:if test="${empty eCallList}">
-	                        <div class="col-sm-12 text-center fw-bold p-5 h3">
-								요청이 없습니다
-							</div>
-						</c:if>
-	                    <c:if test="${eCallList != null}">
-							<c:forEach var="call" items="${eCallList}" end="2">
-								<div class="col-sm-4">
-		                            <div class="card w-70 m-5 userPageEvent">
-		                                <div class="card-body p-4">
-		                                    <i class="fas fa-meteor text-danger">긴급</i>
-		                                    <h5 class="card-title fw-bold">
-		                                        ${call.fromWhere} 
-		                                        <i class="fas fa-arrow-right"></i> 
-		                                        ${call.toWhere} 
-		                                        <p>${call.pickupTime} </p>
-		                                    </h5>
-		                                    <p class="card-text">
-		                                        고객명 :  <br>
-		                                        애견명 :  
-		                                        <c:forEach var="dog" items="${call.dogs}" end="2">
-			                                		${dog.dogName} 
-			                                	</c:forEach> <br>
-		                                        예상 결제 금액 : <!-- 연결해야할 부분 --> <br>
-		                                        드라이버 : ${call.driver.carType } /${call.driver.carNo } <br>
-		                                        비고 : ${call.status } <br>
-		                                    </p>
-		                                </div>
-		                            </div>
-                        		</div>
-		                    </c:forEach>
-	                    </c:if>
                     </div>
-                </div>
+            	</div> 
             </div>
-        
+        </div>
     </section>
     <jsp:include page="../common/footer.jsp" />
 

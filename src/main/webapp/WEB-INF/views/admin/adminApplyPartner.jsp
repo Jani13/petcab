@@ -109,6 +109,8 @@
 		                  <td>
 		                    <button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/partner/grant?userNo=${partner.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/partner/revoke?userNo=${partner.userNo}'">거절</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>
@@ -160,7 +162,9 @@
 		                  <td>${partner.status }</td>
 		                  <td>
 		                    <button type="button" class="btn btn-outline-info" 
-		                    onclick="location.href='${path}/admin/partner/grant?userNo=${driver.userNo}'">승인</button>
+		                    onclick="location.href='${path}/admin/partner/grant?userNo=${partner.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/partner/revoke?userNo=${partner.userNo}'">거절</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>

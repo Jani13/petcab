@@ -178,213 +178,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
-    <script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
-	<script>var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
-
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-
-	// 주소로 좌표를 검색합니다
-	   
-	var point = [];
-
-	function searchView() {
-		geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
-
-			
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
-		        });
-		        infowindow.open(map, marker);
-
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        point.push(parseFloat(result[0].y));
-		        point.push(parseFloat(result[0].x));
-		    } 
-		}); 
-		geocoder.addressSearch(document.getElementsByName('toWhere')[0].value, function(result, status) {
-
-		     if (status === kakao.maps.services.Status.OK) {
-
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
-		        });
-		        infowindow.open(map, marker);
-		        point.push(parseFloat(result[0].y));
-		        point.push(parseFloat(result[0].x));
-		    } 
-		});  
-		function setBounds() {
-		var points = [
-		    new kakao.maps.LatLng(point[0], point[1]),
-		    new kakao.maps.LatLng(point[2], point[3])
-		];
-
-		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-		var bounds = new kakao.maps.LatLngBounds();    
-
-		var i, marker;
-		for (i = 0; i < points.length; i++) {
-		    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-		    marker =     new kakao.maps.Marker({ position : points[i] });
-		    marker.setMap(map);
-		    
-		    // LatLngBounds 객체에 좌표를 추가합니다
-		    bounds.extend(points[i]);
-		}
-
-			
-		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-		    map.setBounds(bounds);
-		}
-		setTimeout(setBounds,500);
-	}
-	</script>
 </body>
-<script>
-	function selectCallByDriver(e) {
-		// 예약상태를 '기사'로 바꿈
-		
-		let callNo = $(e).siblings('input').val();
-		let callType = $(e).siblings('.callType').text();
-		
-		console.log(callNo);
-		console.log(callType);
-		
-		let call = {
-			'callNo': callNo,
-			'callType': callType
-		};
-
-		$.ajax({
-			url : 'confirm/select',
-			dataType : 'json',
-			// contentType : "application/json; charset=UTF-8",
-			type : 'post',
-			data : call,
-			// async : false,
-			// cache : false,
-			// processData : false,
-			success : function(result) {
-
-				console.log("result : " + result);
-
-                alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
-			},
-			error : function(e) {
-
-				console.log(e);
-
-				alert('에러가 발생해습니다. 다시 시도해주세요!');
-			}
-		});
-		document.getElementsByName('fromWhere')[0].value = document.getElementById("startPoint").innerText;
-		document.getElementsByName('toWhere')[0].value = document.getElementById("endPoint").innerText;
-		
-		var point = [];
-
-		geocoder.addressSearch(document.getElementById("startPoint").innerText, function(result, status) {
-
-				
-			   // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
-		        });
-		        infowindow.open(map, marker);
-
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        point.push(parseFloat(result[0].y));
-		        point.push(parseFloat(result[0].x));
-		    } 
-		}); 
-		geocoder.addressSearch(document.getElementById("endPoint").innerText, function(result, status) {
-
-		     if (status === kakao.maps.services.Status.OK) {
-
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
-		        });
-		        infowindow.open(map, marker);
-		        point.push(parseFloat(result[0].y));
-		        point.push(parseFloat(result[0].x));
-		    } 
-		});  
-		function setBounds() {
-			var points = [
-		  	  new kakao.maps.LatLng(point[0], point[1]),
-			  new kakao.maps.LatLng(point[2], point[3])
-			];
-
-			// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-			var bounds = new kakao.maps.LatLngBounds();    
-
-			var i, marker;
-			for (i = 0; i < points.length; i++) {
-			    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-			    marker =     new kakao.maps.Marker({ position : points[i] });
-			    marker.setMap(map);
-			    
-			    // LatLngBounds 객체에 좌표를 추가합니다
-			    bounds.extend(points[i]);
-			}
-
-				
-			    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-			    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-			    map.setBounds(bounds);
-		}
-		setTimeout(setBounds,500);
-		
-	}
-
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script
@@ -443,4 +237,209 @@ function selectCallByDriver(e) {
     });
 }
 </script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
+<script>var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+     level: 3 // 지도의 확대 레벨
+};  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+   
+var point = [];
+
+function searchView() {
+	geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
+
+		
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	}); 
+	geocoder.addressSearch(document.getElementsByName('toWhere')[0].value, function(result, status) {
+
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+	        });
+	        infowindow.open(map, marker);
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	});  
+	function setBounds() {
+	var points = [
+	    new kakao.maps.LatLng(point[0], point[1]),
+	    new kakao.maps.LatLng(point[2], point[3])
+	];
+
+	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+	var bounds = new kakao.maps.LatLngBounds();    
+
+	var i, marker;
+	for (i = 0; i < points.length; i++) {
+	    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+	    marker =     new kakao.maps.Marker({ position : points[i] });
+	    marker.setMap(map);
+	    
+	    // LatLngBounds 객체에 좌표를 추가합니다
+	    bounds.extend(points[i]);
+	}
+
+		
+	    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+	    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+	    map.setBounds(bounds);
+	}
+	setTimeout(setBounds,500);
+}
+</script>
+
+<script>
+function selectCallByDriver(e) {
+	// 예약상태를 '기사'로 바꿈
+	
+	let callNo = $(e).siblings('input').val();
+	let callType = $(e).siblings('.callType').text();
+	
+	console.log(callNo);
+	console.log(callType);
+	
+	let call = {
+		'callNo': callNo,
+		'callType': callType
+	};
+
+	$.ajax({
+		url : 'confirm/select',
+		dataType : 'json',
+		// contentType : "application/json; charset=UTF-8",
+		type : 'post',
+		data : call,
+		// async : false,
+		// cache : false,
+		// processData : false,
+		success : function(result) {
+
+			console.log("result : " + result);
+
+               alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
+		},
+		error : function(e) {
+
+			console.log(e);
+
+			alert('에러가 발생해습니다. 다시 시도해주세요!');
+		}
+	});
+	document.getElementsByName('fromWhere')[0].value = document.getElementById("startPoint").innerText;
+	document.getElementsByName('toWhere')[0].value = document.getElementById("endPoint").innerText;
+	
+	var point = [];
+
+	geocoder.addressSearch(document.getElementById("startPoint").innerText, function(result, status) {
+
+			
+		   // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	}); 
+	geocoder.addressSearch(document.getElementById("endPoint").innerText, function(result, status) {
+
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+	        });
+	        infowindow.open(map, marker);
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	});  
+	function setBounds() {
+		var points = [
+	  	  new kakao.maps.LatLng(point[0], point[1]),
+		  new kakao.maps.LatLng(point[2], point[3])
+		];
+
+		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+		var bounds = new kakao.maps.LatLngBounds();    
+
+		var i, marker;
+		for (i = 0; i < points.length; i++) {
+		    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+		    marker =     new kakao.maps.Marker({ position : points[i] });
+		    marker.setMap(map);
+		    
+		    // LatLngBounds 객체에 좌표를 추가합니다
+		    bounds.extend(points[i]);
+		}
+
+			
+		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		    map.setBounds(bounds);
+	}
+	setTimeout(setBounds,500);
+	
+}
 </html>

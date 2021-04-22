@@ -22,7 +22,12 @@
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
 		  integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
 		  crossorigin="anonymous">
-  
+		  
+	<style type="text/css">
+	 	.partnerCard:hover{
+	 		border: 1px solid;	
+	 	}
+  	</style>
 </head>
 
   <jsp:include page="../common/header.jsp" />
@@ -77,7 +82,7 @@
        	<div class="row justify-content-center">
        	
         	<c:forEach var="partner" items="${partnerList}" end="8">
-	        <div class="col-md-3 my-5 m-4 card" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
+	        <div class="col-md-3 my-5 m-4 card partnerCard" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
 		    	<p class="fw-bold"><i class="fas fa-school"></i>유치원</p>
 		    	<c:if test="${partner.imageRe == null}">
 		    		<div class="d-flex row" style="height: 200px">
