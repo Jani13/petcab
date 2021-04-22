@@ -222,9 +222,16 @@
 		)
 		ORDER BY ROWNUM
 	</select>
+	
 	<update id="applyPartner" parameterType="Partner">
 		UPDATE PARTNER
 		SET STATUS = 'Y'
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<update id="rejectPartner" parameterType="Partner">
+		UPDATE PARTNER
+		SET STATUS = 'N'
 		WHERE USER_NO = #{userNo}
 	</update>
 	

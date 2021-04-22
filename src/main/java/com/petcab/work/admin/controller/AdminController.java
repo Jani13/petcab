@@ -468,6 +468,24 @@ public class AdminController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/driver/revoke", method = RequestMethod.GET)
+	public ModelAndView driverRevoke(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		int result = driverService.rejectDriver(userNo);
+					
+		if (result > 0) {
+			model.addObject("msg", "거절하였습니다");
+			model.addObject("location", "/admin/apply/driver");
+		}else {
+			model.addObject("msg", "거절하지못했습니다.");
+			model.addObject("location", "/admin/apply/driver");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
 	@RequestMapping(value = "/apply/partner", method = RequestMethod.GET)
 	public ModelAndView applyPartner(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			ModelAndView model, 
@@ -498,14 +516,32 @@ public class AdminController {
 			@RequestParam("userNo") int userNo,
 			ModelAndView model){
 		
-		int result = partnerService.applyPartner(userNo);
-		int result2 = service.applyPartner(userNo);
+		int result = service.applyPartner(userNo);
 		
-		if (result > 0 && result2 > 0) {
+		if (result > 0) {
 			model.addObject("msg", "승인하였습니다");
 			model.addObject("location", "/admin/apply/partner");
 		}else {
 			model.addObject("msg", "승인하지못했습니다.");
+			model.addObject("location", "/admin/apply/partner");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	@RequestMapping(value = "/partner/revoke", method = RequestMethod.GET)
+	public ModelAndView partnerRevoke(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("userNo") int userNo,
+			ModelAndView model){
+		
+		int result = partnerService.rejectPartner(userNo);
+		
+		if (result > 0) {
+			model.addObject("msg", "거절하였습니다");
+			model.addObject("location", "/admin/apply/partner");
+		}else {
+			model.addObject("msg", "거절하지못했습니다.");
 			model.addObject("location", "/admin/apply/partner");
 		}
 		model.setViewName("common/msg");

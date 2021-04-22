@@ -108,6 +108,8 @@
 		                  <td>
 		                    <button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/revoke?userNo=${driver.userNo}'">거절</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>
@@ -160,6 +162,8 @@
 		                  <td>
 		                 	<button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/revoke?userNo=${driver.userNo}'">승인</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>
