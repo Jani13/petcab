@@ -65,4 +65,6 @@ public interface CallDao {
 	int searchEmgCallCount(Search search);
 
 	int searchCancelCount(Search search);
+
+	EmgCall selectEmgCallWithDogs(int callNo);
 }

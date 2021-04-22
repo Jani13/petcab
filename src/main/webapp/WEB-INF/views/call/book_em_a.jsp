@@ -49,7 +49,7 @@
 				<div class="col-md-4 pickup-details"
 					style="padding-left: 12px; padding-right: 12px">
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form id="emgCallForm" action="${ path }/call/book/emg/done" method="POST">
+						<form id="emgCallForm" action="${ path }/call/book/emg/prepay" method="POST">
 							<input type="hidden" name="callType" value="긴급" />
 						 	<input type="hidden" name="pUserNo" value="${pUserNo}" /> 
 						
@@ -152,10 +152,10 @@
 										style="margin-left: 0; margin-right: 0">
 										<div class="col-9" style="padding-left: 0; padding-right: 0">
 											<input type="text" class="form-control where-from"
-												name="fromWhere" placeholder="출발지" required />
+												name="fromWhere" placeholder="출발지" />
 											<input type="text"
 												class="form-control where-to" name="toWhere"
-												placeholder="도착지" required />
+												placeholder="도착지" />
 										</div>
 
 										<div class="col-3" style="padding-left: 0; padding-right: 0">
@@ -166,7 +166,7 @@
 
 									<div class="row" style="margin-left: 0; margin-right: 0">
 										<input type="text" class="form-control" id="estCost"
-											name="estCost" placeholder="예상금액 (원)" required />
+											name="estCost" placeholder="예상금액 (원)" />
 									</div>
 								</div>
 

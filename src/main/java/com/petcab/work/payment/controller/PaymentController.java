@@ -1,47 +1,16 @@
 package com.petcab.work.payment.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.payment.model.vo.Payment;
-import com.petcab.work.user.model.vo.Member;
-import com.siot.IamportRestClient.IamportClient;
-import com.siot.IamportRestClient.exception.IamportResponseException;
-import com.siot.IamportRestClient.response.IamportResponse;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.http.HttpEntity;
 
 @Slf4j
 @Controller
@@ -68,19 +37,17 @@ public class PaymentController {
 //	      System.out.println("결제하러 왔어:");
 //	      return "/call/book_gn_pay";
 //	   } 
-	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
-	public ModelAndView bookRedirect(
-			ModelAndView model
-			) {
-		
-		model.setViewName("call/book_gn_done");
-		return model;
-	}
-
-	 
-
- 
 	
+	// 소요 : 잠시 주석 처리
+//	@RequestMapping(value = "/book/{callNo}/done", method = RequestMethod.GET)
+//	public ModelAndView bookRedirect(
+//			ModelAndView model
+//			) {
+//		
+//		model.setViewName("call/book_gn_done");
+//		return model;
+//	}
+
 	@RequestMapping(value = "call/payInfo", method= {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @RequestBody Payment payment) {
 		

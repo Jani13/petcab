@@ -187,4 +187,16 @@ public class CallServiceImpl implements CallService {
 		return callDao.searchCancelCount(search);
 	}
 
+	@Override
+	public List<Call> callEndList(int callNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EmgCall selectEmgCallWithDogs(int callNo) {
+		
+		return callDao.selectEmgCallWithDogs(callNo);
+	}
+
 }
