@@ -213,16 +213,73 @@ public class CallController {
 		return model;
 	}	
 	
+	// 긴급예약 신청 정보 입력 후 가결제 화면으로 이동
+	@RequestMapping(value = "/book/emg/prepay", method = {RequestMethod.POST})
+	public ModelAndView prepayEmg(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			HttpServletRequest request,
+			@RequestParam(value="dogNo", required=true) String[] dogNos,
+			@RequestParam(value="pUserNo", required=true) String pUserNo,
+			@ModelAttribute EmgCall emgCall,
+			ModelAndView model) {
+		
+		Stream<String> stream = Arrays.stream(dogNos);
+		
+		log.info(dogNos.toString());
+		
+		List<Dog> dogs = new ArrayList<>();
+		
+		// dogNo로 조회한 dog만 dogs 리스트에 넣어서 call에 set 하기
+		stream.forEach(dogNo -> {
+			
+			if(!dogNo.equals("")) { // 값이 있으면	
+				Dog dog = dogService.searchByDogNo(Integer.parseInt(dogNo));
+				dogs.add(dog);
+			} else { // 값이 없으면
+				// 
+			}
+		});
+		
+		log.info(dogs.toString());
+		
+		emgCall.setDogs(dogs);
+		
+		log.info(emgCall.toString());
+
+		int result = callService.insertEmgCall(emgCall);
+		
+		log.info("insertCall(call) : " + String.valueOf(result));
+					
+		String callNo = String.valueOf(emgCall.getCallNo());
+		
+		Partner partner = partnerService.selectPartner(Integer.parseInt(pUserNo));
+		
+		log.info(partner.toString());
+		
+		emgCall.setPartner(partner);
+		
+		model.addObject("estCost", request.getParameter("estCost"));
+		model.addObject("emgCall", emgCall);
+		model.addObject("callNo", callNo);
+		model.setViewName("call/book_gn_pay");
+		
+		return model;
+	}	
+	
 	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
 	@RequestMapping(value = "/book/{callNo}/done", method = {RequestMethod.GET})
 	public ModelAndView book(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
 			HttpServletRequest request,
-			@RequestParam(value="callNo", required=true) int callNo,
-			@RequestParam(value="impUid", required=true) String impUid,
+			// @RequestParam(value="callNo", required=true) int callNo,
+			// @RequestParam(value="impUid", required=true) String impUid,
 			@ModelAttribute Call call,
 			ModelAndView model) {
+		
+		String impUid = request.getParameter("impUid");
+		
+		System.out.println(impUid);
 		
 		call = callService.selectCall(callNo);
 		
@@ -233,20 +290,51 @@ public class CallController {
 		
 		return model;		
 	}	
+	
+	// 긴급예약 신청 정보 입력 후 예약완료 화면으로 이동
+	@RequestMapping(value = "/book/emg/{callNo}/done", method = {RequestMethod.GET})
+	public ModelAndView bookEmg(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@PathVariable(name="callNo") int callNo,
+//			@RequestParam(name="pUserNo") String pUserNo,
+			HttpServletRequest request,
+			@ModelAttribute EmgCall emgCall,
+			ModelAndView model) {
+				
+		String impUid = request.getParameter("impUid");
+		
+		System.out.println(impUid);
+		
+		emgCall = callService.selectEmgCallWithDogs(callNo);
+		
+//		Partner partner = partnerService.selectPartner(Integer.parseInt(pUserNo));
+		
+//		emgCall.setPartner(partner);
+		
+		log.info("bookEmg() emgCall : " + emgCall.toString());
+
+		model.addObject("emgCall", emgCall);
+		model.setViewName("call/book_gn_done");
+		
+		return model;		
+	}	
 
 	@RequestMapping(value = "/book/cancel", method = {RequestMethod.POST})
 	public ModelAndView cancel(
 			@SessionAttribute(name = "loginMember", required=false) Member loginMember,
 			HttpServletRequest request, 
 			@ModelAttribute Call call,
+//			@ModelAttribute Driver driver,
 			@ModelAttribute Payment payment,
 			@RequestParam(value="impUid", required=true) String impUid,
 			ModelAndView model) {
 
 		callService.updateCall(call.getCallNo());
 
-		 int resulta = service.updatPay(payment.getImpUid());
+		int resulta = service.updatPay(payment.getImpUid());
+		
 		System.out.println("????????????????????????????????????????"+payment);
+		
 		log.info(payment.toString());
 		
 		int result = callService.updateCall(call.getCallNo());

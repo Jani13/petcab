@@ -129,7 +129,7 @@
 		<result property="userName" column="USER_NAME"/>
 	</resultMap>
 
-	<resultMap type="EmgCall" id="emgCallWithNoDogsResultMap">
+	<resultMap type="EmgCall" id="emgCallWithDogsResultMap">
 		<id property="callNo" column="CALL_NO" />
 		<result property="pickupTime" column="TIME" />
 		<result property="fromWhere" column="FROM_WHERE" />
@@ -143,6 +143,23 @@
 		<association property="driver" resultMap="DriverResultMap" />
 		<association property="partner"
 			resultMap="partnerResultMap" />	
+		<collection property="dogs" javaType="java.util.List"
+			ofType="Dog">
+			<id property="dogNo" column="DOG_NO" />
+			<result property="animalNo" column="ANIMAL_NO" />
+			<result property="userId" column="USER_ID" />
+			<result property="dogName" column="DOG_NAME" />
+			<result property="dogType" column="DOG_TYPE" />
+			<result property="age" column="AGE" />
+			<result property="vacc" column="VACC" />
+			<result property="disorder" column="DISORDER" />
+			<result property="other" column="OTHER" />
+			<result property="imageOri" column="IMAGE_ORI" />
+			<result property="imageRe" column="IMAGE_RE" />
+			<result property="enrollDate" column="ENROLL_DATE" />
+			<result property="modifyDate" column="MODIFY_DATE" />
+			<result property="status" column="STATUS" />
+		</collection>
 	</resultMap>
 
 	<resultMap type="Call" id="callResultMap">
@@ -190,8 +207,8 @@
 		WHERE G.CALL_NO = #{callNo}
 	</select>
 	
-	<select id="selectEmerCall" parameterType="_int"
-		resultMap="callResultMap">
+	<select id="selectEmgCallWithDogs" parameterType="_int"
+		resultMap="emgCallWithDogsResultMap">
 		<include refid="selectEmgCallSql"></include>
 		WHERE E.CALL_NO = #{callNo}
 	</select>
