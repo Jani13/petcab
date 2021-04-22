@@ -43,7 +43,11 @@
 		crossorigin="anonymous">
 	
     <link rel="stylesheet" href="${path}/css/headerfooter.css" />
-
+	<style type="text/css">
+		.mainPcard:hover {
+			border: 1px ridge;
+		}
+	</style>
   </head>
   <body class="body-wrap">
 	
@@ -73,31 +77,34 @@
         </div>
         <div
           class="d-flex fee-search section-width flex-column container-fluid"
+          style="height: 360px"
         >
-          <div class="row align-items-start">
+          <div class="row align-items-start mt-2">
             <div class="col-lg-12 m-5 fee-search-title">
               이동요금을 미리 알아보세요.
             </div>
           </div>
-          <div class="row justify-content-center fee-search-input container">
+          <div class="row justify-content-center fee-search-input container mt-4">
             <div class="col-md-1">
-              <img src="${path }/images/carImg.png" alt="" />
+              <img src="${path }/images/carImg.png" alt="" style="height: 55px"/>
+            </div>
+            <div class="col-md-3 ">
+              <input type="text" class="form-control" placeholder="출발지" style="height: 50px"/>
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" placeholder="출발지" />
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control" placeholder="도착지" />
+              <input type="text" class="form-control" placeholder="도착지" style="height: 50px"/>
             </div>
             <div class="col-md-2">
-              <button type="button" class="btn btn-outline-light">
+              <button type="button" class="btn btn-outline-light" style="height: 50px">
                 확인하기
               </button>
             </div>
           </div>
+          <div class="mx-4">
           <p class="fee-search-info">
             * 저희 데려다줄개는 전국 픽업서비스를 제공합니다.
           </p>
+          </div>
         </div>
 
         <div class="container flex-column section-width my-5">
@@ -184,19 +191,19 @@
           </div>
         </div>
 
-        <div class="container section-width show-grid align-items-center p-3">
+        <div class="container show-grid align-items-center p-3">
           <div class="container section-width flex-column">
-            <div class="row col-12 p-2 my-5" style="background-color: #4ec7f2">
+            <div class="col-12 p-2 my-5" style="background-color: #4ec7f2">
               <p class="text-white fw-bold h3 mx-5 p-2">제휴업체 보러가기</p>
             </div>
             <div class="row">
-              <div class="col-md-4 col-sm-12 text-center my-3">
+              <div class="col-md-4 col-sm-12 text-center p-4 mainPcard">
                 <a href="${path}/partner/partHospital">
-                  <img class="img-fluid" src="${path }/images/hos1.png" alt="" />
+                  <img class="img-fluid pt-3" src="${path}/images/hos1.png" alt="" />
                 </a>
                 <div class="h4 fw-bold my-3">병원</div>
               </div>
-              <div class="col-md-4 col-sm-12 text-center">
+              <div class="col-md-4 col-sm-12 text-center p-4 mainPcard">
                 <a href="${path}/partner/partKindergarten">
                   <img
                     class="img-fluid"
@@ -206,7 +213,7 @@
                 </a>
                 <div class="h4 fw-bold my-3">유치원</div>
               </div>
-              <div class="col-md-4 col-sm-12 text-center">
+              <div class="col-md-4 col-sm-12 text-center p-4 mainPcard">
                 <a href="${path}/partner/partShop">
                   <img class="img-fluid" src="${path }/images/shop1.png" alt="" />
                 </a>
