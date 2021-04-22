@@ -203,7 +203,7 @@
             <div class="col-12 p-2 my-5" style="background-color: #4ec7f2">
               <p class="text-white fw-bold h3 mx-5 p-2">제휴업체 보러가기</p>
             </div>
-            <div class="row">
+            <div class="row container mx-1">
               <div class="col-md-4 col-sm-12 text-center p-4 mainPcard">
                 <a href="${path}/partner/partHospital">
                   <img class="img-fluid pt-3" src="${path}/images/hos1.png" alt="" />

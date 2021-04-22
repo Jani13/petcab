@@ -48,8 +48,8 @@
 
 			<div class="row row-call-2">
 				<div class="col-md-4 my-auto pt-5 pb-5 book-progress">
+					<!-- 				
 					<c:if test="${ emgCall != null }">
-						<!-- 긴급콜일때 보여주겠다 -->
 						<div class="row">
 							<button type="button"
 								class="btn btn-primary btn-lg btn-block disabled">제휴업체
@@ -65,6 +65,7 @@
 	                         </svg>
 						</div>
 					</c:if>
+					-->
 
 					<div class="row">
 						<button type="button"
@@ -101,16 +102,15 @@
 					</div>
 				</div>
 
-				<div class="col-md">
-					<input type="hidden" name="dUserNo" value="" />
-					
+				<div class="col-md">					
 					<c:choose>
 						<c:when test="${ emgCall != null }">
 							<form action="${ path }/call/book/emg/cancel" method="POST">
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
 								<input type="hidden" name="callType" value="긴급">
 								<input type="hidden" name="pUserNo" value="">
-
+								<input type="hidden" name="dUserNo" value="" />
+								
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">긴급 예약을 요청하셨습니다</h1>
 									<h3 class="text-center mb-3">드라이버 확인 후 예약이 확정됩니다</h3>
@@ -154,25 +154,11 @@
 										</tr>
 										<tr>
 											<th scope="row">드라이버 성함</th>
-											<c:choose>
-												<c:when test="${ emgCall.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td>${ emgCall.getDriver().getUserName() }</td>
-												</c:otherwise>
-											</c:choose>
+												<td class="dName"></td>
 										</tr>
 										<tr>
 											<th scope="row">차량번호판</th>
-											<c:choose>
-												<c:when test="${ emgCall.getDriver() == null }">
-													<td>매칭 대기</td>
-												</c:when>
-												<c:otherwise>
-													<td>${ emgCall.getDriver().getCarNo() }</td>
-												</c:otherwise>
-											</c:choose>
+												<td class="dCarNo"></td>
 										</tr>
 										<tr>
 											<th scope="row">드라이버 요청사항</th>
@@ -218,6 +204,7 @@
 								<input type="hidden" id="test" name="impUid" value="${payment.impUid}" />
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
+								<input type="hidden" name="dUserNo" value="" />
 
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">일반 예약을 요청하셨습니다</h1>
@@ -354,7 +341,16 @@ $(function() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected : ' + frame);
-        stompClient.subscribe('/topic/call/' + ${ call.callNo }, function(data) {
+        
+        let destCallNo = null;
+        
+		if (${ emgCall != null }) { // 긴급
+			destCallNo = "${ emgCall.callNo }";
+		} else if (${ call != null }) { // 일반
+			destCallNo = "${ call.callNo }";
+		}
+        
+        stompClient.subscribe('/topic/call/' + destCallNo, function(data) {
                 	
         	console.log("subscribed yet?");
         	console.log("data @ book_gn_done : " + data);
