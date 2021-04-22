@@ -219,15 +219,15 @@
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
                                                 value="KennelCough" name="vacc">
-                                            <label class="form-check-label" for="inlineCheckbox1">Kennel
+                                            <label class="form-check-label" for="inlineCheckbox3">Kennel
                                                 Cough</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
                                                 value="광견병" name="vacc">
-                                            <label class="form-check-label" for="inlineCheckbox2">광견병</label>
+                                            <label class="form-check-label" for="inlineCheckbox4">광견병</label>
                                         </div>
                                     </td>
                                 </tr>
