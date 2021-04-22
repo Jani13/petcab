@@ -46,6 +46,7 @@
 	 		<mapping path="/partner/"/>
 	 		<mapping path="/call/**"/>
 			<mapping path="/admin/**"/>
+			<exclude-mapping path="/call/search"/>
 	 		<beans:bean id="LoginCheckInterceptor" class="com.petcab.work.common.interceptor.LoginCheckInterceptor"/>
 	 	</interceptor>
 	 </interceptors>
