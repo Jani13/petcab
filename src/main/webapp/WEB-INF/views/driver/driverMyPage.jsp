@@ -154,14 +154,14 @@
                     </div>
                 </div>
                 <!-- 이용 완료 목록 -->
-                <div class="p-2" style="background-color:#4ec7f2">
+                <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">이용 완료 목록</p>
-                    <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
+                    <a href="" class="my-2 mx-2 text-white"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
                     	<c:if test="${empty endCall}">
-							<div class="card-body fw-bold text-center">조회된 예약이 없습니다</div>
+							<div class="card-body fw-bold text-center m-5">조회된 예약이 없습니다</div>
 						</c:if>
 						<c:if test="${endCall != null}">
 							<c:forEach var="call" items="${endCall}" end="2">
