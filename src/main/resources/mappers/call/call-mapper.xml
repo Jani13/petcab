@@ -396,9 +396,11 @@
 			G.TO_DRIVER,
 			G.STATUS,
 			G.CALL_TYPE,
-			G.USER_NO
-		FROM GEN_CALL G
-        WHERE G.STATUS = '신청'
+			G.USER_NO,
+            CD.DOG_NO
+		FROM GEN_CALL G, CALL_DOG CD
+        WHERE G.CALL_NO = CD.CALL_NO
+        AND G.STATUS = '신청'
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->

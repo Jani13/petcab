@@ -66,4 +66,5 @@ public interface CallService {
 
 	int searchCancelCount(Search search);
 
+
 }

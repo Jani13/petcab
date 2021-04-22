@@ -55,18 +55,26 @@
                       업체 회원 정보
                     </div>
                     <div class="card-body text-dark">
-                      <div class="d-flex mb-3 justify-content-end">
-	                      <div class="input-group " style="width: 100px">
-	                          <select class="form-select" name="searchType" id="searchType">
-	                            <option value="partnerName">업체명</option>
-	                            <option value="partType">업체종류</option>
-	                          </select>
-	                      </div>
-	                      <div class="input-group input-group-sm" style="width: 250px">
-	                          <input type="text" class="form-control" name="keyword" id="keyword"/>
-	                          <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
-	                      </div>
-                      </div>
+                    	<div class="d-flex mb-3 justify-content-between">
+                    		<div>
+                    			<button class="btn btn-outline-info" 
+	                      	  		  onclick="location.href='${path}/admin/info/partner'">
+	                      	  		전체보기
+	                      	  	</button>
+                    		</div>
+		                    <div class="d-flex mb-3 justify-content-end">
+		                     <div class="input-group " style="width: 100px">
+		                         <select class="form-select" name="searchType" id="searchType">
+		                           <option value="partnerName">업체명</option>
+		                           <option value="partType">업체종류</option>
+		                         </select>
+		                     </div>
+		                     <div class="input-group input-group-sm" style="width: 250px">
+		                         <input type="text" class="form-control" name="keyword" id="keyword"/>
+		                         <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+		                     </div>
+		                    </div>
+	                  </div>  
                       <table class="table table-striped">
                         <thead>
                           <tr>

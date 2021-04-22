@@ -133,6 +133,7 @@
 									<div class="row row-cols-2">
 										<p class="card-text col-8 callType">${ call.callType }</p>
 										<p class="card-text col-8">${ call.toDriver }</p>
+										<h6 class="col-8">애견 수 : ${fn:length(call.dogs) }</h6>
 										<input type="hidden" name="${ call.callNo }"
 											value="${ call.callNo }" />
 										<button type="button" class="btn btn-outline-primary col-3"
