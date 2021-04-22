@@ -316,7 +316,7 @@ $('#api').click(function() {
 		merchant_uid : 'merchant_'
 				+ new Date().getTime(),
 		name : 'PETCAB', // 결제창에서 보여질 이름
-		amount : 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
+		amount : '${estCost}',
 		buyer_name : '${loginMember.userId }',
 		buyer_tel : '010-1234-5678',
 		buyer_addr : '서울특별시 강남구 신사동',

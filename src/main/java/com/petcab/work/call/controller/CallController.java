@@ -219,8 +219,8 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
 			HttpServletRequest request,
-			@RequestParam(value="callNo", required=true) int callNo,
-			@RequestParam(value="impUid", required=true) String impUid,
+//			@RequestParam(value="callNo", required=true) int callNo,
+//			@RequestParam(value="impUid", required=true) String impUid,
 			@ModelAttribute Call call,
 			ModelAndView model) {
 		
