@@ -268,11 +268,13 @@
 												</tr>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>30,000원</td>
+													<td>${estCost}원</td>
+													
 												</tr>
 											</tbody>
 										</table>
 									</div>
+									<input type="hidden" id="estCost" name="estCost" value="${estCost}">
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
 										value="${loginMember.userId }">
