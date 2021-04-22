@@ -252,7 +252,5 @@
 		     )
 		WHERE CALL_TYPE = #{btnValue}
 		ORDER BY ROWNUM
-	
 	</select>
-
 </mapper>
