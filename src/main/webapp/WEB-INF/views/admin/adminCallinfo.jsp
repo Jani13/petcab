@@ -85,18 +85,26 @@
                       일반 예약 정보
                     </div>
                     <div class="card-body text-dark">
-                      <div class="d-flex mb-3 justify-content-end">
-	                      <div class="input-group " style="width: 100px">
-	                          <select class="form-select" name="searchType" id="searchType">
-	                            <option value="userId">id</option>
-	                            <option value="genCallDate">날짜</option>
-	                          </select>
-	                      </div>
-	                      <div class="input-group input-group-sm" style="width: 250px">
-	                          <input type="text" class="form-control" name="keyword" id="keyword" />
-	                          <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
-	                      </div>
-                      </div>
+                    	<div class="d-flex mb-3 justify-content-between">
+                    		<div>
+                    			<button class="btn btn-outline-info" 
+	                      	  		  onclick="location.href='${path}/admin/call/normal'">
+	                      	  		전체보기
+	                      	  	</button>
+                    		</div>
+		                    <div class="d-flex mb-3 justify-content-end">
+		                     <div class="input-group " style="width: 100px">
+		                         <select class="form-select" name="searchType" id="searchType">
+		                           <option value="userId">id</option>
+		                           <option value="genCallDate">날짜</option>
+		                         </select>
+		                     </div>
+		                     <div class="input-group input-group-sm" style="width: 250px">
+		                         <input type="text" class="form-control" name="keyword" id="keyword" />
+		                         <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+		                     </div>
+		                    </div>
+                      	</div>
                       <table class="table table-striped">
                         <thead>
                           <tr class="text-center">
@@ -114,7 +122,7 @@
                         <tbody>
                         <c:if test="${empty callList}">
                         	<tr>
-	                        	<td class="text-center" colspan="9">
+	                        	<td class="text-center fw-bold" colspan="9">
 	                        		일반 예약 내역이 없습니다.
 	                        	</td>
 	                        </tr>
