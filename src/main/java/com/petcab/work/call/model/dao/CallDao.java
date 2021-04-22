@@ -66,9 +66,6 @@ public interface CallDao {
 
 	int searchCancelCount(Search search);
 
-
-	int updatUid(String merchantUid);
-
 	EmgCall selectEmgCallWithDogs(int callNo);
 
 }

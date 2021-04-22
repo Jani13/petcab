@@ -271,19 +271,23 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
 			HttpServletRequest request,
-			@RequestParam(value="callNo", required=true) int callNo,
-			@RequestParam(value="impUid", required=true) String impUid,
-			@RequestParam(value="merchantUid", required=true) String merchantUid,
+			// @RequestParam(value="callNo", required=true) int callNo,
+			// @RequestParam(value="impUid", required=true) String impUid,
 			@ModelAttribute Call call,
 			ModelAndView model) {
 		
-		String impUidString = request.getParameter("impUid");
+		String impUid = request.getParameter("impUid");
 		
-		System.out.println(impUid);
+		String merchantUid = request.getParameter("merchantUid");
+		
+		System.out.println( "나나나나나나나나나나ㅏ나나나난"+merchantUid);
+		
+
+		
+		System.out.println("나나나나나나나나나나ㅏ나나나난"+impUid);
 		
 		call = callService.selectCall(callNo);
 		
-		int result = callService.updatUid(call.getMerchantUid());
 		log.info("book() : " + call.toString());
 
 		model.addObject("call", call);
