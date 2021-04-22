@@ -51,4 +51,6 @@ public interface PartnerDao {
 	List<Partner> selectHospital();
 
 	List<Partner> selectpSchool();
+
+	int rejectPartner(int userNo);
 }

@@ -79,10 +79,6 @@ public class DriverServiceImpl implements DriverService {
 		return driverDao.selectRejectDrivers(rowBounds);
 	}
 
-	@Override
-	public int applyDriver(int userNo) {
-		return driverDao.applyDriver(userNo);
-	}
 
 	@Override
 	public int updateDriver(Driver driver) {
@@ -100,6 +96,12 @@ public class DriverServiceImpl implements DriverService {
 		Driver checkCarNo = this.findCarNo(carNo);
 		
 		return checkCarNo != null;
+	}
+	
+	@Override
+	public int rejectDriver(int userNo) {
+		
+		return driverDao.rejectDriver(userNo);
 	}
 
 }

@@ -25,11 +25,11 @@ public interface DriverService {
 
 	List<Driver> selectRejectDrivers(PageInfo pageInfo);
 
-	int applyDriver(int userNo);
-
 	int updateDriver(Driver driver);
 	
 	Driver findCarNo(String carNo);
 	
 	boolean carNoCheck(String carNo);
+
+	int rejectDriver(int userNo);
 }

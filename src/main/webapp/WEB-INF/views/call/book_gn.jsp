@@ -51,9 +51,9 @@
 					<div class="pt-5 pb-3 pickup-heading">
 						<h2 class="mb-3" style="margin-left: 10px;">픽업정보 기입</h2>
 					</div>
-
+					
 					<div class="pickup-fill-in" style="margin-left: 10px;">
-						<form action="${ path }/call/book/done" method="POST" id="callForm">
+						<form action="${ path }/call/book/prepay" method="POST" id="callForm">
 							<input type="hidden" name="callType" value="일반" />
 							
 							<div class="form-group mb-3">
@@ -77,13 +77,13 @@
 
 									<div class="col-3" style="padding-left: 0; padding-right: 0">
 										<button class="btn btn-outline-info btn-calc-cost"
-											type="button" onclick="searchView();">조회</button>
+											type="button" onclick="searchView();" id="viewBtn">조회</button>
 									</div>
 								</div>
 
 								<div class="row" style="margin-left: 0; margin-right: 0">
 									<input type="text" class="form-control" id="estCost"
-										name="estCost" placeholder="예상금액 (원)" required />
+										name="estCost" placeholder="예상금액 (원)" required readonly/>
 								</div>
 							</div>
 
@@ -161,6 +161,7 @@ var geocoder = new kakao.maps.services.Geocoder();
 var point = [];
 
 function searchView() {
+    document.getElementById("viewBtn").disabled = true;
 	geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
 
 		
@@ -206,33 +207,47 @@ function searchView() {
 	    } 
 	});  
 	function setBounds() {
-	var points = [
-	    new kakao.maps.LatLng(point[0], point[1]),
-	    new kakao.maps.LatLng(point[2], point[3])
-	];
-
-	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-	var bounds = new kakao.maps.LatLngBounds();    
-
-	var i, marker;
-	for (i = 0; i < points.length; i++) {
-	    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-	    marker =     new kakao.maps.Marker({ position : points[i] });
-	    marker.setMap(map);
-	    
-	    // LatLngBounds 객체에 좌표를 추가합니다
-	    bounds.extend(points[i]);
-	}
-
-		
+		var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
+		if(cost<3000){
+			cost=3000
+		}
+	    document.getElementsByName('estCost')[0].value = cost;
+		var points = [
+		    new kakao.maps.LatLng(point[0], point[1]),
+		    new kakao.maps.LatLng(point[2], point[3])
+		];
+	
+		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+		var bounds = new kakao.maps.LatLngBounds();    
+	
+		var i, marker;
+		for (i = 0; i < points.length; i++) {
+		    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+		    marker =     new kakao.maps.Marker({ position : points[i] });
+		    marker.setMap(map);
+		    
+		    // LatLngBounds 객체에 좌표를 추가합니다
+		    bounds.extend(points[i]);
+		}
 	    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
 	    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
 	    map.setBounds(bounds);
 	}
 	setTimeout(setBounds,500);
 }
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
 
-
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d*10;
+}
 </script>
 </body>
 

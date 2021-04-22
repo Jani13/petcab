@@ -59,13 +59,13 @@
             <div class="input mt-5 row d-flex justify-content-between mb-3" align="right" >
 	            <div class="col-5 d-flex justify-content-start" >
 	               	<form name="form1" action="${path}/ques/list/search" method="GET">
-				        <select name="searchOption">
+				        <select name="searchType">
 				            <option value="M.USER_ID"
-				    			<c:if test="${searchOption == ques.userId}">selected</c:if>
+				    			<c:if test="${searchType == ques.userId}">selected</c:if>
 				       		>작성자</option>
 				    
 				            <option value="Q.TITLE" 
-				    			<c:if test="${searchOption == ques.title}">selected</c:if>
+				    			<c:if test="${searchType == ques.title}">selected</c:if>
 				            >제목</option>
 				        </select>
 				        <input type="search" name="keyword" size="25px" placeholder="검색어를 입력하세요.">

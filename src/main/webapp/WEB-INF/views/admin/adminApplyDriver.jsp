@@ -73,9 +73,8 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>드라이버 승인요청</h4></span>
-            <br>
-            <table class="table">
+            <span class="fw-bold fs-3 mt-3">드라이버 승인 요청</span>
+            <table class="table mt-3">
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
@@ -91,7 +90,7 @@
               <tbody>
                 <c:if test="${empty waitDrivers}">
 	                <tr>
-	                	<td class="text-center" colspan="8">
+	                	<td class="text-center fw-bold" colspan="8">
 	                		신청한 회원이 없습니다.
 	                	</td>
 	                </tr>
@@ -109,6 +108,8 @@
 		                  <td>
 		                    <button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/revoke?userNo=${driver.userNo}'">거절</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>
@@ -124,9 +125,8 @@
           <div class="container d-flex row mx-3 p-0">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-            <span><h4>승인 거부된 드라이버</h4></span>
-            <br>
-            <table class="table">
+            <span class="fw-bold fs-3 mt-3">드라이버 승인 거부</span>
+            <table class="table mt-3">
               <thead>
                 <tr style="background-color: skyblue;">
                   <th scope="col">NO</th>
@@ -143,8 +143,8 @@
              <tbody>
                 <c:if test="${empty rejectDrivers}">
 	                <tr>
-	                	<td class="text-center" colspan="9">
-	                		신청한 회원이 없습니다.
+	                	<td class="text-center fw-bold" colspan="9">
+	                		조회 결과가 없습니다.
 	                	</td>
 	                </tr>
                 </c:if>
@@ -162,6 +162,8 @@
 		                  <td>
 		                 	<button type="button" class="btn btn-outline-info" 
 		                    onclick="location.href='${path}/admin/driver/grant?userNo=${driver.userNo}'">승인</button>
+		                    <button type="button" class="btn btn-outline-info" 
+		                    onclick="location.href='${path}/admin/driver/revoke?userNo=${driver.userNo}'">승인</button>
 		                  </td>
 		                </tr>
 	                </c:forEach>

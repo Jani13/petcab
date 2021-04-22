@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.petcab.work.common.util.Search;
 import com.petcab.work.ques.model.vo.Ques;
 import com.petcab.work.ques.model.vo.QuesReply;
 
@@ -12,9 +13,11 @@ public interface QuesDao {
 
 	List<Ques> selectQuesList(RowBounds rowBounds);
 	
-	List<Ques> selectQuesList2(RowBounds rowBounds, @Param("searchOption") String searchOption, @Param("keyword") String keyword);
+	List<Ques> selectQuesList2(RowBounds rowBounds, Search search);
 
 	int selectCount();
+	
+	int selectCount2(Search search);
 	
 	int insertQues(Ques ques);
 
@@ -33,5 +36,7 @@ public interface QuesDao {
 	int deleteReply(int quesNo);
 
 	List<Ques> selectQuesList();
+
+
 
 }

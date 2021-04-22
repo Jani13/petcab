@@ -68,14 +68,23 @@
 		<include refid="quesListSql"></include>
 				
 		WHERE Q.STATUS = 'Y'		
-		AND ${searchOption} like '%'||#{keyword}||'%'
+		AND ${searchType} like '%'||#{keyword}||'%'
 		ORDER BY Q.QUES_NO DESC
 	</select>
 	
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM QUES
+		WHERE STATUS = 'Y'
 	</select>	 	
+	
+	<select id="selectCount2" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM QUES Q
+		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)			
+		WHERE Q.STATUS = 'Y'		
+		AND ${searchType} like '%'||#{keyword}||'%'
+	</select>
 	
 	<select id="selectQuesDetail" parameterType="_int" resultMap="quesResultMap">
 		<include refid="quesListSql"></include>
@@ -154,7 +163,7 @@
 	
 	</update>
 	
-	<delete id="deleteReply" parameterType="int">
+    <delete id="deleteReply" parameterType="int">
 		DELETE
 		FROM QUES_REPLY
 		WHERE QUES_NO=#{quesNo}
