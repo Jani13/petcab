@@ -38,7 +38,7 @@ public class QuesController {
 		List<Ques> list = null;
 		int quesCount = service.getQuesCount();
 
-		PageInfo pageInfo = new PageInfo(page, 10, quesCount, listLimit);
+		PageInfo pageInfo = new PageInfo(page, 5, quesCount, listLimit);
 		
 		
 		System.out.println(quesCount);
@@ -69,7 +69,7 @@ public class QuesController {
 		List<Ques> list = null;
 		int quesCount = 0;
 		
-		Search search = new Search(page, 10, quesCount, listLimit);
+		Search search = new Search(page, 5, quesCount, listLimit);
 		
 		if (keyword != null) {
 			search.setSearchType(searchType);
