@@ -187,4 +187,16 @@ public class CallServiceImpl implements CallService {
 		return callDao.searchCancelCount(search);
 	}
 
+	@Override
+	public List<Call> callEndList(int callNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updatUid(String merchantUid) {
+		
+		return callDao.updatUid(merchantUid);
+	}
+
 }

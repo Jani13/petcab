@@ -64,5 +64,8 @@ public interface CallService {
 
 	int searchCancelCount(Search search);
 
+	// UID 가져옴
+	int updatUid(String merchantUid);
+
 
 }

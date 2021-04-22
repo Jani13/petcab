@@ -829,4 +829,11 @@
 				ORDER BY CALL_NO
 			)
 	</select>
+	
+		<update id="updatUid" parameterType="String">
+		UPDATE GEN_CALL
+		SET
+		MERCHANT_UID=#{merchantUid}
+		WHERE CALL_NO=#{callNo}
+		</update>
 </mapper>	

@@ -316,7 +316,7 @@ $('#api').click(function() {
 		merchant_uid : 'merchant_'
 				+ new Date().getTime(),
 		name : 'PETCAB', // 결제창에서 보여질 이름
-		amount : '${estCost}',
+		amount : 100,
 		buyer_name : '${loginMember.userId }',
 		buyer_tel : '010-1234-5678',
 		buyer_addr : '서울특별시 강남구 신사동',
@@ -354,7 +354,7 @@ $('#api').click(function() {
 		
 			// document.location.href = "${ path }/call/book/${ call.callNo }/done"; //alert창 확인 후 이동할 url 설정
 	        
-			document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}&impUid="+rsp.imp_uid;
+			document.location.href="${ path }/call/book/gn_done?callNo=${call.callNo}&impUid="+rsp.imp_uid+"&merchantUid="+rsp.merchant_uid;
 		} else {
 			var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
 			//msg += '에러내용 : ' + rsp.error_msg;
