@@ -97,5 +97,11 @@ public class DriverServiceImpl implements DriverService {
 		
 		return checkCarNo != null;
 	}
+	
+	@Override
+	public int rejectDriver(int userNo) {
+		
+		return driverDao.rejectDriver(userNo);
+	}
 
 }

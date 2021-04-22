@@ -24,7 +24,12 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
 		  integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
 		  crossorigin="anonymous">
-	  
+
+	<style type="text/css">
+	 	.partnerCard:hover{
+	 		border: 1px solid;	
+	 	}
+  	</style>	  
 </head>
 
   <jsp:include page="../common/header.jsp" />
@@ -62,13 +67,6 @@
 		<p class="mx-4 p-2">샵</p>
 	</div>
 	<div class="container">
-		<!-- <div class="row d-flex justify-content-md-end">
-          <div class="col-12 input-group row" style="width: 500px;">
-            <input type="text" class="form-control col-md-3" name="" id="" placeholder="입력해주세요"/>
-            <input type="button" class="btn btn-secondary bg-gradient col-md-3" id="" onclick="" value="검색하기"/>
-          </div>
-        </div> -->
-        
         <c:if test="${partnerList == null}">
         <div style="text-align: center;">
         	<h3 style="padding: 200px;">제휴업체가 존재하지 않습니다.</h3>
@@ -79,7 +77,7 @@
        	<div class="row justify-content-center">
        	
         	<c:forEach var="partner" items="${partnerList}" end="8">
-		        <div class="col-md-3 my-5 m-4 card" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
+		        <div class="col-md-3 my-5 m-4 card partnerCard" style="height: 450px; width:300px; cursor: pointer" onclick="location.href='${path}/partner/detail?userNo=${partner.userNo}'"> 
 			    	<p class="fw-bold"><i class="fas fa-store"></i>샵</p>
 			    	
 			    	<c:if test="${partner.imageRe == null}">
@@ -106,29 +104,6 @@
         </div>
         </c:if>
 	</div>
-
-    <!-- 페이징 파트 일단 안하는걸로-->
-    <!-- <div style="display: flex; align-items: center; justify-content: center;">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="채워야하는 부분">&lt;&lt;</a></li>
-          <li class="page-item">
-            <a class="page-link" href="채워야하는 부분">&lt;</a></li>
-       
-              <li class="page-item">    aria-disabled="true" 맞는지 코딩할 때 확인해봐야함
-                <a class="page-link" aria-disabled="true" href=""></a></li>
-         
-          <li class="page-item">
-            <a class="page-link" href=""></a></li>
-        
-            <a class="page-link" href="채워야하는부분">&gt;</a></li>
-          <li class="page-item">
-            <a class="page-link" href="채워야하는부분">&gt;&gt;</a></li>
-        </ul>
-      </nav>
-    </div> -->
-    
   </div>
 </section>
 

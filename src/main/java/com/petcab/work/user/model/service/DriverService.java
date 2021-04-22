@@ -30,4 +30,6 @@ public interface DriverService {
 	Driver findCarNo(String carNo);
 	
 	boolean carNoCheck(String carNo);
+
+	int rejectDriver(int userNo);
 }
