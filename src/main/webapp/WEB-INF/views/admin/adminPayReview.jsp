@@ -69,35 +69,9 @@
 
         <div class="container mx-0 p-3" style="width: 920px">
           <div class="container d-flex row mx-3 p-0">
-            <!-- 여기서 부터 작업하세용 -->
-            <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
             <span class="fw-bold fs-3 mt-3">결제내역</span>
             <br>
             <br>
-            <!-- <div class="row">
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <img src="..." class="card-img-top" alt="...">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <img src="..." class="card-img-top" alt="...">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
-            <!-- 여기 까지 -->
           </div>
 
           <br><br>

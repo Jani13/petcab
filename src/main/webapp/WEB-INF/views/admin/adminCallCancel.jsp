@@ -86,75 +86,83 @@
                       예약취소 정보
                     </div>
                     <div class="card-body text-dark">
-                      <div class="d-flex mb-3 justify-content-end">
-	                      <div class="input-group " style="width: 110px">
-	                          <select class="form-select" name="searchType" id="searchType">
-	                            <option value="userId">id</option>
-	                            <option value="partName">업체이름</option>
-	                            <option value="dateAndTime">날짜</option>
-	                          </select>
-	                      </div>
-	                      <div class="input-group input-group-sm" style="width: 250px">
-	                          <input type="text" class="form-control" name="keyword" id="keyword" />
-	                          <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
-	                      </div>
-                      </div>
-                      <table class="table table-striped">
-                        <thead>
-                          <tr class="text-center fw-bold">
-                            <th scope="col">No</th>
-                            <th scope="col">예약<br>번호</th>
-                            <th scope="col">아이디</th>
-                            <th scope="col">날짜</th>
-                            <th scope="col">출발지</th>
-                            <th scope="col">도착지</th>
-                            <th scope="col">드라<br>이버</th>
-                            <th scope="col">차량<br>번호</th>
-                            <th scope="col">제휴업체</th>
-                            <th scope="col">콜타입</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        <c:if test="${empty cancelCallList}">
-                        	<tr>
-	                        	<td class="text-center" colspan="10">
-	                        		취소 내역이 없습니다.
-	                        	</td>
-	                        </tr>
-                        </c:if>
-                        <c:if test="${!empty cancelCallList}">
-                        <c:forEach var="cancelCall" items="${cancelCallList}">
-	                        <tr class="text-center">
-	                          <td>${cancelCall.rowNum}</td>
-	                          <td>${cancelCall.callNo}</td>
-	                          <td>${cancelCall.dog.userId}</td>
-	                          <td>${cancelCall.pickupTime}</td>
-	                          <td>${cancelCall.fromWhere}</td>
-	                          <td>${cancelCall.toWhere}</td>
-	                          <c:if test="${(cancelCall.driver.userName) == null}">
-                              	<td>X</td>
-                              </c:if>
-                              <c:if test="${(cancelCall.driver.userName) != null}">
-                              	<td>${cancelCall.driver.userName}</td>
-                              </c:if>
-                              <c:if test="${(cancelCall.driver.carNo) == null}">
-                              	<td>X</td>
-                              </c:if>
-                              <c:if test="${(cancelCall.driver.carNo) != null}">
-                              	<td>${cancelCall.driver.carNo}</td>
-                              </c:if>
-                              <c:if test="${(cancelCall.partner.partnerName) == null}">
-	                          	<td>X</td>                              
-                              </c:if>
-                              <c:if test="${(cancelCall.partner.partnerName) != null}">
-	                          	<td>${cancelCall.partner.partnerName}</td>                              
-                              </c:if>
-	                          <td>${cancelCall.callType}</td>
-	                        </tr>                        
-                        </c:forEach>
-                        </c:if>
-                        </tbody>
-                      </table>
+                    	<div class="d-flex mb-3 justify-content-between">
+                    		<div>
+                    			<button class="btn btn-outline-info" 
+	                      	  		  onclick="location.href='${path}/admin/call/cancel'">
+	                      	  		전체보기
+	                      	  	</button>
+                    		</div>
+		                    <div class="d-flex mb-3 justify-content-end">
+		                     <div class="input-group " style="width: 110px">
+		                         <select class="form-select" name="searchType" id="searchType">
+		                           <option value="userId">id</option>
+		                           <option value="partName">업체이름</option>
+		                           <option value="dateAndTime">날짜</option>
+		                         </select>
+		                     </div>
+		                     <div class="input-group input-group-sm" style="width: 250px">
+		                         <input type="text" class="form-control" name="keyword" id="keyword" />
+		                         <button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
+		                     </div>
+		                    </div>
+                   		</div>
+	                   <table class="table table-striped">
+	                     <thead>
+	                       <tr class="text-center fw-bold">
+	                         <th scope="col">No</th>
+	                         <th scope="col">예약<br>번호</th>
+	                         <th scope="col">아이디</th>
+	                         <th scope="col">날짜</th>
+	                         <th scope="col">출발지</th>
+	                         <th scope="col">도착지</th>
+	                         <th scope="col">드라<br>이버</th>
+	                         <th scope="col">차량<br>번호</th>
+	                         <th scope="col">제휴업체</th>
+	                         <th scope="col">콜타입</th>
+	                       </tr>
+	                     </thead>
+	                     <tbody>
+	                     <c:if test="${empty cancelCallList}">
+	                     	<tr>
+	                      	<td class="text-center fw-bold" colspan="10">
+	                      		취소 내역이 없습니다.
+	                      	</td>
+	                      </tr>
+	                     </c:if>
+	                     <c:if test="${!empty cancelCallList}">
+	                     <c:forEach var="cancelCall" items="${cancelCallList}">
+	                      <tr class="text-center">
+	                        <td>${cancelCall.rowNum}</td>
+	                        <td>${cancelCall.callNo}</td>
+	                        <td>${cancelCall.dog.userId}</td>
+	                        <td>${cancelCall.pickupTime}</td>
+	                        <td>${cancelCall.fromWhere}</td>
+	                        <td>${cancelCall.toWhere}</td>
+	                        <c:if test="${(cancelCall.driver.userName) == null}">
+	                           	<td>X</td>
+	                           </c:if>
+	                           <c:if test="${(cancelCall.driver.userName) != null}">
+	                           	<td>${cancelCall.driver.userName}</td>
+	                           </c:if>
+	                           <c:if test="${(cancelCall.driver.carNo) == null}">
+	                           	<td>X</td>
+	                           </c:if>
+	                           <c:if test="${(cancelCall.driver.carNo) != null}">
+	                           	<td>${cancelCall.driver.carNo}</td>
+	                           </c:if>
+	                           <c:if test="${(cancelCall.partner.partnerName) == null}">
+	                        	<td>X</td>                              
+	                           </c:if>
+	                           <c:if test="${(cancelCall.partner.partnerName) != null}">
+	                        	<td>${cancelCall.partner.partnerName}</td>                              
+	                           </c:if>
+	                        <td>${cancelCall.callType}</td>
+	                      </tr>                        
+	                     </c:forEach>
+	                     </c:if>
+	                     </tbody>
+	                   </table>
                       
                       <!-- 페이징 부분 -->
                       <div
