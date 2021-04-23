@@ -54,14 +54,6 @@
 
 					<div class="pickup-fill-in" style="margin-bottom:150px;">
 						<form action="">
-							<!-- 
-							<div class="form-group mb-3" style="margin-left: 10px;">
-								<label for="pickup-time">예약 시간</label><br /> <input
-									type="datetime-local" id="pickup-time" name="meeting-time"
-									value="2021-03-25T15:30" min="2018-06-07T00:00"
-									max="2021-04-01T00:00" />
-							</div>
- 							-->
 							<div class="form-group mb-3">
 								<label style="margin-left: 10px;">예상 금액</label>
 
@@ -77,18 +69,12 @@
 												placeholder="도착지" name="toWhere" readonly/>
 										</div>
 									</div>
-									<!-- 
-									<div class="col-3" style="padding-left: 0; padding-right: 0">
-										<button class="btn btn-outline-info btn-calc-cost"
-											type="button">조회</button>
-									</div>
-									 -->
 								</div>
 
 								<div class="row">
 									<div>
 										<div style="margin-left: 10px;">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control estCost"
 												placeholder="예상금액 (원)" readonly />
 										</div>
 									</div>
@@ -133,31 +119,16 @@
 									<div class="row row-cols-2">
 										<p class="card-text col-8 callType">${ call.callType }</p>
 										<p class="card-text col-8">${ call.toDriver }</p>
-										<h6 class="col-8">애견 수 : ${fn:length(call.dogs) }</h6>
+										<h6 class="col-8">${ fn:length(call.dogs) }마리</h6>
 										<input type="hidden" name="${ call.callNo }"
 											value="${ call.callNo }" />
 										<button type="button" class="btn btn-outline-primary col-3"
-											onclick="selectCallByDriver(this);">선택</button>
+											onclick="selectCallByDriver(this);">예약받기</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-
-					<div class="col">
-						<div class="card h-100 border-info">
-							<div class="card-header">YYYY.MM.DD. HH:MM</div>
-							<div class="card-body">
-								<h5 class="card-title">출발지</h5>
-								<h5 class="card-title">도착지</h5>
-								<div class="row row-cols-2">
-									<p class="card-text col-8">세부사항</p>
-									<button type="button" class="btn btn-outline-primary col-3">
-										선택</button>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -193,49 +164,51 @@ $(function () {
     });
 });
     
-function selectCallByDriver(e) {
-    // 예약상태를 '기사'로 바꿈
+// function selectCallByDriver(e) {
+//     // 예약상태를 '기사'로 바꿈
                     
-    let callNo = $(e).siblings('input').val();
-    let dUserNo = $('input[name=dUserNo]').val();
+//     let callNo = $(e).siblings('input').val();
+//     let dUserNo = $('input[name=dUserNo]').val();
     
-    $('input[name=callNo]').val(callNo);
+//     $('input[name=callNo]').val(callNo);
     
-    console.log(dUserNo);
-    console.log(callNo);
+//     console.log(dUserNo);
+//     console.log(callNo);
     
-    let data = {
-        'dUserNo': dUserNo,
-        'callNo': callNo
-    };
+//     let data = {
+//         'dUserNo': dUserNo,
+//         'callNo': callNo
+//     };
     
-    $.ajax({
-        url : 'confirm/select',
-        dataType : 'json',
-        // contentType : "application/json; charset=UTF-8",
-        type : 'post',
-        data : data,
-        // async : false,
-        // cache : false,
-        // processData : false,
-        success : function(result) {
+//     $.ajax({
+//         url : 'confirm/select',
+//         dataType : 'json',
+//         // contentType : "application/json; charset=UTF-8",
+//         type : 'post',
+//         data : data,
+//         // async : false,
+//         // cache : false,
+//         // processData : false,
+//         success : function(result) {
 
-            console.log("result : " + result);
+//             console.log("result : " + result);
             
-            console.log("callNo in success function  : " + callNo);
+//             console.log("callNo in success function  : " + callNo);
             
-         	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
+//          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
             
-            alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
-        },
-        error : function(e) {
+//             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
+//         },
+//         error : function(e) {
 
-            console.log(e);
+//             console.log(e);
+            
+// 			console.log('첫번째꺼');
 
-            alert('에러가 발생해습니다. 다시 시도해주세요!');
-        }
-    });
-}
+//             alert('에러가 발생해습니다. 다시 시도해주세요!');
+//         }
+//     });
+// }
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -339,7 +312,7 @@ function selectCallByDriver(e) {
 	console.log(callNo);
 	console.log(callType);
 	
-	let call = {
+	let data = {
 		'callNo': callNo,
 		'callType': callType
 	};
@@ -349,21 +322,27 @@ function selectCallByDriver(e) {
 		dataType : 'json',
 		// contentType : "application/json; charset=UTF-8",
 		type : 'post',
-		data : call,
+		data : data,
 		// async : false,
 		// cache : false,
 		// processData : false,
 		success : function(result) {
 
 			console.log("result : " + result);
-
-               alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
+			
+			console.log('두번째꺼');
+            
+            console.log("callNo in success function  : " + callNo);
+            
+         	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
+            
+            alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
 		},
 		error : function(e) {
 
 			console.log(e);
 
-			alert('에러가 발생해습니다. 다시 시도해주세요!');
+			alert('에러가 발생했습니다. 다시 시도해주세요!');
 		}
 	});
 	document.getElementsByName('fromWhere')[0].value = document.getElementById("startPoint").innerText;
@@ -435,7 +414,7 @@ function selectCallByDriver(e) {
 		}
 
 			
-		    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		   // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
 		    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
 		    map.setBounds(bounds);
 	}

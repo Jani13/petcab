@@ -405,13 +405,14 @@
 		FROM GEN_CALL G, CALL_DOG CD
         WHERE G.CALL_NO = CD.CALL_NO
         AND G.STATUS = '결제'
+        ORDER BY G.TIME DESC
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->
 	<update id="updateCallByDriver" parameterType="map">		
 		UPDATE GEN_CALL
 		SET
-		STATUS='결제',
+		STATUS='기사',
 		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
