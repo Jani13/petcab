@@ -82,7 +82,7 @@ public class CallController {
 	public @ResponseBody int selectCallByDriver(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam(name = "callNo") String callNo, 
-			@RequestParam(name = "dUserNo") String dUserNo,
+			// @RequestParam(name = "dUserNo") String dUserNo,
 			HttpServletRequest request) {
 								
  		int userNo = loginMember.getUserNo();
