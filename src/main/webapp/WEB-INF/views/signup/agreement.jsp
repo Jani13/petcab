@@ -1005,7 +1005,7 @@
                 </div>
                 <br>
                 <div class="form-check">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="agree"/>
                         내용을 모두 숙지하였으며, 이용약관에 동의합니다.
                     </label>

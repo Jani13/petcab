@@ -3,8 +3,13 @@ package com.petcab.work.payment.model.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import com.petcab.work.call.model.vo.Call;
+=======
+import com.petcab.work.call.model.dao.CallDao;
+>>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
 import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.dao.PaymentDao;
 import com.petcab.work.payment.model.vo.Payment;
@@ -28,6 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDao paymentDao;
 	
+	@Autowired
+	private CallDao callDao;
 	
 	@Override
 	public int selectAmount() {
@@ -35,15 +42,17 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDao.selectTodayPaymentAmount();
 	}
 
-
 	@Override
-	public int savePayInfo(Payment payment) {
-		
-		return paymentDao.insertPayInfo(payment);
+	@Transactional
+	public int savePayInfo(Payment payment,String callNo) {
+		int result =  paymentDao.insertPayInfo(payment);
+		if(result>0) {
+			result = callDao.updateUid(payment.getMerchantUid(),callNo);
+		}else {
+			result=0;
+		}
+		return result;
 	}
-
-
-
 
 	@Override
 	public int updatPay(String impUid) {
@@ -73,15 +82,12 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDao.selectByCallType(btnValue);
 	}
 
-
 	@Override
 	public int updatePaid(int callNo) {
 		
-		return paymentDao.updatePaid(call);
+		return paymentDao.updatePaid(callNo);
 	}
 
-
-	
 ////	private static final String HOST = "https://kapi.kakao.com";
 ////	private Ready Ready;
 ////	@Override

@@ -251,7 +251,8 @@ var geocoder = new kakao.maps.services.Geocoder();
 var point = [];
 
 function searchView() {
-    document.getElementById("viewBtn").disabled = true;
+	point = [];
+	deletePoint();
 	geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
 
 		
@@ -268,7 +269,7 @@ function searchView() {
 
 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
 	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+	            content: '<div id="pointBox" style="width:150px;text-align:center;padding:6px 0;">ㅋ출ㅋ발ㅋ지ㅋ</div>'
 	        });
 	        infowindow.open(map, marker);
 
@@ -296,20 +297,23 @@ function searchView() {
 	        point.push(parseFloat(result[0].x));
 	    } 
 	});  
-	function setBounds() {
-		var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
-		if(cost<3000){
-			cost=3000
-		}
-	    document.getElementsByName('estCost')[0].value = cost;
+	setTimeout(setBounds,500);
+}
+
+function setBounds() {
+	var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
+	if(cost<3000){
+		cost=3000
+	}
+    document.getElementsByName('estCost')[0].value = cost;
 	var points = [
 	    new kakao.maps.LatLng(point[0], point[1]),
 	    new kakao.maps.LatLng(point[2], point[3])
 	];
-
+	
 	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
 	var bounds = new kakao.maps.LatLngBounds();    
-
+	
 	var i, marker;
 	for (i = 0; i < points.length; i++) {
 	    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
@@ -319,13 +323,9 @@ function searchView() {
 	    // LatLngBounds 객체에 좌표를 추가합니다
 	    bounds.extend(points[i]);
 	}
-
-		
-	    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-	    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-	    map.setBounds(bounds);
-	}
-	setTimeout(setBounds,500);
+    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+    map.setBounds(bounds);
 }
 function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
     function deg2rad(deg) {
@@ -339,6 +339,15 @@ function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c; // Distance in km
     return d*10;
+}
+function deletePoint(){
+	if(document.getElementById('pointBox'))
+	{
+		var cell = document.getElementById('pointBox').parentNode.parentNode.parentNode; 
+		while ( cell.hasChildNodes() ) { 
+			cell.removeChild( cell.firstChild ); 
+		}
+	}
 }
 
 </script>

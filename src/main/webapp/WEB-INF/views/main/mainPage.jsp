@@ -84,22 +84,29 @@
               이동요금을 미리 알아보세요.
             </div>
           </div>
+          <form action="">
           <div class="row justify-content-center fee-search-input container mt-4">
             <div class="col-md-1">
               <img src="${path }/images/carImg.png" alt="" style="height: 55px"/>
             </div>
+            
             <div class="col-md-3 ">
-              <input type="text" class="form-control" placeholder="출발지" style="height: 50px"/>
+              <input type="text" class="form-control" placeholder="출발지" style="height: 50px"
+              name="fromWhere" onclick="selectStart();"/>
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" placeholder="도착지" style="height: 50px"/>
+              <input type="text" class="form-control" placeholder="도착지" style="height: 50px"
+              name="toWhere" onclick="selectEnd();"/>
             </div>
             <div class="col-md-2">
-              <button type="button" class="btn btn-outline-light" style="height: 50px">
+              <button type="button" class="btn btn-outline-light" style="height: 50px"
+              id="searchBtn" onclick="searchView();">
                 확인하기
               </button>
             </div>
           </div>
+          
+          </form>
           <div class="mx-4">
           <p class="fee-search-info">
             * 저희 데려다줄개는 전국 픽업서비스를 제공합니다.
@@ -243,5 +250,75 @@
     </section>
 
   <jsp:include page="../common/footer.jsp" />
+  <script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
+  <script>
+  function selectStart() {
+		let url = '${path}/call/search?option=start';
+		let windowName = '위치 검색';
+		let windowFeatures = 'resizable=no,height=550,width=1200';
+
+		window.open(url, windowName, windowFeatures);
+		 
+	}
+	function selectEnd() {
+		let url = '${path}/call/search?option=end';
+		let windowName = '위치 검색';
+		let windowFeatures = 'resizable=no,height=550,width=1200';
+
+		window.open(url, windowName, windowFeatures);
+		
+	}
+	</script>
+
+<script>
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+   
+var point = [];
+
+function searchView() {
+	point = [];
+	geocoder.addressSearch(document.getElementsByName('fromWhere')[0].value, function(result, status) {
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	}); 
+	geocoder.addressSearch(document.getElementsByName('toWhere')[0].value, function(result, status) {
+	     if (status === kakao.maps.services.Status.OK) {
+	        point.push(parseFloat(result[0].y));
+	        point.push(parseFloat(result[0].x));
+	    } 
+	});  
+	function totalCost(){
+		var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
+		if(cost<3000){
+			cost=3000
+		}
+		alert(cost+"원 입니다.");
+	}
+	setTimeout(totalCost,100);
+}
+
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d*10;
+}
+</script>
   </body>
 </html>

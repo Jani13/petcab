@@ -101,9 +101,8 @@
 			<form action="${ path }/review/reply" name="sendingReply"
 				method="POST">
 				<div class="form-floating mb-3" style="width: 400px;">
-					<input type="id" class="form-control form-control-sm"
-						id="floatingInput" name="id" placeholder="아이디" readonly> <label
-						for="floatingInput">${review.userId}</label>
+					<input type="hidden" class="form-control form-control-sm"
+						id="floatingInput" name="id" placeholder="아이디" value="${review.userId}" readonly>
 				</div>
 
 				<input type="hidden" name="reviewNo" id="reviewNo"

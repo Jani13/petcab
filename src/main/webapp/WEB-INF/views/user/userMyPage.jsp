@@ -226,8 +226,6 @@
 		                                <br>
 		                                예상 소요 시간 : 미정<br>
 		                                예상 결제 금액 : 미정<br>
-		                                드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
-		                                제휴업체 : 미정
 		                            </p>
 		                        </div>
 		                    </div>

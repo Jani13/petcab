@@ -278,6 +278,7 @@ public class CallController {
 			ModelAndView model) {
 		
 		String impUid = request.getParameter("impUid");
+
 		
 		System.out.println(impUid);
 		
@@ -547,5 +548,16 @@ public class CallController {
 			return "call/endPoint";
 		}
 	}
+	
+	@RequestMapping(value = "/book/using/{userId}", method = RequestMethod.GET)
+	public ModelAndView usingCallList(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model) {
+		
+				
+		return model;
+	}
+
+	
 	
 }

@@ -62,7 +62,7 @@
 						<option value="userId">작성자</option>
 						<option value="title">제목</option>
 					</select>
-				</div>
+				</div> &nbsp;
 				<div class="input-group input-group-sm" style="width: 250px">
 					<input type="text" class="form-control" name="keyword" id="keyword" />
 					<button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
@@ -96,22 +96,37 @@
 	                            <td><c:out value="${review.reviewNo}"/></td>
 	                            <td><c:out value="${review.title}"/></td>
 	                            <td><c:out value="${review.userId }"/></td>
-	                            <td><c:out value="${review.starNo}"/></td>
+	                            <!-- <td><c:out value="${review.starNo}"/></td> -->
+	                            <td>
+	                            	<c:if test="${review.starNo == 1}">
+	                            		<img src="${path}/images/star1.png" style="width: 20px; height: 20px">
+	                            	</c:if>
+	                            	<c:if test="${review.starNo == 2}">
+	                            		<img src="${path}/images/star2.png" style="width: 40px; height: 20px">
+	                            	</c:if>
+	                            	<c:if test="${review.starNo == 3}">
+	                            		<img src="${path}/images/star3.png" style="width: 60px; height: 20px">
+	                            	</c:if>
+	                            	<c:if test="${review.starNo == 4}">
+	                            		<img src="${path}/images/star4.png" style="width: 80px; height: 20px">
+	                            	</c:if>
+	                            	<c:if test="${review.starNo == 5}">
+	                            		<img src="${path}/images/star5.png" style="width: 100px; height: 20px">
+	                            	</c:if>
+	                            </td>
 	                            <td><c:out value="${review.postDate}"/></td>
 	                            <td><c:out value="${review.callType}"/></td>
 	                            <td><c:out value="${review.viewNo}"/></td>
-	                        </tr>                  
+	                        </tr>
 	                     </c:forEach>
 	                </c:if>        
 	            </tbody>
 	        </table>
             
-
             <!-- 페이징 부분 -->
              <div
                aria-label="Page navigation example"
-               class="d-flex justify-content-center pt-3"
-             >
+               class="d-flex justify-content-center pt-3">
                <ul class="pagination">
                  
                  <!-- 맨 처음으로 -->

@@ -2,12 +2,19 @@ package com.petcab.work.payment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
+=======
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+>>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.payment.model.vo.Payment;
 
@@ -17,8 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class PaymentController {
 
+<<<<<<< HEAD
 	@Autowired 
 	private PaymentService paymentService;
+=======
+	@Autowired private PaymentService service;
+	@Autowired private CallService callService;
+>>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
 	
 	//private IamportClient api;
 	
@@ -49,24 +61,19 @@ public class PaymentController {
 //		model.setViewName("call/book_gn_done");
 //		return model;
 //	}
-
-	@RequestMapping(value = "call/payInfo/${callNo}", method= {RequestMethod.POST})
+	
+	@RequestMapping(value = "call/payInfo/{callNo}", method= {RequestMethod.POST})
 	public ModelAndView enroll(
-			ModelAndView model,
-			@PathVariable String callNo,
+			@PathVariable(name = "callNo") String callNo,
+			ModelAndView model, @ModelAttribute Call call,
 			@RequestBody Payment payment) {
 		
 		log.info(payment.toString());
 		
-		int result = paymentService.savePayInfo(payment);
-		
-		// 은주님 : merchantUID, impUID update 실행
-		// 인자값으로 받는 callNo 로 GEN_CALL에서 해당 row를 찾는다.
-		// 그 row를 AJAX로 받는 merchantUID와 JOIN하여 sql문을 작성한다.
-		// 해당 sql이 반환하는 row 의 merchantUID 값을 (GEN_CALL) 쪽에 update 한다.
-		
+		int result = service.savePayInfo(payment,callNo);
+
 		// GEN_CALL STATUS 결제 업데이트
-		
+
 		return model;
 	}
 	
