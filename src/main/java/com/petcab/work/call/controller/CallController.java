@@ -464,31 +464,31 @@ public class CallController {
 //		return model;
 //	}	
 	
-	// 긴급콜 결제했을때 넘어가는페이지 4/20(은주)
-	@RequestMapping(value = "/book/emg_done", method = RequestMethod.GET)
-	public ModelAndView emg_done(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request,
-			@RequestParam(name="pUserNo", required=false) String pUserNo,
-			@ModelAttribute Partner partner,
-			@ModelAttribute EmgCall emgCall,
-			@RequestParam(value="callNo", required=true) int callNo,
-			ModelAndView model) {
-		
-		int result = 0;
-		int resultE = callService.selectEmerCall(callNo);
-		log.info(emgCall.toString());
-
-		if(result > 0) {
-			// 성공
-		} else {
-			// 실패
-		}
-
-		model.addObject("emgCall", emgCall);
-		model.setViewName("call/book_gn_done");
-		
-		return model;
-	}
+//	// 긴급콜 결제했을때 넘어가는페이지 4/20(은주)
+//	@RequestMapping(value = "/book/emg_done", method = RequestMethod.GET)
+//	public ModelAndView emg_done(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//			HttpServletRequest request,
+//			@RequestParam(name="pUserNo", required=false) String pUserNo,
+//			@ModelAttribute Partner partner,
+//			@ModelAttribute EmgCall emgCall,
+//			@RequestParam(value="callNo", required=true) int callNo,
+//			ModelAndView model) {
+//		
+//		int result = 0;
+//		int resultE = callService.selectEmerCall(callNo);
+//		log.info(emgCall.toString());
+//
+//		if(result > 0) {
+//			// 성공
+//		} else {
+//			// 실패
+//		}
+//
+//		model.addObject("emgCall", emgCall);
+//		model.setViewName("call/book_gn_done");
+//		
+//		return model;
+//	}
 
 	// 긴급예약 취소
 	@RequestMapping(value = "/book/emg/cancel", method = {RequestMethod.POST})
@@ -553,8 +553,7 @@ public class CallController {
 	public ModelAndView usingCallList(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			ModelAndView model) {
-		
-				
+			
 		return model;
 	}
 
