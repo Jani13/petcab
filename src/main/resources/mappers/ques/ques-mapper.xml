@@ -150,6 +150,7 @@
 		SET 
 			TITLE=#{title},
 			CONTENT=#{content},
+			QUES_PWD=#{quesPwd},
 			EDIT_DATE=SYSDATE 
 		WHERE 
 			QUES_NO=#{quesNo}

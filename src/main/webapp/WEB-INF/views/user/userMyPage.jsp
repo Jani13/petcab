@@ -170,7 +170,7 @@
 										<div>조회된 애견이 없습니다</div>
 									</c:if>
 									<c:if test="${dog != null}">
-                              <c:forEach var="dog" items="${dog}" end="2">
+										<c:forEach var="dog" items="${dog}" end="2">
                                           <div class="col-sm text-center py-4 myDogsEvent">
                                               <a href="${path}/dog/view?dogNo=${dog.dogNo}" class="text-decoration-none text-dark">
                                               <c:if test="${dog.imageRe==null}">
@@ -193,7 +193,7 @@
                 <!-- 현재 예약내역  -->
                 <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">현재 예약 내역</p>
-                    <a href="" class="my-2 text-white"><i class="fas fa-plus">더보기</i></a>
+                    <a class="my-2 text-white" onclick="useCallsList();"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
                 	<c:if test="${empty useCall}">
@@ -221,13 +221,11 @@
 		                            <p class="card-text">
 		                                애견 이름 : 
 											<c:forEach var="dog" items="${call.dogs}" end="2">
-			                                ${dog.dogName} 
+			                                🐶${dog.dogName}
 			                                </c:forEach>
 		                                <br>
 		                                예상 소요 시간 : 미정<br>
-		                                예상 결제 금액 : 미정<br>
-		                                드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
-		                                제휴업체 : 미정
+		                                예상 결제 금액 : ${call.paidAmount}<br>
 		                            </p>
 		                        </div>
 		                    </div>
@@ -269,8 +267,7 @@
 			                                		${dog.dogName} 
 			                                		</c:forEach>
 		                                		<br>
-		                                        예상 소요 시간 : 아직미정<br>
-		                                        예상 결제 금액 : 아직미정<br>
+		                                        예상 결제 금액 : ${call.paidAmount} <br>
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
 		                                        제휴업체 : 아직미정
 		                                    </p>
@@ -339,7 +336,16 @@
 						document.querySelector(".addr2").focus();
 					}
 				}).open();
-	}
+	}	
+    function useCallsList() {
+    	let url = '${path}/call/book/using/${loginMember.userId}';
+    	let windowName = 'dogsForCall';
+    	let windowFeatures = 'resizable=no,height=800,width=600';
+
+    	window.open(url, windowName, windowFeatures);
+    	
+    	// opener.window.location.href="" 
+    }
     </script>
   </body>
 </html>
