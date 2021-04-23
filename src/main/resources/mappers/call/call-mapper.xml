@@ -63,15 +63,13 @@
 		D.ENROLL_DATE,
 		D.MODIFY_DATE,
 		D.STATUS,
-		D.USER_ID,
-        P.USER_NO,
-        P.PARTNER_NAME,
-        P.PARTNER_TYPE
+		D.USER_ID
 		FROM GEN_CALL G
 		JOIN EMERG_CALL E ON (G.CALL_NO = E.CALL_NO)
-		JOIN CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
-		JOIN DOG D ON (CD.DOG_NO = D.DOG_NO)
-        JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
+		JOIN
+		CALL_DOG CD ON (G.CALL_NO = CD.CALL_NO)
+		JOIN DOG D ON (CD.DOG_NO =
+		D.DOG_NO)
 	</sql>
 
 	<sql id="selectEmgCallWithNoDogsSql">
@@ -131,13 +129,12 @@
 		<result property="userName" column="USER_NAME"/>
 	</resultMap>
 
-	<resultMap type="EmgCall" id="emgCallWithDogsResultMap">
+	<resultMap type="EmgCall" id="emgCallWithNoDogsResultMap">
 		<id property="callNo" column="CALL_NO" />
 		<result property="pickupTime" column="TIME" />
 		<result property="fromWhere" column="FROM_WHERE" />
 		<result property="toWhere" column="TO_WHERE" />
 		<result property="withOwner" column="WITH_OWNER" />
-		<result property="toPartner" column="TO_PARTNER" />
 		<result property="toDriver" column="TO_DRIVER" />
 		<result property="status" column="STATUS" />
 		<result property="callType" column="CALL_TYPE" />
@@ -146,23 +143,6 @@
 		<association property="driver" resultMap="DriverResultMap" />
 		<association property="partner"
 			resultMap="partnerResultMap" />	
-		<collection property="dogs" javaType="java.util.List"
-			ofType="Dog">
-			<id property="dogNo" column="DOG_NO" />
-			<result property="animalNo" column="ANIMAL_NO" />
-			<result property="userId" column="USER_ID" />
-			<result property="dogName" column="DOG_NAME" />
-			<result property="dogType" column="DOG_TYPE" />
-			<result property="age" column="AGE" />
-			<result property="vacc" column="VACC" />
-			<result property="disorder" column="DISORDER" />
-			<result property="other" column="OTHER" />
-			<result property="imageOri" column="IMAGE_ORI" />
-			<result property="imageRe" column="IMAGE_RE" />
-			<result property="enrollDate" column="ENROLL_DATE" />
-			<result property="modifyDate" column="MODIFY_DATE" />
-			<result property="status" column="STATUS" />
-		</collection>
 	</resultMap>
 
 	<resultMap type="Call" id="callResultMap">
@@ -210,8 +190,8 @@
 		WHERE G.CALL_NO = #{callNo}
 	</select>
 	
-	<select id="selectEmgCallWithDogs" parameterType="_int"
-		resultMap="emgCallWithDogsResultMap">
+	<select id="selectEmerCall" parameterType="_int"
+		resultMap="callResultMap">
 		<include refid="selectEmgCallSql"></include>
 		WHERE E.CALL_NO = #{callNo}
 	</select>
@@ -403,7 +383,7 @@
             CD.DOG_NO
 		FROM GEN_CALL G, CALL_DOG CD
         WHERE G.CALL_NO = CD.CALL_NO
-        AND G.STATUS = '결제'
+        AND G.STATUS = '신청'
 	</select>
 	
 	<!-- 드라이버 예약선택 화면 예약 선택 -->
@@ -849,11 +829,10 @@
 				ORDER BY CALL_NO
 			)
 	</select>
-	
-		<update id="updatUid" parameterType="String">
-		UPDATE GEN_CALL
-		SET
-		MERCHANT_UID=#{merchantUid}
-		WHERE CALL_NO=#{callNo}
-		</update>
+	   <update id="updateUid" parameterType="String">
+        UPDATE GEN_CALL
+        SET
+        MERCHANT_UID=#{merchantUid}
+        WHERE CALL_NO=#{callNo}
+       </update>
 </mapper>	

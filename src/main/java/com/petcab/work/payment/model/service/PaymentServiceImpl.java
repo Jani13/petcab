@@ -3,7 +3,9 @@ package com.petcab.work.payment.model.service;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.petcab.work.call.model.dao.CallDao;
 import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.dao.PaymentDao;
 import com.petcab.work.payment.model.vo.Payment;
@@ -27,6 +29,8 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDao paymentDao;
 	
+	@Autowired
+	private CallDao callDao;
 	
 	@Override
 	public int selectAmount() {
@@ -36,9 +40,15 @@ public class PaymentServiceImpl implements PaymentService {
 
 
 	@Override
-	public int savePayInfo(Payment payment) {
-		
-		return paymentDao.insertPayInfo(payment);
+	@Transactional
+	public int savePayInfo(Payment payment,String callNo) {
+		int result =  paymentDao.insertPayInfo(payment);
+		if(result>0) {
+			result = callDao.updateUid(payment.getMerchantUid(),callNo);
+		}else {
+			result=0;
+		}
+		return result;
 	}
 
 

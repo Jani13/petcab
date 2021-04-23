@@ -277,14 +277,9 @@ public class CallController {
 			ModelAndView model) {
 		
 		String impUid = request.getParameter("impUid");
-		
-		String merchantUid = request.getParameter("merchantUid");
-		
-		System.out.println( "나나나나나나나나나나ㅏ나나나난"+merchantUid);
-		
 
 		
-		System.out.println("나나나나나나나나나나ㅏ나나나난"+impUid);
+		System.out.println(impUid);
 		
 		call = callService.selectCall(callNo);
 		

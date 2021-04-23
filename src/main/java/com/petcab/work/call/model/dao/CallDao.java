@@ -68,4 +68,8 @@ public interface CallDao {
 
 	EmgCall selectEmgCallWithDogs(int callNo);
 
+	int updateUid(@Param("merchantUid")String merchantUid, @Param("callNo")String callNo);
+
+
+
 }

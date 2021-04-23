@@ -2,11 +2,16 @@ package com.petcab.work.payment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.petcab.work.call.model.service.CallService;
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.payment.model.service.PaymentService;
 import com.petcab.work.payment.model.vo.Payment;
 
@@ -17,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentController {
 
 	@Autowired private PaymentService service;
+	@Autowired private CallService callService;
 	
 	//private IamportClient api;
 	
@@ -47,13 +53,16 @@ public class PaymentController {
 //		model.setViewName("call/book_gn_done");
 //		return model;
 //	}
-
-	@RequestMapping(value = "call/payInfo", method= {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @RequestBody Payment payment) {
+	
+	@RequestMapping(value = "call/payInfo/{callNo}", method= {RequestMethod.POST})
+	public ModelAndView enroll(
+			@PathVariable(name = "callNo") String callNo,
+			ModelAndView model, @ModelAttribute Call call,
+			@RequestBody Payment payment) {
 		
 		log.info(payment.toString());
 		
-		int result = service.savePayInfo(payment);
+		int result = service.savePayInfo(payment,callNo);
 			
 		return model;
 	}
