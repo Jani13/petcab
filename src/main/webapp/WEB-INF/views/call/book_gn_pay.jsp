@@ -319,7 +319,7 @@ $('#api').click(function() {
 		pg : "inicis", // pg사
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : 'PETCAB', // 결제창에서 보여질 이름
-		amount : 100, // 일반 콜 3000원 긴급콜 5000원 예치금 설정.
+		amount : 100, // "${estCost}' 100원은 테스트 값 
 		buyer_name : '${loginMember.userId }',
 		buyer_tel : '010-1234-5678',
 		buyer_addr : '서울특별시 강남구 신사동',
@@ -338,9 +338,17 @@ $('#api').click(function() {
 			
 			console.log($('input[name=impUid]').val());
 			
+	        let callNo = null;
+	        
+			if (${ emgCall != null }) { // 긴급
+				callNo = "${ emgCall.callNo }";
+			} else if (${ call != null }) { // 일반
+				callNo = "${ call.callNo }";
+			}
+			
 			$.ajax({
 				type : "POST",
-				url : "${path}/call/payInfo",
+				url : "${path}/call/payInfo/" + callNo,
 				dataType : "json",
 				contentType : "application/json; charset=UTF-8",
 				data : JSON.stringify({
