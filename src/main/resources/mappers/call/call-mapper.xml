@@ -176,6 +176,7 @@
 		<result property="callType" column="CALL_TYPE" />
 		<result property="merchantUid" column="MERCHANT_UID" />
 		<result property="rowNum" column="ROWNUM"/>
+		<result property="paidAmount" column="PAID_AMOUNT"/>
 		<association property="driver" resultMap="DriverResultMap" />
 		<association property="partner" resultMap="partnerResultMap" />	
 		<association property="dog" resultMap="dogResultMap"/>
@@ -361,7 +362,7 @@
 		#{toWhere},
 		#{fromWhere},
 		#{withOwner}, #{toDriver},
-		#{status}, #{callType},
+		DEFAULT, #{callType},
 		NULL,
 		#{merchantUid}
 		)
@@ -410,7 +411,7 @@
 	<update id="updateCallByDriver" parameterType="map">		
 		UPDATE GEN_CALL
 		SET
-		STATUS='기사',
+		STATUS='결제',
 		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
@@ -492,27 +493,22 @@
 
 	<select id="useCallUserId" parameterType="string"
 		resultMap="callResultMap">
-		SELECT
-		C.CALL_NO,
-		C.TIME,
-		C.FROM_WHERE,
-		C.TO_WHERE,
-		C.WITH_OWNER,
-		C.TO_DRIVER,
-		C.STATUS,
-		C.CALL_TYPE,
-		D.USER_NO,
-		D.CAR_NO,
-		D.CAR_TYPE,
-		D2.DOG_NAME,
-		C.MERCHANT_UID
-		FROM
-		GEN_CALL C, DRIVER D, DOG D2, CALL_DOG CD
-		WHERE C.CALL_NO = CD.CALL_NO
-		AND CD.DOG_NO = D2.DOG_NO
-		AND C.USER_NO = D.USER_NO
-		AND C.STATUS = '확정'
-		AND D2.USER_ID = #{userId}
+		SELECT G.CALL_NO,
+		    G.TIME,
+		    G.FROM_WHERE,
+		    G.TO_WHERE,
+		    G.CALL_TYPE,
+		    D.DOG_NAME,
+		    P2.PAID_AMOUNT
+		FROM GEN_CALL G 
+		    LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO=E.CALL_NO 
+		    LEFT OUTER JOIN PARTNER P ON E.USER_NO = P.USER_NO
+		    LEFT OUTER JOIN PAYMENT P2 ON G.MERCHANT_UID = P2.MERCHANT_UID
+		    JOIN CALL_DOG CD ON G.CALL_NO=CD.CALL_NO
+		    JOIN DOG D ON CD.DOG_NO= D.DOG_NO
+		WHERE G.STATUS = '신청' OR G.STATUS='결제'
+		AND D.USER_ID = #{userId}
+		ORDER BY CALL_NO
 	</select>
 
 	<select id="endCallUserId" parameterType="string"
@@ -849,4 +845,11 @@
 				ORDER BY CALL_NO
 			)
 	</select>
+	
+	<update id="updateUid" parameterType="String">
+        UPDATE GEN_CALL
+        SET
+        MERCHANT_UID=#{merchantUid}
+        WHERE CALL_NO=#{callNo}
+    </update>
 </mapper>	

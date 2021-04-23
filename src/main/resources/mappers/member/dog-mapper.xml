@@ -128,7 +128,7 @@
       DOG_NO=#{dogNo}
    </update>
    
-   <update id="deleteDog" parameterType="int">
+   <update id="deleteDog" parameterType="_int">
       UPDATE DOG 
       SET 
          STATUS='N' 
