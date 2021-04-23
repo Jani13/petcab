@@ -552,4 +552,15 @@ public class CallController {
 		}
 	}
 	
+	@RequestMapping(value = "/book/using/{userId}", method = RequestMethod.GET)
+	public ModelAndView usingCallList(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model) {
+		
+				
+		return model;
+	}
+
+	
+	
 }
