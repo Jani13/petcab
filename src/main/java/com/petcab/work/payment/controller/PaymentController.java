@@ -2,11 +2,9 @@ package com.petcab.work.payment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-=======
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
->>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class PaymentController {
 
-<<<<<<< HEAD
 	@Autowired 
-	private PaymentService paymentService;
-=======
-	@Autowired private PaymentService service;
-	@Autowired private CallService callService;
->>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
+	private PaymentService service;
+	
+	@Autowired 
+	private CallService callService;
 	
 	//private IamportClient api;
 	
@@ -73,6 +69,8 @@ public class PaymentController {
 		int result = service.savePayInfo(payment,callNo);
 
 		// GEN_CALL STATUS 결제 업데이트
+		
+		int resultP = service.updatePaid(callNo);
 
 		return model;
 	}
