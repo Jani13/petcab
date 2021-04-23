@@ -80,7 +80,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int updatePaid(int callNo) {
+	public Call updatePaid(int callNo) {
 		
 		return paymentDao.updatePaid(callNo);
 	}

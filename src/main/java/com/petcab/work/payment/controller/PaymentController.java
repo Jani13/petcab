@@ -70,8 +70,8 @@ public class PaymentController {
 
 		// GEN_CALL STATUS 결제 업데이트
 		
-		int resultP = service.updatePaid(callNo);
-
+		call = service.updatePaid(Integer.parseInt(callNo));
+		
 		return model;
 	}
 	

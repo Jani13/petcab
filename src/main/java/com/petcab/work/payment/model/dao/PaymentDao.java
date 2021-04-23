@@ -24,6 +24,6 @@ public interface PaymentDao {
 
 	List<Payment> selectByCallType(String btnValue);
 
-	int updatePaid(int callNo);
+	Call updatePaid(int callNo);
 	
 }
