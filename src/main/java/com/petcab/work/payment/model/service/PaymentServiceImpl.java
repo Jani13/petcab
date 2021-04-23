@@ -5,11 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
 import com.petcab.work.call.model.vo.Call;
-=======
 import com.petcab.work.call.model.dao.CallDao;
->>>>>>> 3a4758a8573545d8254fe244555fd7d34b1beff1
 import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.dao.PaymentDao;
 import com.petcab.work.payment.model.vo.Payment;
