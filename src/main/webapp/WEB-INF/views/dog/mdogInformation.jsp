@@ -48,7 +48,7 @@
 										<div class="row">
 											<div class="col-md-3">
 												<input type="hidden" name="userId" value="${loginMember.userId}" readonly>
-												<input type="hidden" name="dogNo" value="${dogs[0].dogNo}" readonly>
+												<input type="hidden" name="dogNo" id="dogNo" value="${dogs[0].dogNo}" readonly>
 												<div class="input-group mb-2">
 													<select class="form-select" aria-label="Default select example" id="noDog">
 														<c:forEach var="dog" items="${dogs}" end="10">
@@ -176,7 +176,9 @@
 <script> 
 	function deleteDog(){      
 	   if(confirm("애견정보를 삭제 하시겠습니까?")){
-		  location.replace('${path}/dog/deleteDog?dogNo=${dog.dogNo}');
+		   var dogNo = $('#dogNo').val(); 
+		  location.replace('${path}/dog/deleteDog?dogNo='+ dogNo);
+		  console.log(dogNo);
 	   }
 	}
    
