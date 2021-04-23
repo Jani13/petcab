@@ -361,7 +361,7 @@
 		#{toWhere},
 		#{fromWhere},
 		#{withOwner}, #{toDriver},
-		#{status}, #{callType},
+		DEFAULT, #{callType},
 		NULL,
 		#{merchantUid}
 		)
@@ -410,7 +410,7 @@
 	<update id="updateCallByDriver" parameterType="map">		
 		UPDATE GEN_CALL
 		SET
-		STATUS='기사',
+		STATUS='결제',
 		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
