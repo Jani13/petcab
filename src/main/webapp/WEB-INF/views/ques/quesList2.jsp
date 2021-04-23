@@ -56,10 +56,10 @@
 	            </div>
 	        </div>
 	        
-            <div class="input mt-5 row d-flex justify-content-between mb-3" align="right" >
-	            <div class="col-5 d-flex justify-content-start" >
-	               	<form name="form1" action="${path}/ques/list/search" method="GET">
-				        <select name="searchType">
+            <div class="d-flex justify-content-between pt-5 mb-3 mx-2">        
+	        	<form class="d-flex row col-md-5" name="form1" action="${path}/ques/list/search" method="GET">
+	        		<div class="input-group px-1" style="width: 110px" >
+				        <select class="form-select" name="searchType">
 				            <option value="M.USER_ID"
 				    			<c:if test="${searchType == ques.userId}">selected</c:if>
 				       		>작성자</option>
@@ -68,16 +68,19 @@
 				    			<c:if test="${searchType == ques.title}">selected</c:if>
 				            >제목</option>
 				        </select>
-				        <input type="search" name="keyword" size="25px" placeholder="검색어를 입력하세요.">
+	        		</div>
+	        		<div class="input-group input-group-sm" style="width: 250px">
+				        <input type="search" name="keyword" class="form-control" placeholder="검색어를 입력하세요.">
 				        <input type="submit" class="btn btn-info" value="조회">
-				    </form> 
-	            </div>
-               	<c:if test="${loginMember != null}">     
-                    <button type="button" id="btn-add" class="col-1 btn btn-info mx-3"
-                    onclick="location.href ='${path}/ques/write'">글쓰기</button>
+	        		</div>
+			    </form>
+		       
 
-               </c:if>  	
-            </div>
+			    <c:if test="${loginMember != null}">     
+                   <button type="button" id="btn-add" class="btn btn-info mx-3"
+                   onclick="location.href ='${path}/ques/write'">글쓰기</button>
+               </c:if>
+	        </div>
             <table class="table">
                 <thead style="text-align: center;">
                   <tr>
