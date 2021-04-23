@@ -20,7 +20,7 @@ public interface PaymentService {
 
 	List<Payment> searchByCallType(String btnValue);
 
-	Call updatePaid(int callNo);
+	int updatePaid(int callNo);
 	
 //	String PayReady();
 	

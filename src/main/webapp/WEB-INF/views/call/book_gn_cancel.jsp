@@ -49,24 +49,6 @@
 
 			<div class="row row-call-2">
 				<div class="col-md-4 my-auto pt-5 pb-5 book-progress">
-					<c:if test="${ emgCall != null }">
-						<!-- 긴급콜일때 보여주겠다 -->
-						<div class="row">
-							<button type="button"
-								class="btn btn-secondary btn-lg btn-block disabled">제휴업체
-								확인</button>
-						</div>
-
-						<div class="row">
-							<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
-								fill="currentColor" class="bi bi-arrow-down-circle"
-								viewBox="0 0 16 16">
-	                           <path fill-rule="evenodd"
-									d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
-	                         </svg>
-						</div>
-					</c:if>
-
 					<div class="row">
 						<button type="button"
 							class="btn btn-secondary btn-lg btn-block disabled">드라이버
@@ -104,13 +86,7 @@
 
 				<div class="col-md">
 					<c:choose>
-						<c:when test="${ emgCall != null }">
-							<!-- 
-							<input type="hidden" name="callNo" value="${ emgCall.callNo }" />
-							<input type="hidden" name="callType" value="긴급" />
-							<input type="hidden" name="pUserNo" value="3" />
-							-->
-									
+						<c:when test="${ emgCall != null }">									
 							<div class="pt-5 pb-3 pickup-heading">
 								<h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
 								<h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
@@ -193,11 +169,6 @@
 						</c:when>
 
 						<c:when test="${ call != null }">
-							<!-- 
-							<input type="hidden" name="callNo" value="${ call.callNo }">
-							<input type="hidden" name="callType" value="일반">
-							-->
-						
 							<div class="pt-5 pb-3 pickup-heading">
 								<h1 class="text-center mb-3 text-danger">예약신청이 취소되었습니다</h1>
 								<h3 class="text-center mb-3">사유 : 배차연결 지체 (혹은 예약취소 신청)</h3>
