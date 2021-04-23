@@ -54,7 +54,7 @@ public interface CallDao {
 	List<Call> selectCancelCallList(RowBounds rowBounds, Search search);
 	
 	// 리뷰에서 종료된 예약 띄우기
-	List<Call> selectcallEndList(String userId);
+	List<Call> selectcallEndList(String userId); // 오류 났어서 service 에서 String userId 추가함
 
 	List<Call> selectCallListForDriver();
 

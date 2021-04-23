@@ -134,7 +134,7 @@
                         <div class="col-md-6 py-5" style="border-top: 1px ridge;">
                             <div class="d-flex justify-content-between">
                                 <p class="h3 fw-bold mt-3 mx-4">리뷰 관리</p>
-                                <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
+                                <a href="${path}/review/list" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
 								<c:if test="${empty review}">

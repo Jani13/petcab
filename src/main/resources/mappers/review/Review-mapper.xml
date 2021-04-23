@@ -180,6 +180,14 @@
 		WHERE R.S_USER_NO = #{userNo}
 	</select>
 	
+	<select id="mainReviewList" resultMap="reviewResultMap">
+		SELECT REVIEW_NO,
+				TITLE,
+				CONTENT
+		FROM REVIEW
+		ORDER BY REVIEW_NO DESC
+	</select>
+	
 </mapper>
 
 

@@ -33,5 +33,7 @@ public interface ReviewDao {
 
 	List<Review> searchSUserNo(int userNo);
 
+	List<Review> mainReviewList();
+
 
 }

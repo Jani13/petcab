@@ -76,4 +76,10 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return reviewDao.searchSUserNo(userNo);
 	}
+
+	@Override
+	public List<Review> mainReviewList() {
+		// TODO Auto-generated method stub
+		return reviewDao.mainReviewList();
+	}
 }

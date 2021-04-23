@@ -66,5 +66,7 @@ public interface CallService {
 
 	int searchCancelCount(Search search);
 
+	List<Call> callEndList(String userId);
+
 
 }

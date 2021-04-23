@@ -65,7 +65,6 @@
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">${review.userId}</li>
-					<li class="list-group-item">${member.userId}기사님</li>
 					<li class="list-group-item">${review.postDate}</li>
 					<li class="list-group-item">${review.viewNo}</li>
 				</ul>
