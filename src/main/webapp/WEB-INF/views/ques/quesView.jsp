@@ -18,18 +18,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" 
             crossorigin="anonymous"></script>
+            
+	<link 
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+		integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+		crossorigin="anonymous">
 
     <style>
          .container {
             width: 1200px;
         }
-        /* section{
-            width: 1200px;
-            margin: auto;
-        } */
-        /* div{
-            border: 1px solid red;
-        } */
+        .contentArea {
+        height: auto;
+        min-height: 300px;
+        border-top: 1px ridge; 
+        border-bottom: 1px ridge;
+    	}
     </style>
     <link rel="stylesheet" href="${ path }/css/headerfooter.css" />
     <script src="${ path }/js/jquery-3.5.1.js"></script>
@@ -38,98 +42,82 @@
 <body>
     <jsp:include page="../common/header.jsp" />
     <jsp:include page="../common/nav.jsp" />
-    <section class="conent">
-
-        <br><br>
-        
-        <div class="container ">
-            <br><br>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8"><img src="${ path }/images/dogs.png" class="img-fluid" alt="..."></div>
-                <div class="col-lg-2"></div>
-            </div>
-            
-            <br><br><br><br>
-            
-           
-            <div class="card" style="width: 18rem; margin-left: 100px;" >
-                <div class="card-header">
-                <h4>${ques.title}</h4>
+    <section class="container">
+        <br><br>       
+        <div class="container">
+            <div class="mt-5" >
+                <div class="d-flex justify-content-between" style="margin-top: 50px; background-color: #4ec7f2">
+                    <p class="h1 text-white p-3" ><span class="fw-bold">Title. </span> ${ques.title}</p>
+                    <i class="fas fa-lock fa-2x mt-4 mx-4"></i>
                 </div>
-                <ul class="list-group list-group-flush">
-	                <li class="list-group-item">${ ques.userId }</li>             
-	                <li class="list-group-item">비밀 문의글입니다.</li>
-	                <li class="list-group-item">${ques.postDate}</li>
-	                <li class="list-group-item">${ques.viewNo}</li>
-                </ul>
+                <div class="pt-4 mx-4 pb-3">
+	                <p class="h5 "><span class="fw-bold">No. </span>${ques.viewNo}</p>
+                </div>
+                <div class="mx-4 pb-3">
+	                <p class="h5 "><span class="fw-bold">Writer. </span>${ ques.userId }</p>             
+                </div>
+                <div class=" mx-4 pb-3 d-flex justify-content-between">
+	                <p class="h5 "><span class="fw-bold">Post Date. </span>${ques.postDate}</p>
+                    <p class="text-muted text-decoration-underline" onclick="location.replace('${path}/ques/list')" style="cursor: pointer;">목록으로</p>
+                   
+                </div>
             </div>
-
-            <hr>           
-            <div class="form-floating text-center" style="height: auto;">
-                ${ques.content}
+                       
+            <div class="form-floating contentArea pt-4 px-5 text-break">
+                    ${ques.content}
             </div>
-            <hr>      
-             					
-            	<div style="text-align : center; padding: 30px;">
+              
+             
+	    					
+            <div style="text-align : center; padding: 30px;">
+           		<c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
+	    					|| loginMember.userType == 'ROLE_ADMIN')}">
  
 	                <span style="padding-right : 3rem;">
-	                    <input type="submit" class="btn btn-primary" onclick="updateQues()" value="수정하기"> 
+	                    <input type="submit" class="btn btn-info" onclick="updateQues()" value="수정하기"> 
 	                </span>
 	                <span style="padding-right : 3rem;">
 	                    <input type="button" class="btn btn-secondary" onclick="deleteQues()" value="삭제하기">
 	                </span>
-	                <span>
-	                    <input type="button" class="btn btn-secondary" 
-	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
-	                </span>             	
-  
-            	</div>
-           
-            <hr>
-
-            <div class="card" style="width: 85%; align-items: center; margin-left: 90px;">
-                <div class="card-body">
-                    <h3>관리자의 답글입니다.</h3>
-                    <span style="color: blue;">(* 서비스 이용에 불편이 없도록 최선을 다 하겠습니다. * )</span>
-                </div>
+            	</c:if>
+	                      	
             </div>
-            <br>
-            
+
+            <hr>
+ 
             <div class="form-floating">
             	<sub class="comment-date">${ quesReply.postDate }</sub>
-                <textarea class="form-control" placeholder="" onclick="checkAdmin()" id="floatingTextarea2" 
-                			style="resize: vertical;"><c:out value="${quesReply.content}"/></textarea>
-                <label for="floatingTextarea1"></label>
+                <div class="d-flex">
+
+                    <div class="card-body form-control col-md-8" onclick="checkAdmin()" id="floatingTextarea2" 
+                    style="resize: vertical;" readonly>
+                        ${quesReply.content}
+                    </div>
+                
+                    <c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
+                        || loginMember.userType == 'ROLE_ADMIN')}">
+                        
+                        <span >
+                            <input type="button" class="btn btn-secondary" onclick="deleteReply()" value="삭제하기" style="height: 57px;">
+                        </span>   
+                    </c:if>
+                </div>
             </div>
+           
             <br>
                        	          
-            <c:if test="${!empty loginMember && (loginMember.userNo == ques.userNo
-	    					|| loginMember.userType == 'ROLE_ADMIN')}">
-	    					
-            	<div style="text-align : center; padding: 30px;">
- 
-	                <span style="padding-right : 3rem;">
-	                    <input type="button" class="btn btn-secondary" onclick="deleteReply()" value="삭제하기">
-	                </span>
-	                <span>
-	                    <input type="button" class="btn btn-secondary" 
-	                    					onclick="location.replace('${path}/ques/list')" value="목록으로">
-	                </span>             	
-  
-            	</div>
-            </c:if>
             
             <br>          
-            <div class="form-floating">
+            <div class="row d-flex justify-content-center mb-5" >
             	<form action="${ path }/ques/reply" method="post">
-	                <input type="hidden" name="quesNo" value="${ques.quesNo }">
-	                <textarea class="form-control" name="content" placeholder="관리자님이 곧 답을 드리겠습니다." 
-	                				id="floatingTextarea2" style="resize: vertical;" onclick="checkAdmin()"></textarea>
-	                <label for="floatingTextarea2"></label>
-	                <input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->	                
-	                <input type="submit" class="btn btn-secondary" id="partnerCancel" 
-	                											onclick="return checkAdmin2()" value="등록">
+                    <div class=" d-flex col-md-10"  >
+                        <input type="hidden" name="quesNo" value="${ques.quesNo }">
+                        <textarea class="form-control col-md-8" name="content" placeholder="관리자님이 곧 답을 드리겠습니다." 
+                                        id="floatingTextarea2" style="resize: vertical; width: 1100px;" onclick="checkAdmin()"></textarea>
+                        <input type="hidden" name="userNo" value = "${loginMember.userNo}">  <!-- 키값으로 사용 -->	                
+                        <input type="submit" class="btn btn-secondary col-md-1" id="partnerCancel" 
+                                                                    onclick="return checkAdmin2()" value="등록">       
+                    </div>
             	</form>
             </div>
                       

@@ -401,7 +401,12 @@ public class CallController {
 	public ModelAndView usingCallList(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			ModelAndView model) {
-			
+
+		List<Call> useCall = callService.useCallUserId(loginMember.getUserId());
+
+		model.addObject("useCall", useCall);
+		model.setViewName("call/useCallsList");
+		
 		return model;
 	}
 	

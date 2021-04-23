@@ -63,7 +63,7 @@
 						<option value="title">제목</option>
 					</select>
 				</div> &nbsp;
-				<div class="input-group input-group-sm" style="width: 250px">
+				<div class="input-group input-group-sm px-2" style="width: 250px">
 					<input type="text" class="form-control" name="keyword" id="keyword" />
 					<button class="btn btn-info" id="btnSearch" name="btnSearch">검색</button>
 				</div>

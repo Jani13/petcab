@@ -35,8 +35,10 @@ public class Call {
 	private String merchantUid;
 	
 	private Driver driver;
-	
+
 	private int rowNum;
+	
+	private int paidAmount;
 	
 	private Dog dog;
 	
