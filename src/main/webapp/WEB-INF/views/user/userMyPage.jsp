@@ -216,7 +216,8 @@
 		                                <i class="fas fa-arrow-right"></i> 
 		                                 ${call.toWhere}
 		                                <span class="mx-3">${call.pickupTime}</span>
-		                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
+		                                <button type="button" class="btn btn-outline-info border-info rounded-pill"
+		                                onclick="location.href='${path}/call/book/cancel/${call.callNo}'">예약취소</button>
 		                            </h5>
 		                            <p class="card-text">
 		                                애견 이름 : 
@@ -224,7 +225,9 @@
 			                                🐶${dog.dogName}
 			                                </c:forEach>
 		                                <br>
-		                                예상 소요 시간 : 미정<br>
+		                            	<c:if test='${call.callType == "긴급"}'>
+		                                제휴업체 : ${call.partner.partnerName }<br>
+		                            	</c:if>
 		                                예상 결제 금액 : ${call.paidAmount}<br>
 		                            </p>
 		                        </div>
@@ -236,6 +239,7 @@
                 <!-- 이용 완료 목록 -->
                 <div class="p-2" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">이용 완료 목록</p>
+                    <a class="my-2 text-white" href="${path}/call/book/end/${loginMember.userId}" target="_blank"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
@@ -264,12 +268,14 @@
 		                                    <p class="card-text m-0">
 		                                        애견 이름 : 
 			                                        <c:forEach var="dog" items="${call.dogs}" end="2">
-			                                		${dog.dogName} 
+			                                		🐶${dog.dogName} 
 			                                		</c:forEach>
 		                                		<br>
 		                                        예상 결제 금액 : ${call.paidAmount} <br>
 		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
-		                                        제휴업체 : 아직미정
+				                            	<c:if test='${call.callType == "긴급"}'>
+				                                제휴업체 : ${call.partner.partnerName }<br>
+				                            	</c:if>
 		                                    </p>
 		                                    <div class="text-center pt-3">
 		                                    	<button class="btn btn-outline-info"
@@ -339,8 +345,17 @@
 	}	
     function useCallsList() {
     	let url = '${path}/call/book/using/${loginMember.userId}';
-    	let windowName = 'dogsForCall';
+    	let windowName = 'usingCall';
     	let windowFeatures = 'resizable=no,height=800,width=600';
+
+    	window.open(url, windowName, windowFeatures);
+    	
+    	// opener.window.location.href="" 
+    }
+    function endCallsList() {
+    	let url = '${path}/call/book/end/${loginMember.userId}';
+    	let windowName = 'endCall';
+    	let windowFeatures = 'resizable=no,height=800,width=500';
 
     	window.open(url, windowName, windowFeatures);
     	

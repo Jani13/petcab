@@ -179,7 +179,9 @@
 			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
 		WHERE R.S_USER_NO = #{userNo}
 	</select>
-	
+	<select id="selectCallNoReview" resultMap="reviewResultMap" parameterType="_int">
+		SELECT * FROM REVIEW WHERE STATUS='Y' AND CALL_NO = #{callNo}
+	</select>
 </mapper>
 
 

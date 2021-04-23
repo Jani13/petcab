@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,8 @@
 		                                <i class="fas fa-arrow-right"></i> 
 		                                 ${call.toWhere}
 		                                <span class="mx-3">${call.pickupTime}</span>
-		                                <button type="button" class="btn btn-outline-info border-info rounded-pill">예약취소</button>
+		                                <button type="button" class="btn btn-outline-info border-info rounded-pill"
+		                                onclick="location.href='${path}/call/book/listCancel/${call.callNo}'">예약취소</button>
 		                            </h5>
 		                            <p class="card-text">
 		                                애견 이름 : 
@@ -72,6 +74,9 @@
 			                                🐶${dog.dogName} 
 			                                </c:forEach>
 		                                <br>
+		                            	<c:if test='${call.callType == "긴급"}'>
+		                                제휴업체 : ${call.partner.partnerName }<br>
+		                            	</c:if>
 		                                예상 결제 금액 : ${call.paidAmount}<br>
 		                            </p>
 		                        </div>

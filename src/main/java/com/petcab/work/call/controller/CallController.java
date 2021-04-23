@@ -562,6 +562,68 @@ public class CallController {
 		return model;
 	}
 
+	@RequestMapping(value = "/book/cancel/{callNo}", method = RequestMethod.GET)
+	public ModelAndView cancelCall(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@PathVariable(value = "callNo", required = false) int callNo,
+			HttpServletRequest request,
+			ModelAndView model) {
+		int result = callService.updateCall(callNo);
+		if (result > 0) {
+			model.addObject("msg", "취소하였습니다");
+			model.addObject("location", "/user/mypage");
+		} else {
+			model.addObject("msg", "취소하지못했습니다.");
+			model.addObject("location", "/user/mypage");
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
+
+	@RequestMapping(value = "/book/listCancel/{callNo}", method = RequestMethod.GET)
+	public ModelAndView listCancelCall(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@PathVariable(value = "callNo", required = false) int callNo, HttpServletRequest request,
+			ModelAndView model) {
+		int result = callService.updateCall(callNo);
+		if (result > 0) {
+			model.addObject("msg", "취소하였습니다");
+			model.addObject("location", "/call/book/using/" + loginMember.getUserId());
+		} else {
+			model.addObject("msg", "취소하지못했습니다.");
+			model.addObject("location", "/call/book/using/" + loginMember.getUserId());
+		}
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	@RequestMapping(value = "/book/end/{userId}", method = RequestMethod.GET)
+	public ModelAndView endCallList(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model) {
+
+		List<Call> endCall = callService.endCallUserId(loginMember.getUserId());
+
+		model.addObject("endCall", endCall);
+		
+		model.setViewName("call/endCallsList");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/book/driverEnd", method = RequestMethod.GET)
+	public ModelAndView driverEndCallList(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			ModelAndView model) {
+		List<Call> endCall = callService.driverEndCallList(loginMember.getUserNo());
+
+		model.addObject("endCall", endCall);
+		
+		model.setViewName("call/endCallsList");
+		
+		return model;
+	}
 	
 	
 }
