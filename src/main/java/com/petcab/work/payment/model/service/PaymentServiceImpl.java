@@ -4,6 +4,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.petcab.work.call.model.vo.Call;
 import com.petcab.work.common.util.Search;
 import com.petcab.work.payment.model.dao.PaymentDao;
 import com.petcab.work.payment.model.vo.Payment;
@@ -70,6 +71,13 @@ public class PaymentServiceImpl implements PaymentService {
 	public List<Payment> searchByCallType(String btnValue) {
 		
 		return paymentDao.selectByCallType(btnValue);
+	}
+
+
+	@Override
+	public int updatePaid(int callNo) {
+		
+		return paymentDao.updatePaid(call);
 	}
 
 

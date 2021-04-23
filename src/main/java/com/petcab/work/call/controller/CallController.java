@@ -46,7 +46,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/call")
 public class CallController {	
 	
-	@Autowired private PaymentService service;
+	@Autowired 
+	private PaymentService paymentService;
 	
 	@Autowired
 	private CallService callService;
@@ -198,10 +199,10 @@ public class CallController {
 		
 		log.info(call.toString());
 
-		int result = callService.insertCall(call);
-		
-		log.info("insertCall(call) : " + String.valueOf(result));
-					
+		int resultI = callService.insertCall(call);
+				
+		log.info("insertCall(call) : " + String.valueOf(resultI));
+
 		String callNo = String.valueOf(call.getCallNo());
 		
 		model.addObject("estCost", request.getParameter("estCost"));
@@ -295,7 +296,6 @@ public class CallController {
 	public ModelAndView bookEmg(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable(name="callNo") int callNo,
-//			@RequestParam(name="pUserNo") String pUserNo,
 			HttpServletRequest request,
 			@ModelAttribute EmgCall emgCall,
 			ModelAndView model) {
@@ -305,10 +305,6 @@ public class CallController {
 		System.out.println(impUid);
 		
 		emgCall = callService.selectEmgCallWithDogs(callNo);
-		
-//		Partner partner = partnerService.selectPartner(Integer.parseInt(pUserNo));
-		
-//		emgCall.setPartner(partner);
 		
 		log.info("bookEmg() emgCall : " + emgCall.toString());
 
@@ -330,7 +326,7 @@ public class CallController {
 
 		callService.updateCall(call.getCallNo());
 
-		int resulta = service.updatPay(payment.getImpUid());
+		int resulta = paymentService.updatPay(payment.getImpUid());
 		
 		System.out.println("????????????????????????????????????????"+payment);
 		

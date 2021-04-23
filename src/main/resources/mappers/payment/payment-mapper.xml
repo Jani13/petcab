@@ -253,4 +253,12 @@
 		WHERE CALL_TYPE = #{btnValue}
 		ORDER BY ROWNUM
 	</select>
+	
+	<!-- 가결제 시 예약 상태 변경 -->
+	<update id="updatePaid" parameterType="Call">
+		UPDATE GEN_CALL
+		SET
+		STATUS='결제'
+		WHERE CALL_NO=#{callNo}
+	</update>
 </mapper>
