@@ -204,6 +204,9 @@
 		WHERE M.USER_ID = #{userId}
 	</select>
 	
+	<select id="selectCallNoReview" resultMap="reviewResultMap" parameterType="_int">
+		SELECT * FROM REVIEW WHERE STATUS='Y' AND CALL_NO = #{callNo}
+	</select>
 </mapper>
 
 

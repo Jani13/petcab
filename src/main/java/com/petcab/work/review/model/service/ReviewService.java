@@ -28,5 +28,7 @@ public interface ReviewService {
 	List<Review> mainReviewList();
 
 	List<Review> myReviewUserId(String userId);
+	
+	Review selectCallNoReview(int callNo);
 
 }

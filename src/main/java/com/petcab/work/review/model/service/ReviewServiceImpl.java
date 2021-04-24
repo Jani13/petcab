@@ -90,4 +90,9 @@ public class ReviewServiceImpl implements ReviewService{
 		// TODO Auto-generated method stub
 		return reviewDao.selectMyReviewUserId(userId);
 	}
+	
+	@Override
+	public Review selectCallNoReview(int callNo) {
+		return reviewDao.selectCallNoReview(callNo);
+	}
 }

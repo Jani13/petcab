@@ -140,7 +140,7 @@
 									<c:forEach var="board" items="${review}" end="2">
 			                        	<div class="w-100 card border-light mb-3 my-5" >
 				                            <div class="card-header bg-transparent ">
-				                            	<fmt:formatDate type="both" value="${board.postDate}" pattern="yyyy.MM.dd"/>
+				                            	<c:out value="${board.postDate}"/>
 				                            </div>
 				                            <div class="card-body ">
 					                            <h5 class="card-title fw-bold">${board.title}</h5>
@@ -156,7 +156,7 @@
                 <!-- 이용 완료 목록 -->
                 <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">이용 완료 목록</p>
-                    <a href="" class="my-2 mx-2 text-white"><i class="fas fa-plus">더보기</i></a>
+                    <a class="my-2 text-white" href="${path}/call/book/driverEnd" target="_blank"><i class="fas fa-plus">더보기</i></a>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
@@ -183,12 +183,12 @@
 		                                    <p class="card-text m-0">
 		                                        애견 이름 : 
 												<c:forEach var="dog" items="${call.dogs}" end="2">
-		                                         ${dog.dogName} 
+		                                         🐶${dog.dogName} 
 		                                         </c:forEach><br>
-		                                        예상 소요 시간 : 아직미정<br>
-		                                        예상 결제 금액 : 아직미정<br>
-		                                        드라이버 : ${call.driver.carType} / ${call.driver.carNo}<br>
-		                                        제휴업체 : 아직미정
+		                                        예상 결제 금액 : ${call.paidAmount}<br>
+		                                       	<c:if test='${call.callType == "긴급"}'>
+				                                제휴업체 : ${call.partner.partnerName }<br>
+				                            	</c:if>
 		                                    </p>
 		                            	</div>
 		                            </div>
