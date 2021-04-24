@@ -416,6 +416,14 @@
 		USER_NO=#{dUserNo}
 		WHERE CALL_NO=#{callNo}
 	</update>
+	
+	<!-- 드라이버 예약선택 화면 운행 종료 -->
+	<update id="finishCallByDriver" parameterType="map">		
+		UPDATE GEN_CALL
+		SET
+		STATUS='종료'
+		WHERE CALL_NO=#{callNo}
+	</update>
 		
 	<!-- 원석작업 -->
 	<select id="driverWaitCallList" resultMap="callResultMap">

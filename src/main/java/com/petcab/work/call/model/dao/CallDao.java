@@ -70,6 +70,6 @@ public interface CallDao {
 
 	int updateUid(@Param("merchantUid")String merchantUid, @Param("callNo")String callNo);
 
-
+	int finishCallByDriver(int callNo);
 
 }
