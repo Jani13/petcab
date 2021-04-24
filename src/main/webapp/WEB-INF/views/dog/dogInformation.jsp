@@ -190,7 +190,7 @@
                                     <th style="width: 130px;">애견 사진</th>
                                     <td>
                                         <div class="input-group mb-2">
-                                            <input type="file" class="form-control" name="upfile" id="inputGroupFile02">
+                                            <input type="file" class="form-control" name="upfile" id="inputGroupFile02" onchange="checkFile(this)">
                                             
                                         </div>
                                     </td>
@@ -262,7 +262,7 @@
                         <div style="text-align:center;">
                     	<!-- <button type="button" class="btn btn-outline-info" data-bs-toggle="collapse"
                    			 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 200px;" onclick="addForm();">등록추가</button> -->
-                   		  <button type="submit" class="btn btn-outline-info">확인</button>
+                   		  <button type="submit" class="btn btn-outline-info" onclick="fnFileChk();">확인</button>
                   		 <input type="hidden" name="userId" value="${loginMember.userId}" readonly>
          	       		</div>
                   </form>
@@ -516,5 +516,15 @@
 
             } */
     </script> -->
+    <script>
+    function checkFile(f){
+    	var file = f.files;
+
+    	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+    	else return;
+    	f.outerHTML = f.outerHTML;
+    }
+    </script>
 </body>
 </html>
