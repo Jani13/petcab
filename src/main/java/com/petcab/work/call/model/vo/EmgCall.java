@@ -46,5 +46,6 @@ public class EmgCall {
 	private Driver driver;
 	
 	private int pUserNo;
-
+	
+	private int paidAmount;
 }
