@@ -134,7 +134,7 @@
                         <div class="col-md-6 py-5" style="border-top: 1px ridge;">
                             <div class="d-flex justify-content-between">
                                 <p class="h3 fw-bold mt-3 mx-4">리뷰 관리</p>
-                                <a href="${path}/review/list" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
+                                <a class="my-4 text-dark" onclick="myReviewList();"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
 								<c:if test="${empty review}">
@@ -345,6 +345,14 @@
     	window.open(url, windowName, windowFeatures);
     	
     	// opener.window.location.href="" 
+    }
+    
+    function myReviewList() { 
+    	let url = '${path}/user/mypage/myreview/${loginMember.userId}';
+    	let windowName = 'myReviewList';
+    	let windowFeatures = 'resizable=no,height=800,width=600';
+    	
+    	window.open(url, windowName, windowFeatures);
     }
     </script>
   </body>

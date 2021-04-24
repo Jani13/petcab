@@ -47,7 +47,6 @@
 		<br>
 
 		<div class="container ">
-
 			<br> <br>
 			<div class="row">
 				<div class="col-lg-2"></div>
@@ -101,59 +100,59 @@
 				method="POST">
 				<div class="form-floating mb-3" style="width: 400px;">
 					<input type="hidden" class="form-control form-control-sm"
-						id="floatingInput" name="id" placeholder="아이디" value="${review.userId}" readonly>
+						id="floatingInput" name="id" placeholder="아이디"
+						value="${review.userId}" readonly>
 				</div>
 
 				<input type="hidden" name="reviewNo" id="reviewNo"
 					value="${review.reviewNo}">
 
 				<textarea class="form-control" placeholder="Leave a comment here"
-					name="content" id="floatingTextarea2" style="resize: vertical;"></textarea>
+					name="content" id="floatingTextarea2" style="resize: none;"></textarea>
 				<!-- <input type="submit" class="btn btn-secondary"
 					onclick="insertRRely()" value="등록"> -->
 				<input type="button" class="btn btn-secondary" onclick="sendReply()"
 					value="등록">
 			</form>
-		<!-- </div>  -->
-		<br>
-		
-		<table class="table">
-			<c:forEach var="rReply" items="${replyList}" varStatus="vs">
-				<tr class="level1" id="commentReply${vs.index}">
-					<td><sub class="comment-writer">${rReply.userId}</sub> <br>
-					<sub class="comment-date">${rReply.postDate}</sub>
-						<!-- <sub><input type="button" id="" onclick="commentReply(${vs.index})"
-							value="답글 달기"></sub>  -->
-						 <br> <input type="text"
-						class="form-controll" id="replyContent${vs.index}"
-						readonly="readonly" style="border:0; width: 300px;" value="${rReply.content}"></td>
-					<td id="nodii">
-					<c:if test="${!empty loginMember && loginMember.userNo == rReply.userNo}">
-							<input type="hidden" name="" id="replyNo${vs.index}"
-								value="${rReply.replyNo}">
-							<div style="text-align: center; padding: 17px;">
-								<span style="padding-right: 3rem;" id="nodify${vs.index}">
-									<input type="button" class="btn btn-secondary"
-									onclick="updateReply(${vs.index} , nodify${vs.index},replyContent${vs.index} )"
-									value="수정하기"> <input type="button"
-									class="btn btn-secondary" onclick="deleteReply(${vs.index})"
-									value="삭제하기">
-								</span>
-							</div>
-						</c:if></td>
-				</tr>
-			</c:forEach>
-		</table>
-		
-		<div style="text-align: center; padding: 30px;">
-			<span style="padding-right: 3rem;"> <input type="submit"
-				class="btn btn-primary" value="뒤로가기"
-				onclick="location.replace('${path}/review/list')">
-			</span> <span> <input type="button" class="btn btn-secondary"
-				value="확인">
-			</span>
-		</div>
+			
+			<br>
 
+			<table class="table">
+				<c:forEach var="rReply" items="${replyList}" varStatus="vs">
+					<tr class="level1" id="commentReply${vs.index}">
+						<td><sub class="comment-writer">${rReply.userId}</sub> <br>
+							<sub class="comment-date">${rReply.postDate}</sub> <!-- <sub><input type="button" id="" onclick="commentReply(${vs.index})"
+							value="답글 달기"></sub>  --> <br> <input type="text"
+							class="form-controll" id="replyContent${vs.index}"
+							readonly="readonly" style="border: 0; width: 300px;"
+							value="${rReply.content}"></td>
+						<td id="nodii"><c:if
+								test="${!empty loginMember && loginMember.userNo == rReply.userNo}">
+								<input type="hidden" name="" id="replyNo${vs.index}"
+									value="${rReply.replyNo}">
+								<div style="text-align: center; padding: 17px;">
+									<span style="padding-right: 3rem;" id="nodify${vs.index}">
+										<input type="button" class="btn btn-secondary"
+										onclick="updateReply(${vs.index} , nodify${vs.index},replyContent${vs.index} )"
+										value="수정하기"> <input type="button"
+										class="btn btn-secondary" onclick="deleteReply(${vs.index})"
+										value="삭제하기">
+									</span>
+								</div>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+			<div style="text-align: center; padding: 30px;">
+				<span style="padding-right: 3rem;"> <input type="submit"
+					class="btn btn-primary" value="뒤로가기"
+					onclick="location.replace('${path}/review/list')">
+				</span> <span> <input type="button" class="btn btn-secondary"
+					value="확인">
+				</span>
+			</div>
 		</div>
 	</section>
 	<input type="hidden" id="msg" value="${msg}">

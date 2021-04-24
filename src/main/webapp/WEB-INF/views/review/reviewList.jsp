@@ -56,7 +56,7 @@
 	                </div>
 	            </div>
 	        </div>
-			<div class="d-flex mb-3 pt-4 justify-content-end">
+			<div class="d-flex mb-3 pt-4 justify-content-start">
 				<div class="input-group " style="width: 100px">
 					<select class="form-select" name="searchType" id="searchType">
 						<option value="userId">작성자</option>

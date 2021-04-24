@@ -114,7 +114,7 @@
 			<!-- SNS 로그인 부분 -->
             <div class="row flex-column justify-content-center">
 	      		<div class="mb-1 d-flex justify-content-center">
-		            <a id="naverLogin" href="${naver_url}">  	<!-- id="naverLogin" -->
+		            <a id="naverLogin" href="${naverAuthUrl}">  	<!-- id="naverLogin" -->
 		               	<img class="rounded-3" src="${path}/images/login/Naver_Login_Green.PNG" style="width: 182px; height: 44px" >
 		            </a>      		
 	      		</div>         

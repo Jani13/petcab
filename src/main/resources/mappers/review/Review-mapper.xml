@@ -188,6 +188,22 @@
 		ORDER BY REVIEW_NO DESC
 	</select>
 	
+	<select id="selectMyReviewUserId" resultMap="reviewResultMap">
+		SELECT  R.REVIEW_NO,
+				R.TITLE,
+				M.USER_ID,
+				R.STAR_NO,
+				TO_CHAR(R.POST_DATE, 'YYYY/MM/DD hh24:mm:ss')as POST_DATE,
+				R.CONTENT,
+				R.STATUS,
+				R.VIEW_NO,
+				R.USER_NO,
+				R.S_USER_NO
+			FROM REVIEW R
+			JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
+		WHERE M.USER_ID = #{userId}
+	</select>
+	
 </mapper>
 
 

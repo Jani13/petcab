@@ -143,16 +143,12 @@
 					<c:if test="${review != null}">
 						<c:forEach var="review" items="${review}" end="2">
 							<div class="col">
-								<a class="card h-100 text-decoration-none text-reset" href="${path}/review/reviewView?reviewNo=${review.reviewNo}">
-									<div class="card-body overflow-hidden" style="height: 300px">
-										<p class="card-title h5 pt-3" style="border-bottom: 1px ridge">
-											<c:out value="${review.title}"></c:out>
-										</p>
-										<p class="card-text pt-2">
-											${review.content}
-										</p>
-									</div>
-								</a>
+								<div class="card-body overflow-hidden" style="height: 300px">
+									<p class="card-title h5 pt-3" style="border-bottom: 1px ridge">
+										<c:out value="${review.title}"></c:out>
+									</p>
+									<p class="card-text pt-2">${review.content}</p>
+								</div>
 							</div>
 						</c:forEach>
 					</c:if>

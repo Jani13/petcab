@@ -33,7 +33,11 @@ public interface ReviewDao {
 
 	List<Review> searchSUserNo(int userNo);
 
+	// 메인화면에 띄우는 리뷰
 	List<Review> mainReviewList();
+
+	// 마이페이지에서 리뷰 더보기로 띄우는 리스트
+	List<Review> selectMyReviewUserId(String userId);
 
 
 }

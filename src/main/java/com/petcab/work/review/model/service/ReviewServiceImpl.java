@@ -77,9 +77,17 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.searchSUserNo(userNo);
 	}
 
+	// 메인화면에 띄우는 리뷰
 	@Override
 	public List<Review> mainReviewList() {
 		// TODO Auto-generated method stub
 		return reviewDao.mainReviewList();
+	}
+
+	// 마이페이지에서 리뷰 더보기로 띄우는 리스트
+	@Override
+	public List<Review> myReviewUserId(String userId) {
+		// TODO Auto-generated method stub
+		return reviewDao.selectMyReviewUserId(userId);
 	}
 }
