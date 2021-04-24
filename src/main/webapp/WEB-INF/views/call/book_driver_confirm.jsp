@@ -52,7 +52,7 @@
 					</div>
 
 					<div class="pickup-fill-in" style="margin-bottom:150px;">
-						<form action="">
+						<!-- <form action="/" method="post"> -->
 							<div class="form-group mb-3">
 								<label style="margin-left: 10px;">예상 금액</label>
 
@@ -78,11 +78,13 @@
 										</div>
 									</div>
 								</div>
+
+                                <div class="row" style="margin-left: 10px; margin-right: 0px;">
+                                    <button class="btn btn-lg btn-outline-secondary btn-finish" disabled
+                                        onclick="finishCallByDriver(this);">운행종료</button>
+                                </div>
 							</div>
-							
-							<button class="btn btn-lg btn-outline-info" type="button"
-									style="margin-left: 10px;">서비스 종료</button>
-						</form>
+						<!-- </form> -->
 					</div>
 				</div>
 				<!-- 지도 API -->
@@ -110,8 +112,8 @@
 										<h6 class="col-8">${ fn:length(call.dogs) }마리</h6>
 										<input type="hidden" name="${ call.callNo }"
 											value="${ call.callNo }" />
-										<button type="button" class="btn btn-outline-primary col-3"
-											onclick="selectCallByDriver(this);">예약받기</button>
+										<button type="button" class="btn btn-outline-primary col-3 btn-select"
+											onclick="selectCallByDriver(this);">선택</button>
 									</div>
 								</div>
 							</div>
@@ -278,6 +280,12 @@ function selectCallByDriver(e) {
          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
             
             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
+
+            $(e).prop('disabled', true); // 선택한 예약 버튼 비활성화
+            
+            $('.btn-select').prop('disabled', true); // 기타선택 버튼 비활성화
+
+            $('.btn-finish').prop('disabled', false); // 운행종료 버튼 활성화
 		},
 		error : function(e) {
 
@@ -286,6 +294,7 @@ function selectCallByDriver(e) {
 			alert('에러가 발생했습니다. 다시 시도해주세요!');
 		}
 	});
+	
 	document.getElementsByName('fromWhere')[0].value = document.getElementById("startPoint").innerText;
 	document.getElementsByName('toWhere')[0].value = document.getElementById("endPoint").innerText;
 	
@@ -361,6 +370,42 @@ function selectCallByDriver(e) {
 	}
 	setTimeout(setBounds,500);
 	
+}
+</script>
+
+<script>
+function finishCallByDriver(e) {
+    let callNo = $('input[name=callNo]').val();
+
+    console.log(callNo);
+
+    let data = {
+    	'callNo': callNo
+    };
+
+	$.ajax({
+        url : 'confirm/finish',
+        dataType : 'json',
+        type : 'post',
+        data : data,
+		success : function(result) {
+			console.log("result : " + result);
+			            
+            console.log("callNo in success function  : " + callNo);
+                        
+            alert('선택하신 픽업서비스 운행이 종료되었습니다.');
+
+            $('.btn-select').prop('disabled', false); // 선택버튼 전체 활성화
+            
+            $('.btn-finish').prop('disabled', true); // 운행종료 버튼 비활성화
+		},
+		error : function(e) {
+
+			console.log(e);
+
+			alert('에러가 발생했습니다. 다시 시도해주세요!');
+		}
+	});
 }
 </script>
 </html>

@@ -68,9 +68,5 @@ public interface CallService {
 
 	List<Call> callEndList(String userId);
 
-
-
-
-
-
+	int finishCallByDriver(int callNo);
 }

@@ -198,8 +198,10 @@ public class CallServiceImpl implements CallService {
 		return callDao.selectEmgCallWithDogs(callNo);
 	}
 
-
-
-
+	@Override
+	public int finishCallByDriver(int callNo) {
+		
+		return callDao.finishCallByDriver(callNo);
+	}
 
 }

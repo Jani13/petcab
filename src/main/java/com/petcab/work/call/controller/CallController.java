@@ -82,7 +82,6 @@ public class CallController {
 	public @ResponseBody int selectCallByDriver(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam(name = "callNo") String callNo, 
-			// @RequestParam(name = "dUserNo") String dUserNo,
 			HttpServletRequest request) {
 								
  		int userNo = loginMember.getUserNo();
@@ -92,6 +91,19 @@ public class CallController {
 		System.out.println("callNo : " + callNo);
 		
 		int result = callService.updateCallByDriver(userNo, Integer.parseInt(callNo));
+				
+		return result;
+	}
+	
+	@RequestMapping(value="/driver/confirm/finish", method = {RequestMethod.POST})
+	public @ResponseBody int finishCallByDriver(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam(name = "callNo") String callNo, 
+			HttpServletRequest request) {
+												
+		System.out.println("callNo : " + callNo);
+		
+		int result = callService.finishCallByDriver(Integer.parseInt(callNo));
 				
 		return result;
 	}
