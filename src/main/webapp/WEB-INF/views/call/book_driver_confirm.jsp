@@ -80,20 +80,9 @@
 									</div>
 								</div>
 							</div>
-							<!-- 
-							<div class="form-group mb-3" style="margin-left: 10px;">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""
-										id="flexCheckDefault" /> <label class="form-check-label"
-										for="flexCheckDefault"> 보호자 탑승 여부 </label>
-								</div>
-							</div>
-
-							<div class="d-grid gap-1 mb-3">
-								<button class="btn btn-lg btn-outline-info" type="button"
-									style="margin-left: 10px;">검색하기</button>
-							</div>
-							 -->
+							
+							<button class="btn btn-lg btn-outline-info" type="button"
+									style="margin-left: 10px;">서비스 종료</button>
 						</form>
 					</div>
 				</div>
