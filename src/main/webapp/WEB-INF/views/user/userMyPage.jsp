@@ -245,7 +245,7 @@
                 </div>
 
                 <!-- 이용 완료 목록 -->
-                <div class="p-2" style="background-color:#4ec7f2">
+                <div class="p-2 d-flex justify-content-between" style="background-color:#4ec7f2">
                     <p class="h4 mx-3 my-2 fw-bold text-white">이용 완료 목록</p>
                     <a class="my-2 text-white" href="${path}/call/book/end/${loginMember.userId}" target="_blank"><i class="fas fa-plus">더보기</i></a>
                 </div>
