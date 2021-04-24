@@ -163,52 +163,6 @@ $(function () {
     console.log('Connected: ' + frame);
     });
 });
-    
-// function selectCallByDriver(e) {
-//     // 예약상태를 '기사'로 바꿈
-                    
-//     let callNo = $(e).siblings('input').val();
-//     let dUserNo = $('input[name=dUserNo]').val();
-    
-//     $('input[name=callNo]').val(callNo);
-    
-//     console.log(dUserNo);
-//     console.log(callNo);
-    
-//     let data = {
-//         'dUserNo': dUserNo,
-//         'callNo': callNo
-//     };
-    
-//     $.ajax({
-//         url : 'confirm/select',
-//         dataType : 'json',
-//         // contentType : "application/json; charset=UTF-8",
-//         type : 'post',
-//         data : data,
-//         // async : false,
-//         // cache : false,
-//         // processData : false,
-//         success : function(result) {
-
-//             console.log("result : " + result);
-            
-//             console.log("callNo in success function  : " + callNo);
-            
-//          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
-            
-//             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
-//         },
-//         error : function(e) {
-
-//             console.log(e);
-            
-// 			console.log('첫번째꺼');
-
-//             alert('에러가 발생해습니다. 다시 시도해주세요!');
-//         }
-//     });
-// }
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -306,32 +260,31 @@ function searchView() {
 function selectCallByDriver(e) {
 	// 예약상태를 '기사'로 바꿈
 	
-	let callNo = $(e).siblings('input').val();
-	let callType = $(e).siblings('.callType').text();
-	
-	console.log(callNo);
-	console.log(callType);
-	
-	let data = {
-		'callNo': callNo,
-		'callType': callType
-	};
+    let callNo = $(e).siblings('input').val();
+    let dUserNo = $('input[name=dUserNo]').val();
+
+    $('input[name=callNo]').val(callNo);
+
+    console.log(dUserNo);
+    console.log(callNo);
+
+    let data = {
+    'dUserNo': dUserNo,
+    'callNo': callNo
+    };
 
 	$.ajax({
-		url : 'confirm/select',
-		dataType : 'json',
-		// contentType : "application/json; charset=UTF-8",
-		type : 'post',
-		data : data,
-		// async : false,
-		// cache : false,
-		// processData : false,
+        url : 'confirm/select',
+        dataType : 'json',
+        // contentType : "application/json; charset=UTF-8",
+        type : 'post',
+        data : data,
+        // async : false,
+        // cache : false,
+        // processData : false,
 		success : function(result) {
-
 			console.log("result : " + result);
-			
-			console.log('두번째꺼');
-            
+			            
             console.log("callNo in success function  : " + callNo);
             
          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행

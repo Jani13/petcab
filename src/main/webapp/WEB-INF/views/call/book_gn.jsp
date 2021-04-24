@@ -47,7 +47,8 @@
 			</div>
 
 			<div class="row row-call-2">
-				<div class="col-md-4 pickup-details">
+				<div class="col-md-4 pickup-details"
+					style="padding-left: 12px; padding-right: 12px; min-height: 750px;">
 					<div class="pt-5 pb-3 pickup-heading">
 						<h2 class="mb-3" style="margin-left: 10px;">픽업정보 기입</h2>
 					</div>
@@ -306,6 +307,12 @@ function selectEnd() {
 }
 
 document.getElementById('callForm').onsubmit = function () {
+	if ($('input[name=estCost]').val() == "") {
+        alert('예상금액을 조회해주세요.');
+
+    	return false;
+    }
+	
 	let inputs = document.getElementsByName('dogNo'); // 3개
     let dogs = 0;
 
@@ -321,6 +328,5 @@ document.getElementById('callForm').onsubmit = function () {
         return false;
     }
 }
-
 </script>
 </html>
