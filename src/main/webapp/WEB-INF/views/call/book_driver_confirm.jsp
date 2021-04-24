@@ -74,11 +74,10 @@
 									<div>
 										<div style="margin-left: 10px;">
 											<input type="text" class="form-control estCost"
-												placeholder="예상금액 (원)" readonly />
+												placeholder="예상금액 (원)" name="estCost" readonly />
 										</div>
 									</div>
 								</div>
-
                                 <div class="row" style="margin-left: 10px; margin-right: 0px;">
                                     <button class="btn btn-lg btn-outline-secondary btn-finish" disabled
                                         onclick="finishCallByDriver(this);">운행종료</button>
@@ -278,7 +277,8 @@ function selectCallByDriver(e) {
             console.log("callNo in success function  : " + callNo);
             
          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
-            
+
+        	deleteCall(e);
             alert('예약 선택이 완료되었습니다. 마이페이지에서 내역을 확인하세요.');
 
             $(e).prop('disabled', true); // 선택한 예약 버튼 비활성화
@@ -345,6 +345,11 @@ function selectCallByDriver(e) {
 	    } 
 	});  
 	function setBounds() {
+		var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
+		if(cost<3000){
+			cost=3000
+		}
+	    document.getElementsByName('estCost')[0].value = cost;
 		var points = [
 	  	  new kakao.maps.LatLng(point[0], point[1]),
 		  new kakao.maps.LatLng(point[2], point[3])
@@ -370,6 +375,30 @@ function selectCallByDriver(e) {
 	}
 	setTimeout(setBounds,500);
 	
+}
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d*10;
+}
+function deleteCall(e){
+	if(e)
+	{
+		var cell = e.parentNode.parentNode.parentNode.parentNode;
+		console.log(cell);
+		while ( cell.hasChildNodes() ) { 
+			cell.removeChild( cell.firstChild ); 
+		}
+		cell.remove();
+	}
 }
 </script>
 

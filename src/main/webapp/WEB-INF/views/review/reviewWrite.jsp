@@ -91,13 +91,13 @@
 							<th scope="row">* 긴급콜 이용 *</th>
 							<td>
 								<div class="form-check">
-									<label class="form-check-label"> <input type="checkbox"
+									<label class="form-check-label"> <input type="radio"
 										id="callType" name="callType" class="form-check-input"
-										value="긴급">긴급
+										value="긴급" required>긴급
 									</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-										class="form-check-label"> <input type="checkbox"
+										class="form-check-label"> <input type="radio"
 										id="callType" name="callType" class="form-check-input"
-										value="일반">일반
+										value="일반" required>일반
 									</label>
 								</div>
 							</td>

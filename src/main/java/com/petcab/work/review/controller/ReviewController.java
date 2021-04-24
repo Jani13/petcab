@@ -122,6 +122,7 @@ public class ReviewController {
 		int userNo = loginMember.getUserNo();
 
 //		System.out.println("asdasdasdsd"+userNo);
+		Call call = callservice.selectCall(callNo);
 
 		review.setCallNo(callNo);
 		review.setCallType(callType);
@@ -129,6 +130,8 @@ public class ReviewController {
 		review.setTitle(title);
 		review.setContent(content);
 		review.setUserNo(userNo);
+		review.setSUserNo(call.getDriver().getUserNo());
+		
 		result = service.saveReview(review);
 		if (result > 0) {
 			

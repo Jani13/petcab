@@ -37,6 +37,12 @@
 
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style type="text/css">
+.box-hover:hover{
+	background-color : rgba(0,0,0,0.1);
+}
+
+</style>
 </head>
 <body>
 	<div class="col-md-6 py-5" style="border-top: 1px ridge;">
@@ -49,21 +55,17 @@
 			</c:if>
 			<c:if test="${review != null}">
 				<c:forEach var="review" items="${review}">
-					<div class="w-100 card border-light mb-3 my-5">
-						<div class="card-header bg-transparent ">
-							<c:out value="${review.postDate}" />
+					<a href="${path}/review/reviewView?reviewNo=${review.reviewNo}" style="color:black;text-decoration: none;">
+						<div class="w-100 card border-light mb-3 my-5 box-hover">
+							<div class="card-header bg-transparent ">
+								<c:out value="${review.postDate}" />
+							</div>
+							<div class="card-body ">
+								<h5 class="card-title fw-bold">${review.title}</h5>
+								<p class="card-text">${review.content}</p>
+							</div>
 						</div>
-						<div class="card-body ">
-							<h5 class="card-title fw-bold">${review.title}</h5>
-							<p class="card-text">${review.content}</p>
-						</div>
-						<div>
-							<a href="${path}/review/reviewView?reviewNo=${review.reviewNo}">이동하기</a>
-							<button class="col-3 btn btn-outline-info pl-3"
-								onclick="location.href='${path}/review/reviewView?reviewNo=${review.reviewNo}">
-								이동하기</button>
-						</div>
-					</div>
+					</a>
 				</c:forEach>
 			</c:if>
 		</div>

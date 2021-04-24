@@ -92,6 +92,7 @@
 								<input type="hidden" name="callType" value="긴급" />
 								<input type="hidden" name="pUserNo" value="${ emgCall.getPartner().getUserNo() }" />
 								<input type="hidden" name="dUserNo" value="" />
+								<input type="text" id="estCost" name="estCost" value="${estCost}">
 								
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">긴급 예약을 요청하셨습니다</h1>
@@ -165,7 +166,7 @@
 											<tbody>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>30,000원</td>
+													<td>${estCost}원</td>
 												</tr>
 											</tbody>
 										</table>
@@ -183,6 +184,7 @@
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
 								<input type="hidden" name="dUserNo" value="" />
+								<input type="text" id="estCost" name="estCost" value="${estCost}">
 
 								<div class="pt-5 pb-3 pickup-heading-waiting">
 									<h1 class="text-center mb-3">일반 예약을 요청하셨습니다</h1>
@@ -248,7 +250,7 @@
 											<tbody>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>30,000원</td>
+													<td>${estCost}원</td>
 												</tr>
 											</tbody>
 										</table>

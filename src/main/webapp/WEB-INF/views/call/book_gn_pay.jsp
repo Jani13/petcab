@@ -95,6 +95,7 @@
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
 								<input type="hidden" name="callType" value="긴급">
 								<input type="hidden" name="pUserNo" value="${ emgCall.getPartner().getUserNo() }">
+								<input type="text" id="estCost" name="estCost" value="${estCost}">
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">결제를 진행해주세요</h1>
@@ -163,12 +164,13 @@
 											<tbody>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>30,000원</td>
+													<td>${estCost}원</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
-
+									<input type="text" id="estCost" name="estCost" value="${estCost}">
+									<input type="hidden" id="estCost" name="estCost"/>
 									<input type="hidden" name="impUid" value="" />
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
@@ -183,6 +185,7 @@
 							<form action="${path}/call/gn_done" method="post">
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
+								<input type="text" id="estCost" name="estCost" value="${estCost}">
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">결제를 진행해주세요</h1>
@@ -245,14 +248,12 @@
 												<tr>
 													<th scope="row">예상 금액</th>
 													<td>${estCost}원</td>
-													
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									
 									<input type="hidden" name="impUid" value="" />
-									<input type="hidden" id="estCost" name="estCost" value="${estCost}">
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
 										value="${loginMember.userId }">

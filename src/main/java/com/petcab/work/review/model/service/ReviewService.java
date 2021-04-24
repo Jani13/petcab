@@ -31,4 +31,6 @@ public interface ReviewService {
 	
 	Review selectCallNoReview(int callNo);
 
+	List<Review> driverReviewList(int userNo);
+
 }

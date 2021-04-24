@@ -41,5 +41,7 @@ public interface ReviewDao {
 	
 	Review selectCallNoReview(int callNo);
 
+	List<Review> driverReviewList(int userNo);
+
 
 }

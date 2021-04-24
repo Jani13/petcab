@@ -146,7 +146,7 @@
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5214e2509e20a333ab78bf3a781c074&libraries=services,clusterer,drawing"></script>
 	<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
@@ -185,7 +185,6 @@ function searchView() {
 	        });
 	        infowindow.open(map, marker);
 
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        point.push(parseFloat(result[0].y));
 	        point.push(parseFloat(result[0].x));
 	    } 
@@ -202,15 +201,17 @@ function searchView() {
 	        });
 
 	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지	</div>'
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">목적지</div>'
 	        });
 	        infowindow.open(map, marker);
+	        
 	        point.push(parseFloat(result[0].y));
 	        point.push(parseFloat(result[0].x));
 	    } 
 	});  
 	setTimeout(setBounds,500);
 }
+
 function setBounds() {
 	var cost = Math.floor(getDistanceFromLatLonInKm(point[0],point[1],point[2],point[3])) * 150;
 	if(cost<3000){
@@ -221,10 +222,10 @@ function setBounds() {
 	    new kakao.maps.LatLng(point[0], point[1]),
 	    new kakao.maps.LatLng(point[2], point[3])
 	];
-
+	
 	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
 	var bounds = new kakao.maps.LatLngBounds();    
-
+	
 	var i, marker;
 	for (i = 0; i < points.length; i++) {
 	    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
@@ -260,6 +261,7 @@ function deletePoint(){
 		}
 	}
 }
+
 </script>
 </body>
 

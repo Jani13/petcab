@@ -95,4 +95,10 @@ public class ReviewServiceImpl implements ReviewService{
 	public Review selectCallNoReview(int callNo) {
 		return reviewDao.selectCallNoReview(callNo);
 	}
+
+	@Override
+	public List<Review> driverReviewList(int userNo) {
+		// TODO Auto-generated method stub
+		return reviewDao.driverReviewList(userNo);
+	}
 }

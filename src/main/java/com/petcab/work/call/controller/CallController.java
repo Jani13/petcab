@@ -243,14 +243,14 @@ public class CallController {
 			ModelAndView model) {
 		
 		String impUid = request.getParameter("impUid");
-
 		
 		System.out.println(impUid);
 		
 		call = callService.selectCall(callNo);
 		
 		log.info("book() : " + call.toString());
-
+		
+		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("call", call);
 		model.setViewName("call/book_gn_done");
 		
@@ -273,7 +273,8 @@ public class CallController {
 		emgCall = callService.selectEmgCallWithDogs(callNo);
 		
 		log.info("bookEmg() emgCall : " + emgCall.toString());
-
+		
+		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("emgCall", emgCall);
 		model.setViewName("call/book_gn_done");
 		

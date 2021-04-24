@@ -58,6 +58,11 @@
             width: 300px;
             height: 300px;
         }
+        .box-hover:hover{
+			background-color : rgba(0,0,0,0.1);
+		}
+
+        
 
     </style>
 
@@ -129,8 +134,8 @@
                         <!-- 두 번째 컨텐츠 리뷰 관리 박스 -->
                         <div class="col-md-6 py-5" style="border-top: 1px ridge;">
                             <div class="d-flex justify-content-between">
-                                <p class="h3 fw-bold mt-3 mx-4">리뷰 관리</p>
-                                <a href="" class="my-4 text-dark"><i class="fas fa-plus">더보기</i></a>
+                                <p class="h3 fw-bold mt-3 mx-4">리뷰 확인(나에게 달린)</p>
+                                <a class="my-4 text-dark" onclick="myReviewList();"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
 								<c:if test="${empty review}">
@@ -138,15 +143,17 @@
 								</c:if>
 								<c:if test="${review != null}">
 									<c:forEach var="board" items="${review}" end="2">
-			                        	<div class="w-100 card border-light mb-3 my-5" >
-				                            <div class="card-header bg-transparent ">
-				                            	<c:out value="${board.postDate}"/>
-				                            </div>
-				                            <div class="card-body ">
-					                            <h5 class="card-title fw-bold">${board.title}</h5>
-					                            <p class="card-text">${board.content}</p>
-			                            	</div>
-			                    	    </div>
+										<a href="${path}/review/reviewView?reviewNo=${board.reviewNo}" style="color:black;text-decoration: none;">
+				                        	<div class="w-100 card border-light mb-3 my-5 box-hover" >
+					                            <div class="card-header bg-transparent ">
+					                            	<c:out value="${board.postDate}"/>
+					                            </div>
+					                            <div class="card-body ">
+						                            <h5 class="card-title fw-bold">${board.title}</h5>
+						                            <p class="card-text">${board.content}</p>
+				                            	</div>
+				                    	    </div>
+				                    	</a>
 			                    	</c:forEach>
 								</c:if>
                             </div>   
@@ -247,6 +254,14 @@
                     document.getElementById("addr2").focus();
                 }
             }).open();
+        }
+        function myReviewList() { 
+        	console.log('${loginMember.userNo}');
+        	let url = '${path}/user/mypage/myDreview/${loginMember.userNo}';
+        	let windowName = 'myReviewList';
+        	let windowFeatures = 'resizable=no,height=800,width=600';
+        	
+        	window.open(url, windowName, windowFeatures);
         }
     </script>
   </body>

@@ -437,4 +437,18 @@ public class MemberController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/user/mypage/myDreview/{userNo}", method = RequestMethod.GET)
+	public ModelAndView myDReviewList(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@PathVariable(name="userNo") int userNo,
+			ModelAndView model) {
+		if (loginMember.getUserNo() != userNo) {
+			userNo = loginMember.getUserNo();
+		}
+		List<Review> reviewList = reviewServcie.driverReviewList(userNo);			
+		model.addObject("review", reviewList);
+		model.setViewName("review/myReviewList");
+		return model;
+		
+	}
 }
