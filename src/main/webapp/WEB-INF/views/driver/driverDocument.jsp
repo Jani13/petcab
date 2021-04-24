@@ -122,43 +122,19 @@
                 <form action="${path}/driver/update" method="post" class="information" enctype="multipart/form-data">
                   <div>
                     <h5 class="information__title">이름</h5>
-                    <input
-                      type="text"
-                      name="userName"
-                      class="information__input"
-                      value="${loginMember.userName}"
-                      readonly
-                    />
+                    <input type="text" class="form-control" name="userName" value="${loginMember.userName}"style="width: 300px; height: 30px; padding: 0px 10px;"  readonly>
                   </div>
                   <div>
                     <h5 class="information__title">전화번호</h5>
-                    <input
-                      type="text"
-                      name="phone"
-                      class="information__input"
-                      value="${loginMember.phone}"
-                      readonly
-                    />
+                    <input type="text" class="form-control" name="phone" value="${loginMember.phone}" style="  width: 300px; height: 30px; padding: 0px 10px;"  readonly>
                   </div>
                   <div>
                     <h5 class="information__title">보유차종</h5>
-                    <input
-                      type="text"
-                      name="carType"
-                      id="carType"
-                      class="information__input carType"
-                      placeholder="${driver.carType}"
-                    />
+                    <input type="text" class="form-control" name="carType" id="carType" style="  width: 300px; height: 30px; padding: 0px 10px;"  placeholder="${driver.carType}">
                   </div>
                   <div>
                     <h5 class="information__title">차량번호</h5>
-                    <input
-                      type="text"
-                      name="carNo"
-                      id="carNo"
-                      class="information__input carNo"
-                      placeholder="${driver.carNo }"
-                    />
+                    <input type="text" class="form-control" name="carNo" id="carNo" style="  width: 300px; height: 30px; padding: 0px 10px;"  placeholder="${driver.carNo }">
                   </div>
                   <div>
                     <h5 class="information__title">자기<br>소개</h5>
@@ -168,7 +144,7 @@
                     <h5 class="information__title">프로필사진</h5>
                     <input type="file" name="upfile" class="information__input file"/>
                   </div>
-                  <button type="submit" class="information_btn">제출하기</button>
+                   <button type="submit" id="infoBtn" class="btn btn-info" style="  margin: 20px 0; font-size: 15px; color: white; height: 40px; border: none;">제출하기</button>
                      <input type="hidden" name="userNo"
                   value="${loginMember.userNo}" readonly>
                 </form>
