@@ -9,7 +9,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예약 내역</title>
 <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
       rel="stylesheet"
