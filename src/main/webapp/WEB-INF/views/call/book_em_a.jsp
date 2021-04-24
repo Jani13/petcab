@@ -47,7 +47,7 @@
 
 			<div class="row row-call-2">
 				<div class="col-md-4 pickup-details"
-					style="padding-left: 12px; padding-right: 12px">
+					style="padding-left: 12px; padding-right: 12px; min-height: 750px;">
 					<div class="pickup-fill-in" style="margin-left: 10px;">
 						<form id="emgCallForm" action="${ path }/call/book/emg/prepay" method="POST">
 							<input type="hidden" name="callType" value="긴급" />
@@ -143,31 +143,6 @@
 							<div id="bookEmgB">
 								<div class="pt-5 pb-3 pickup-heading">
 									<h2 class="mb-3" style="margin-left: 10px;">4. 픽업정보 기입</h2>
-								</div>
-
-								<div class="form-group mb-3">
-									<label for="expCost">예상 금액</label>
-
-									<div class="row row-cols"
-										style="margin-left: 0; margin-right: 0">
-										<div class="col-9" style="padding-left: 0; padding-right: 0">
-											<input type="text" class="form-control where-from"
-												name="fromWhere" placeholder="출발지" />
-											<input type="text"
-												class="form-control where-to" name="toWhere"
-												placeholder="도착지" />
-										</div>
-
-										<div class="col-3" style="padding-left: 0; padding-right: 0">
-											<button class="btn btn-outline-info btn-calc-cost"
-												type="button">조회</button>
-										</div>
-									</div>
-
-									<div class="row" style="margin-left: 0; margin-right: 0">
-										<input type="text" class="form-control" id="estCost"
-											name="estCost" placeholder="예상금액 (원)" />
-									</div>
 								</div>
 
 								<div class="form-group mb-3">
@@ -391,6 +366,12 @@ function selectDogs() {
 }
 
 document.getElementById('emgCallForm').onsubmit = function () {
+	if ($('input[name=estCost]').val() == "") {
+        alert('예상금액을 조회해주세요.');
+
+    	return false;
+    }
+	
 	let inputs = document.getElementsByName('dogNo'); // 3개
     let dogs = 0;
 
