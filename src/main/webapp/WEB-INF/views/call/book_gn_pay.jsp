@@ -91,11 +91,11 @@
 				<div class="col-md">
 					<c:choose>
 						<c:when test="${ emgCall != null }">
-							<form action="${path}/call/em_pay" method="post">
+							<form class="payForm" action="${ path }/call/book/emg/${ emgCall.callNo }/done" method="post">
 								<input type="hidden" name="callNo" value="${ emgCall.callNo }">
 								<input type="hidden" name="callType" value="긴급">
 								<input type="hidden" name="pUserNo" value="${ emgCall.getPartner().getUserNo() }">
-								<input type="text" id="estCost" name="estCost" value="${estCost}">
+								<!-- <input type="hidden" id="estCost" name="estCost" value="${estCost}"> -->
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">결제를 진행해주세요</h1>
@@ -164,28 +164,30 @@
 											<tbody>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>${estCost}원</td>
+													<td>${ emgCall.paidAmount }원</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
-									<input type="text" id="estCost" name="estCost" value="${estCost}">
-									<input type="hidden" id="estCost" name="estCost"/>
+									
+									<input type="hidden" name="paidAmount" value="${ emgCall.paidAmount }" />
 									<input type="hidden" name="impUid" value="" />
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
 										value="${loginMember.userId }">
-									<button class="btn btn-lg btn-outline-info btn-pay col"
+									<button class="btn btn-lg btn-outline-info btn-pay col" 
 										id="api" type="button">결제하기</button>
+									<input type="submit" class="btn-pay-next" 
+										style="visibility: hidden;" />
 								</div>
 							</form>
 						</c:when>
 
 						<c:otherwise>
-							<form action="${path}/call/gn_done" method="post">
+							<form class="payForm" action="${ path }/call/book/${ call.callNo }/done" method="post">
 								<input type="hidden" name="callNo" value="${ call.callNo }" />
 								<input type="hidden" name="callType" value="일반" />
-								<input type="text" id="estCost" name="estCost" value="${estCost}">
+								<!-- <input type="text" id="estCost" name="estCost" value="${estCost}"> -->
 
 								<div class="pt-5 pb-3 pickup-heading">
 									<h1 class="text-center mb-3">결제를 진행해주세요</h1>
@@ -247,18 +249,22 @@
 											<tbody>
 												<tr>
 													<th scope="row">예상 금액</th>
-													<td>${estCost}원</td>
+													<td>${ call.paidAmount }원</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									
+									<!-- <input type="text" name="estCost" value="${estCost}"> -->
+									<input type="hidden" name="paidAmount" value="${ call.paidAmount }" />
 									<input type="hidden" name="impUid" value="" />
 									<input type="hidden" id="userNo" value="${loginMember.userNo }">
 									<input type="hidden" id="buyerName"
-										value="${loginMember.userId }">
-									<button class="btn btn-lg btn-outline-info btn-cancel col"
+										value="${ loginMember.userId }">
+									<button class="btn btn-lg btn-outline-info btn-pay col" 
 										id="api" type="button">결제하기</button>
+										<input type="submit" class="btn-pay-next" 
+											style="visibility: hidden;" />
 								</div>
 							</form>
 						</c:otherwise>
@@ -342,20 +348,24 @@ $('#api').click(function() {
 							userNo : $('#userNo').val()})
 			});	
 			
-			if (${ emgCall != null }) { // 긴급콜
-				document.location.href = "${ path }/call/book/emg/${ emgCall.callNo }/done"; 
-			} else { // 일반콜
-				document.location.href = "${ path }/call/book/${ call.callNo }/done";
-			}
+			submit = true;
+			
+			$('.btn-pay-next').click();
+			
 		} else {
 			var msg = '결제에 실패하였습니다. 처음부터 다시 예약해 주세요. *^^*';
 			//msg += '에러내용 : ' + rsp.error_msg;
+							
+			submit = false;
+			
 			document.location.href = "${path}/call/book"; //alert창 확인 후 이동할 url 설정
 		}
 		
 		alert(msg);
 		// document.location.href="${path}/call/book/cancel"; //alert창 확인 후 이동할 url 설정
 	});
+	
 });
+
 </script>
 </html>

@@ -115,6 +115,7 @@
 								<div class="row" style="margin-left: 0; margin-right: 0">
 									<input type="text" class="form-control" id="estCost"
 										name="estCost" placeholder="예상금액 (원)" required readonly/>
+									<input type="hidden" class="form-control" name="paidAmount" value="" />
 								</div>
 								<div class="pt-5 pb-3 pickup-heading">
 									<h2 class="mb-3" style="margin-left: 10px;">2. 예약시간 선택</h2>
@@ -281,6 +282,9 @@ function setBounds() {
 		cost=3000
 	}
     document.getElementsByName('estCost')[0].value = cost;
+    
+    document.getElementsByName('paidAmount')[0].value = cost; // 값을 다음페이지로 넘기는 역할 수행 
+    
 	var points = [
 	    new kakao.maps.LatLng(point[0], point[1]),
 	    new kakao.maps.LatLng(point[2], point[3])
