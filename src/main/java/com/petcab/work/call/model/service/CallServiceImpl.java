@@ -204,4 +204,10 @@ public class CallServiceImpl implements CallService {
 		return callDao.finishCallByDriver(callNo);
 	}
 
+	@Override
+	public List<EmgCall> useECallUserId(String userId) {
+		// TODO Auto-generated method stub
+		return callDao.useECallUserId(userId);
+	}
+
 }

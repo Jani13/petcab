@@ -504,9 +504,14 @@
 		    G.TIME,
 		    G.FROM_WHERE,
 		    G.TO_WHERE,
+		    G.WITH_OWNER,
 		    G.CALL_TYPE,
+			G.TO_DRIVER,
+		    D.DOG_NO,
 		    D.DOG_NAME,
 		    P.PARTNER_NAME,
+		    P.USER_NO,
+		    E.TO_PARTNER,
 		    P2.PAID_AMOUNT
 		FROM GEN_CALL G 
 		    LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO=E.CALL_NO 
@@ -860,4 +865,32 @@
         MERCHANT_UID=#{merchantUid}
         WHERE CALL_NO=#{callNo}
     </update>
+    
+    
+    <select id="useECallUserId" parameterType="string"
+		resultMap="emgCallResultMap">
+		SELECT G.CALL_NO,
+		    G.TIME,
+		    G.FROM_WHERE,
+		    G.TO_WHERE,
+		    G.WITH_OWNER,
+		    G.CALL_TYPE,
+			G.TO_DRIVER,
+		    D.DOG_NO,
+		    D.DOG_NAME,
+		    P.PARTNER_NAME,
+		    P.USER_NO,
+		    E.TO_PARTNER,
+		    G.STATUS,
+		    P2.PAID_AMOUNT
+		FROM GEN_CALL G 
+		    LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO=E.CALL_NO 
+		    LEFT OUTER JOIN PARTNER P ON E.USER_NO = P.USER_NO
+		    LEFT OUTER JOIN PAYMENT P2 ON G.MERCHANT_UID = P2.MERCHANT_UID
+		    JOIN CALL_DOG CD ON G.CALL_NO=CD.CALL_NO
+		    JOIN DOG D ON CD.DOG_NO= D.DOG_NO
+		WHERE G.STATUS = '신청' OR G.STATUS='결제'
+		AND D.USER_ID = #{userId}
+		ORDER BY CALL_NO
+	</select>
 </mapper>	

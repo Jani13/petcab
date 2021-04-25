@@ -69,4 +69,6 @@ public interface CallService {
 	List<Call> callEndList(String userId);
 
 	int finishCallByDriver(int callNo);
+
+	List<EmgCall> useECallUserId(String userId);
 }

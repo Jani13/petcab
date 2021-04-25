@@ -143,7 +143,6 @@ public class CallController {
 			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			@ModelAttribute Call call,
 			ModelAndView model) {
-		
 //		System.out.println("prepay() paidAmount : " + request.getParameter("paidAmount"));
 		
 		Stream<String> stream = Arrays.stream(dogNos);
@@ -171,9 +170,13 @@ public class CallController {
 		
 		log.info(call.toString());
 
-		int resultI = callService.insertCall(call);
+		if(call.getCallNo()>0) {
+			
+		}else {			
+			int resultI = callService.insertCall(call);
+			log.info("insertCall(call) : " + String.valueOf(resultI));
+		}
 				
-		log.info("insertCall(call) : " + String.valueOf(resultI));
 
 		String callNo = String.valueOf(call.getCallNo());
 		
@@ -218,10 +221,12 @@ public class CallController {
 		emgCall.setDogs(dogs);
 		
 		log.info(emgCall.toString());
-
-		int result = callService.insertEmgCall(emgCall);
+		if(emgCall.getCallNo()>0) {			
+		}else {			
+			int result = callService.insertEmgCall(emgCall);
+			log.info("insertCall(call) : " + String.valueOf(result));
+		}
 		
-		log.info("insertCall(call) : " + String.valueOf(result));
 					
 		String callNo = String.valueOf(emgCall.getCallNo());
 		

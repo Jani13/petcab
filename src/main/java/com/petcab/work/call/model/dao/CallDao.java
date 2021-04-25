@@ -72,4 +72,6 @@ public interface CallDao {
 
 	int finishCallByDriver(int callNo);
 
+	List<EmgCall> useECallUserId(String userId);
+
 }

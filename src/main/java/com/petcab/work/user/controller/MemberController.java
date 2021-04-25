@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.petcab.work.call.model.service.CallService;
 import com.petcab.work.call.model.vo.Call;
+import com.petcab.work.call.model.vo.EmgCall;
 import com.petcab.work.dog.model.service.DogService;
 import com.petcab.work.review.model.service.ReviewService;
 import com.petcab.work.review.model.vo.Review;
@@ -239,7 +240,7 @@ public class MemberController {
 		int result = service.saveMember(member);
 		log.info(member.toString());
 		if (result > 0) {
-
+			model.addObject("loginMember", member);
 			model.addObject("msg", "회원가입이 완료되었습니다.");
 			model.addObject("location", "/signup/Join");
 		} else {
@@ -339,16 +340,15 @@ public class MemberController {
 		List<Review> review = reviewServcie.searchUserNo(loginMember.getUserNo());
 		
 		List<Dog> dog = dogService.searchUserId(loginMember.getUserId());
-		List<Call> useCall = callService.useCallUserId(loginMember.getUserId());
+		List<EmgCall> eUseCall = callService.useECallUserId(loginMember.getUserId());
 		List<Call> endCall = callService.endCallUserId(loginMember.getUserId());
 
 		log.info(dog.toString());
-		log.info(useCall.toString());
 		log.info(endCall.toString());
 
 		model.addObject("review", review);
 		model.addObject("dog", dog);
-		model.addObject("useCall", useCall);
+		model.addObject("useCall", eUseCall);
 		model.addObject("endCall", endCall);
 		model.setViewName("user/userMyPage");
 
