@@ -290,6 +290,7 @@
 	        
 	        var phone = $("#newPhone").val();
 	        var userNum = $("#userNum").val();
+	        var sysNum = $("#text").val();         
 	           
 	        if(phone.length == 0) {
 	       	 alert("전화번호를 입력해주세요");
@@ -302,6 +303,10 @@
 	       	 $("#userNum").focus();
 	       	 return false;
 	        }	       
+	        
+	        if(userNum.trim() != sysNum.trim()){
+	            alert("본인인증을 다시 진행하시기 바랍니다.");
+	         } 
 	     });
     </script>
 
@@ -383,6 +388,7 @@
 	        
 	        var phone = $("#newPhone1").val();
 	        var userNum = $("#userNum1").val();
+	        var sysNum = $("#text1").val();    
 	           
 	        if(phone.length == 0) {
 	       	 alert("전화번호를 입력해주세요");
@@ -395,6 +401,10 @@
 	       	 $("#userNum1").focus();
 	       	 return false;
 	        }	       
+	        
+	        if(userNum.trim() != sysNum.trim()){
+	            alert("본인인증을 다시 진행하시기 바랍니다.");
+	         } 
 	     });
     </script>
 	<script>

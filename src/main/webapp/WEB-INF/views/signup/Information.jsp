@@ -365,6 +365,7 @@
 		         var phone = $("#newPhone").val();
 		         var userNum = $("#userNum").val();
 		         var addr = $("#addr2").val();
+		         var sysNum = $("#text").val(); 
 		         
 		         if(id.length == 0) {
 		        	 alert("아이디를 입력해 주세요");
@@ -401,6 +402,12 @@
 		        	 $("#addr2").focus();
 		        	 return false;
 		         }
+		         
+		         if(userNum.trim() != sysNum.trim()){
+			            alert("본인인증을 다시 진행하시기 바랍니다.");		      
+			            $("#userNum").focus();
+			        	 return false;
+			     } 
 		         //return false;
 		      });
 		      

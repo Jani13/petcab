@@ -48,7 +48,6 @@
 				<div class="col-md pickup-details bg-light">
 					<div class="pt-5 pb-3 pickup-heading" style="margin-bottom:150px;">
 						<h2 class="mb-3" style="margin-left: 10px;">드라이버 예약 선택</h2>
-			<img id="logo" src="${path}/images/taxi.png" style="width:500px; height: 300px;" />
 					</div>
 
 					<div class="pickup-fill-in" style="margin-bottom:150px;">
