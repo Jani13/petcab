@@ -653,24 +653,26 @@
 		       STATUS
 		FROM (
 		        SELECT G.CALL_NO, 
-		               D2.USER_ID, 
-		               G.TIME, 
-		               G.FROM_WHERE, 
-		               G.TO_WHERE,
-		               M2.USER_NAME, 
-		               D.CAR_NO, 
-		               P.PARTNER_NAME, 
-		               G.STATUS
-		        FROM GEN_CALL G, PARTNER P, EMERG_CALL E, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
-		        WHERE E.CALL_NO = G.CALL_NO
-		        AND E.USER_NO = P.USER_NO
-		        AND G.USER_NO = D.USER_NO
-		        AND G.CALL_NO = CD.CALL_NO
-		        AND CD.DOG_NO = D2.DOG_NO
-		        AND D2.USER_ID = M.USER_ID
-		        AND M2.USER_NO = D.USER_NO
-		        AND G.CALL_TYPE='긴급'
-		        ORDER BY CALL_NO
+				    D2.USER_ID, 
+				    G.TIME,
+				    G.FROM_WHERE, 
+				    G.TO_WHERE,
+				    M2.USER_NAME, 
+				    D.CAR_NO, 
+				    P.PARTNER_NAME, 
+				    G.STATUS
+				FROM GEN_CALL G
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN CALL_DOG CD ON (CD.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DOG D2 ON (D2.DOG_NO = CD.DOG_NO)
+				LEFT OUTER JOIN MEMBER M ON (M.USER_ID = D2.USER_ID)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN MEMBER M2 ON (M2.USER_NO = D.USER_NO)
+				WHERE G.CALL_TYPE= '긴급'
+				ORDER BY G.CALL_NO
 		    )
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchType == 'userId' and keyword != null and keyword != ''">
@@ -700,25 +702,27 @@
 	           CALL_TYPE
 	    FROM (
 	            SELECT G.CALL_NO, 
-	                   D2.USER_ID, 
-	                   G.TIME, 
-	                   G.FROM_WHERE, 
-	                   G.TO_WHERE,
-	                   M2.USER_NAME, 
-	                   D.CAR_NO, 
-	                   P.PARTNER_NAME, 
-	                   G.STATUS,
-	                   G.CALL_TYPE
-	            FROM GEN_CALL G 
-	            LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO = E.CALL_NO 
-	            LEFT OUTER JOIN PARTNER P ON P.USER_NO = E.USER_NO, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
-	            WHERE G.USER_NO = D.USER_NO
-	            AND G.CALL_NO = CD.CALL_NO
-	            AND CD.DOG_NO = D2.DOG_NO
-	            AND D2.USER_ID = M.USER_ID
-	            AND M2.USER_NO = D.USER_NO
-	            AND G.STATUS='취소'
-	            ORDER BY CALL_NO
+				    D2.USER_ID, 
+				    G.TIME,
+				    G.FROM_WHERE, 
+				    G.TO_WHERE,
+				    M2.USER_NAME, 
+				    D.CAR_NO, 
+				    P.PARTNER_NAME, 
+                    G.CALL_TYPE,
+				    G.STATUS
+				FROM GEN_CALL G
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN CALL_DOG CD ON (CD.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DOG D2 ON (D2.DOG_NO = CD.DOG_NO)
+				LEFT OUTER JOIN MEMBER M ON (M.USER_ID = D2.USER_ID)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN MEMBER M2 ON (M2.USER_NO = D.USER_NO)
+				WHERE G.STATUS= '취소'
+				ORDER BY G.CALL_NO
 			   )
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchType == 'userId' and keyword != null and keyword != ''">
@@ -781,23 +785,25 @@
 		SELECT COUNT(*)
 		FROM (
 		        SELECT G.CALL_NO, 
-		               D2.USER_ID, 
-		               G.TIME, 
-		               G.FROM_WHERE, 
-		               G.TO_WHERE,
-		               M2.USER_NAME, 
-		               D.CAR_NO, 
-		               P.PARTNER_NAME, 
-		               G.STATUS
-		        FROM GEN_CALL G, PARTNER P, EMERG_CALL E, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
-		        WHERE E.CALL_NO = G.CALL_NO
-		        AND E.USER_NO = P.USER_NO
-		        AND G.USER_NO = D.USER_NO
-		        AND G.CALL_NO = CD.CALL_NO
-		        AND CD.DOG_NO = D2.DOG_NO
-		        AND D2.USER_ID = M.USER_ID
-		        AND M2.USER_NO = D.USER_NO
-		        AND G.CALL_TYPE='긴급'
+				    D2.USER_ID, 
+				    G.TIME,
+				    G.FROM_WHERE, 
+				    G.TO_WHERE,
+				    M2.USER_NAME, 
+				    D.CAR_NO, 
+				    P.PARTNER_NAME, 
+				    G.STATUS
+				FROM GEN_CALL G
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN CALL_DOG CD ON (CD.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DOG D2 ON (D2.DOG_NO = CD.DOG_NO)
+				LEFT OUTER JOIN MEMBER M ON (M.USER_ID = D2.USER_ID)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN MEMBER M2 ON (M2.USER_NO = D.USER_NO)
+				WHERE G.CALL_TYPE= '긴급'
 				<trim prefix="AND" prefixOverrides="AND">
 				<if test="keyword != null and keyword != ''">
 					<if test="searchType == 'userId'">
@@ -819,24 +825,26 @@
 		SELECT COUNT(*)
 		FROM (
 	            SELECT G.CALL_NO, 
-	                   D2.USER_ID, 
-	                   G.TIME, 
-	                   G.FROM_WHERE, 
-	                   G.TO_WHERE,
-	                   M2.USER_NAME, 
-	                   D.CAR_NO, 
-	                   P.PARTNER_NAME, 
-	                   G.STATUS,
-	                   G.CALL_TYPE
-	            FROM GEN_CALL G 
-	            LEFT OUTER JOIN EMERG_CALL E ON G.CALL_NO = E.CALL_NO 
-	            LEFT OUTER JOIN PARTNER P ON P.USER_NO = E.USER_NO, DRIVER D, CALL_DOG CD, MEMBER M, DOG D2, MEMBER M2
-	            WHERE G.USER_NO = D.USER_NO
-	            AND G.CALL_NO = CD.CALL_NO
-	            AND CD.DOG_NO = D2.DOG_NO
-	            AND D2.USER_ID = M.USER_ID
-	            AND M2.USER_NO = D.USER_NO
-	            AND G.STATUS='취소'
+				    D2.USER_ID, 
+				    G.TIME,
+				    G.FROM_WHERE, 
+				    G.TO_WHERE,
+				    M2.USER_NAME, 
+				    D.CAR_NO, 
+				    P.PARTNER_NAME, 
+                    G.CALL_TYPE,
+				    G.STATUS
+				FROM GEN_CALL G
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN PARTNER P ON (E.USER_NO = P.USER_NO)
+				LEFT OUTER JOIN EMERG_CALL E ON (E.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN CALL_DOG CD ON (CD.CALL_NO = G.CALL_NO)
+				LEFT OUTER JOIN DOG D2 ON (D2.DOG_NO = CD.DOG_NO)
+				LEFT OUTER JOIN MEMBER M ON (M.USER_ID = D2.USER_ID)
+				LEFT OUTER JOIN DRIVER D ON (G.USER_NO = D.USER_NO)
+				LEFT OUTER JOIN MEMBER M2 ON (M2.USER_NO = D.USER_NO)
+				WHERE G.STATUS= '취소'
 				<trim prefix="AND" prefixOverrides="AND">
 				<if test="keyword != null and keyword != ''">
 					<if test="searchType == 'userId'">
