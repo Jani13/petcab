@@ -3,10 +3,14 @@ package com.petcab.work.call.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -126,6 +131,38 @@ public class CallController {
 		System.out.println("getDriver() : " + driver);
 		
 		return driver;
+	}
+	
+	// 드라이버 예약보기 화면에서 기존에 선택한 예약내역 불러오기
+	@RequestMapping(value="/driver/confirm/progress", method = {RequestMethod.POST})
+	@ResponseBody
+	public Call getCall(
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestBody String json,
+			HttpServletRequest request) {
+		
+		System.out.println("getCall() 메소드는 타나? ");
+		
+		JSONParser parser = new JSONParser();
+		
+		JSONObject jsonObj = new JSONObject();
+		
+		try {
+			jsonObj = (JSONObject) parser.parse(json);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String callNo = (String) jsonObj.get("callNo");
+		
+		System.out.println(callNo);
+		
+		Call call = callService.selectCall(Integer.parseInt(callNo));
+		
+		System.out.println(call);
+				
+		return call;
 	}
 	
 	// 일반예약 신청 화면으로 이동
