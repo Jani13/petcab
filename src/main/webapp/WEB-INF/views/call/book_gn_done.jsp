@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="${path}/css/headerfooter.css" />
 <link rel="stylesheet" href="${path }/css/call.css" />
 
-<title>콜예약</title>
+<title>예약신청</title>
 </head>
 
 <body>
@@ -329,13 +329,7 @@ $(function() {
 		}
         
         stompClient.subscribe('/topic/call/' + destCallNo, function(data) {
-                	
-        	console.log("subscribed yet?");
-        	console.log("data @ book_gn_done : " + data);
-        
-        	console.log("JSON.parse(data.body).dUserNo : " + JSON.parse(data.body).dUserNo);
-        	console.log("JSON.parse(data.body).callNo : " + JSON.parse(data.body).callNo);
-        	
+
         	let callNo = JSON.parse(data.body).callNo;
         	let userNo = JSON.parse(data.body).dUserNo;
         	
