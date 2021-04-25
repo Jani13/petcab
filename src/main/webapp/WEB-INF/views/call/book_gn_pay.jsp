@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="${path}/css/headerfooter.css" />
 <link rel="stylesheet" href="${path }/css/call.css" />
 
-<title>콜예약</title>
+<title>예약 가결제</title>
 <!-- jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

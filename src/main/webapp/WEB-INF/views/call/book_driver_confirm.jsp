@@ -26,7 +26,7 @@
 <script src="${path }/js/jquery-3.5.1.js"></script>
 <script src="${path }/js/headerfooter.js"></script>
 
-<title>콜예약</title>
+<title>드라이버 예약보기</title>
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../common/nav.jsp" />
@@ -254,9 +254,6 @@ function selectCallByDriver(e) {
 
     $('input[name=callNo]').val(callNo);
 
-    console.log(dUserNo);
-    console.log(callNo);
-
     let data = {
     'dUserNo': dUserNo,
     'callNo': callNo
@@ -272,10 +269,7 @@ function selectCallByDriver(e) {
         // cache : false,
         // processData : false,
 		success : function(result) {
-			console.log("result : " + result);
-			            
-            console.log("callNo in success function  : " + callNo);
-            
+
          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
 
         	deleteCall(e);
