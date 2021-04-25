@@ -47,7 +47,6 @@
 	
 	<resultMap type="Driver" id="DriverResultMap">
 		<id property="userNo" column="USER_NO" />
-		
 		<result property="carNo" column="CAR_NO" />
 		<result property="carType" column="CAR_TYPE" />
 		<result property="userName" column="USER_NAME"/>
@@ -55,10 +54,10 @@
 	
 	<resultMap type="Call" id="CallResultMap">
 		<id property="callNo" column="CALL_NO"/>
-		
 		<result property="fromWhere" column="FROM_WHERE"/>
 		<result property="toWhere" column="TO_WHERE"/>
 		<result property="callType" column="CALL_TYPE"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<resultMap type="Dog" id="DogResultMap">
@@ -80,8 +79,7 @@
 	<select id="selectTodayPaymentAmount" resultType="_int">
 		SELECT NVL((SUM(PAID_AMOUNT)),0)
 		FROM PAYMENT
-		WHERE TO_CHAR(PAYMENT_DATE, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd') 
-		AND STATUS = 'Y'
+		WHERE TO_CHAR(PAYMENT_DATE, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd')
 	</select>
 	
 	<insert id="insertPayInfo" parameterType="map"
@@ -117,23 +115,22 @@
   	<select id="searchPayCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM (
-		        SELECT DISTINCT
-		               P.PAYMENT_DATE,
-		               G.CALL_TYPE,
-		               M.USER_ID,
-		               M2.USER_NAME,
-		               D.CAR_NO,
-		               G.FROM_WHERE,
-		               G.TO_WHERE,
-		               P.PAID_AMOUNT,
-		               P.PAY_METHOD
-		        FROM PAYMENT P, GEN_CALL G, MEMBER M, MEMBER M2, DRIVER D, CALL_DOG CD, DOG D2
-		        WHERE P.USER_NO = M.USER_NO
-		        AND G.CALL_NO = CD.CALL_NO
-		        AND D2.USER_ID = M.USER_ID
-		        AND M2.USER_NO = D.USER_NO
-		        AND P.MERCHANT_UID = G.MERCHANT_UID
-		        AND P.STATUS = 'Y'
+				SELECT DISTINCT G.CALL_NO,
+				    G.CALL_TYPE,
+				    P.PAYMENT_DATE,
+				    P.PAID_AMOUNT,
+				    M.USER_NAME,
+				    G.FROM_WHERE,
+				    G.TO_WHERE,
+                    G.STATUS,
+				    U.USER_ID,
+				    D.CAR_NO
+				FROM PAYMENT P JOIN GEN_CALL G ON P.MERCHANT_UID = G.MERCHANT_UID
+                JOIN CALL_DOG CD ON G.CALL_NO = CD.CALL_NO
+                JOIN DOG D2 ON CD.DOG_NO = D2.DOG_NO
+                JOIN MEMBER U ON D2.USER_ID = U.USER_ID
+                LEFT OUTER JOIN DRIVER D ON G.USER_NO = D.USER_NO
+                LEFT OUTER JOIN MEMBER M ON D.USER_NO = M.USER_NO
 		        <trim prefix="AND" prefixOverrides="AND">
 				<if test="keyword != null and keyword != ''">
 					<if test="searchType2 == 'genCallType'">
@@ -170,27 +167,25 @@
 		       CAR_NO,
 		       FROM_WHERE,
 		       TO_WHERE,
-		       PAID_AMOUNT,
-		       PAY_METHOD 
+		       PAID_AMOUNT
 		FROM (
-		        SELECT DISTINCT
-		               P.PAYMENT_DATE,
-		               G.CALL_TYPE,
-		               M.USER_ID,
-		               M2.USER_NAME,
-		               D.CAR_NO,
-		               G.FROM_WHERE,
-		               G.TO_WHERE,
-		               P.PAID_AMOUNT,
-		               P.PAY_METHOD
-		        FROM PAYMENT P, GEN_CALL G, MEMBER M, MEMBER M2, DRIVER D, CALL_DOG CD, DOG D2
-		        WHERE P.USER_NO = M.USER_NO
-		        AND G.CALL_NO = CD.CALL_NO
-		        AND D2.USER_ID = M.USER_ID
-		        AND M2.USER_NO = D.USER_NO
-		        AND P.MERCHANT_UID = G.MERCHANT_UID
-		        AND P.STATUS = 'Y'
-		        ORDER BY PAYMENT_DATE
+			SELECT DISTINCT G.CALL_NO,
+				    G.CALL_TYPE,
+				    P.PAYMENT_DATE,
+				    P.PAID_AMOUNT,
+				    M.USER_NAME,
+				    G.FROM_WHERE,
+				    G.TO_WHERE,
+                    G.STATUS,
+				    U.USER_ID,
+				    D.CAR_NO
+				FROM PAYMENT P JOIN GEN_CALL G ON P.MERCHANT_UID = G.MERCHANT_UID
+                JOIN CALL_DOG CD ON G.CALL_NO = CD.CALL_NO
+                JOIN DOG D2 ON CD.DOG_NO = D2.DOG_NO
+                JOIN MEMBER U ON D2.USER_ID = U.USER_ID
+                LEFT OUTER JOIN DRIVER D ON G.USER_NO = D.USER_NO
+                LEFT OUTER JOIN MEMBER M ON D.USER_NO = M.USER_NO
+		        ORDER BY P.PAYMENT_DATE
 		     )
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchType2 == 'genCallType'">
