@@ -118,7 +118,7 @@
                   <th scope="col">출발지</th>
                   <th scope="col">도착지</th>
                   <th scope="col">금액</th>
-                  <th scope="col">결제<br>수단</th>
+                  <th scope="col">상태</th>
                 </tr>
               </thead>
               <tbody>
@@ -136,12 +136,18 @@
 			              <td class="paymentDate">${payList.paymentDate}</td>
 			              <td class="callType">${payList.call.callType}</td>
 			              <td class="userId">${payList.dog.userId}</td>
-			              <td class="userName">${payList.driver.userName}</td>
-			              <td class="carNo">${payList.driver.carNo}</td>
+			              <td class="userName">
+			              	<c:if test="${payList.driver.userName != null }"> ${payList.driver.userName}</c:if>
+			              	<c:if test="${payList.driver.userName == null }"> X</c:if>
+			              </td>
+			              <td class="carNo">
+			              	<c:if test="${payList.driver.carNo != null }">${payList.driver.carNo}</c:if>
+			              	<c:if test="${payList.driver.carNo == null }">X</c:if>
+			              </td>
 			              <td class="fromWhere">${payList.call.fromWhere}</td>
 			              <td class="toWhere">${payList.call.toWhere}</td>
 			              <td class="paidAmount">${payList.paidAmount}</td>
-			              <td class="payMethod">${payList.payMethod}</td>
+			              <td class="payMethod">${payList.call.status}</td>
 		              </tr>                  
 	              </c:forEach>		
               </c:if>

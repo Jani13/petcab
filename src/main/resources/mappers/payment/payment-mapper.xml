@@ -167,6 +167,7 @@
 		       CAR_NO,
 		       FROM_WHERE,
 		       TO_WHERE,
+		       STATUS,
 		       PAID_AMOUNT
 		FROM (
 			SELECT DISTINCT G.CALL_NO,
