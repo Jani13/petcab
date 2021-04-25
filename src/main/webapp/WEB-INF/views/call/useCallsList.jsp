@@ -55,7 +55,6 @@
 					<c:if test="${useCall != null}">
 						<c:forEach var="call" items="${useCall}">
 							<c:if test='${call.status=="신청" }'>
-							<h1>신청</h1>
 									<c:if test='${call.callType=="일반" }'>
 										<form action="${ path }/call/book/prepay" method="POST">
 									</c:if>
@@ -64,7 +63,6 @@
 									</c:if>
 							</c:if>
 							<c:if test='${call.status=="결제" }'>
-							<h1>결제</h1>
 									<c:if test='${call.callType=="일반" }'>
 										<form action="${ path }/call/book/${call.callNo}/done" method="POST">
 									</c:if>
