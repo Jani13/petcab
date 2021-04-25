@@ -113,7 +113,6 @@ public class DogController {
 		return dog;
 	}
 
-
 	@RequestMapping(value = "/dog/view", method = {RequestMethod.GET})
 	public ModelAndView view(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
