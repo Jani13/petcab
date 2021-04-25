@@ -26,7 +26,7 @@
 <script src="${path }/js/jquery-3.5.1.js"></script>
 <script src="${path }/js/headerfooter.js"></script>
 
-<title>콜예약</title>
+<title>드라이버 예약보기</title>
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<jsp:include page="../common/nav.jsp" />
@@ -48,7 +48,6 @@
 				<div class="col-md pickup-details bg-light">
 					<div class="pt-5 pb-3 pickup-heading" style="margin-bottom:150px;">
 						<h2 class="mb-3" style="margin-left: 10px;">드라이버 예약 선택</h2>
-			<img id="logo" src="${path}/images/taxi.png" style="width:500px; height: 300px;" />
 					</div>
 
 					<div class="pickup-fill-in" style="margin-bottom:150px;">
@@ -254,9 +253,6 @@ function selectCallByDriver(e) {
 
     $('input[name=callNo]').val(callNo);
 
-    console.log(dUserNo);
-    console.log(callNo);
-
     let data = {
     'dUserNo': dUserNo,
     'callNo': callNo
@@ -272,10 +268,7 @@ function selectCallByDriver(e) {
         // cache : false,
         // processData : false,
 		success : function(result) {
-			console.log("result : " + result);
-			            
-            console.log("callNo in success function  : " + callNo);
-            
+
          	stompClient.send("/topic/call/" + callNo, {}, JSON.stringify(data)); // send() 메소드 실행
 
         	deleteCall(e);

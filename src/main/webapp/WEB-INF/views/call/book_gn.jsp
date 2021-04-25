@@ -24,7 +24,7 @@
 <script src="${path}/js/jquery-3.5.1.js"></script>
 <script src="${path}/js/headerfooter.js"></script>
 
-<title>콜예약</title>
+<title>일반콜 예약</title>
 </head>
 
 <body>

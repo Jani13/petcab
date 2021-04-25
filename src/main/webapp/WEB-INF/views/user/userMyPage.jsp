@@ -139,7 +139,7 @@
                         <!-- 두 번째 컨텐츠 리뷰 관리 박스 -->
                         <div class="col-md-6 py-5" style="border-top: 1px ridge;">
                             <div class="d-flex justify-content-between">
-                                <p class="h3 fw-bold mt-3 mx-4">리뷰 관리(내가 작성한)</p>
+                                <p class="h3 fw-bold mt-3 mx-4">내가 작성한 리뷰</p>
                                 <a class="my-4 text-dark" onclick="myReviewList();"><i class="fas fa-plus">더보기</i></a>
                             </div>
 	                        <div class="container-fluid">
