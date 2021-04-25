@@ -49,10 +49,18 @@
 								style="padding: 0; margin-bottom: 24px;">
 								<div class="card border-info d-flex align-items-center"
 									style="width: 18rem; padding: 0;">
+									<c:if test="${dog.imageRe != null }">
+										<img class="card-img-top"
+											src="${ path }/resources/upload/dog/${ dog.imageRe }"
+											class="myDogs rounded-pill img-thumbnail img-fluid" 
+											style="height: 230px;" alt="">
+									</c:if>
+									<c:if test="${dog.imageRe == null }">
 									<img class="card-img-top"
-										src="${ path }/resources/upload/dog/${ dog.imageRe }"
-										class="myDogs rounded-pill img-thumbnail img-fluid" 
-										style="height: 230px;" alt="">
+											src="${path }/resources/images/mung.png"
+											class="myDogs rounded-pill img-thumbnail img-fluid" 
+											style="height: 230px;" alt="">
+									</c:if>
 									<div class="card-body">
 										<p class="card-text h5 my-4 fw-bold">
 											${ dog.dogName } 

@@ -140,8 +140,11 @@ public class CallController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			@ModelAttribute Call call,
 			ModelAndView model) {
+		
+//		System.out.println("prepay() paidAmount : " + request.getParameter("paidAmount"));
 		
 		Stream<String> stream = Arrays.stream(dogNos);
 		
@@ -164,6 +167,8 @@ public class CallController {
 		
 		call.setDogs(dogs);
 		
+		call.setPaidAmount(paidAmount); // 예상금액
+		
 		log.info(call.toString());
 
 		int resultI = callService.insertCall(call);
@@ -172,7 +177,7 @@ public class CallController {
 
 		String callNo = String.valueOf(call.getCallNo());
 		
-		model.addObject("estCost", request.getParameter("estCost"));
+//		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("call", call);
 		model.addObject("callNo", callNo);
 		model.setViewName("call/book_gn_pay");
@@ -187,6 +192,7 @@ public class CallController {
 			HttpServletRequest request,
 			@RequestParam(value="dogNo", required=true) String[] dogNos,
 			@RequestParam(value="pUserNo", required=true) String pUserNo,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			@ModelAttribute EmgCall emgCall,
 			ModelAndView model) {
 		
@@ -225,7 +231,9 @@ public class CallController {
 		
 		emgCall.setPartner(partner);
 		
-		model.addObject("estCost", request.getParameter("estCost"));
+		emgCall.setPaidAmount(paidAmount);
+		
+		// model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("emgCall", emgCall);
 		model.addObject("callNo", callNo);
 		model.setViewName("call/book_gn_pay");
@@ -234,13 +242,18 @@ public class CallController {
 	}	
 	
 	// 일반예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book/{callNo}/done", method = {RequestMethod.GET})
+	@RequestMapping(value = "/book/{callNo}/done", method = {RequestMethod.POST})
 	public ModelAndView book(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable int callNo,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			HttpServletRequest request,
 			@ModelAttribute Call call,
 			ModelAndView model) {
+		
+		System.out.println("book() call.paidAmount : " + call.getPaidAmount());
+		
+		System.out.println("book() paidAmount : " + paidAmount);
 		
 		String impUid = request.getParameter("impUid");
 		
@@ -248,9 +261,11 @@ public class CallController {
 		
 		call = callService.selectCall(callNo);
 		
+		call.setPaidAmount(paidAmount);
+		
 		log.info("book() : " + call.toString());
 		
-		model.addObject("estCost", request.getParameter("estCost"));
+//		model.addObject("estCost", request.getParameter("estCost"));
 		model.addObject("call", call);
 		model.setViewName("call/book_gn_done");
 		
@@ -258,13 +273,18 @@ public class CallController {
 	}	
 	
 	// 긴급예약 신청 정보 입력 후 예약완료 화면으로 이동
-	@RequestMapping(value = "/book/emg/{callNo}/done", method = {RequestMethod.GET})
+	@RequestMapping(value = "/book/emg/{callNo}/done", method = {RequestMethod.POST})
 	public ModelAndView bookEmg(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable(name="callNo") int callNo,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			HttpServletRequest request,
 			@ModelAttribute EmgCall emgCall,
 			ModelAndView model) {
+		
+		System.out.println("bookEmg() call.paidAmount : " + emgCall.getPaidAmount());
+		
+		System.out.println("bookEmg() paidAmount : " + paidAmount);
 				
 		String impUid = request.getParameter("impUid");
 		
@@ -272,9 +292,10 @@ public class CallController {
 		
 		emgCall = callService.selectEmgCallWithDogs(callNo);
 		
-		log.info("bookEmg() emgCall : " + emgCall.toString());
+		emgCall.setPaidAmount(paidAmount);
 		
-		model.addObject("estCost", request.getParameter("estCost"));
+		log.info("bookEmg() emgCall : " + emgCall.toString());
+				
 		model.addObject("emgCall", emgCall);
 		model.setViewName("call/book_gn_done");
 		
@@ -288,7 +309,12 @@ public class CallController {
 			@ModelAttribute Call call,
 			@ModelAttribute Payment payment,
 			@RequestParam(value="impUid", required=true) String impUid,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			ModelAndView model) {
+		
+		System.out.println("cancel() call.paidAmount : " + call.getPaidAmount());
+		
+		System.out.println("cancel() paidAmount : " + paidAmount);
 
 		callService.updateCall(call.getCallNo());
 		
@@ -314,6 +340,8 @@ public class CallController {
 			call.setDriver(driver);
 		}
 
+		call.setPaidAmount(paidAmount);
+		
 		model.addObject("call", call);
 
 		model.setViewName("call/book_gn_cancel");
@@ -326,6 +354,7 @@ public class CallController {
 	public ModelAndView cancelEmg(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam(name = "pUserNo", required = true) String pUserNo,
+			@RequestParam(value="paidAmount", required=true) int paidAmount,
 			HttpServletRequest request, 
 			@ModelAttribute EmgCall emgCall, 
 			@ModelAttribute Payment payment,
@@ -349,6 +378,8 @@ public class CallController {
 
 			emgCallToAdd.setDriver(driver);
 		}
+		
+		emgCallToAdd.setPaidAmount(paidAmount);
 		
 		model.addObject("emgCall", emgCallToAdd);
 			

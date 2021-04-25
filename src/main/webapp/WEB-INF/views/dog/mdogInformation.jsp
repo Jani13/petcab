@@ -102,7 +102,7 @@
 																<div class="input-group mb-2">
 																	<input type="hidden" name="imageOri"value="${dog.imageOri}">
 																	<input type="hidden" name="imageRe" value="${dog.imageRe}">
-																	<input type="file" class="form-control" name="reloadFile" id="inputGroupFile02">
+																	<input type="file" class="form-control" name="reloadFile" id="inputGroupFile02" onchange="checkFile(this)">
 																</div>
 															</td>
 														</tr>
@@ -174,6 +174,8 @@
 					<jsp:include page="../common/footer.jsp" />
 
 <script> 
+
+
 	function deleteDog(){      
 	   if(confirm("애견정보를 삭제 하시겠습니까?")){
 		   var dogNo = $('#dogNo').val(); 
@@ -259,6 +261,14 @@
 			 }
 		 });
 	 });
+	function checkFile(f){
+    	var file = f.files;
+
+    	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+    	else return;
+    	f.outerHTML = f.outerHTML;
+    }
 </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 	
 	<!-- 중복되는 쿼리문 작성 -->
 	<sql id="selectDriverSql">
-		SELECT USER_NO
+		SELECT USER_NO,
 			CAR_TYPE,
 			CAR_NO,
 			ABOUT,

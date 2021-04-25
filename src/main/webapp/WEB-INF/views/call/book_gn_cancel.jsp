@@ -152,12 +152,8 @@
 									<table class="table">
 										<tbody>
 											<tr>
-												<th scope="row">예상 시간</th>
-												<td>40분</td>
-											</tr>
-											<tr>
 												<th scope="row">예상 금액</th>
-												<td>30,000원</td>
+												<td>${ emgCall.paidAmount }원</td>
 											</tr>
 										</tbody>
 									</table>
@@ -227,7 +223,7 @@
 										<tbody>
 											<tr>
 												<th scope="row">예상 금액</th>
-												<td>30,000원</td>
+												<td>${ call.paidAmount }원</td>
 											</tr>
 										</tbody>
 									</table>

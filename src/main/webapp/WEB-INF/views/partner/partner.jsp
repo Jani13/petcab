@@ -70,7 +70,7 @@
                         <tr>
                             <th>업체사진</th>
                             
-                            <td><input type="file" class="form-control" name="upfile" id="image" required></td>
+                            <td><input type="file" class="form-control" name="upfile" id="image" onchange="checkFile(this)" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
@@ -156,7 +156,7 @@
                         </tr>
                         <tr>
                             <th>업체사진</th>
-                            <td><input type="file" class="form-control" name="upfile" id="image" required></td>
+                            <td><input type="file" class="form-control" name="upfile" id="image" onchange="checkFile(this)" required></td>
                         </tr>
                         <tr>
                             <th>업종</th>
@@ -337,5 +337,13 @@
 		var nFontSize = 24;
 		oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
 	}
+	function checkFile(f){
+    	var file = f.files;
+
+    	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+    	else return;
+    	f.outerHTML = f.outerHTML;
+    }
     </script>
 </html>

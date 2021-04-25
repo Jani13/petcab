@@ -109,7 +109,7 @@
                   </div>
                   <div>
                     <h5 class="information__title">프로필사진</h5>
-                    <input type="file" name="upfile" class="information__input file" />
+                    <input type="file" name="upfile" class="information__input file" onchange="checkFile(this)"/>
                   </div>
                   <button type="submit" id="infoBtn" class="btn btn-info" style="  margin: 20px 0; font-size: 15px; color: white; height: 40px; border: none;">제출하기</button>
                      <input type="hidden" name="userNo" 
@@ -130,11 +130,11 @@
                   </div>
                   <div>
                     <h5 class="information__title">보유차종</h5>
-                    <input type="text" class="form-control" name="carType" id="carType" style="  width: 300px; height: 30px; padding: 0px 10px;"  placeholder="${driver.carType}">
+                    <input type="text" class="form-control" name="carType" id="carType" style="  width: 300px; height: 30px; padding: 0px 10px;"  value="${driver.carType}">
                   </div>
                   <div>
                     <h5 class="information__title">차량번호</h5>
-                    <input type="text" class="form-control" name="carNo" id="carNo" style="  width: 300px; height: 30px; padding: 0px 10px;"  placeholder="${driver.carNo }">
+                    <input type="text" class="form-control" name="carNo" id="carNo" style="  width: 300px; height: 30px; padding: 0px 10px;"  value="${driver.carNo }">
                   </div>
                   <div>
                     <h5 class="information__title">자기<br>소개</h5>
@@ -142,10 +142,10 @@
                   </div>
                   <div>
                     <h5 class="information__title">프로필사진</h5>
-                    <input type="file" name="upfile" class="information__input file"/>
+                    <input type="file" name="upfile" class="information__input file" onchange="checkFile(this)"/>
                   </div>
-                   <button type="submit" id="infoBtn" class="btn btn-info" style="  margin: 20px 0; font-size: 15px; color: white; height: 40px; border: none;">제출하기</button>
-                     <input type="hidden" name="userNo"
+                  <button type="submit" id="infoBtn" class="btn btn-info" style="  margin: 20px 0; font-size: 15px; color: white; height: 40px; border: none;">제출하기</button>
+                     <input type="hidden" name="userNo" 
                   value="${loginMember.userNo}" readonly>
                 </form>
               </div>
@@ -202,6 +202,14 @@
                    });
              });
         });
+        function checkFile(f){
+        	var file = f.files;
+
+        	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+
+        	else return;
+        	f.outerHTML = f.outerHTML;
+        }
     </script>
     </body>
   </html>
