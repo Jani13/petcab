@@ -67,7 +67,7 @@
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
 
-        <div class="container mx-0 p-3" style="width: 920px">
+        <div class="container mx-0 p-3" style="width: 1120px">
           <div class="container d-flex row mx-3 p-0">
             <span class="fw-bold fs-3 mt-3">결제내역</span>
             <br>

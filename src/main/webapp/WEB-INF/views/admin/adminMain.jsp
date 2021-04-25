@@ -48,8 +48,8 @@
         <!-- 여기까지 건들지마세요-->
         <!-- 여기까지 건들지마세요-->
 
-        <div class="container mx-0 p-3" style="width: 920px">
-          <div class="container d-flex row mx-3 p-0">
+        <div class="container mx-0 p-2" style="width: 1120px">
+          <div class="container d-flex row mx-3 ">
             <!-- 여기서 부터 작업하세용 -->
             <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
             <div class="row pt-4">
