@@ -138,7 +138,6 @@
 				<div class="h3 fw-bold">리뷰</div>
 				<div class="container justify-content-center row row-cols-1 row-cols-lg-3 g-4 mt-3">
 					<c:if test="${empty review}">
-						<div class="text-center fw-bold my-5 fs-5" >조회된 리뷰가 없습니다</div>
 					</c:if>
 					<c:if test="${review != null}">
 						<c:forEach var="review" items="${review}" end="2">
