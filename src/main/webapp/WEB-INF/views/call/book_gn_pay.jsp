@@ -300,7 +300,7 @@ $('#api').click(function() {
 		pg : "inicis", // pg사
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : 'PETCAB', // 결제창에서 보여질 이름
-		amount : 100, // "${estCost}' 100원은 테스트 값 
+		amount : '${estCost}', // "${estCost}' 100원은 테스트 값 
 		buyer_name : '${loginMember.userId }',
 		buyer_tel : '010-1234-5678',
 		buyer_addr : '서울특별시 강남구 신사동',
